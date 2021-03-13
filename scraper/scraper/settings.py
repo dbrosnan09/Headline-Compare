@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'hlcompare',
         'USER': 'hlcompare_db',
         'PASSWORD': 'D8st8yebcknn!',
-        'HOST': 'localhost',
+        'HOST': 'headlinecompares-2129.postgres.pythonanywhere-services.com',
         'PORT': '12129',
     }
 }
