@@ -1,0 +1,5733 @@
+{% if cached %}
+     {% autoescape off %}
+    {{ html }}
+{% endautoescape %}
+    
+
+
+{% else %}
+{% load static %}
+
+<html>
+<head>
+<title>Analyze Newspaper Headlines Emotion: Headline Compare</title>
+<meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
+
+    <link rel="icon" href="{% static 'hcfav.png' %}"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<style>
+body {
+ background-color: #f4f4f4;
+ width:100%;
+ margin:0;
+}
+
+ .header {
+ font-family:"Roboto";
+ font-size:30px;
+ font-weight:900;
+ text-align:center;
+ padding: 9px;
+ background:white;
+ width:100%;
+ margin:auto;
+ position:fixed;
+ z-index:100;
+ 
+ }
+
+ .header a{
+ text-decoration:none;
+ color:black;
+}
+.header a:hover{
+ text-decoration:underline;
+ color:black;
+}
+
+.header a:visited {
+ text-decoration:none;
+ color:black;
+}
+
+.main {
+ width:80%;
+ margin:auto;
+ font-family:"Roboto";
+ padding-top:53px;
+ text-align:center;
+ background-color:#f4f4f4;
+}
+
+.main_grid {
+ display:grid;
+ grid-template-columns: 160px 11fr;
+ column-gap:10px;
+}
+
+.side_bar {
+ padding-top:200px;
+ position:fixed;
+ width:160px;
+}
+
+
+.unselected {
+ text-align:left;
+ padding:9px;
+
+}
+
+.selected {
+ text-align:left;
+ padding:9px;
+ font-weight:bold;
+ background-color:#3b3a3a;
+ color:white;
+ border-radius: 5px 5px 5px 5px;
+
+
+}
+
+.sub {
+ text-align:left;
+ padding-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+}
+
+.sub a {
+  color:black;
+  text-decoration:none;
+}
+
+.sub a:hover {
+  text-decoration:underline;
+}
+
+sub a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+.sub_selected {
+ 
+ text-align:left;
+ margin-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+ font-weight:bold;
+ font-size:22px;
+ 
+ 
+
+}
+
+
+.footer_div a {
+color:black;
+text-decoration:none;
+}
+
+.footer_div a:hover {
+color:black;
+text-decoration:underline;
+}
+.footer_div a:visited {
+color:black;
+text-decoration:none;
+}
+
+.dash_title {
+ color:#292929;
+ font-size:40px;
+ font-weight:bold;
+ text-align:left;
+ position:relative;
+ padding-top:30px;
+ padding-left:23px;
+ height:100px;
+ padding-bottom:60px;
+}
+
+.switch {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:300px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.switch_emotion {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:900px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+
+.dash_button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 0px 0px 0px;
+ color:#919191;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 5px 0px 0px 5px;
+ color:black;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 5px 5px 0px;
+ color:#919191;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.header_grid {
+    display:grid;
+    grid-template-columns: 500px 500px;
+    
+}
+
+.np_selector {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:500px;
+ margin:auto;
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+
+ color:black;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ border-radius: 5px 0px 0px 5px;
+ 
+}
+
+.button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+ border-radius:0px 5px 5px 0px;
+ 
+ 
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+
+.All {
+font-size:30px;
+font-weight: bold;
+border: 1px solid #dbdbdb;
+
+}
+
+.NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+}
+
+.BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    color: white;
+}
+
+.FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+}
+
+.unselected_NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+  
+    color: white;
+    font-size:20px;
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+}
+
+.unselected_BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    background:#dbdbdb;
+    color: white;
+    font-size:25px;
+     background-color: transparent;
+        color:#919191;
+        background:#dbdbdb;
+}
+
+.unselected_FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    font-size:25px;
+     background-color: transparent;
+     background:#dbdbdb;
+        color:#919191;
+}
+
+.selector_wrapper {
+  display:block;
+}
+
+.All1 {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+.All1 {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+.date_top_row {
+  display: grid;
+  grid-template-columns: 1fr;
+  height:270px;
+}
+
+
+.date_top_row_emotion {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height:500px;
+}
+
+.date_top_row_emotion_no_radar{
+  display: grid;
+  grid-template-columns:  1fr;
+  height:500px;
+}
+
+.date_top_row_emotion_full {
+  display: grid;
+  grid-template-columns: 1fr;
+  height:500px;
+}
+
+
+.date_top_row_emotion_full_split {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding-top:15px;
+  height:500px;
+}
+.dash_card_wrapper {
+  background-color: #f4f4f4;
+  padding: 20px;
+  padding-top:40px;
+
+}
+.dash_card {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+
+}
+
+.dash_card_overall {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+
+
+}
+
+.dash_card_sb {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+    height:312px;
+}
+.card_title {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-40;
+  right:7px;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ 
+ 
+}
+
+.card_title_super {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-58;
+  right:7px;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ 
+ 
+}
+
+
+.card_title_second {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-60;
+  right:7px;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ 
+ 
+}
+
+
+
+
+.dash_bottom_row {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap:50px;
+}
+
+.dash_bottom_row_wrapper {
+  padding-top:90px;
+  padding-left:20px;
+  padding-right: 20px;
+}
+
+.dash_card_wrapper_bottom {
+  background-color: #f4f4f4;
+ 
+
+}
+
+  .cal_legend {
+    display:grid;
+    grid-template-columns: 100px 100px;
+    align-items:center;
+    padding-bottom: 10px;
+    position:relative;
+    top:-10px;
+    column-gap:20px;
+   
+  }
+.caltitle {
+  color:#292929;
+  font-weight:bold;
+  
+  font-size:30px;
+  width:100px;
+
+
+
+}
+ .spec_grid {
+    display:grid;
+    grid-template-rows: 8px 8px;
+  }
+ 
+.spec_key {
+  background: rgb(103,0,31);
+background: linear-gradient(90deg, rgba(103,0,31,1) 0%, rgba(178,24,43,1) 10%, rgba(214,96,77,1) 20%, rgba(244,165,130,1) 30%, rgba(253,219,199,1) 40%, rgba(209,229,240,1) 50%, rgba(146,197,222,1) 60%, rgba(67,147,195,1) 70%, rgba(33,102,172,1) 80%, rgba(5,48,97,1) 90%);
+  width:100px;
+height:12px;
+  border-radius: 3px 3px 3px 3px;
+}
+ .legend_grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+       padding-top:2px;
+   
+  }
+ 
+  .spec_pos {
+    justify-self:end;
+    font-size:10px
+  }
+ 
+  .spec_neg {
+    justify-self:start;
+    font-size:10px;
+  }
+.calendar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap:1px;
+    row-gap: 1px;
+   
+}
+.date_cell_link {
+  text-decoration:none;
+}
+.date_cell {
+    height:40px;
+    width:100%;
+    border-radius: 5px 5px 5px 5px;
+ 
+}
+
+.date{
+   
+    width:95%;
+    text-align:right;
+    color:white;
+    font-size:10px;
+   
+   
+}
+
+.sentiment {
+    height:100%;
+    text-align:center;
+    display:block;
+    margin:auto;
+}
+
+.zero {
+background-color: rgb(103,0,31);
+}
+
+.zero0 {
+color: rgb(103,0,31);
+
+}
+
+.one {
+background-color: rgb(178,24,43);
+}
+
+.one1 {
+color: rgb(178,24,43);
+
+}
+
+.two {
+background-color: rgb(214,96,77);
+
+}
+
+.two2 {
+color: rgb(214,96,77);
+
+}
+
+.three{
+background-color: rgb(244,165,130);
+
+}
+
+.three3 {
+color: rgb(244,165,130);
+
+}
+
+.four {
+background-color: rgb(253,219,199);
+
+}
+
+.four4 {
+color: rgb(253,219,199);
+
+}
+
+.five {
+background-color: rgb(209,229,240);
+
+}
+
+.five5 {
+color: rgb(209,229,240);
+
+}
+
+.six {
+background-color: rgb(146,197,222);
+
+}
+
+.six6 {
+color: rgb(146,197,222);
+
+}
+
+.seven {
+background-color: rgb(67,147,195);
+
+}
+
+.seven7 {
+color: rgb(67,147,195);
+
+}
+
+.eight {
+background-color: rgb(33,102,172);
+
+}
+
+.eight8 {
+color: rgb(33,102,172);
+
+}
+
+.nine {
+background-color: rgb(5,48,97);
+
+}
+
+.nine9 {
+color: rgb(5,48,97);
+
+}
+
+.gray {
+  background-color:whitesmoke;
+}
+
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+
+}
+
+
+.frame_wrapper {
+height:250px;
+overflow-y:auto;
+position:relative;
+top:-45;
+}
+
+.frame_wrapper_super {
+height:300px;
+overflow-y:auto;
+position:relative;
+top:-40;
+}
+
+.frame_wrapper_super_hl {
+height:400px;
+overflow-y:overlay;
+position:relative;
+top:-40;
+}
+
+.frame_wrapper_tally {
+height:400px;
+overflow-y:overlay;
+padding-right:12px;
+
+}
+
+
+.frame_wrapper_super_date {
+height:300px;
+overflow-y:auto;
+position:relative;
+top:-40;
+}
+
+
+
+.heading_wrapper {
+ position:relative;
+ top:-45;
+
+}
+
+
+.mostposgrid_heading_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ 
+ align-items:center;
+ font-size:15px;
+ font-weight:bold;
+ text-decoration:underline;
+ padding-bottom:7px;
+ 
+}
+
+.mostposgrid_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ 
+ align-items:center;
+}
+
+.mostposgrid_word_double {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+}
+
+.date_top_row_compare {
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:300px;
+}
+ .overall_avg {
+ margin:auto;
+ text-justify:center;
+ font-size: 100px;
+ position:relative;
+ top:52;
+ padding:20px;
+ font-weight:bold;
+ }
+
+.date_top_row_dist {
+
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  height:300px;
+  padding-bottom:100px;
+  padding-top:100px;
+
+}
+
+.date_top_row_dist_top {
+
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  height:300px;
+  padding-bottom:100px;
+  padding-top:0px;
+
+}
+
+
+.dash_card_dist_second {
+
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+  height:90%;
+  padding-top:30px;
+
+}
+.dash_card_dist_second_super {
+
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+  height:320px;
+  padding-top:30px;
+
+}
+
+
+.dash_card_dist {
+
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+  height:325px;
+  
+}
+
+.dash_card_wrapper {
+  background-color: #f4f4f4;
+  padding: 20px;
+  padding-top:40px;
+
+}
+
+
+.pie {
+  position:relative;
+  top:-10px;
+  height:300px;
+  width:300px;
+  margin:auto;
+}
+
+.pie2 {
+  position:relative;
+  top:-10px;
+  height:400px;
+  
+}
+
+
+.date_top_row_dist_2 {
+
+ display:grid;
+  grid-template-columns:1fr 1fr;
+  height:380px;
+  padding-bottom:100px;
+  padding-top:40px;
+
+
+}
+
+.spacer {
+  height:20px;
+}
+
+.super {
+
+text-align:left;
+margin:left;
+padding-left:10px;  
+}
+
+.super a {
+color:black;
+text-decoration:none;
+}
+
+.super a:hover {
+  text-decoration:underline;
+}
+
+.super a:visited {
+  color:black;
+}
+
+
+.mostposgrid {
+  display:grid;
+  grid-template-columns: 1fr 60px 4fr 1fr;
+ 
+  align-items:center;
+  font-weight:normal;
+  font-size:16px;
+     padding-top:10px;
+  padding-bottom:10px;
+      border-bottom: 1px solid #f0f0f0;
+}
+
+
+
+.mostposgrid:hover {
+background:#f2f2f2;
+}
+
+
+
+
+
+
+.mostposgrid_date {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+ 
+  align-items:center;
+  font-weight:normal;
+  font-size:16px;
+}
+
+.super_all_heading {
+  display: grid;
+    grid-template-columns: 1fr 60px 5fr 1fr;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 7px;
+    position:relative;
+    top: -40;
+     box-shadow: 0 5px 2px -2px #f0f0f0;
+
+
+}
+
+
+
+.super_all_heading_date {
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: underline;
+    padding-bottom: 7px;
+    position:relative;
+    top: -40;
+
+}
+
+
+
+
+
+.superlatives_grid {
+  display:grid;
+  grid-template-columns: 3fr 1fr;
+  height:900px;
+}
+
+.pos_color {
+
+      display: inline;
+    color: rgb(33,102,172);
+}
+
+.NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+    font-size: 10px;
+    font-weight: 400;
+    border-radius: 4px;
+    margin: 1px;
+    line-height: 20px;
+    
+}
+
+.BBC {
+  font-family: "Lato";
+    background: #bb1919;
+    color: white;
+    border-radius: 4px;
+    margin: 1px;
+    font-size: 12px;
+    font-weight:900;
+    line-height: 20px;
+}
+.FN {
+  font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius: 4px;
+    margin: 1px;
+   
+    line-height: 20px;
+}
+
+.FN a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.FN a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.FN a:visited {
+  color:white;
+  
+
+}
+
+.BBC a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.BBC a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.BBC a:visited {
+  color:white;
+  
+
+}
+.NYT a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.NYT a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.NYT a:visited {
+  color:white;
+  
+
+}
+
+.score {
+
+  padding-left:28px;
+}
+
+.neg_color{
+  display:inline;
+  color:rgb(178,24,43);
+}
+
+.date_link {
+
+}
+
+.score_link {
+
+  padding-left:24px;
+}
+
+
+.date_link a{
+text-decoration:none;
+color:black;
+}
+
+.score_link a{
+
+  padding-left:24px;
+  color:black;
+  text-decoration:none;
+}
+
+
+.date_link a:hover{
+text-decoration:underline;
+
+}
+
+.score_link a:hover{
+
+ 
+  text-decoration:underline;
+}
+
+
+
+.date_link a:visited{
+color:black;
+
+}
+
+.score_link a:visited{
+
+ 
+  color:black;
+}
+
+.date_pos {
+
+}
+
+.date_pos a {
+  text-decoration:none;
+  color:black;
+}
+
+.date_pos a:hover{
+  text-decoration:underline;
+}
+
+.date_pos a:visited {
+  color:black;
+}
+
+.superlatives_triple {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  height:1220px;
+}
+
+.super_all_heading_word {
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 7px;
+    position: relative;
+    top: -40;
+    padding-right:15px;
+}
+
+#Distributiondiv0 {
+  display:none;
+}
+
+#Superlativesdiv0 {
+  display:none;
+}
+
+
+
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+font-family:"Roboto";
+
+}
+
+.main_grid_footer {
+    display: grid;
+    grid-template-columns: 160px 11fr;
+    column-gap: 10px;
+}
+
+.sent_by_date {
+  width:95%;
+  height:210px;
+}
+
+.sent_by_date_emotion {
+  height:400px;
+
+}
+
+.sent_by_date_emotion_radar {
+  height:400px;
+  position:relative;
+  top:-30px;
+
+}
+.sent_by_date_emotion_chart {
+  height:400px;
+  position:relative;
+  top:-20px;
+
+}
+
+.sent_by_date_emotion_hl {
+  height:400px;
+  position:relative;
+  top:15px;
+}
+
+
+.sent_by_date_emotion_bar {
+  height:400px;
+  position:relative;
+  top:-5px;
+  
+}
+
+
+#ALL1 {
+  display:block;
+}
+
+#NYT1 {
+  display:none;
+}
+
+
+#BBC1 {
+  display:none;
+}
+
+#FN1 {
+  display:none;
+}
+
+
+
+#Trustdiv0 {
+  display:none;
+}
+
+#Joydiv0 {
+  display:none;
+}
+
+#Anticipationdiv0 {
+  display:none;
+}
+
+#Surprisediv0 {
+  display:none;
+}
+
+#Feardiv0 {
+  display:none;
+}
+
+#Sadnessdiv0 {
+  display:none;
+}
+
+#Angerdiv0 {
+  display:none;
+}
+
+#Disgustdiv0 {
+  display:none;
+}
+
+#Trustdiv1 {
+  display:none;
+}
+
+#Joydiv1 {
+  display:none;
+}
+
+#Anticipationdiv1 {
+  display:none;
+}
+
+#Surprisediv1 {
+  display:none;
+}
+
+#Feardiv1 {
+  display:none;
+}
+
+#Sadnessdiv1 {
+  display:none;
+}
+
+#Angerdiv1 {
+  display:none;
+}
+
+#Disgustdiv1 {
+  display:none;
+}
+
+#Trustdiv2 {
+  display:none;
+}
+
+#Joydiv2 {
+  display:none;
+}
+
+#Anticipationdiv2 {
+  display:none;
+}
+
+#Surprisediv2 {
+  display:none;
+}
+
+#Feardiv2 {
+  display:none;
+}
+
+#Sadnessdiv2 {
+  display:none;
+}
+
+#Angerdiv2 {
+  display:none;
+}
+
+#Disgustdiv2 {
+  display:none;
+}
+
+#Trustdiv3 {
+  display:none;
+}
+
+#Joydiv3 {
+  display:none;
+}
+
+#Anticipationdiv3 {
+  display:none;
+}
+
+#Surprisediv3 {
+  display:none;
+}
+
+#Feardiv3 {
+  display:none;
+}
+
+#Sadnessdiv3 {
+  display:none;
+}
+
+#Angerdiv3 {
+  display:none;
+}
+
+#Disgustdiv3 {
+  display:none;
+}
+
+
+.bottom_row_emotion {
+  display:grid;
+  grid-template-columns: 1fr;
+  height:450px;
+  padding-top:10px;
+}
+.top_word_chart {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  width:60%;
+  margin:auto;
+  text-align:left;
+}
+.top_word_chart_heading {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  padding-right:12px;
+  margin:auto;
+   box-shadow: 0 5px 2px -2px #f0f0f0;
+
+}
+
+.top_word_chart_head {
+  font-weight:bold;
+  font-size:16px;
+  padding-bottom:5px;
+}
+
+ .no_dec a{
+   text-decoration:none;
+   color:black;
+
+ }
+
+  .no_dec a:hover{
+   text-decoration:underline;
+   color:black;
+
+ }
+
+  .frame_wrapper_tally::-webkit-scrollbar {
+ width: 6px;
+  height: 8px;
+}
+.frame_wrapper_tally::-webkit-scrollbar-thumb {
+ 
+  background:#f2f2f2;
+}
+
+  .frame_wrapper_super_hl::-webkit-scrollbar {
+ width: 6px;
+  height: 8px;
+}
+.frame_wrapper_super_hl::-webkit-scrollbar-thumb {
+ 
+  background:#f2f2f2;
+}
+
+.unselected a:visited {
+  text-decoration:none;
+  color:black;
+
+}
+
+.unselected a {
+  text-decoration:none;
+}
+.selected a:visited {
+  text-decoration:none;
+  color:white;
+}
+
+.selected a {
+  text-decoration:none;
+}
+
+.unselected a:hover {
+  text-decoration:underline;
+}
+
+.tw_percent {
+  text-align:right;
+  padding-top:1px;
+  padding-bottom:1px;
+}
+
+.plotly_container {
+  width:95%;
+}
+
+.tw_link a {
+  text-decoration:none;
+  color:black;
+}
+.tw_link a:hover {
+  text-decoration:underline;
+  color:black;
+}
+.tw_link a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.tw_link {
+  padding-top:10px;
+  padding-bottom:10px;
+
+    border-bottom: 1px solid #f0f0f0;
+
+}
+
+.tw_percent {
+    padding-top:10px;
+  padding-bottom:10px;
+
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.top_word_chart:hover  {
+  background:#f2f2f2;
+
+}
+
+
+
+
+
+.single_framed {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+
+</style>
+
+
+
+</head>
+
+
+<body>
+
+
+
+
+
+
+
+
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+
+<div class="main">
+
+<div class="main_grid">
+
+ <div class="empty"></div>
+<div class="side_bar">
+<div class="unselected">
+<a href='{% url 'word_count_general_og' %}'>Word Count</a>
+</div>
+<div class="unselected no_dec">
+<a href='{% url 'sentiment_newspaper' %}'>Sentiment</a>
+</div>
+<div class="selected">
+<a href='{% url 'emotion_newspaper' %}'>Emotion</a>
+</div>
+<div class="sub_selected">
+By Newspaper
+</div>
+<div class="sub">
+<a href='{% url 'emotion_compare' %}'>Compare Newspapers</a>
+</div>
+
+
+<div class="sub">
+<a href='{% url 'emotion_search_compare_single' %}'>Word Search</a>
+</div>
+<div class="sub">
+<a href='{% url 'emotion_search_compare' %}'>Word Compare</a>
+</div>
+
+<div class="unselected">
+<a href='{% url 'date_search' %}'>Date</a>
+</div>
+
+
+<div class="unselected">
+ Analysis
+</div>
+
+</div>
+
+
+<div class="dash_title">Emotion: Newspaper
+<div class="selector_wrapper">
+<div class="np_selector">
+<button type="button" class="button_left All" id="All">All</button>
+
+ <button type="button" class="button_middle unselected_NYT" id="NYT">NYT</button>
+ <button type="button" class="button_middle unselected_BBC" id="BBC">BBC</button>
+
+   <button type="button" class="button_right unselected_FN" id="FN">FN</button>
+</div>
+</div>
+</div>
+
+<div class="empty"></div>
+
+<div class="All1" id="ALL1">
+<div class="switch_emotion">
+<button type="button" class="dash_button_left" id="Overall0">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust0">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy0">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation0">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise0">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear0">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness0">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger0">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust0">Disgust</button>
+</div>
+
+
+<div class="All1Overall" id="Overalldiv0">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Emotion Breakdown: Bar</div>
+<div class="sent_by_date_emotion_bar">
+  <div class='plotly_container'>
+   {% autoescape off %}
+         {{ html_div_emotion_bar }}
+          {% endautoescape %}
+          </div>
+</div>
+       
+</div>
+</div>
+</div>
+<div class="bottom_row_emotion">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Emotion Count by Date</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_emotion_month }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+</div>
+
+
+
+
+
+</div>
+
+
+<div class="All1Trust" id="Trustdiv0">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Trust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ trust_all }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Trust   </div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in overall_trust_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Trust</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+<div class='single_framed'>
+{% for x, y, a, b, c in trust_formatted %}    <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+   </div>{% endfor %}
+ </div>
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="All1Joy" id="Joydiv0">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Joy by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ joy_all }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Joy</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in overall_joy_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Joy</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+ <div class='single_framed'>
+{% for x, y, a, b, c in joy_formatted %}   <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>
+{% endfor %}</div>
+  
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Anticipation" id="Anticipationdiv0">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anticipation by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ anticipation_all }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Anticipation</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in overall_anticip_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anticipation</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+<div class='single_framed'>
+{% for x, y, a, b, c in anticip_formatted %}    <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+    </div>{% endfor %}</div>
+
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+<div class="All1Surprise" id="Surprisediv0">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Surprise by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ surprise_all }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Surprise</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in overall_surprise_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Surprise</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'> 
+{% for x, y, a, b, c in surprise_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<div class="All1Fear" id="Feardiv0">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Fear by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fear_all }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Fear</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in overall_fear_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Fear</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+<div class='single_framed'>
+{% for x, y, a, b, c in fear_formatted %}    <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+    </div>{% endfor %}</div>
+
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="All1Sadness" id="Sadnessdiv0">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Sadness by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ sadness_all }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Sadness</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in overall_sadness_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Sadness</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+ <div class='single_framed'>
+{% for x, y, a, b, c in sadness_formatted %}   <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="All1Anger" id="Angerdiv0">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anger by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ anger_all }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Anger</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in overall_anger_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anger</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+<div class='single_framed'>   
+{% for x, y, a, b, c in anger_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+<div class="All1Disgust" id="Disgustdiv0">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Disgust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ disgust_all }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Disgust</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in overall_disgust_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Disgust</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in disgust_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+
+<div class="NYT1" id="NYT1">
+
+<div class="switch_emotion">
+<button type="button" class="dash_button_left" id="Overall1">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust1">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy1">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation1">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise1">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear1">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness1">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger1">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust1">Disgust</button>
+</div>
+
+
+<div class="NYT1Overall" id="Overalldiv1">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Emotion Breakdown: Bar</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_emotion_bar_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+<div class="bottom_row_emotion">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Emotion Count by Date</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_emotion_month_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+</div>
+
+
+
+
+
+</div>
+
+
+<div class="NYT1Trust" id="Trustdiv1">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Trust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ trust_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Trust   </div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in nyt_trust_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}</div>
+
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Trust</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+ <div class='single_framed'>
+{% for x, y, a, b, c in nyt_trust_formatted %}   <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+   </div>{% endfor %}</div>
+ 
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="NYT1Joy" id="Joydiv1">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Joy by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ joy_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Joy</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in nyt_joy_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}</div>
+
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Joy</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>
+{% for x, y, a, b, c in nyt_joy_formatted %}  <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="NYT1Anticipation" id="Anticipationdiv1">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anticipation by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ anticipation_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Anticipation</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in nyt_anticip_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anticipation</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+ <div class='single_framed'>  
+{% for x, y, a, b, c in nyt_anticip_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}</div>
+   
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+<div class="NYT1Surprise" id="Surprisediv1">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Surprise by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ surprise_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Surprise</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in nyt_surprise_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Surprise</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>
+{% for x, y, a, b, c in nyt_surprise_formatted %}  <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<div class="NYT1Fear" id="Feardiv1">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Fear by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fear_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Fear</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in nyt_fear_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Fear</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>  
+{% for x, y, a, b, c in nyt_fear_formatted %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="All1Sadness" id="Sadnessdiv1">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Sadness by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ sadness_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Sadness</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in nyt_sadness_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Sadness</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'> 
+{% for x, y, a, b, c in nyt_sadness_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="NYT1Anger" id="Angerdiv1">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anger by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ anger_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Anger</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in nyt_anger_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anger</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in nyt_anger_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+<div class="NYT1Disgust" id="Disgustdiv1">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Disgust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ disgust_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Disgust</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in nyt_disgust_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Disgust</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+<div class='single_framed'>
+{% for x, y, a, b, c in nyt_disgust_formatted %}    <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<div class="BBC1" id="BBC1">
+
+<div class="switch_emotion">
+<button type="button" class="dash_button_left" id="Overall2">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust2">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy2">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation2">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise2">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear2">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness2">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger2">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust2">Disgust</button>
+</div>
+
+
+<div class="BBC1Overall" id="Overalldiv2">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Emotion Breakdown: Bar</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_emotion_bar_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+<div class="bottom_row_emotion">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Emotion Count by Date</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_emotion_month_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+</div>
+
+
+
+
+
+</div>
+
+
+<div class="BBC1Trust" id="Trustdiv2">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Trust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ trust_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Trust  </div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in bbc_trust_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Trust</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>  
+{% for x, y, a, b, c in bbc_trust_formatted %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+   </div>{% endfor %}</div>
+ 
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="BBC1Joy" id="Joydiv2">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Joy by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ joy_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Joy</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in bbc_joy_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Joy</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in bbc_joy_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="BBC1Anticipation" id="Anticipationdiv2">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anticipation by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ anticipation_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Anticipation</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in bbc_anticip_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anticipation</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'> 
+{% for x, y, a, b, c in bbc_anticip_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>
+{% endfor %}</div>
+  
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+<div class="BBC1Surprise" id="Surprisediv2">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Surprise by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ surprise_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Surprise</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in bbc_surprise_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Surprise</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in bbc_surprise_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>
+{% endfor %}</div>
+  
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<div class="BBC1Fear" id="Feardiv2">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Fear by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fear_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Fear</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in bbc_fear_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Fear</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+ <div class='single_framed'>
+{% for x, y, a, b, c in bbc_fear_formatted %}   <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="All1Sadness" id="Sadnessdiv2">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Sadness by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ sadness_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Sadness</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in bbc_sadness_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Sadness</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+<div class='single_framed'>
+{% for x, y, a, b, c in bbc_sadness_formatted %}    <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+    </div>{% endfor %}
+    </div>
+
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="BBC1Anger" id="Angerdiv2">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anger by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ anger_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Anger</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in bbc_anger_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anger</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in bbc_anger_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+<div class="NYT1Disgust" id="Disgustdiv2">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Disgust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ disgust_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Disgust</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in bbc_disgust_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Disgust</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>
+{% for x, y, a, b, c in bbc_disgust_formatted %}  <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+   </div>{% endfor %}</div>
+ 
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+<div class="FN1" id="FN1">
+
+<div class="switch_emotion">
+<button type="button" class="dash_button_left" id="Overall3">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust3">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy3">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation3">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise3">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear3">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness3">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger3">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust3">Disgust</button>
+</div>
+
+
+<div class="FN1Overall" id="Overalldiv3">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Emotion Breakdown: Bar</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_emotion_bar_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+<div class="bottom_row_emotion">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Emotion Count by Date</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_emotion_month_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+</div>
+
+
+
+
+
+</div>
+
+
+<div class="FN1Trust" id="Trustdiv3">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Trust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ trust_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Trust"   </div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in fn_trust_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Trust</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'> 
+{% for x, y, a, b, c in fn_trust_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}
+</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="FN1Joy" id="Joydiv3">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Joy by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ joy_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Joy</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in fn_joy_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Joy</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in fn_joy_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}
+</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="FN1Anticipation" id="Anticipationdiv3">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anticipation by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ anticipation_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Anticipation</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in fn_anticip_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anticipation</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>  
+{% for x, y, a, b, c in fn_anticip_formatted %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}
+  </div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+<div class="FN1Surprise" id="Surprisediv3">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Surprise by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ surprise_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Surprise</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in fn_surprise_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Surprise</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>
+{% for x, y, a, b, c in fn_surprise_formatted %}  <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}
+</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<div class="FN1Fear" id="Feardiv3">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Fear by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fear_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Fear</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in fn_fear_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Fear</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in fn_fear_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}</div>
+   
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="FN1Sadness" id="Sadnessdiv3">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Sadness by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ sadness_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Sadness</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in fn_sadness_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Sadness</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in fn_sadness_formatted %} <div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}
+    </div>
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="FN1Anger" id="Angerdiv3">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anger by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ anger_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Anger</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in fn_anger_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Anger</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>  
+{% for x, y, a, b, c in fn_anger_formatted %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+  </div>{% endfor %}</div>
+  
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+<div class="FN1Disgust" id="Disgustdiv3">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Disgust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ disgust_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+<div class="date_top_row_emotion_full_split">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Top Words: Disgust</div>
+<div class="sent_by_date_emotion_chart">
+<div class="top_word_chart_heading">
+<div class="top_word_chart_head">Word
+</div>
+<div class="top_word_chart_head">Percent
+</div></div>
+
+<div class="frame_wrapper_tally">
+<div class='single_framed'>
+{% for x, y in fn_disgust_tally %}<div class="top_word_chart">
+<div class='tw_link'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='tw_percent'>{{y}}%</div>
+</div>{% endfor %}
+</div>
+</div>
+
+
+
+
+</div>
+       
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate Disgust</div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>  
+{% for x, y, a, b, c in fn_disgust_formatted %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+<div class="main_grid_footer">
+<div class="empty"> </div>
+
+<div class="footer_copyright">
+<div class='footer_div'><a href='/about'>About</a></div>
+<div class='footer_div'>Contact: <a href='mailto:headlinecompare@hlcompare.com'>headlinecompare@hlcompare.com</a></div>
+<div class='footer_div'>© 2021 Headline Compare</div>
+</div>
+</div>
+</div>
+ <script>
+var first_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[0].id
+var second_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[1].id
+
+var third_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[2].id
+var fourth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[3].id
+var fifth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[4].id
+var sixth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[5].id
+var seventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[6].id
+var eigth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[7].id
+var ninth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[8].id
+var tenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[9].id
+var eleventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[10].id
+
+var twelfth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[11].id
+var thirteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[12].id
+var fourteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[13].id
+
+var fifteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[14].id
+var sixteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[15].id
+var seventeenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[16].id
+var eightteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[17].id
+var nineteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[18].id
+var twentieth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[19].id
+var twentyone_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[20].id
+var twentytwo_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[21].id
+var twentythree_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[22].id
+var twentyfour_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[23].id
+var twentyfive_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[24].id
+var twentysix_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[25].id
+var twentyseven_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[26].id
+var twentyeight_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[27].id
+var twentynine_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[28].id
+var thirty_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[29].id
+var thirtyone_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[30].id
+var thirtytwo_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[31].id
+var thirtythree_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[32].id
+var thirtyfour_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[33].id
+var thirtyfive_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[34].id
+var thirtysix_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[35].id
+var thirtyseven_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[36].id
+var thirtyeight_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[37].id
+var thirtynine_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[38].id
+var forty_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[39].id
+
+var first_graph_div = $( "sent_by_date_emotion_radar" ).html()
+var first_graph_div_nyt = $( "sent_by_date_emotion_radar_nyt" ).html()
+
+
+
+ </script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+ 
+
+
+$("#All").click(function(){
+ 
+ 
+  $("#ALL1").css('display','block')
+  $("#NYT1").css('display','none')
+   $("#BBC1").css('display','none')
+   $("#FN1").css('display','none')
+
+
+  $('#All').css({"color":"black", "background-color":"transparent", "background": 'white'})
+  $('#NYT').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+    $('#BBC').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#FN').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+
+
+    $("#first_graph_div").html(first_graph_div);
+  Plotly.relayout(first_graph_id, {autosize: true})
+  Plotly.relayout(second_graph_id, {autosize: true})
+  
+
+ 
+ 
+
+
+
+ }
+
+)
+
+
+
+
+$("#NYT").click(function(){
+ 
+ 
+  $("#ALL1").css('display','none')
+  $("#NYT1").css('display','block')
+  $("#BBC1").css('display','none')
+  $("#FN1").css('display','none')
+
+ 
+
+  $('#All').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#NYT').css({"color":"white", "background-color":"transparent", "background": '#2d2e30'})
+  $('#BBC').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+    $('#FN').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+
+
+
+
+ 
+
+
+  Plotly.relayout(eleventh_graph_id, {autosize: true})
+  Plotly.relayout(twelfth_graph_id, {autosize: true}) 
+
+
+ }
+
+)
+
+
+
+
+$("#BBC").click(function(){
+ 
+ 
+  $("#ALL1").css('display','none')
+  $("#NYT1").css('display','none')
+  $("#BBC1").css('display','block')
+  $("#FN1").css('display','none')
+
+ 
+
+  $('#All').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#NYT').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#BBC').css({"color":"white", "background-color":"transparent", "background": '#bb1919'})
+    $('#FN').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+
+  Plotly.relayout(twentyone_graph_id, {autosize: true})
+  Plotly.relayout(twentytwo_graph_id, {autosize: true})
+  
+   
+ 
+
+
+
+ }
+
+)
+
+
+
+$("#FN").click(function(){
+ 
+ 
+  $("#ALL1").css('display','none')
+  $("#NYT1").css('display','none')
+  $("#BBC1").css('display','none')
+  $("#FN1").css('display','block')
+ 
+
+  $('#All').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#NYT').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#BBC').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#FN').css({"color":"white", "background-color":"transparent", "background": 'rgba(0,51,102,.99)'})
+
+  Plotly.relayout(thirtyone_graph_id, {autosize: true})
+  Plotly.relayout(thirtytwo_graph_id, {autosize: true})
+   
+ 
+
+
+
+ }
+
+)
+
+
+
+
+
+
+
+
+
+ $("#Overall0").click(function(){
+ 
+ $("#Overalldiv0").css('display','block')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+  Plotly.relayout(first_graph_id, {autosize: true})
+  Plotly.relayout(second_graph_id, {autosize: true})
+  
+
+
+ $('#Overall0').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+
+ 
+
+
+ }
+ )
+
+
+
+ $("#Trust0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','block')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+  Plotly.relayout(third_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+ $("#Joy0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','block')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+  Plotly.relayout(fourth_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anticipation0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','block')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+  Plotly.relayout(fifth_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Surprise0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','block')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+  Plotly.relayout(sixth_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Fear0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','block')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+  Plotly.relayout(seventh_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Sadness0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','block')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+  Plotly.relayout(eigth_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anger0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','block')
+  $("#Disgustdiv0").css('display','none')
+
+
+  Plotly.relayout(ninth_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Disgust0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','block')
+
+
+  Plotly.relayout(tenth_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"background-color":"#fafafa","color":"black"})
+ 
+ }
+ )
+
+$("#Overall1").click(function(){
+ 
+ $("#Overalldiv1").css('display','block')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+  Plotly.relayout(eleventh_graph_id, {autosize: true})
+  Plotly.relayout(twelfth_graph_id, {autosize: true})
+  
+
+
+ $('#Overall1').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+
+ 
+
+
+ }
+ )
+
+
+
+ $("#Trust1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','block')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+  Plotly.relayout(thirteenth_graph_id, {autosize: true})
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+ $("#Joy1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','block')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+  Plotly.relayout(fourteenth_graph_id, {autosize: true})
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anticipation1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','block')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+  Plotly.relayout(fifteenth_graph_id, {autosize: true})
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Surprise1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','block')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+  Plotly.relayout(sixteenth_graph_id, {autosize: true})
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Fear1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','block')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+  Plotly.relayout(seventeenth_graph_id, {autosize: true})
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Sadness1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','block')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+  Plotly.relayout(eightteenth_graph_id, {autosize: true})
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anger1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','block')
+  $("#Disgustdiv1").css('display','none')
+
+
+  Plotly.relayout(nineteenth_graph_id, {autosize: true})
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Disgust1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','block')
+
+
+  Plotly.relayout(twentieth_graph_id, {autosize: true})
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"background-color":"#fafafa","color":"black"})
+ 
+ }
+ )
+
+
+$("#Overall2").click(function(){
+ 
+ $("#Overalldiv2").css('display','block')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+  Plotly.relayout(twentyone_graph_id, {autosize: true})
+  Plotly.relayout(twentytwo_graph_id, {autosize: true})
+  
+
+
+ $('#Overall2').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+
+ 
+
+
+ }
+ )
+
+
+
+ $("#Trust2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','block')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+  Plotly.relayout(twentythree_graph_id, {autosize: true})
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+ $("#Joy2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','block')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+  Plotly.relayout(twentyfour_graph_id, {autosize: true})
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anticipation2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','block')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+  Plotly.relayout(twentyfive_graph_id, {autosize: true})
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Surprise2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','block')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+  Plotly.relayout(twentysix_graph_id, {autosize: true})
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Fear2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','block')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+  Plotly.relayout(twentyseven_graph_id, {autosize: true})
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Sadness2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','block')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+  Plotly.relayout(twentyeight_graph_id, {autosize: true})
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anger2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','block')
+  $("#Disgustdiv2").css('display','none')
+
+
+  Plotly.relayout(twentynine_graph_id, {autosize: true})
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Disgust2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','block')
+
+
+  Plotly.relayout(thirty_graph_id, {autosize: true})
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"background-color":"#fafafa","color":"black"})
+ 
+ }
+ )
+
+
+
+
+
+
+$("#Overall3").click(function(){
+ 
+ $("#Overalldiv3").css('display','block')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+  Plotly.relayout(thirtyone_graph_id, {autosize: true})
+  Plotly.relayout(thirtytwo_graph_id, {autosize: true})
+  
+
+
+ $('#Overall3').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+
+ 
+
+
+ }
+ )
+
+
+
+ $("#Trust3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','block')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+  Plotly.relayout(thirtythree_graph_id, {autosize: true})
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+ $("#Joy3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','block')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+  Plotly.relayout(thirtyfour_graph_id, {autosize: true})
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anticipation3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','block')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+  Plotly.relayout(thirtyfive_graph_id, {autosize: true})
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Surprise3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','block')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+  Plotly.relayout(thirtysix_graph_id, {autosize: true})
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Fear3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','block')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+  Plotly.relayout(thirtyseven_graph_id, {autosize: true})
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Sadness3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','block')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+  Plotly.relayout(thirtyeight_graph_id, {autosize: true})
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anger3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','block')
+  $("#Disgustdiv3").css('display','none')
+
+
+  Plotly.relayout(thirtynine_graph_id, {autosize: true})
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Disgust3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','block')
+
+
+  Plotly.relayout(forty_graph_id, {autosize: true})
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"background-color":"#fafafa","color":"black"})
+ 
+ }
+ )
+
+
+
+
+
+
+
+}
+)
+
+</script>
+
+</body>
+{% endif %}

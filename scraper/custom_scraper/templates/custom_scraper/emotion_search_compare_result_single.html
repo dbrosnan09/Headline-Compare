@@ -1,0 +1,4414 @@
+{% load static %}
+
+
+<head>
+<title>Analyze and Compare Newspaper Headline Emotion Word Search: Headline Compare</title>
+<meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
+
+    <link rel="icon" href="{% static 'hcfav.png' %}"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+
+<style>
+body {
+ background-color: #f4f4f4;
+ width:100%;
+ margin:0;
+}
+
+ .header {
+ font-family:"Roboto";
+ font-size:30px;
+ font-weight:900;
+ text-align:center;
+ padding: 9px;
+ background:white;
+ width:100%;
+ margin:auto;
+ position:fixed;
+ z-index:100;
+ 
+ }
+
+ .header a{
+ text-decoration:none;
+ color:black;
+}
+.header a:hover{
+ text-decoration:underline;
+ color:black;
+}
+
+.header a:visited {
+ text-decoration:none;
+ color:black;
+}
+
+.main {
+ width:80%;
+ margin:auto;
+ font-family:"Roboto";
+ padding-top:53px;
+ text-align:center;
+ background-color:#f4f4f4;
+}
+
+.main_grid {
+ display:grid;
+ grid-template-columns: 160px 11fr;
+ column-gap:10px;
+}
+
+.side_bar {
+ padding-top:200px;
+ position:fixed;
+ width:160px;
+}
+
+
+.unselected {
+ text-align:left;
+ padding:9px;
+
+}
+
+.selected {
+ text-align:left;
+ padding:9px;
+ font-weight:bold;
+ background-color:#3b3a3a;
+ color:white;
+ border-radius: 5px 5px 5px 5px;
+
+
+}
+
+.sub {
+ text-align:left;
+ padding-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+}
+
+.sub a {
+  color:black;
+  text-decoration:none;
+}
+
+.sub a:hover {
+  text-decoration:underline;
+}
+
+sub a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+.sub_selected {
+ 
+ text-align:left;
+ margin-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+ font-weight:bold;
+ font-size:22px;
+ 
+ 
+
+}
+
+.dash_title {
+ color:#292929;
+ font-size:40px;
+ font-weight:bold;
+ text-align:left;
+ position:relative;
+ padding-top:30px;
+ padding-left:23px;
+ height:40px;
+
+}
+
+.footer_div a {
+color:black;
+text-decoration:none;
+}
+
+.footer_div a:hover {
+color:black;
+text-decoration:underline;
+}
+.footer_div a:visited {
+color:black;
+text-decoration:none;
+} 
+
+  input[type="submit"] {
+         
+         font-size: 14px;
+         font-family: "Roboto";
+         width:80px;
+        color:black;
+        background:whitesmoke;
+        border-radius:5px;
+        padding:10px;
+
+     }
+
+     input[type="text"] {
+       padding:10px;
+       font-size: 14px;
+      
+     }
+
+     .search {
+       width:70%;
+       margin:auto;
+       padding-bottom:10px;
+     }
+
+
+
+.dash_card_wrapper {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+
+}
+
+
+.dash_card {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+}
+
+.card_title {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-40;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+.spacer {
+    height:22px;
+}
+
+.move_down {
+  position:relative;
+  top:10px;
+}
+
+.search_smaller {
+  display:inline-block;
+  
+ 
+}
+
+form {
+  position:relative;
+  top:-10px;
+  left:20px;
+}
+
+.key_word {
+  font-size:80px;
+  font-weight:bold;
+  padding-top: 38px;
+}
+
+.switch {
+ display:grid;
+ grid-template-columns:  1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:390px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.switch_overall {
+ display:grid;
+ grid-template-columns:  1fr 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:520px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.dash_button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 0px 0px 0px;
+ color:#919191;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 5px 0px 0px 5px;
+ color:black;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 5px 5px 0px;
+ color:#919191;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+
+
+
+
+
+
+.np_selector {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+ height:30px;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+
+ color:black;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ border-radius: 5px 0px 0px 5px;
+ 
+}
+
+.button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+ border-radius:0px 5px 5px 0px;
+ 
+ 
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+
+.Compare {
+font-size:21px;
+font-weight: bold;
+border: 1px solid #dbdbdb;
+
+}
+
+
+.Overall {
+font-size:21px;
+font-weight: bold;
+border: 1px solid #dbdbdb;
+
+}
+
+.NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+}
+
+.BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    color: white;
+}
+
+.FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+}
+
+
+.unselected_Compare {
+  
+    background: #2d2e30;
+  
+  
+   
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+}
+
+
+
+.unselected_Overall {
+  
+    background: #2d2e30;
+  
+    font-size:21px;
+   
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+        font-weight:bold;
+}
+
+
+
+.unselected_NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+  
+    color: white;
+    font-size:20px;
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+        padding-top:4px;
+}
+
+.unselected_BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    background:#dbdbdb;
+    color: white;
+    font-size:25px;
+     background-color: transparent;
+        color:#919191;
+        background:#dbdbdb;
+}
+
+.unselected_FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    font-size:25px;
+     background-color: transparent;
+     background:#dbdbdb;
+        color:#919191;
+}
+
+.selector_wrapper {
+  margin:auto;
+}
+
+.Copmare_main {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+.date_top_row {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:408px;
+}
+
+.date_top_row_dist1 {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:530px;
+}
+
+.date_top_row_hl {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:465px;
+}
+
+.date_top_row_first {
+ display: grid;
+ grid-template-columns: 1fr 4fr;
+ height:450px;
+}
+
+
+
+.date_top_row_ah {
+ display: grid;
+ grid-template-columns: 1fr;
+
+}
+
+
+
+.date_top_row_ah {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+
+}
+.dash_card_wrapper {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+
+}
+
+.dash_card {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+}
+
+.card_title {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-40;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+.date_top_row2 {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:380px;
+ padding-top:50px;
+}
+
+.date_top_row2_overall {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:380px;
+ padding-top:0px;
+}
+
+.main_grid_footer {
+    display: grid;
+    grid-template-columns: 160px 11fr;
+    column-gap: 10px;
+}
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+font-family:"Roboto";
+
+}
+
+
+.date_top_row_superlatives_word {
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:600px;
+}
+.dash_card_wrapper_super {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:80px;
+
+}
+.dash_card_left_super {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding-bottom:0px;
+ height:540px;
+}
+
+.card_title_super {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-65;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+
+ 
+ 
+}
+.word_heading_nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:24px;
+  font-weight:400;
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  flex:1;
+  line-height:40px;
+  margin:auto;
+  padding-right:1px;
+  width:170px;
+  margin-bottom:5px;
+ width:100%;
+ position:relative;
+ top:-60;
+}
+.mostposgrid_heading_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+ font-size:15px;
+ font-weight:bold;
+ text-decoration:underline;
+ padding-bottom:7px;
+ position:relative;
+ top: -55px;
+}
+
+.mostposgrid_heading_word_right {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+ font-size:15px;
+ font-weight:bold;
+ text-decoration:underline;
+ padding-bottom:7px;
+ position:relative;
+ top: -40px;
+
+}
+
+
+
+.frame_wrapper_left {
+height:500px;
+overflow-y:auto;
+position:relative;
+top:-60;
+}
+
+.frame_wrapper_left_rw {
+height:500px;
+overflow-y:auto;
+
+}
+.mostposgrid_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr ;
+ 
+ align-items:center;
+}
+
+.mostposgrid_word_hl {
+ display:grid;
+ grid-template-columns: 1fr ;
+ 
+ align-items:center;
+}
+
+
+
+
+.dash_card_super {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+ height:520px;
+}
+.word_heading_bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  font-size: 25px;
+  flex:1;
+   line-height:40px;
+   justify:center;
+   
+   width:170px;
+   margin:auto;
+   width:100%;
+   position:relative;
+ top:-50;
+ right:10;
+ padding-right:10px;
+ padding-left:10px;
+}
+
+.word_heading_fn {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  flex:1;
+  line-height:40px;
+  font-size:25px;
+  width:170px;
+  
+  margin:auto;
+  width:100%;
+ position:relative;
+ top:-50;
+ right:10px;
+ padding-right:10px;
+ padding-left:10px;
+}
+
+.frame_wrapper {
+height:500px;
+overflow-y:auto;
+position:relative;
+top:-45;
+}
+
+.frame_wrapper_large {
+height:700px;
+overflow-y:auto;
+
+}
+
+.date_cell_link {
+  color:black;
+  text-decoration:none;
+
+}
+
+.date_cell_link:visited {
+  color:black;
+  text-decoration:none;
+  
+}
+
+.date_cell_link:hover {
+  text-decoration:underline;
+  
+}
+#Relatedwordsdiv0 {
+  display:none;
+}
+
+#Distributiondiv0 {
+  display:none;
+}
+
+#Allheadlinesdiv0 {
+  display:none;
+}
+
+
+
+#Relatedwordsdiv1 {
+  display:none;
+}
+
+#Distributiondiv1 {
+  display:none;
+}
+
+#Allheadlinesdiv1 {
+  display:none;
+}
+
+
+
+
+#Relatedwordsdiv2 {
+  display:none;
+}
+
+#Distributiondiv2 {
+  display:none;
+}
+
+#Allheadlinesdiv2 {
+  display:none;
+}
+
+
+
+#Relatedwordsdiv3 {
+  display:none;
+}
+
+#Distributiondiv3 {
+  display:none;
+}
+
+#Allheadlinesdiv3 {
+  display:none;
+}
+
+
+#Relatedwordsdiv4 {
+  display:none;
+}
+
+#Distributiondiv4 {
+  display:none;
+}
+
+#Allheadlinesdiv4 {
+  display:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.ah_heading_wrapper {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width:100%;
+  height:52px;
+}
+
+
+.ah_fn {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:0px 4px 0px 0px;
+  margin:1px;
+  line-height:40px;
+  font-size:25px;
+  width:170px;
+
+  width:100%;
+
+  line-height:52px;
+}
+
+
+.ah_bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  
+  margin:1px;
+  font-size: 25px;
+ 
+   line-height:40px;
+   justify:center;
+   
+   width:170px;
+  
+   width:100%;
+   line-height:52px;
+
+}
+
+
+.ah_nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:24px;
+  font-weight:400;
+  border-radius:4px 0px 0px 0px;
+  margin:1px;
+  
+  line-height:40px;
+ 
+ 
+  width:170px;
+ 
+ width:100%;
+   line-height:52px;
+  
+}
+
+.news_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.headline_grid_object {
+  padding:40px;
+  border-radius: 5px;
+
+}
+
+ 
+}
+
+.date_grid_object {
+  font-size:12px;
+}
+.sentiment {
+  padding:0px;
+  margin:0px;
+}
+
+.green {
+  
+  background: rgb(223,231,225);
+background: linear-gradient(0deg, rgba(223,231,225,1) 0%, rgba(162,231,206,1) 100%);
+border-radius: 5px;
+
+}
+
+.green a:visited{
+  color:black;
+}
+.green a:link {
+  color:black;
+}
+
+.green a:hover {
+  color:black;
+}
+
+.red {
+ 
+  color:black;
+background: rgb(249,104,104);
+background: linear-gradient(0deg, rgba(249,104,104,1) 0%, rgba(218,4,33,1) 100%);
+border-radius: 5px;
+}
+
+.red a:visited{
+  color:black;
+}
+.red a:link {
+  color:black;
+}
+
+.red a:hover {
+  color:black;
+}
+
+a {
+  color:black;
+  text-decoration:none;
+}
+
+a:hover {
+  text-decoration:underline;
+}
+
+a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+
+#Overallsection {
+  display:none;
+}
+
+#NYTsection {
+  display:none;
+}
+
+#BBCsection {
+  display:none;
+}
+#FNsection {
+  display:none;
+}
+
+.average_paper {
+  font-size:80px;
+  font-weight:bold;
+  height:280px;
+  margin:auto;
+  line-height:300px;
+  position:relative;
+  top:-40;
+}
+
+.orw {
+  display:grid;
+  grid-template-columns: 1fr 900px 1fr;
+}
+
+.orw_title {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows:40px;
+}
+
+.orw_nyt {
+   font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+    font-size: 17px;
+    
+    border-radius: 4px;
+    margin: 1px;
+    line-height: 20px;
+    padding-top:2px;
+
+}
+
+.orw_bbc {
+  font-family: "Lato";
+    background: #bb1919;
+    color: white;
+     border-radius: 4px;
+    margin: 1px;
+    font-size: 20px;
+    font-weight:900;
+    line-height: 20px;
+
+}
+
+.orw_fn {
+  font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius: 4px;
+    margin: 1px;
+    font-size:20px;
+    line-height: 20px;
+}
+
+.orw_heading {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+
+.orw_heading_framed {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  margin-right:-15px;
+}
+.orw_word {
+  font-size:17px;
+  font-weight:bold;
+  text-decoration:underline;
+}
+
+.heading_container {
+  display:grid;
+  grid-template-columns:3fr 1fr 1fr 1fr 2fr;
+}
+
+
+.frame_wrapper_orw {
+    height: 500px;
+    overflow-y: auto;
+    position: relative;
+    top: 5;
+
+}
+.orw_grid {
+  font-size:15px;
+}
+
+.orw_double {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+
+.word_grid {
+  display:grid;
+  grid-template-columns: 1fr ;
+
+}
+.search_term {
+  font-size:60px;
+  font-weight:bold;
+  padding:40px;
+}
+
+.divider {
+  font-size:60px;
+  padding-top:40px;
+  font-weight:normal;
+}
+
+
+.related_words_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 25px;
+
+}
+
+.related_words_grid_compare {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 25px;
+height:600px;
+}
+
+
+
+
+
+
+.related_title {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.related_title_overall {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+
+.ah_fn_rw {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:0px 4px 0px 0px;
+  margin:1px;
+  line-height:25px;
+  font-size:20px;
+  
+
+  width:100%;
+
+}
+
+
+.ah_bbc_rw {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  
+  margin:1px;
+  font-size: 20px;
+ 
+   line-height:25px;
+   justify:center;
+   
+
+  
+   width:100%;
+
+
+}
+
+
+.ah_nyt_rw {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:16px;
+  font-weight:400;
+  border-radius:4px 0px 0px 0px;
+  margin:1px;
+  
+  line-height:25px;
+ 
+ 
+ 
+ 
+ width:100%;
+
+  
+}
+
+
+.head_rw {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.rw_head_font {
+  font-size:12px;
+  font-weight:bold;
+  text-decoration:underline;
+}
+
+.small_hl_box {
+  
+  padding:10px;
+  text-align:center;
+}
+
+.small_hl {
+font-size:12px;
+  font-weight:bold;
+
+}
+
+.small_detail {
+  font-size:10px;
+  font-weight:normal;
+}
+.small_detail_sent {
+  font-size:10px;
+  font-weight:normal;
+}
+
+.small_detail_sent {
+  display:inline;
+}
+
+
+.switch_emotion_compare {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+ height:30px;
+ width:900px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+#Trustdiv0 {
+  display:none;
+}
+
+#Joydiv0 {
+  display:none;
+}
+
+#Anticipationdiv0 {
+  display:none;
+}
+
+#Surprisediv0 {
+  display:none;
+}
+
+#Feardiv0 {
+  display:none;
+}
+
+#Sadnessdiv0 {
+  display:none;
+}
+
+#Angerdiv0 {
+  display:none;
+}
+
+#Disgustdiv0 {
+  display:none;
+}
+
+
+
+
+#Trustdiv1 {
+  display:none;
+}
+
+#Joydiv1 {
+  display:none;
+}
+
+#Anticipationdiv1 {
+  display:none;
+}
+
+#Surprisediv1 {
+  display:none;
+}
+
+#Feardiv1 {
+  display:none;
+}
+
+#Sadnessdiv1 {
+  display:none;
+}
+
+#Angerdiv1 {
+  display:none;
+}
+
+#Disgustdiv1 {
+  display:none;
+}
+
+
+#Trustdiv2 {
+  display:none;
+}
+
+#Joydiv2 {
+  display:none;
+}
+
+#Anticipationdiv2 {
+  display:none;
+}
+
+#Surprisediv2 {
+  display:none;
+}
+
+#Feardiv2 {
+  display:none;
+}
+
+#Sadnessdiv2 {
+  display:none;
+}
+
+#Angerdiv2 {
+  display:none;
+}
+
+#Disgustdiv2 {
+  display:none;
+}
+
+
+#Trustdiv3 {
+  display:none;
+}
+
+#Joydiv3 {
+  display:none;
+}
+
+#Anticipationdiv3 {
+  display:none;
+}
+
+#Surprisediv3 {
+  display:none;
+}
+
+#Feardiv3 {
+  display:none;
+}
+
+#Sadnessdiv3 {
+  display:none;
+}
+
+#Angerdiv3 {
+  display:none;
+}
+
+#Disgustdiv3 {
+  display:none;
+}
+
+
+
+#Trustdiv4 {
+  display:none;
+}
+
+#Joydiv4 {
+  display:none;
+}
+
+#Anticipationdiv4 {
+  display:none;
+}
+
+#Surprisediv4 {
+  display:none;
+}
+
+#Feardiv4 {
+  display:none;
+}
+
+#Sadnessdiv4 {
+  display:none;
+}
+
+#Angerdiv4 {
+  display:none;
+}
+
+#Disgustdiv4 {
+  display:none;
+}
+
+
+
+</style>
+</head>
+
+
+<body>
+
+
+
+
+
+
+
+
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+
+<div class="main">
+
+<div class="main_grid">
+
+ <div class="empty"></div>
+<div class="side_bar">
+<div class="unselected">
+<a href='{% url 'word_count_general_og' %}'>Word Count</a>
+</div>
+<div class="unselected">
+<a href='{% url 'sentiment_newspaper' %}'>Sentiment</a>
+</div>
+
+<div class="selected">
+Emotion</div>
+<div class="sub">
+<a href='{% url 'emotion_newspaper' %}'>By Newspaper</a>
+</div>
+<div class="sub">
+<a href='{% url 'emotion_compare' %}'>Compare Newspapers</a>
+</div>
+
+
+<div class="sub_selected">
+Word Search
+</div>
+<div class="sub">
+<a href='{% url 'emotion_search_compare' %}'>Word Compare</a>
+</div>
+<div class="unselected">
+<a href='{% url 'date_search' %}'>Date</a>
+</div>
+
+<div class="unselected">
+ Analysis
+</div>
+
+</div>
+
+
+<div class="dash_title">Emotion: Word Search
+   <div class="search_smaller">
+    <form action="/emotion_search_compare_result_single" method="GET">
+           {% csrf_token %}
+           {{form1}}
+            <input type="submit" value="Search">
+            </form></div></div>
+
+<div class="empty"> </div>
+<div class="selector_wrapper">
+<div class="np_selector">
+<button type="button" class="button_left Compare" id="Compare">Compare</button>
+<button type="button" class="button_middle unselected_Overall" id="Overall">Overall</button>
+
+ <button type="button" class="button_middle unselected_NYT" id="NYT">NYT</button>
+ <button type="button" class="button_middle unselected_BBC" id="BBC">BBC</button>
+
+   <button type="button" class="button_right unselected_FN" id="FN">FN</button>
+</div>
+</div><div class="empty"></div>
+  <div class='word_grid'>
+            <div class='search_term'>"{{search1}}"</div>  
+
+            </div><div class="empty"></div>
+
+
+<div class="Compare_main" id="Comparesection">
+
+<div class="switch_emotion_compare">
+<button type="button" class="dash_button_left" id="Overall0">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust0">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy0">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation0">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise0">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear0">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness0">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger0">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust0">Disgust</button>
+</div>
+
+<div class="All1Overall" id="Overalldiv0">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Percentage of Headlines Containing "{{search1}}" that Indicate Emotions by Date</div>
+<div class="sent_by_date_emotion_bar">
+ {% autoescape off %}
+         {{ html_div_compare_emotions }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+
+<div class="All1Trust" id="Trustdiv0">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Trust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ compare_trust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Joy" id="Joydiv0">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Joy by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ compare_joy_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Anticipation" id="Anticipationdiv0">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Anticipation by Date  </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ compare_anticip_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Surprise" id="Surprisediv0">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Surprise by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ compare_surprise_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+<div class="All1Fear" id="Feardiv0">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Fear by Date  </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ compare_fear_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+<div class="All1Sadness" id="Sadnessdiv0">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Sadness by Date  </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ compare_sadness_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Anger" id="Angerdiv0">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Anger by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ compare_anger_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Disgust" id="Disgustdiv0">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Disgust by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ compare_disgust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+<div class="Overall_main" id="Overallsection">
+
+
+<div class="switch_emotion_compare">
+<button type="button" class="dash_button_left" id="Overall1">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust1">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy1">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation1">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise1">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear1">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness1">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger1">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust1">Disgust</button>
+</div>
+
+
+
+<div class="All1Overall" id="Overalldiv1">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Percentage of Headlines Containing "{{search1}}" that Indicate Emotions by Date</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_compare_emotions_overall }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Trust" id="Trustdiv1">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title"> Headlines Containing "{{search1}}" that Indicate Trust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ overall_search_trust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Joy" id="Joydiv1">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Joy by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ overall_search_joy_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Anticipation" id="Anticipationdiv1">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Anticipation by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ overall_search_anticip_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Surprise" id="Surprisediv1">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Surprise by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ overall_search_surprise_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+<div class="All1Fear" id="Feardiv1">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Fear by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ overall_search_fear_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+<div class="All1Sadness" id="Sadnessdiv1">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Sadness by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ overall_search_sadness_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Anger" id="Angerdiv1">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Anger by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ overall_search_anger_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Disgust" id="Disgustdiv1">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Disgust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ overall_search_disgust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+<div class="NYT_main" id="NYTsection">
+
+
+<div class="switch_emotion_compare">
+<button type="button" class="dash_button_left" id="Overall2">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust2">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy2">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation2">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise2">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear2">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness2">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger2">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust2">Disgust</button>
+</div>
+
+
+
+<div class="All1Overall" id="Overalldiv2">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Percentage of Headlines Containing "{{search1}}" that Indicate Emotions by Date</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_compare_emotions_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Trust" id="Trustdiv2">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Trust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ nyt_trust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Joy" id="Joydiv2">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Joy by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ nyt_joy_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Anticipation" id="Anticipationdiv2">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title"> Headlines Containing "{{search1}}" that Indicate Anticipation by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ nyt_anticip_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Surprise" id="Surprisediv2">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title"> Headlines Containing "{{search1}}" that Indicate Surprise by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ nyt_surprise_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+<div class="All1Fear" id="Feardiv2">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Fear by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ nyt_fear_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+<div class="All1Sadness" id="Sadnessdiv2">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Sadness by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ nyt_sadness_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Anger" id="Angerdiv2">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Anger by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ nyt_anger_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Disgust" id="Disgustdiv2">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Disgust by Date  </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ nyt_disgust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="BBC_main" id="BBCsection">
+
+
+<div class="switch_emotion_compare">
+<button type="button" class="dash_button_left" id="Overall3">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust3">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy3">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation3">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise3">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear3">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness3">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger3">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust3">Disgust</button>
+</div>
+
+
+<div class="All1Overall" id="Overalldiv3">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" and that Indicate Emotion by Date</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_compare_emotions_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+
+<div class="All1Trust" id="Trustdiv3">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Trust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ bbc_trust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Joy" id="Joydiv3">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Joy by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ bbc_joy_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Anticipation" id="Anticipationdiv3">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Anticipation by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ bbc_anticip_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Surprise" id="Surprisediv3">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Surprise by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ bbc_surprise_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+<div class="All1Fear" id="Feardiv3">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Fear by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ bbc_fear_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+<div class="All1Sadness" id="Sadnessdiv3">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Sadness by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ bbc_sadness_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Anger" id="Angerdiv3">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Anger by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ bbc_anger_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Disgust" id="Disgustdiv3">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Disgust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ bbc_disgust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="FN_main" id="FNsection">
+
+
+<div class="switch_emotion_compare">
+<button type="button" class="dash_button_left" id="Overall4">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust4">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy4">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation4">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise4">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear4">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness4">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger4">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust4">Disgust</button>
+</div>
+
+
+
+<div class="All1Overall" id="Overalldiv4">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Percentage of Headlines Containing "{{search1}}" that Indicate Emotions by Date</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_compare_emotions_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Trust" id="Trustdiv4">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Trust by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fn_trust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Joy" id="Joydiv4">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Joy by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fn_joy_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Anticipation" id="Anticipationdiv4">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Anticipation by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fn_anticip_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Surprise" id="Surprisediv4">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Surprise by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fn_surprise_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+<div class="All1Fear" id="Feardiv4">
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Fear by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fn_fear_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Sadness" id="Sadnessdiv4">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Sadness by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fn_sadness_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="All1Anger" id="Angerdiv4">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Anger by Date</div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fn_anger_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<div class="All1Disgust" id="Disgustdiv4">
+
+<div class="date_top_row_emotion_full">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing "{{search1}}" that Indicate Disgust by Date </div>
+<div class="sent_by_date_emotion">
+   {% autoescape off %}
+         {{ fn_disgust_search_date_div }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+     
+
+    </div>
+
+
+
+<div class="main_grid_footer">
+<div class="empty"> </div>
+<div class="footer_copyright">
+<div class='footer_div'><a href='/about'>About</a></div>
+<div class='footer_div'>Contact: <a href='mailto:headlinecompare@hlcompare.com'>headlinecompare@hlcompare.com</a></div>
+<div class='footer_div'>© 2021 Headline Compare</div>
+</div>
+</div>
+
+
+</body>
+
+ <script>
+var first_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[0].id
+var second_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[1].id
+
+var third_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[2].id
+var fourth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[3].id
+var fifth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[4].id
+var sixth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[5].id
+var seventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[6].id
+var eigth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[7].id
+var ninth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[8].id
+var tenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[9].id
+var eleventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[10].id
+
+var twelfth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[11].id
+var thirteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[12].id
+var fourteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[13].id
+
+var fifteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[14].id
+var sixteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[15].id
+var seventeenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[16].id
+var eightteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[17].id
+var nineteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[18].id
+var twentieth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[19].id
+var twentyone_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[20].id
+var twentytwo_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[21].id
+var twentythree_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[22].id
+var twentyfour_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[23].id
+var twentyfive_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[24].id
+var twentysix_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[25].id
+var twentyseven_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[26].id
+var twentyeight_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[27].id
+var twentynine_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[28].id
+var thirty_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[29].id
+var thirtyone_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[30].id
+var thirtytwo_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[31].id
+var thirtythree_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[32].id
+var thirtyfour_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[33].id
+var thirtyfive_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[34].id
+var thirtysix_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[35].id
+var thirtyseven_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[36].id
+var thirtyeight_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[37].id
+var thirtynine_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[38].id
+var forty_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[39].id
+
+var fortyone_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[40].id
+var fortytwo_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[41].id
+var fortythree_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[42].id
+var fortyfour_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[43].id
+var fortyfive_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[44].id
+var fortysix_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[45].id
+
+
+
+
+
+ </script>
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+
+$(document).ready(function(){
+
+
+
+ 
+  
+
+
+
+
+
+
+
+
+ $("#Compare").click(function(){
+ 
+  $('#Compare').css({"color":"black", "background-color":"white"}) 
+  $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
+  
+  
+  $("#Comparesection").css('display','block')
+  $("#Overallsection").css('display','none')
+  $("#NYTsection").css('display','none')
+  $("#BBCsection").css('display','none')
+  $("#FNsection").css('display','none')
+ 
+  $("#Breakdowndiv0").css('display','block')
+  $("#Distributiondiv0").css('display','none')
+  $("#Relatedwordsdiv0").css('display','none')
+  $("#Allheadlinesdiv0").css('display','none') 
+  
+
+ $('#Breakdown0').css({"background-color":"#fafafa","color":"black"})
+ $('#Distribution0').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords0').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines0').css({"color":"#919191", "background-color":"transparent"})
+ 
+  Plotly.relayout(first_graph_id, {autosize: true})
+
+  
+  
+
+}
+ )
+
+
+ $("#Overall").click(function(){
+ 
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#Overall').css({"color":"black", "background-color":"white"}) 
+  $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
+  
+  
+  $("#Comparesection").css('display','none')
+  $("#Overallsection").css('display','block')
+  $("#NYTsection").css('display','none')
+  $("#BBCsection").css('display','none')
+  $("#FNsection").css('display','none')
+ 
+
+
+
+
+  $("#Breakdowndiv1").css('display','block')
+  $("#Distributiondiv1").css('display','none')
+  $("#Relatedwordsdiv1").css('display','none')
+  $("#Allheadlinesdiv1").css('display','none') 
+  
+
+ 
+
+ $('#Breakdown1').css({"background-color":"#fafafa","color":"black"})
+  $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords1').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines1').css({"color":"#919191", "background-color":"transparent"})
+  Plotly.relayout(tenth_graph_id, {autosize: true})
+}
+ )
+
+
+
+  $("#NYT").click(function(){
+ 
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#NYT').css({"color":"white", "background-color":"rgb(45, 46, 48)"})
+  $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
+
+
+
+
+ 
+  $("#Comparesection").css('display','none')
+  $("#Overallsection").css('display','none')
+  $("#NYTsection").css('display','block')
+  $("#BBCsection").css('display','none')
+  $("#FNsection").css('display','none')
+ 
+  $("#Breakdowndiv2").css('display','block')
+  $("#Distributiondiv2").css('display','none')
+  $("#Relatedwordsdiv2").css('display','none')
+  $("#Allheadlinesdiv2").css('display','none') 
+
+
+ 
+  
+
+ $('#Breakdown2').css({"background-color":"#fafafa","color":"black"})
+  $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords2').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines2').css({"color":"#919191", "background-color":"transparent"})
+
+     Plotly.relayout(nineteenth_graph_id, {autosize: true})
+}
+ )
+
+
+
+  $("#BBC").click(function(){
+ 
+
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#BBC').css({"color":"white", "background-color":"rgb(187, 25, 25)"})
+  $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
+ 
+  $("#Comparesection").css('display','none')
+  $("#Overallsection").css('display','none')
+  $("#NYTsection").css('display','none')
+  $("#BBCsection").css('display','block')
+  $("#FNsection").css('display','none')
+
+       
+
+
+ 
+
+ 
+  $("#Breakdowndiv3").css('display','block')
+  $("#Distributiondiv3").css('display','none')
+  $("#Relatedwordsdiv3").css('display','none')
+  $("#Allheadlinesdiv3").css('display','none') 
+  
+
+ $('#Breakdown3').css({"background-color":"#fafafa","color":"black"})
+  $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords3').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines3').css({"color":"#919191", "background-color":"transparent"})
+ Plotly.relayout(twentyeight_graph_id, {autosize: true})
+}
+ )
+
+
+
+
+   $("#FN").click(function(){
+ 
+ 
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#FN').css({"color":"white", "background-color":"rgba(0, 51, 102, 0.99)"})
+
+
+  $("#Comparesection").css('display','none')
+  $("#Overallsection").css('display','none')
+  $("#NYTsection").css('display','none')
+  $("#BBCsection").css('display','none')
+  $("#FNsection").css('display','block')
+ 
+  $("#Breakdowndiv4").css('display','block')
+  $("#Distributiondiv4").css('display','none')
+  $("#Relatedwordsdiv4").css('display','none')
+  $("#Allheadlinesdiv4").css('display','none') 
+
+    
+
+
+  
+
+ $('#Breakdown4').css({"background-color":"#fafafa","color":"black"})
+  $('#Distribution4').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords4').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines4').css({"color":"#919191", "background-color":"transparent"})
+ Plotly.relayout(thirtyseven_graph_id, {autosize: true})
+}
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$("#Overall0").click(function(){
+ 
+ $("#Overalldiv0").css('display','block')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+ 
+  
+
+
+ $('#Overall0').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+
+   Plotly.relayout(first_graph_id, {autosize: true})
+
+
+
+ }
+ )
+
+
+
+ $("#Trust0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','block')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+ 
+
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(second_graph_id, {autosize: true})
+ }
+ )
+
+
+
+ $("#Joy0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','block')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+  Plotly.relayout(third_graph_id, {autosize: true})
+
+
+
+ }
+ )
+
+
+ $("#Anticipation0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','block')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(fourth_graph_id, {autosize: true})
+
+ }
+ )
+
+
+
+
+ $("#Surprise0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','block')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+  
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(fifth_graph_id, {autosize: true})
+
+ }
+ )
+
+
+ $("#Fear0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','block')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+  
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(sixth_graph_id, {autosize: true})
+
+ }
+ )
+
+
+
+
+ $("#Sadness0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','block')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(seventh_graph_id, {autosize: true})
+
+ }
+ )
+
+
+ $("#Anger0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','block')
+  $("#Disgustdiv0").css('display','none')
+
+
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(eigth_graph_id, {autosize: true})
+
+ }
+ )
+
+
+ $("#Disgust0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','block')
+
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"background-color":"#fafafa","color":"black"})
+   Plotly.relayout(ninth_graph_id, {autosize: true})
+
+ }
+ )
+
+$("#Overall1").click(function(){
+ 
+ $("#Overalldiv1").css('display','block')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+
+ $('#Overall1').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+
+   Plotly.relayout(tenth_graph_id, {autosize: true})
+
+
+
+ }
+ )
+
+
+
+ $("#Trust1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','block')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+    Plotly.relayout(eleventh_graph_id, {autosize: true})
+ }
+ )
+
+
+
+ $("#Joy1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','block')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+
+ 
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(twelfth_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Anticipation1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','block')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+    Plotly.relayout(thirteenth_graph_id, {autosize: true})
+ }
+ )
+
+
+
+
+ $("#Surprise1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','block')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+
+  
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+  Plotly.relayout(fourteenth_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Fear1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','block')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+ 
+
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(fifteenth_graph_id, {autosize: true})
+ }
+ )
+
+
+
+
+ $("#Sadness1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','block')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','none')
+
+   
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+  Plotly.relayout(sixteenth_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Anger1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','block')
+  $("#Disgustdiv1").css('display','none')
+
+
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust1').css({"color":"#919191", "background-color":"transparent"})
+     Plotly.relayout(seventeenth_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Disgust1").click(function(){
+ 
+ $("#Overalldiv1").css('display','none')
+  $("#Trustdiv1").css('display','none')
+  $("#Joydiv1").css('display','none')
+  $("#Anticipationdiv1").css('display','none')
+  $("#Surprisediv1").css('display','none')
+  $("#Feardiv1").css('display','none')
+  $("#Sadnessdiv1").css('display','none')
+  $("#Angerdiv1").css('display','none')
+  $("#Disgustdiv1").css('display','block')
+
+   
+
+
+
+
+ $('#Overall1').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust1').css({"background-color":"#fafafa","color":"black"})
+ Plotly.relayout(eightteenth_graph_id, {autosize: true})
+ }
+ )
+
+
+$("#Overall2").click(function(){
+ 
+ $("#Overalldiv2").css('display','block')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+  
+
+
+
+ $('#Overall2').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(nineteenth_graph_id, {autosize: true})
+ 
+
+
+ }
+ )
+
+
+
+ $("#Trust2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','block')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+   
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(twentieth_graph_id, {autosize: true})
+ }
+ )
+
+
+
+ $("#Joy2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','block')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+     Plotly.relayout(twentyone_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Anticipation2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','block')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+  
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+    Plotly.relayout(twentytwo_graph_id, {autosize: true})
+
+ }
+ )
+
+
+
+
+ $("#Surprise2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','block')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+   
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(twentythree_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Fear2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','block')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+     Plotly.relayout(twentyfour_graph_id, {autosize: true})
+ }
+ )
+
+
+
+
+ $("#Sadness2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','block')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','none')
+
+
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+ 
+     Plotly.relayout(twentyfive_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Anger2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','block')
+  $("#Disgustdiv2").css('display','none')
+
+
+   
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust2').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(twentysix_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Disgust2").click(function(){
+ 
+ $("#Overalldiv2").css('display','none')
+  $("#Trustdiv2").css('display','none')
+  $("#Joydiv2").css('display','none')
+  $("#Anticipationdiv2").css('display','none')
+  $("#Surprisediv2").css('display','none')
+  $("#Feardiv2").css('display','none')
+  $("#Sadnessdiv2").css('display','none')
+  $("#Angerdiv2").css('display','none')
+  $("#Disgustdiv2").css('display','block')
+
+
+   
+
+
+
+
+ $('#Overall2').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust2').css({"background-color":"#fafafa","color":"black"})
+   Plotly.relayout(twentyseven_graph_id, {autosize: true})
+ }
+ )
+
+
+
+
+
+
+$("#Overall3").click(function(){
+ 
+ $("#Overalldiv3").css('display','block')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+ $('#Overall3').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+
+     Plotly.relayout(twentyeight_graph_id, {autosize: true})
+
+ 
+
+
+ }
+ )
+
+
+
+ $("#Trust3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','block')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+     Plotly.relayout(twentynine_graph_id, {autosize: true})
+ }
+ )
+
+
+
+ $("#Joy3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','block')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+     Plotly.relayout(thirty_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Anticipation3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','block')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+ 
+     Plotly.relayout(thirtyone_graph_id, {autosize: true})
+ }
+ )
+
+
+
+
+ $("#Surprise3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','block')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+ 
+
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+     Plotly.relayout(thirtytwo_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Fear3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','block')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+    
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+  Plotly.relayout(thirtythree_graph_id, {autosize: true})
+
+ }
+ )
+
+
+
+
+ $("#Sadness3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','block')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','none')
+
+
+   
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(thirtyfour_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Anger3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','block')
+  $("#Disgustdiv3").css('display','none')
+
+
+
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust3').css({"color":"#919191", "background-color":"transparent"})
+      Plotly.relayout(thirtyfive_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Disgust3").click(function(){
+ 
+ $("#Overalldiv3").css('display','none')
+  $("#Trustdiv3").css('display','none')
+  $("#Joydiv3").css('display','none')
+  $("#Anticipationdiv3").css('display','none')
+  $("#Surprisediv3").css('display','none')
+  $("#Feardiv3").css('display','none')
+  $("#Sadnessdiv3").css('display','none')
+  $("#Angerdiv3").css('display','none')
+  $("#Disgustdiv3").css('display','block')
+
+
+ 
+
+
+
+ $('#Overall3').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust3').css({"background-color":"#fafafa","color":"black"})
+     Plotly.relayout(thirtysix_graph_id, {autosize: true})
+ }
+ )
+
+
+ 
+
+
+
+$("#Overall4").click(function(){
+ 
+ $("#Overalldiv4").css('display','block')
+  $("#Trustdiv4").css('display','none')
+  $("#Joydiv4").css('display','none')
+  $("#Anticipationdiv4").css('display','none')
+  $("#Surprisediv4").css('display','none')
+  $("#Feardiv4").css('display','none')
+  $("#Sadnessdiv4").css('display','none')
+  $("#Angerdiv4").css('display','none')
+  $("#Disgustdiv4").css('display','none')
+
+  
+
+
+ $('#Overall4').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust4').css({"color":"#919191", "background-color":"transparent"})
+
+    Plotly.relayout(thirtyseven_graph_id, {autosize: true})
+
+
+ }
+ )
+
+
+
+ $("#Trust4").click(function(){
+ 
+ $("#Overalldiv4").css('display','none')
+  $("#Trustdiv4").css('display','block')
+  $("#Joydiv4").css('display','none')
+  $("#Anticipationdiv4").css('display','none')
+  $("#Surprisediv4").css('display','none')
+  $("#Feardiv4").css('display','none')
+  $("#Sadnessdiv4").css('display','none')
+  $("#Angerdiv4").css('display','none')
+  $("#Disgustdiv4").css('display','none')
+
+
+  
+
+
+
+ $('#Overall4').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust4').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust4').css({"color":"#919191", "background-color":"transparent"})
+    Plotly.relayout(thirtyeight_graph_id, {autosize: true})
+ }
+ )
+
+
+
+ $("#Joy4").click(function(){
+ 
+ $("#Overalldiv4").css('display','none')
+  $("#Trustdiv4").css('display','none')
+  $("#Joydiv4").css('display','block')
+  $("#Anticipationdiv4").css('display','none')
+  $("#Surprisediv4").css('display','none')
+  $("#Feardiv4").css('display','none')
+  $("#Sadnessdiv4").css('display','none')
+  $("#Angerdiv4").css('display','none')
+  $("#Disgustdiv4").css('display','none')
+
+
+   
+
+
+
+ $('#Overall4').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy4').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust4').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(thirtynine_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Anticipation4").click(function(){
+ 
+ $("#Overalldiv4").css('display','none')
+  $("#Trustdiv4").css('display','none')
+  $("#Joydiv4").css('display','none')
+  $("#Anticipationdiv4").css('display','block')
+  $("#Surprisediv4").css('display','none')
+  $("#Feardiv4").css('display','none')
+  $("#Sadnessdiv4").css('display','none')
+  $("#Angerdiv4").css('display','none')
+  $("#Disgustdiv4").css('display','none')
+
+
+ 
+
+
+
+ $('#Overall4').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation4').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust4').css({"color":"#919191", "background-color":"transparent"})
+     Plotly.relayout(forty_graph_id, {autosize: true})
+ }
+ )
+
+
+
+
+ $("#Surprise4").click(function(){
+ 
+ $("#Overalldiv4").css('display','none')
+  $("#Trustdiv4").css('display','none')
+  $("#Joydiv4").css('display','none')
+  $("#Anticipationdiv4").css('display','none')
+  $("#Surprisediv4").css('display','block')
+  $("#Feardiv4").css('display','none')
+  $("#Sadnessdiv4").css('display','none')
+  $("#Angerdiv4").css('display','none')
+  $("#Disgustdiv4").css('display','none')
+
+
+   
+
+
+ $('#Overall4').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise4').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust4').css({"color":"#919191", "background-color":"transparent"})
+   Plotly.relayout(fortyone_graph_id, {autosize: true})
+
+ }
+ )
+
+
+ $("#Fear4").click(function(){
+ 
+ $("#Overalldiv4").css('display','none')
+  $("#Trustdiv4").css('display','none')
+  $("#Joydiv4").css('display','none')
+  $("#Anticipationdiv4").css('display','none')
+  $("#Surprisediv4").css('display','none')
+  $("#Feardiv4").css('display','block')
+  $("#Sadnessdiv4").css('display','none')
+  $("#Angerdiv4").css('display','none')
+  $("#Disgustdiv4").css('display','none')
+
+
+     
+
+
+
+ $('#Overall4').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear4').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust4').css({"color":"#919191", "background-color":"transparent"})
+ Plotly.relayout(fortytwo_graph_id, {autosize: true})
+ }
+ )
+
+
+
+
+ $("#Sadness4").click(function(){
+ 
+ $("#Overalldiv4").css('display','none')
+  $("#Trustdiv4").css('display','none')
+  $("#Joydiv4").css('display','none')
+  $("#Anticipationdiv4").css('display','none')
+  $("#Surprisediv4").css('display','none')
+  $("#Feardiv4").css('display','none')
+  $("#Sadnessdiv4").css('display','block')
+  $("#Angerdiv4").css('display','none')
+  $("#Disgustdiv4").css('display','none')
+
+
+
+
+
+
+ $('#Overall4').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness4').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust4').css({"color":"#919191", "background-color":"transparent"})
+      Plotly.relayout(fortythree_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Anger4").click(function(){
+ 
+ $("#Overalldiv4").css('display','none')
+  $("#Trustdiv4").css('display','none')
+  $("#Joydiv4").css('display','none')
+  $("#Anticipationdiv4").css('display','none')
+  $("#Surprisediv4").css('display','none')
+  $("#Feardiv4").css('display','none')
+  $("#Sadnessdiv4").css('display','none')
+  $("#Angerdiv4").css('display','block')
+  $("#Disgustdiv4").css('display','none')
+
+
+  
+
+
+
+ $('#Overall4').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger4').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust4').css({"color":"#919191", "background-color":"transparent"})
+    Plotly.relayout(fortyfour_graph_id, {autosize: true})
+ }
+ )
+
+
+ $("#Disgust4").click(function(){
+ 
+ $("#Overalldiv4").css('display','none')
+  $("#Trustdiv4").css('display','none')
+  $("#Joydiv4").css('display','none')
+  $("#Anticipationdiv4").css('display','none')
+  $("#Surprisediv4").css('display','none')
+  $("#Feardiv4").css('display','none')
+  $("#Sadnessdiv4").css('display','none')
+  $("#Angerdiv4").css('display','none')
+  $("#Disgustdiv4").css('display','block')
+
+
+
+
+
+
+ $('#Overall4').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger4').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust4').css({"background-color":"#fafafa","color":"black"})
+      Plotly.relayout(fortyfive_graph_id, {autosize: true})
+ }
+ )
+
+
+
+
+
+
+
+}
+)
+
+ </script>
+
+ 

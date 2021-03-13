@@ -1,0 +1,953 @@
+{% load static %}
+
+<html>
+<head>
+<title>Search and Compare Newspaper Headlines by Date: Headline Compare</title>
+<meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
+
+    <link rel="icon" href="{% static 'hcfav.png' %}"/>
+
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<style>
+.header {
+ font-family:"Roboto";
+ font-size:30px;
+ font-weight:900;
+ text-align:center;
+ padding: 9px;
+ background:white;
+ width:100%;
+ margin:auto;
+ position:fixed;
+ z-index:100;
+ 
+ }
+
+ .header a{
+ text-decoration:none;
+ color:black;
+}
+.header a:hover{
+ text-decoration:underline;
+ color:black;
+}
+
+.header a:visited {
+ text-decoration:none;
+ color:black;
+}
+
+body {
+ background-color: #f4f4f4;
+ width:100%;
+ margin:0;
+}
+
+.main {
+ width:90%;
+ margin:auto;
+ font-family:"Roboto";
+ padding-top:53px;
+ text-align:center;
+ background-color:#f4f4f4;
+}
+
+.main_grid {
+    display:grid;
+    grid-template-columns: 175px 1fr;
+
+}
+
+
+.side_bar {
+ padding-top:200px;
+ position:fixed;
+ width:160px;
+}
+
+
+.unselected {
+ text-align:left;
+ padding:9px;
+
+}
+
+.selected {
+ text-align:left;
+ padding:9px;
+ font-weight:bold;
+ background-color:#3b3a3a;
+ color:white;
+ border-radius: 5px 5px 5px 5px;
+
+
+}
+
+.sub {
+ text-align:left;
+ padding-left:40px;
+ padding-top:4px;
+ padding-bottom:4px;
+}
+
+.sub_selected {
+ 
+ text-align:left;
+ margin-left:40px;
+ padding-top:4px;
+ padding-bottom:4px;
+ font-weight:bold;
+ font-size:22px;
+ 
+ 
+
+}
+
+.headline_main {
+display:grid;
+grid-template-columns: 3fr 1fr;
+column-gap:20px;
+
+}
+
+.headline_container {
+margin-top:20px;
+background-color:white;
+height:800px;
+border-radius: 5px;
+box-shadow: 0 0 2px grey;
+
+
+}
+
+.date_card_title {
+    color: #292929;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: left;
+    position: relative;
+    padding-top: 35px;
+    padding-left: 3px;
+    height: 40px;
+}
+
+.headline_header_wrapper {
+    width:100%;
+}
+
+.fox {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:0px 4px 0px 0;
+  
+  flex:1;
+  line-height:50px;
+  font-size:30px;
+  
+   max-height:50px;
+}
+
+.fox a {
+  color:white;
+  text-decoration:none;
+}
+
+.fox a:hover {
+  text-decoration:underline;
+}
+
+.fox a:visited {
+  color:white;
+}
+
+
+.nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:18px;
+  font-weight:400;
+  border-radius:4px 0px 0px 0px;
+ 
+  flex:1;
+  line-height:50px;
+  max-height:50px;
+  
+
+}
+
+.nyt a {
+  color:white;
+  text-decoration:none;
+}
+
+.nyt a:hover {
+  text-decoration:underline;
+}
+
+.nyt a:visited {
+  color:white;
+}
+
+.bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+
+  
+  font-size: 32px;
+  flex:1;
+   line-height:50px;
+    max-height:50px;
+}
+
+.bbc a {
+  color:white;
+  text-decoration:none;
+}
+
+.bbc a:hover {
+  text-decoration:underline;
+}
+
+.bbc a:visited {
+  color:white;
+}
+
+
+
+.headline_header_grid {
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+
+
+}
+
+.article_grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.all_headlines {
+    font-size:12px;
+    
+}
+
+
+.all_headlines a{
+ color:black;
+  text-decoration:none;
+}
+.all_headlines a:hover{
+  text-decoration: underline;
+  text-decoration-color:black;
+    background:#f2f2f2;
+
+}
+
+.headliner {
+
+
+        font-size: 16px;
+    /* padding-top: 10px; */
+    /* padding-bottom: 10px; */
+    margin-left: 9px;
+    margin-right: 15px;
+    /* height: 67px; */
+    text-align: left;
+    padding-left: 18px;
+    border-left: 2px solid #f2f2f2;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height: 50px;
+    overflow-y:hidden;
+}
+
+.headliner a:hover {
+  text-decoration:none;
+  background:#f2f2f2;
+  border:white;
+}
+
+.headliner:hover {
+  text-decoration:none;
+  background:#f2f2f2;
+  border-left:2px solid white;
+}
+
+.headline_text:hover {
+   text-decoration:none;
+  background:#f2f2f2;
+  border-left:2px solid #a6a6a6;
+}
+
+.article_grid_wrapper {
+height:740px;
+overflow-y:overlay;
+
+
+}
+.headline_text:hover {
+  
+     border-left: 2px solid #a6a6a6;
+  
+}
+.datepicker {
+    display:inline-block;
+    position:relative;
+    top:-7;
+    font-family:"Roboto";
+}
+
+.headline_text {
+font-size: 15px;
+    font-family: "Roboto";
+    font-weight: normal;
+    color: black;
+    height: 50px;
+    margin-left: 14px;
+    margin-right: 5px;
+    text-align: left;
+    padding-left: 15px;
+    border-left: 2px solid #f2f2f2;
+    padding-right: 35px;
+    padding-bottom: 19px;
+    position: relative;
+    left: -5;
+    overflow-y: hidden;
+}
+
+.datepicker-panel{
+   font-family:"Roboto";
+}
+
+
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+
+}
+
+.analysis_card {
+
+background-color:white;
+height:800px;
+border-radius: 5px;
+box-shadow: 0 0 2px grey;
+margin-top:20px;
+
+}
+
+.titles {
+display:grid;
+grid-template-columns: 3fr 1fr;
+column-gap:20px;
+
+}
+
+.analysis_grid {
+  display:grid;
+  grid-template-columns: 1fr; 
+}
+
+
+
+.analysis_inner {
+  display:grid;
+  grid-template-columns: 1fr;
+  padding:30px;
+padding-left:0px;
+padding-right:0px;
+
+}
+
+.analysis_title {
+  font-size:25px;
+  font-weight:bold;
+}
+
+.analysis_chart {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.unselected a {
+  text-decoration:none;
+  color:black;
+}
+
+.unselected a:hover {
+  text-decoration:underline;
+  color:black;
+}
+
+.unselected a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.selected {
+  color:white;
+}
+
+.selected a {
+  color:white;
+  text-decoration:none;
+}
+.footer_div a {
+color:black;
+text-decoration:none;
+}
+
+.footer_div a:hover {
+color:black;
+text-decoration:underline;
+}
+.footer_div a:visited {
+color:black;
+text-decoration:none;
+}
+.selected a:hover {
+  text-decoration:none;
+  color:white;
+}
+
+.selected a:visited {
+  text-decoration:none;
+  color:white;
+}
+
+
+.datepicker {
+  color:gray;
+  display:inline;
+  position:absolute;
+  top:11px;
+}
+
+input[type=date] {
+    color: transparent;
+}
+
+input[type=date]::selection {
+    color: transparent;
+}
+
+#date_submit {
+  padding-top:14px;
+  position:relative;
+  display:inline-block;
+}
+
+#date_submit input {
+  width:50px;
+  border:none;
+  background: transparent;
+      position: relative;
+top: -1px;
+    left: -35;
+}
+}
+}
+
+#date_submit input:focus {
+  outline:none;
+}
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus {
+    background-color: transparent;
+    color: transparent;
+    outline: none;
+}
+
+
+.article_grid_wrapper::-webkit-scrollbar {
+ width: 6px;
+  height: 8px;
+}
+
+.article_grid_wrapper::-webkit-scrollbar-thumb {
+ 
+  background:#f2f2f2;
+}
+
+
+.analysis_flex {
+  display:flex;
+  flex-direction:column;
+  padding-left:20px;
+  padding-right:20px;
+  height: 800px;
+    justify-content: space-between;
+ 
+}
+.analysis_box {
+  font-size:30px;
+  padding:40px;
+  font-family:"Roboto";
+  font-weight:700;
+flex-grow:1;
+}
+
+
+.analysis_box_sent {
+  font-size:35px;
+  border-top: 1px solid gray;
+  
+  padding:40px;
+  font-family:"Roboto";
+  font-weight:500;
+  flex-grow:1;
+}
+
+
+
+.analysis_box_sent a {
+ text-decoration:none;
+}
+.analysis_flex a{
+  text-decoration:none;
+}
+
+.analysis_flex a:visited{
+  color:black;
+}
+
+.analysis_box_bottom {
+  font-size:30px;
+
+  padding:40px;
+  font-family:"Roboto";
+  font-weight:700;
+  flex-grow:1;
+}
+
+
+.today_analysis {
+  padding-bottom:6px;
+  font-size:30px;
+  position:sticky;
+  top:0;
+  font-weight:700;
+  font-family:"Roboto";
+  padding-top: 5px;
+  border-bottom: 3px double gray;
+  
+  
+}
+.equal_flex {
+  flex-grow:1;
+  
+}
+
+.equal_flex:hover {
+  flex-grow:1;
+  background:#f2f2f2;
+}
+.analysis_box a {
+  text-decoration:none;
+  flex-grow:1;
+}
+.analysis_box a:hover {
+  text-decoration-color:black;
+}
+
+.analysis_box a:visited {
+  color:black;
+}
+
+
+.analysis_box_bottom a {
+  text-decoration:none;
+}
+.analysis_box_bottom a:hover {
+  text-decoration-color:black;
+}
+
+.analysis_box_bottom a:visited {
+  color:black;
+}
+.analysis_text {
+  font-size:19px;
+  font-weight:300;
+  font-family: "Roboto";
+  text-align:left;
+  padding-bottom:3px;
+}
+
+.analysis_text a{
+  color:black;
+  text-decoration:none;
+}
+
+.analysis_text a:hover {
+  text-decoration:underline;
+}
+.analysis_text a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.overall_sentiment {
+  font-size:50px;
+  font-weight:200;
+  padding-bottom:10px;
+  padding-top:1px;
+}
+
+.sent_score {
+  font-weight:300;
+  font-size:19px;
+}
+
+.overall_sent {
+  font-size:25px;
+  font-weight:400;
+}
+
+.headline_text {
+  padding-right:10px;
+}
+
+.choose {
+  display:inline-block;
+  font-size:20px;
+
+}
+
+.word_grid_container {
+  width:50%;
+  display:flex;
+
+  
+    justify-content: center;
+    margin: auto;
+    margin-top: 18px;
+}
+.word_grid_container_sent {
+  width:90%;
+  display:flex;
+
+  
+    justify-content: center;
+    margin: auto;
+    margin-top: 15px;
+    padding-left:9px;
+}
+.word_grid {
+  display:grid;
+  grid-template-columns: auto auto;
+  padding:0px;
+  margin:0px;
+  text-align:right;
+  column-gap:50px;
+  border-left: 2px solid #f2f2f2;
+    padding-left: 10px;
+ 
+}
+
+.analysis_box_sent {
+  font-size:35px;
+  border-top: 1px solid gray;
+  
+  padding:40px;
+  font-family:"Roboto";
+  font-weight:500;
+  flex-grow:1;
+}
+
+
+
+.analysis_box_sent a {
+ text-decoration:none;
+}
+.analysis_flex a{
+  text-decoration:none;
+}
+
+.analysis_flex a:visited{
+  color:black;
+}
+
+.analysis_box a {
+  text-decoration:none;
+  flex-grow:1;
+}
+.analysis_box a:hover {
+  text-decoration-color:black;
+}
+
+.analysis_box a:visited {
+  color:black;
+}
+
+
+.analysis_box_bottom a {
+  text-decoration:none;
+}
+.analysis_box_bottom a:hover {
+  text-decoration-color:black;
+}
+
+.analysis_box_bottom a:visited {
+  color:black;
+}
+
+.analysis_box:hover {
+    background: #f2f2f2;
+}
+
+
+.analysis_box_bottom:hover {
+     background: #f2f2f2;
+
+}
+.num {
+  text-align:right;
+}
+
+
+.analysis_box_sent {
+  font-size:35px;
+  border-top: 1px solid gray;
+  
+  padding:40px;
+  font-family:"Roboto";
+  font-weight:500;
+  flex-grow:1;
+}
+
+
+
+.analysis_box_sent a {
+ text-decoration:none;
+}
+
+.analysis_border {
+  padding-left:0px;
+  padding-right:0px;
+}
+
+.sent_font {
+  font-size:30px;
+}
+
+.agw_analysis {
+height:800px;
+}
+
+#wc:hover #wc_border {
+  border-left:2px solid white;
+}
+
+#sent:hover #sent_border {
+  border-left:2px solid white;
+}
+
+#emotion:hover #emotion_border {
+  border-left:2px solid white;
+}
+
+
+
+#sent {
+padding-left:8px;
+  padding-right:8px;
+}
+</style>
+<!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <!-- Fengyuan Chen's Datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+
+
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+<div class="main">
+<div class="main_grid">
+
+
+<div class="side_bar">
+<div class="unselected">
+<a href='{% url 'word_count_general_og' %}'>Word Count</a>
+</div>
+<div class="unselected">
+<a href='{% url 'sentiment_newspaper' %}'>Sentiment</a>
+
+</div>
+<div class="unselected">
+<a href='{% url 'emotion_newspaper' %}'>Emotion</a>
+</div>
+
+
+<div class="selected">
+<a href='{% url 'date_search' %}'>Date</a>
+</div>
+
+<div class="unselected">
+ Analysis
+</div>
+
+</div>
+<div class="empty"></div>
+
+
+<div class="titles">
+
+<div class="date_card_title">
+{{header_date}}  <div class='choose'>Choose a Date:</div> <form id='date_submit' action="/date_search" method="GET" autocomplete="off"> {% csrf_token %} <input type="date" id="start" name="date" placeholder=''
+      
+       min="2020-01-25"> 
+            
+            </form>
+</div>
+
+
+<div class="date_card_title">
+
+</div>
+
+</div>
+
+
+<div class="empty"></div>
+<div class="headline_main">
+<div class="headline_container">
+
+<div class="headline_header_wrapper">
+<div class="headline_header_grid">
+<div class="nyt"><a href="https://www.nytimes.com/">The New York Times</a></div><div class="bbc"><a href="https://www.bbc.com/news">BBC News</a></div><div class="fox"><a href="https://www.foxnews.com/">FOX NEWS</a></div>
+</div>
+
+
+</div>
+<div class="article_grid_wrapper">
+<div class="article_grid">
+
+<div class="all_headlines">
+
+   
+            {% for headline in nytheadlines %} 
+   <a href="{{headline.link}}"><p class="headline_text">{{headline}}</p> </a>
+{% endfor %}
+            
+  
+          </div>
+
+          <div class="all_headlines">   
+            
+            {% for headline in bbcheadlines %} 
+            <a href="{{headline.link}}"><p class="headline_text">{{headline}}</p> </a>
+        {% endfor %}
+         
+     </div>
+          <div class="all_headlines">
+           {% for headline in fnheadlines %} 
+            <a href="{{headline.link}}"><p class="headline_text">{{headline}}</p> </a>
+         {% endfor %} </div>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="analysis_card">
+
+<div class="agw_analysis">
+
+        <div class="analysis_flex analysis_border">
+          
+            <div class="analysis_box" id='wc'><a href='/word_count_general_og'>Word Count</a><div  class='word_grid_container'>
+                <div id='wc_border' class="word_grid">
+                  <div class="analysis_text">
+                    <a href='/wc_search_compare_result_single/?csrfmiddlewaretoken={% csrf_token %}&compare1={{key1}}'>{{key1}}</a>
+                  </div>
+                  <div class="analysis_text num">{{freq1}}</div>
+                  <div class="analysis_text">
+                    <a href='/wc_search_compare_result_single/?csrfmiddlewaretoken={% csrf_token %}&compare1={{key2}}'>{{key2}}</a>
+                  </div>
+                  <div class="analysis_text num">{{freq2}}</div>
+                  <div class="analysis_text">
+                    <a href='/wc_search_compare_result_single/?csrfmiddlewaretoken={% csrf_token %}&compare1={{key3}}'>{{key3}}</a></div><div class="analysis_text num">{{freq3}}</div></div></div></div> 
+                   <a class='equal_flex' href='/sentiment_newspaper'> <div id='sent' class="analysis_box_sent analysis_box_bottom sent_font">Sentiment<div class="overall_sentiment sent_font">{{overall_score}}</div><div class='word_grid_container_sent'><div id='sent_border' class="word_grid"><div class="analysis_text sent_font_num">NYT </div><div class="sent_score num sent_font_num">{{ny_score}}</div><div class="analysis_text sent_font_num">BBC</div><div class="sent_score num sent_font_num">{{bbc_score}}</div><div class="analysis_text sent_font_num">Fox News</div><div class="sent_score sum sent_font_num">{{fn_score}}</div></div></div></div></a>
+                    <a class='equal_flex' href='/emotion_newspaper'><div id='emotion' class="analysis_box_bottom analysis_box_sent sent_font">Emotion<div class='word_grid_container'><div id='emotion_border' class="word_grid">
+      
+{% for x,y in emotion_display %}
+
+      <div class="analysis_text">{{x}}</div><div class="analysis_text num">{{y}}</div>
+
+{% endfor %}
+
+
+      
+      
+      </div></div></div></a></div>
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div class="empty"> </div>
+<div class="footer_copyright">
+<div class='footer_div'><a href='/about'>About</a></div>
+<div class='footer_div'>Contact: <a href='mailto:headlinecompare@hlcompare.com'>headlinecompare@hlcompare.com</a></div>
+<div class='footer_div'>© 2021 Headline Compare</div>
+</div>
+
+</div>
+</div>
+
+
+
+</body>
+<script>
+ $('#start').change(function(){
+        console.log('Submiting form');                
+        $('#date_submit').submit();
+      });
+
+</script>
+</html>

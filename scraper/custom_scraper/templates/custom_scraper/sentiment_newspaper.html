@@ -1,0 +1,3812 @@
+{% if cached %}
+     {% autoescape off %}
+    {{ html }}
+{% endautoescape %}
+    
+
+
+{% else %}
+
+
+{% load static %}
+
+<html>
+<head>
+<title>Analyze and Compare Newspaper Headline Sentiment: Headline Compare</title>
+<meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
+
+    <link rel="icon" href="{% static 'hcfav.png' %}"/>
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,900&display=swap" rel="stylesheet">
+
+ <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<style>
+body {
+ background-color: #f4f4f4;
+ width:100%;
+ margin:0;
+}
+
+ .header {
+ font-family:"Roboto";
+ font-size:30px;
+ font-weight:900;
+ text-align:center;
+ padding: 9px;
+ background:white;
+ width:100%;
+ margin:auto;
+ position:fixed;
+ z-index:100;
+ 
+ }
+
+ .header a{
+ text-decoration:none;
+ color:black;
+}
+.header a:hover{
+ text-decoration:underline;
+ color:black;
+}
+
+.header a:visited {
+ text-decoration:none;
+ color:black;
+}
+
+.main {
+ width:80%;
+ margin:auto;
+ font-family:"Roboto";
+ padding-top:53px;
+ text-align:center;
+ background-color:#f4f4f4;
+}
+.mostposgrid_single_line {
+      display:grid;
+      grid-template-columns:1fr;
+ 
+   }
+.main_grid {
+ display:grid;
+ grid-template-columns: 160px 11fr;
+ column-gap:10px;
+}
+
+.side_bar {
+ padding-top:200px;
+ position:fixed;
+ width:160px;
+}
+
+
+.unselected {
+ text-align:left;
+ padding:9px;
+
+}
+
+.selected {
+ text-align:left;
+ padding:9px;
+ font-weight:bold;
+ background-color:#3b3a3a;
+ color:white;
+ border-radius: 5px 5px 5px 5px;
+
+
+}
+
+.sub {
+ text-align:left;
+ padding-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+}
+
+.sub a {
+  color:black;
+  text-decoration:none;
+}
+
+.sub a:hover {
+  text-decoration:underline;
+}
+
+sub a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+.sub_selected {
+ 
+ text-align:left;
+ margin-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+ font-weight:bold;
+ font-size:22px;
+ 
+ 
+
+}
+
+.dash_title {
+ color:#292929;
+ font-size:40px;
+ font-weight:bold;
+ text-align:left;
+ position:relative;
+ padding-top:30px;
+ padding-left:23px;
+ height:40px;
+ padding-bottom:60px;
+}
+
+.switch {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:300px;
+ margin:auto;
+
+ padding-top:100px;
+ padding-bottom:40px;
+ 
+}
+
+.dash_button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 0px 0px 0px;
+ color:#919191;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 5px 0px 0px 5px;
+ color:black;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 5px 5px 0px;
+ color:#919191;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.header_grid {
+    display:grid;
+    grid-template-columns: 500px 500px;
+    
+}
+
+.np_selector {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:500px;
+ margin:auto;
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+
+ color:black;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ border-radius: 5px 0px 0px 5px;
+ 
+}
+
+.button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+ border-radius:0px 5px 5px 0px;
+ 
+ 
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+
+.All {
+font-size:30px;
+font-weight: bold;
+border: 1px solid #dbdbdb;
+
+}
+
+.NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+}
+
+.BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    color: white;
+}
+
+.FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+}
+
+.unselected_NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+  
+    color: white;
+    font-size:20px;
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+}
+
+.unselected_BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    background:#dbdbdb;
+    color: white;
+    font-size:25px;
+     background-color: transparent;
+        color:#919191;
+        background:#dbdbdb;
+}
+
+.unselected_FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    font-size:25px;
+     background-color: transparent;
+     background:#dbdbdb;
+        color:#919191;
+}
+
+.selector_wrapper {
+
+}
+
+.All1 {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+.All1 {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+.date_top_row {
+  display: grid;
+  grid-template-columns: 1fr;
+  height:270px;
+}
+
+.dash_card_wrapper {
+  background-color: #f4f4f4;
+  padding: 20px;
+  padding-top:40px;
+
+}
+.dash_card {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+
+}
+
+
+
+
+
+.dash_card_overall {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+
+
+}
+
+.dash_card_sb {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+    height:312px;
+}
+.card_title {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-40;
+  right:7px;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ 
+ 
+}
+
+.card_title_super {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-58;
+  right:7px;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ height:20px;
+ 
+}
+
+
+.card_title_second {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-60;
+  right:7px;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ 
+ 
+}
+
+
+
+
+.dash_bottom_row {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap:50px;
+}
+
+.dash_bottom_row_wrapper {
+  padding-top:90px;
+  padding-left:20px;
+  padding-right: 20px;
+  padding-bottom:2px;
+}
+
+.dash_card_wrapper_bottom {
+  background-color: #f4f4f4;
+ 
+
+}
+
+  .cal_legend {
+    display:grid;
+    grid-template-columns: 120px 100px;
+    align-items:center;
+    padding-bottom: 10px;
+    position:relative;
+    top:-10px;
+    column-gap:20px;
+   
+  }
+.caltitle {
+  color:#292929;
+  font-weight:bold;
+  
+  font-size:30px;
+  width:100px;
+
+
+
+}
+ .spec_grid {
+    display:grid;
+    grid-template-rows: 8px 8px;
+  }
+ 
+.spec_key {
+  background: rgb(103,0,31);
+background: linear-gradient(90deg, rgba(103,0,31,1) 0%, rgba(178,24,43,1) 10%, rgba(214,96,77,1) 20%, rgba(244,165,130,1) 30%, rgba(253,219,199,1) 40%, rgba(209,229,240,1) 50%, rgba(146,197,222,1) 60%, rgba(67,147,195,1) 70%, rgba(33,102,172,1) 80%, rgba(5,48,97,1) 90%);
+  width:100px;
+height:12px;
+  border-radius: 3px 3px 3px 3px;
+}
+ .legend_grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+       padding-top:2px;
+   
+  }
+ 
+  .spec_pos {
+    justify-self:end;
+    font-size:10px
+  }
+ 
+  .spec_neg {
+    justify-self:start;
+    font-size:10px;
+  }
+.calendar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap:1px;
+    row-gap: 1px;
+    margin:auto;
+   width: 100%;
+   max-width:500px;
+}
+.date_cell_link {
+  text-decoration:none;
+}
+.date_cell {
+    height:40px;
+    width:100%;
+    border-radius:2px;
+ 
+}
+
+.date{
+   
+    width:95%;
+    text-align:right;
+    color:white;
+    font-size:10px;
+   
+   
+}
+
+.sentiment {
+    height:100%;
+    text-align:center;
+    display:block;
+    margin:auto;
+}
+
+.zero {
+background-color: rgb(103,0,31);
+}
+
+.zero0 {
+color: rgb(103,0,31)!important;
+
+}
+
+.one {
+background-color: rgb(178,24,43);
+}
+
+.one1 {
+color: rgb(178,24,43)!important;
+
+}
+
+.two {
+background-color: rgb(214,96,77);
+
+}
+
+.two2 {
+color: rgb(214,96,77)!important;
+
+}
+
+.three{
+background-color: rgb(244,165,130);
+
+}
+
+.three3 {
+color: rgb(244,165,130)!important;
+
+}
+
+.four {
+background-color: rgb(253,219,199);
+
+}
+
+.four4 {
+color: rgb(253,219,199)!important;
+
+}
+
+.five {
+background-color: rgb(209,229,240);
+
+}
+
+.five5 {
+color: rgb(209,229,240)!important;
+
+}
+
+.six {
+background-color: rgb(146,197,222);
+
+}
+
+.six6 {
+color: rgb(146,197,222)!important;
+
+}
+
+.seven {
+background-color: rgb(67,147,195);
+
+}
+
+.seven7 {
+color: rgb(67,147,195)!important;
+
+}
+
+.eight {
+background-color: rgb(33,102,172);
+
+}
+
+.eight8 {
+color: rgb(33,102,172)!important;
+
+}
+
+.nine {
+background-color: rgb(5,48,97);
+
+}
+
+.nine9 {
+color: rgb(5,48,97)!important;
+
+}
+
+.gray {
+  background-color:whitesmoke;
+}
+
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+
+}
+
+
+.frame_wrapper {
+height:250px;
+overflow-y:auto;
+position:relative;
+top:-45;
+}
+
+.frame_wrapper_super {
+height:300px;
+overflow-y:auto;
+position:relative;
+top:-40;
+}
+
+
+
+.frame_wrapper_super_date {
+height:300px;
+overflow-y:auto;
+position:relative;
+top:-40;
+}
+
+
+
+.heading_wrapper {
+ position:relative;
+ top:-45;
+
+}
+
+
+.mostposgrid_heading_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ 
+ align-items:center;
+ font-size:15px;
+ font-weight:bold;
+ text-decoration:underline;
+ padding-bottom:7px;
+ 
+}
+
+.mostposgrid_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ 
+ align-items:center;
+
+}
+
+.mostposgrid_word_double {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+  border-bottom: 1px solid #f0f0f0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.mostposgrid_word_double a{
+text-decoration:none;
+color:black;
+}
+
+.mostposgrid_word_double a:hover{
+text-decoration:underline;
+color:black;
+}
+
+.mostposgrid_word_double a:visited{
+text-decoration:none;
+color:black;
+}
+
+.mostposgrid_word_double:hover {
+background:#f2f2f2;
+}
+
+
+
+.date_top_row_compare {
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:300px;
+}
+ .overall_avg {
+ margin:auto;
+ text-justify:center;
+ font-size: 100px;
+ position:relative;
+ top:52;
+ padding:20px;
+ font-weight:300;
+ border-left: 2px solid #f2f2f2;
+    width: 190px;
+    
+ }
+
+.date_top_row_dist {
+
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  height:300px;
+  padding-bottom:100px;
+  padding-top:100px;
+
+}
+
+.date_top_row_dist_top {
+
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  height:300px;
+  padding-bottom:100px;
+  padding-top:0px;
+
+}
+
+
+.dash_card_dist_second {
+
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+  height:90%;
+  padding-top:30px;
+
+}
+.dash_card_dist_second_super {
+
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+  height:320px;
+  padding-top:30px;
+
+}
+
+
+.dash_card_dist {
+
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+  height:325px;
+  
+}
+
+.dash_card_wrapper {
+  background-color: #f4f4f4;
+  padding: 20px;
+  padding-top:40px;
+
+}
+
+
+.pie {
+  position:relative;
+  top:-10px;
+  height:300px;
+  width:200px;
+  margin:auto;
+}
+
+.pie2 {
+  position:relative;
+  top:-10px;
+  height:350px;
+  width:320px;
+  margin:auto;
+}
+
+
+.date_top_row_dist_2 {
+
+ display:grid;
+  grid-template-columns:1fr 1fr;
+  height:380px;
+  padding-bottom:100px;
+  padding-top:40px;
+
+
+}
+
+.spacer {
+  height:20px;
+}
+
+.super {
+
+text-align:left;
+margin:left;
+padding-left:10px;  
+}
+
+.super a {
+color:black;
+text-decoration:none;
+}
+
+.super a:hover {
+  text-decoration:underline;
+}
+
+.super a:visited {
+  color:black;
+}
+
+
+.mostposgrid {
+  display:grid;
+  grid-template-columns: 1fr 60px 5fr 1fr;
+ 
+  align-items:center;
+  font-weight:normal;
+  font-size:15px;
+  row-gap:3px;
+        
+    border-bottom: 1px solid #f0f0f0;
+    padding-top:8px;
+    padding-bottom:8px;
+}
+
+
+.mostposgrid:hover {
+  background:#f2f2f2;
+
+}
+
+.mostposgrid_date {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+ 
+  align-items:center;
+  font-weight:normal;
+  font-size:16px;
+}
+
+.super_all_heading {
+  display: grid;
+    grid-template-columns: 1fr 60px 5fr 1fr;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 7px;
+    position:relative;
+    top: -40;
+box-shadow: 0 5px 2px -2px #f0f0f0;
+
+}
+
+
+
+.super_all_heading_date {
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 7px;
+    position:relative;
+    top: -40;
+box-shadow: 0 5px 2px -2px #f0f0f0;
+}
+
+
+
+
+
+.superlatives_grid {
+  display:grid;
+  grid-template-columns: 3fr 1fr;
+  height:900px;
+}
+
+.pos_color {
+
+      display: inline;
+    color: rgb(33,102,172);
+}
+
+.nyt_small {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+    font-size: 10px;
+    font-weight: 400;
+    border-radius: 4px;
+    margin: 1px;
+    line-height: 20px;
+    
+}
+
+.bbc_small {
+  font-family: "Lato";
+    background: #bb1919;
+    color: white;
+    border-radius: 4px;
+    margin: 1px;
+    font-size: 12px;
+    font-weight:900;
+    line-height: 20px;
+}
+.fn_small {
+  font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius: 4px;
+    margin: 1px;
+   
+    line-height: 20px;
+}
+
+.fn_small a{
+  text-decoration:none;
+  color:white;
+
+}
+.mostposgrid_date a {
+  text-decoration:none;
+  color:black;
+}
+.mostposgrid_date a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.score_link a {
+  text-decoration:none;
+  color:black;
+}
+
+.score_link a:hover {
+  text-decoration:none;
+  color:black;
+}
+
+.grid_date a {
+  text-decoration:none;
+  color:black;
+}
+
+.grid_date a:hover {
+  text-decoration:none;
+  color:black;
+}
+
+.grid_date a:hover .date_link a {
+  text-decoration:underline;
+  color:black;
+}
+
+.grid_date a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.date_link a:hover {
+  text-decoration:underline!important;
+}
+
+.fn_small a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.fn_small a:visited {
+  color:white;
+  
+
+}
+
+.bbc_small a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.bbc_small a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.bbc_small a:visited {
+  color:white;
+  
+
+}
+.nyt_small a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.nyt_small a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.nyt_small a:visited {
+  color:white;
+  
+
+}
+
+.score {
+
+  padding-left:28px;
+}
+
+.neg_color{
+  display:inline;
+  color:rgb(178,24,43);
+}
+
+.date_link {
+text-align:left;
+padding-left:10px;
+}
+
+.date_link2 {
+text-align:left;
+padding-left:40px;
+}
+
+.score_link {
+text-align:right;
+  padding-right:10px;
+}
+
+.header_score {
+  padding-right:25px;
+}
+
+.header_score2 {
+  padding-left:10px;
+  margin:auto;
+  padding-right:0px;
+}
+
+.date_link a{
+text-decoration:none;
+color:black;
+}
+
+.score_link a{
+
+  padding-left:24px;
+  color:black;
+  text-decoration:none;
+}
+
+
+.date_link a:hover{
+text-decoration:underline;
+
+}
+
+.score_link a:hover{
+
+ 
+  text-decoration:underline;
+}
+
+
+
+.date_link a:visited{
+color:black;
+
+}
+
+.score_link a:visited{
+
+ 
+  color:black;
+}
+
+.date_pos {
+
+}
+
+.date_pos a {
+  text-decoration:none;
+  color:black;
+}
+
+.date_pos a:hover{
+  text-decoration:underline;
+}
+
+.date_pos a:visited {
+  color:black;
+}
+
+.superlatives_triple {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  height:1300px;
+}
+
+
+.sentiment {
+  color:white;
+}
+.super_all_heading_word {
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 7px;
+    position: relative;
+    top: -40;
+    padding-right:15px;
+    box-shadow: 0 5px 2px -2px #f0f0f0;
+
+}
+
+#Distributiondiv0 {
+  display:none;
+}
+
+#Superlativesdiv0 {
+  display:none;
+}
+
+
+
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:50px;
+padding-bottom:50px;
+font-family:"Roboto";
+
+}
+
+.main_grid_footer {
+    display: grid;
+    grid-template-columns: 160px 11fr;
+    column-gap: 10px;
+    width:80%;
+    margin:auto;
+}
+
+.sent_by_date {
+  width:95%;
+  height:210px;
+}
+
+#ALL1 {
+  display:block;
+}
+
+#NYT1 {
+  display:none;
+}
+
+
+#BBC1 {
+  display:none;
+}
+
+#FN1 {
+  display:none;
+}
+
+
+#Distributiondiv1 {
+  display:none;
+}
+
+#Superlativesdiv1 {
+  display:none;
+}
+
+#Distributiondiv2 {
+  display:none;
+}
+
+#Superlativesdiv2 {
+  display:none;
+}
+
+
+#Distributiondiv3 {
+  display:none;
+}
+
+#Superlativesdiv3 {
+  display:none;
+}
+ 
+ .no_dec a{
+   text-decoration:none;
+   color:black;
+
+ }
+
+  .no_dec a:hover{
+   text-decoration:underline;
+   color:black;
+
+ }
+
+ .unselected a {
+   text-decoration:none;
+   color:black;
+ }
+
+ .unselected a:hover {
+   text-decoration:underline;
+   color:black;
+ }
+
+  .unselected a:visited {
+   text-decoration:none;
+   color:black;
+ }
+
+.cal_size {
+  height:312px;
+}
+
+.cal_container {
+  height: 240px;
+    display: flex;
+    justify-content: center;
+}
+
+.footer_div a {
+color:black;
+text-decoration:none;
+}
+
+.footer_div a:hover {
+color:black;
+text-decoration:underline;
+}
+.footer_div a:visited {
+color:black;
+text-decoration:none;
+}
+
+
+
+.line_spacer {
+  padding-top:3px;
+  padding-bottom:3px;
+}
+
+
+.frame_wrapper_super::-webkit-scrollbar {
+ width: 6px;
+  height: 8px;
+}
+
+.frame_wrapper_super::-webkit-scrollbar-thumb {
+ 
+  background:#f2f2f2;
+}
+
+.frame_wrapper_super_date::-webkit-scrollbar {
+ width: 6px;
+  height: 8px;
+}
+
+.frame_wrapper_super_date::-webkit-scrollbar-thumb {
+ 
+  background:#f2f2f2;
+}
+
+.grid_date {
+  display:grid;
+  grid-template-columns:1fr;
+
+}
+
+.mostposgrid_date {
+  border-bottom: 1px solid #f0f0f0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.mostposgrid_date:hover {
+    background:#f2f2f2;
+
+}
+
+.fr {
+  display:grid;
+  grid-template-columns:1fr;
+}
+
+
+</style>
+
+
+
+</head>
+
+
+<body>
+
+
+
+
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+
+<div class="main">
+
+<div class="main_grid">
+
+ <div class="empty"></div>
+
+
+<div class="side_bar">
+<div class="unselected">
+<a href='{% url 'word_count_general_og' %}'>Word Count</a></div>
+
+<div class="selected">
+Sentiment
+</div>
+<div class="sub_selected">
+By Newspaper
+</div>
+<div class="sub">
+<a href='{% url 'sentiment_compare' %}'>Compare Newspapers</a></div>
+<div class="sub">
+<a href='{% url 'sentiment_word_search' %}'>Word Search</a>
+</div>
+<div class="sub">
+<a href='{% url 'sent_compare_search' %}'>Word Compare</a>
+</div>
+
+
+<div class="unselected">
+<a href='{% url 'emotion_newspaper' %}'>Emotion</a></div>
+<div class="unselected">
+<a href='{% url 'date_search' %}'>Date</a>
+</div>
+
+<div class="unselected">
+ Analysis
+</div>
+
+</div>
+
+
+
+<div class="dash_title">Sentiment: By Newspaper
+<div class="selector_wrapper">
+<div class="np_selector">
+<button type="button" class="button_left All" id="All">All</button>
+
+ <button type="button" class="button_middle unselected_NYT" id="NYT">NYT</button>
+ <button type="button" class="button_middle unselected_BBC" id="BBC">BBC</button>
+
+   <button type="button" class="button_right unselected_FN" id="FN">FN</button>
+</div>
+</div>
+</div>
+
+<div class="empty1"></div>
+
+<div class="All1" id="ALL1">
+<div class="switch">
+<button type="button" class="dash_button_left" id="Date0">Date</button>
+
+ <button type="button" class="dash_button_middle" id="Distribution0">Distribution</button>
+   <button type="button" class="dash_button_right" id="Superlatives0">Superlatives</button>
+</div>
+
+
+<div class="All1Date" id="Datediv0">
+
+
+
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+<div class="sent_by_date">
+   {% autoescape off %}
+         {{ html_divosd }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+<div class="dash_bottom_row_wrapper">
+<div class="dash_bottom_row">
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card cal_size">
+  <div class="card_title">Sentiment Heat Map Calendar</div>
+  <div class="cal_legend">  
+  <div class="caltitle">{{this_month}}</div>
+    <div class="spec_grid"><div class="spec_key"> </div><div class="legend_grid"><div class="spec_neg">neg</div> <div class="spec_pos">pos</div> </div>
+    </div>
+  </div><div class='cal_container'>
+    <div class="calendar">
+
+{% for x, y, z, a, b, c, d, e in final_list %}
+   <a class="date_cell_link" href="/date_search/?date={{c}}-{{a}}-{{b}}"><div class="date_cell {{d}}"> <div class="date">{{z}}</div> <div class="sentiment {{e}}">{{y}}</div> </div></a>
+{% endfor %}
+
+    </div></div>
+
+</div>
+
+</div>
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card_sb">
+  <div class="card_title">Sentiment Breakdown by Month</div>
+ {% autoescape off %}
+         {{ html_div_fig_pn }}
+          {% endautoescape %}
+
+</div>
+
+
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div class="All1Distribution" id="Distributiondiv0">
+
+<div class='fr'>
+<div class="date_top_row_dist_top">
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title">Sentiment Breakdown</div>
+   <div class="pie pie_correct">{% autoescape off %}
+         {{ html_div_pie }}
+          {% endautoescape %}
+       </div>
+
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title" >Overall Average Sentiment</div>
+ <div class="overall_avg">{% autoescape off %}
+         {{ average_sent }}
+          {% endautoescape %}</div>
+
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title">Sentiment by Day of Week</div>
+ <div class="pie">{% autoescape off %}
+         {{ html_div_figdow }}
+          {% endautoescape %}</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<div class="date_top_row_dist_2">
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second">
+<div class="card_title_second">Sentiment Distribution</div>
+
+  <div class="pie2" >{% autoescape off %}
+         {{ fig_sent_hist_div }}
+          {% endautoescape %}</div>
+ 
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second">
+<div class="card_title_second">Sentiment by Headline Rank</div>
+
+<div class="pie2" id="dist_chart">{% autoescape off %}
+         {{ html_div_sent_hr }}
+          {% endautoescape %}</div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="All1Superlatives" id="Superlativesdiv0">
+<div class="superlatives_grid">
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Headlines </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+  <div class='mostposgrid_single_line'>  
+{% for x, y, z, a, b, c, d in positive %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{d}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}
+   </div>
+
+  
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Dates </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_date">
+<div class='date_link'>Date</div> <div class='score_link header_score'>Score </div> 
+
+</div>
+
+<div class="frame_wrapper_super_date">
+
+<div class='grid_date'>
+    
+    {% for x, y, z, a, b in top10list %}<a href ="/date_search/?date={{b}}-{{z}}-{{a}}"><div class="mostposgrid_date">
+   <div class="date_link line_spacer">{{z}}/{{a}}/{{b}}</div> <div class="score_link">{{y}}</div>
+ </div></a>{% endfor %}
+   
+</div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Headlines </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+  <div class='mostposgrid_single_line'>  
+{% for x, y, z, a, b, c, d in negative %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{d}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}
+   </div>
+
+  
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Dates </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_date">
+<div class='date_link'>Date</div> <div class='score_link header_score'>Score </div> 
+
+</div>
+
+<div class="frame_wrapper_super_date">
+
+<div class='grid_date'>
+    
+    {% for x, y, z, a, b in bottom10list %}<a href ="/date_search/?date={{b}}-{{z}}-{{a}}"><div class="mostposgrid_date">
+   <div class="date_link line_spacer">{{z}}/{{a}}/{{b}}</div> <div class="score_link">{{y}}</div>
+ </div></a>{% endfor %}
+   
+</div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="superlatives_triple">
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Words</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_overall %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Words</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in worst_overall %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >People</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in best_people %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Place</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_places %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Political</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_political %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Economic</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_economic %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Coronavirus</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_corona %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Race/Policing</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_rp %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+<div class="NYT1" id="NYT1">
+<div class="switch">
+<button type="button" class="dash_button_left" id="Date1">Date</button>
+
+ <button type="button" class="dash_button_middle" id="Distribution1">Distribution</button>
+   <button type="button" class="dash_button_right" id="Superlatives1">Superlatives</button>
+</div>
+
+
+<div class="All1Date" id="Datediv1">
+
+
+
+
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+<div class="sent_by_date">
+   {% autoescape off %}
+         {{ html_divosd_nyt }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+<div class="dash_bottom_row_wrapper">
+<div class="dash_bottom_row">
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card cal_size">
+  <div class="card_title">Sentiment Heat Map Calendar</div>
+  <div class="cal_legend">  
+  <div class="caltitle">{{this_month}}</div>
+    <div class="spec_grid"><div class="spec_key"> </div><div class="legend_grid"><div class="spec_neg">neg</div> <div class="spec_pos">pos</div> </div>
+    </div>
+  </div><div class='cal_container'>
+    <div class="calendar">
+
+{% for x, y, z, a, b, c, d, e in final_list_nyt %}
+   <a class="date_cell_link" href="/date_search/?date={{c}}-{{a}}-{{b}}"><div class="date_cell {{d}}"> <div class="date">{{z}}</div> <div class="sentiment {{e}}">{{y}}</div> </div></a>
+{% endfor %}
+
+
+    </div></div>
+
+</div>
+
+</div>
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card_sb">
+  <div class="card_title">Sentiment Breakdown by Month</div>
+ {% autoescape off %}
+         {{ html_div_fig_pn_nyt }}
+          {% endautoescape %}
+
+</div>
+
+
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div class="All1Distribution" id="Distributiondiv1">
+
+
+<div class="date_top_row_dist_top">
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title">Sentiment Breakdown</div>
+   <div class="pie pie_correct">{% autoescape off %}
+         {{ html_div_pie_nyt }}
+          {% endautoescape %}
+       </div>
+
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title" >Overall Average Sentiment</div>
+ <div class="overall_avg">{% autoescape off %}
+         {{ average_sent_nyt }}
+          {% endautoescape %}</div>
+
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title">Sentiment by Day of Week</div>
+ <div class="pie">{% autoescape off %}
+         {{ html_div_figdow_nyt }}
+          {% endautoescape %}</div>
+
+</div>
+
+</div>
+</div>
+
+<div class="date_top_row_dist_2">
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second">
+<div class="card_title_second">Sentiment Distribution</div>
+
+  <div class="pie2" >{% autoescape off %}
+         {{ fig_sent_hist_div_nyt }}
+          {% endautoescape %}</div>
+ 
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second">
+<div class="card_title_second">Sentiment by Headline Rank</div>
+
+<div class="pie2" id="dist_chart">{% autoescape off %}
+         {{ html_div_sent_hr_nyt }}
+          {% endautoescape %}</div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="All1Superlatives" id="Superlativesdiv1">
+<div class="superlatives_grid">
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Headlines </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+  <div class='mostposgrid_single_line'>  
+{% for x, y, z, a, b, c, d in positive_nyt %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{d}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}
+   </div>
+
+  
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Dates </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_date">
+<div class='date_link'>Date</div> <div class='score_link header_score'>Score </div> 
+
+</div>
+
+<div class="frame_wrapper_super_date">
+
+<div class='grid_date'>
+    
+    {% for x, y, z, a, b in top10list_nyt %}<a href ="/date_search/?date={{b}}-{{z}}-{{a}}"><div class="mostposgrid_date">
+   <div class="date_link line_spacer">{{z}}/{{a}}/{{b}}</div> <div class="score_link">{{y}}</div>
+ </div></a>{% endfor %}
+   
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Headlines </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+  <div class='mostposgrid_single_line'>  
+{% for x, y, z, a, b, c, d in negative_nyt %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{d}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}
+   </div>
+
+  
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Dates </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_date">
+<div class='date_link'>Date</div> <div class='score_link header_score'>Score </div> 
+
+</div>
+
+<div class="frame_wrapper_super_date">
+
+<div class='grid_date'>
+    
+    {% for x, y, z, a, b in bottom10list_nyt %}<a href ="/date_search/?date={{b}}-{{z}}-{{a}}"><div class="mostposgrid_date">
+   <div class="date_link line_spacer">{{z}}/{{a}}/{{b}}</div> <div class="score_link">{{y}}</div>
+ </div></a>{% endfor %}
+   
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="superlatives_triple">
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Words</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_overall_nyt %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Words</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in worst_overall_nyt %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >People</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in best_people_nyt %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Place</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_places_nyt %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Political</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_political_nyt %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Economic</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_economic_nyt %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Coronavirus</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_corona_nyt %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Race/Policing</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_rp_nyt %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+<div class="BBC1" id="BBC1">
+<div class="switch">
+<button type="button" class="dash_button_left" id="Date2">Date</button>
+
+ <button type="button" class="dash_button_middle" id="Distribution2">Distribution</button>
+   <button type="button" class="dash_button_right" id="Superlatives2">Superlatives</button>
+</div>
+
+
+<div class="All1Date" id="Datediv2">
+
+
+
+
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+<div class="sent_by_date">
+   {% autoescape off %}
+         {{ html_divosd_bbc }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+<div class="dash_bottom_row_wrapper">
+<div class="dash_bottom_row">
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card cal_size">
+  <div class="card_title">Sentiment Heat Map Calendar</div>
+  <div class="cal_legend">  
+  <div class="caltitle">{{this_month}}</div>
+    <div class="spec_grid"><div class="spec_key"> </div><div class="legend_grid"><div class="spec_neg">neg</div> <div class="spec_pos">pos</div> </div>
+    </div>
+  </div><div class='cal_container'>
+    <div class="calendar">
+
+{% for x, y, z, a, b, c, d, e in final_list_bbc %}
+   <a class="date_cell_link" href="/date_search/?date={{c}}-{{a}}-{{b}}"><div class="date_cell {{d}}"> <div class="date">{{z}}</div> <div class="sentiment {{e}}">{{y}}</div> </div></a>
+{% endfor %}
+
+
+    </div></div>
+
+</div>
+
+</div>
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card_sb">
+  <div class="card_title">Sentiment Breakdown by Month</div>
+ {% autoescape off %}
+         {{ html_div_fig_pn_bbc }}
+          {% endautoescape %}
+
+</div>
+
+
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div class="All1Distribution" id="Distributiondiv2">
+
+
+<div class="date_top_row_dist_top">
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title">Sentiment Breakdown</div>
+   <div class="pie pie_correct">{% autoescape off %}
+         {{ html_div_pie_bbc }}
+          {% endautoescape %}
+       </div>
+
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title" >Overall Average Sentiment</div>
+ <div class="overall_avg">{% autoescape off %}
+         {{ average_sent_bbc }}
+          {% endautoescape %}</div>
+
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title">Sentiment by Day of Week</div>
+ <div class="pie">{% autoescape off %}
+         {{ html_div_figdow_bbc }}
+          {% endautoescape %}</div>
+
+</div>
+
+</div>
+</div>
+
+<div class="date_top_row_dist_2">
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second">
+<div class="card_title_second">Sentiment Distribution</div>
+
+  <div class="pie2" >{% autoescape off %}
+         {{ fig_sent_hist_div_bbc }}
+          {% endautoescape %}</div>
+ 
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second">
+<div class="card_title_second">Sentiment by Headline Rank</div>
+
+<div class="pie2" id="dist_chart">{% autoescape off %}
+         {{ html_div_sent_hr_bbc }}
+          {% endautoescape %}</div>
+</div>
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="All1Superlatives" id="Superlativesdiv2">
+<div class="superlatives_grid">
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Headlines </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+  <div class='mostposgrid_single_line'>  
+{% for x, y, z, a, b, c, d in positive_bbc %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{d}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}
+   </div>
+
+  
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Dates </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_date">
+<div class='date_link'>Date</div> <div class='score_link header_score'>Score </div> 
+
+</div>
+
+<div class="frame_wrapper_super_date">
+
+<div class='grid_date'>
+    
+    {% for x, y, z, a, b in top10list_bbc %}<a href ="/date_search/?date={{b}}-{{z}}-{{a}}"><div class="mostposgrid_date">
+   <div class="date_link line_spacer">{{z}}/{{a}}/{{b}}</div> <div class="score_link">{{y}}</div>
+ </div></a>{% endfor %}
+   
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Headlines </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+  <div class='mostposgrid_single_line'>  
+{% for x, y, z, a, b, c, d in negative_bbc %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{d}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}
+   </div>
+
+  
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Dates </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_date">
+<div class='date_link'>Date</div> <div class='score_link header_score'>Score </div> 
+
+</div>
+
+<div class="frame_wrapper_super_date">
+
+<div class='grid_date'>
+    
+    {% for x, y, z, a, b in bottom10list_bbc %}<a href ="/date_search/?date={{b}}-{{z}}-{{a}}"><div class="mostposgrid_date">
+   <div class="date_link line_spacer">{{z}}/{{a}}/{{b}}</div> <div class="score_link">{{y}}</div>
+ </div></a>{% endfor %}
+   
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="superlatives_triple">
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Words</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_overall_bbc %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Words</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in worst_overall_bbc %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >People</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in best_people_bbc %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Place</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_places_bbc %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Political</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_political_bbc %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Economic</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_economic_bbc %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Coronavirus</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_corona_bbc %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Race/Policing</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_rp_bbc %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+<div class="FN1" id="FN1">
+<div class="switch">
+<button type="button" class="dash_button_left" id="Date3">Date</button>
+
+ <button type="button" class="dash_button_middle" id="Distribution3">Distribution</button>
+   <button type="button" class="dash_button_right" id="Superlatives3">Superlatives</button>
+</div>
+
+
+<div class="All1Date" id="Datediv3">
+
+
+
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+<div class="sent_by_date">
+   {% autoescape off %}
+         {{ html_divosd_fn }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+<div class="dash_bottom_row_wrapper">
+<div class="dash_bottom_row">
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card cal_size">
+  <div class="card_title">Sentiment Heat Map Calendar</div>
+  <div class="cal_legend">  
+  <div class="caltitle">{{this_month}}</div>
+    <div class="spec_grid"><div class="spec_key"> </div><div class="legend_grid"><div class="spec_neg">neg</div> <div class="spec_pos">pos</div> </div>
+    </div>
+  </div>
+    <div class="calendar">
+
+{% for x, y, z, a, b, c, d, e in final_list_fn %}
+   <a class="date_cell_link" href="/date_search/?date={{c}}-{{a}}-{{b}}"><div class="date_cell {{d}}"> <div class="date">{{z}}</div> <div class="sentiment {{e}}">{{y}}</div> </div></a>
+{% endfor %}
+
+
+    </div>
+
+</div>
+
+</div>
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card_sb">
+  <div class="card_title">Sentiment Breakdown by Month</div>
+ {% autoescape off %}
+         {{ html_div_fig_pn_fn }}
+          {% endautoescape %}
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="All1Distribution" id="Distributiondiv3">
+
+<div class="date_top_row_dist_top">
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title">Sentiment Breakdown</div>
+   <div class="pie pie_correct">{% autoescape off %}
+         {{ html_div_pie_fn }}
+          {% endautoescape %}
+       </div>
+
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title" >Overall Average Sentiment</div>
+ <div class="overall_avg">{% autoescape off %}
+         {{ average_sent_fn }}
+          {% endautoescape %}</div>
+
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card_dist">
+<div class="card_title">Sentiment by Day of Week</div>
+ <div class="pie">{% autoescape off %}
+         {{ html_div_figdow_fn }}
+          {% endautoescape %}</div>
+
+</div>
+
+</div>
+</div>
+
+<div class="date_top_row_dist_2">
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second">
+<div class="card_title_second">Sentiment Distribution</div>
+
+  <div class="pie2" >{% autoescape off %}
+         {{ fig_sent_hist_div_fn }}
+          {% endautoescape %}</div>
+ 
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second">
+<div class="card_title_second">Sentiment by Headline Rank</div>
+
+<div class="pie2" id="dist_chart">{% autoescape off %}
+         {{ html_div_sent_hr_fn }}
+          {% endautoescape %}</div>
+</div>
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="All1Superlatives" id="Superlativesdiv3">
+<div class="superlatives_grid">
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Headlines </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+  <div class='mostposgrid_single_line'>  
+{% for x, y, z, a, b, c, d in positive_fn %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{d}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}
+   </div>
+
+  
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Dates </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_date">
+<div class='date_link'>Date</div> <div class='score_link header_score'>Score </div> 
+
+</div>
+
+<div class="frame_wrapper_super_date">
+
+<div class='grid_date'>
+    
+    {% for x, y, z, a, b in top10list_fn %}<a href ="/date_search/?date={{b}}-{{z}}-{{a}}"><div class="mostposgrid_date">
+   <div class="date_link line_spacer">{{z}}/{{a}}/{{b}}</div> <div class="score_link">{{y}}</div>
+ </div></a>{% endfor %}
+   
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Headlines </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+  <div class='mostposgrid_single_line'>  
+{% for x, y, z, a, b, c, d in negative_fn %}<div class="mostposgrid">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{d}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}
+   </div>
+
+  
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Dates </div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_date">
+<div class='date_link'>Date</div> <div class='score_link header_score'>Score </div> 
+
+</div>
+
+<div class="frame_wrapper_super_date">
+
+<div class='grid_date'>
+    
+    {% for x, y, z, a, b in bottom10list_fn %}<a href ="/date_search/?date={{b}}-{{z}}-{{a}}"><div class="mostposgrid_date">
+   <div class="date_link line_spacer">{{z}}/{{a}}/{{b}}</div> <div class="score_link">{{y}}</div>
+ </div></a>{% endfor %}
+   
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="superlatives_triple">
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="pos_color">Positive</div> Words</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_overall_fn %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Most <div class="neg_color">Negative</div> Words</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in worst_overall_fn %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >People</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in best_people_fn %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Place</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_places_fn %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Political</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div>Word</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_political_fn %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Economic</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_economic_fn %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Coronavirus</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_corona_fn %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card_dist_second_super">
+<div class="card_title_super" >Race/Policing</div>
+<div class="super_all_heading_wrapper">
+<div class="super_all_heading_word">
+<div class='date_link2'>Word</div> <div class='score_link header_score2'>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super">
+
+    <div class='grid_date'>
+{% for x, y, z in top_rp_fn %}<a href='/sentiment_word_search_result/?word_count={{x}}'><div class="mostposgrid_word_double">
+   <div class='date_link2 line_spacer'>{{x}}</div><div>{{z}}</div>
+  </div></a>{% endfor %}
+  </div>
+
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+
+
+
+</div>
+</div>
+
+<div class="main_grid_footer">
+<div class="empty"> </div>
+
+<div class="footer_copyright">
+<div class='footer_div'><a href='/about'>About</a></div>
+<div class='footer_div'>Contact: <a href='mailto:headlinecompare@hlcompare.com'>headlinecompare@hlcompare.com</a></div>
+<div class='footer_div'>© 2021 Headline Compare</div>
+</div><div class="empty"> </div>
+
+
+
+</div>
+</div>
+ <script>
+var first_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[0].id
+var second_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[1].id
+
+var third_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[2].id
+var fourth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[3].id
+var fifth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[4].id
+var sixth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[5].id
+var seventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[6].id
+var eigth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[7].id
+var ninth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[8].id
+var tenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[9].id
+var eleventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[10].id
+
+var twelfth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[11].id
+var thirteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[12].id
+var fourteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[13].id
+
+var fifteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[14].id
+var sixteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[15].id
+var seventeenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[16].id
+var eightteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[17].id
+var nineteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[18].id
+var twentieth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[19].id
+var twentyone_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[20].id
+var twentytwo_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[21].id
+var twentythree_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[22].id
+var twentyfour_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[23].id
+
+
+ </script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+ $("#Distribution0").click(function(){
+ 
+ 
+  $("#Datediv0").css('display','none')
+  $("#Distributiondiv0").css('display','block')
+  $("#Superlativesdiv0").css('display','none')
+
+  Plotly.relayout(third_graph_id, {autosize: true})
+  Plotly.relayout(fourth_graph_id, {autosize: true})
+  Plotly.relayout(fifth_graph_id, {autosize: true})
+  Plotly.relayout(sixth_graph_id, {autosize: true})
+
+ $('#Date0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution0').css({"background-color":"#fafafa","color":"black"})
+ $('#Superlatives0').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+ $("#Date0").click(function(){
+ 
+ 
+  $("#Datediv0").css('display','block')
+  $("#Distributiondiv0").css('display','none')
+  $("#Superlativesdiv0").css('display','none')
+
+  Plotly.relayout(first_graph_id, {autosize: true})
+  Plotly.relayout(second_graph_id, {autosize: true})
+  
+
+ $('#Date0').css({"background-color":"#fafafa","color":"black"})
+ $('#Distribution0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Superlatives0').css({"color":"#919191", "background-color":"transparent"})
+
+ }
+ )
+
+$("#Superlatives0").click(function(){
+ 
+ 
+  $("#Datediv0").css('display','none')
+  $("#Distributiondiv0").css('display','none')
+  $("#Superlativesdiv0").css('display','block')
+
+
+
+ $('#Date0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Superlatives0').css({"background-color":"#fafafa","color":"black"})
+
+ }
+ )
+
+
+$("#NYT").click(function(){
+ 
+ 
+  $("#ALL1").css('display','none')
+  $("#NYT1").css('display','block')
+  $("#BBC1").css('display','none')
+  $("#FN1").css('display','none')
+
+ 
+
+  $('#All').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#NYT').css({"color":"white", "background-color":"transparent", "background": '#2d2e30'})
+  $('#BBC').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+    $('#FN').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+
+
+
+
+  Plotly.relayout(seventh_graph_id, {autosize: true})
+  Plotly.relayout(eigth_graph_id, {autosize: true})
+   
+ 
+
+ }
+
+)
+
+
+$("#BBC").click(function(){
+ 
+ 
+  $("#ALL1").css('display','none')
+  $("#NYT1").css('display','none')
+  $("#BBC1").css('display','block')
+  $("#FN1").css('display','none')
+
+ 
+
+  $('#All').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#NYT').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#BBC').css({"color":"white", "background-color":"transparent", "background": '#bb1919'})
+    $('#FN').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+
+
+  Plotly.relayout(thirteenth_graph_id, {autosize: true})
+  Plotly.relayout(fourteenth_graph_id, {autosize: true})
+   
+ 
+ }
+
+)
+
+
+
+$("#All").click(function(){
+ 
+ 
+  $("#ALL1").css('display','block')
+  $("#NYT1").css('display','none')
+   $("#BBC1").css('display','none')
+   $("#FN1").css('display','none')
+
+
+  $('#All').css({"color":"black", "background-color":"transparent", "background": 'white'})
+  $('#NYT').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+    $('#BBC').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#FN').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+
+
+
+  Plotly.relayout(first_graph_id, {autosize: true})
+  Plotly.relayout(second_graph_id, {autosize: true})
+   
+ 
+
+ }
+
+)
+
+ $("#Date1").click(function(){
+ 
+ 
+  $("#Datediv1").css('display','block')
+  $("#Distributiondiv1").css('display','none')
+  $("#Superlativesdiv1").css('display','none')
+
+  Plotly.relayout(seventh_graph_id, {autosize: true})
+  Plotly.relayout(eigth_graph_id, {autosize: true})
+  
+
+ $('#Date1').css({"background-color":"#fafafa","color":"black"})
+ $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Superlatives1').css({"color":"#919191", "background-color":"transparent"})
+
+ }
+ )
+
+ $("#Distribution1").click(function(){
+ 
+ 
+  $("#Datediv1").css('display','none')
+  $("#Distributiondiv1").css('display','block')
+  $("#Superlativesdiv1").css('display','none')
+
+  Plotly.relayout(ninth_graph_id, {autosize: true})
+  Plotly.relayout(tenth_graph_id, {autosize: true})
+  Plotly.relayout(eleventh_graph_id, {autosize: true})
+  Plotly.relayout(twelfth_graph_id, {autosize: true})
+
+ $('#Date1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution1').css({"background-color":"#fafafa","color":"black"})
+ $('#Superlatives1').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+$("#Superlatives1").click(function(){
+ 
+ 
+  $("#Datediv1").css('display','none')
+  $("#Distributiondiv1").css('display','none')
+  $("#Superlativesdiv1").css('display','block')
+
+
+  
+
+ $('#Date1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+ $('#Superlatives1').css({"background-color":"#fafafa","color":"black"})
+
+ }
+ )
+
+
+
+
+ $("#Date2").click(function(){
+ 
+ 
+  $("#Datediv2").css('display','block')
+  $("#Distributiondiv2").css('display','none')
+  $("#Superlativesdiv2").css('display','none')
+
+  Plotly.relayout(thirteenth_graph_id, {autosize: true})
+  Plotly.relayout(fourteenth_graph_id, {autosize: true})
+  
+
+ $('#Date2').css({"background-color":"#fafafa","color":"black"})
+ $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Superlatives2').css({"color":"#919191", "background-color":"transparent"})
+
+ }
+ )
+
+ $("#Distribution2").click(function(){
+ 
+ 
+  $("#Datediv2").css('display','none')
+  $("#Distributiondiv2").css('display','block')
+  $("#Superlativesdiv2").css('display','none')
+
+  Plotly.relayout(fifteenth_graph_id, {autosize: true})
+  Plotly.relayout(sixteenth_graph_id, {autosize: true})
+  Plotly.relayout(seventeenth_graph_id, {autosize: true})
+  Plotly.relayout(eightteenth_graph_id, {autosize: true})
+
+ $('#Date2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution2').css({"background-color":"#fafafa","color":"black"})
+ $('#Superlatives2').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+$("#Superlatives2").click(function(){
+ 
+ 
+  $("#Datediv2").css('display','none')
+  $("#Distributiondiv2").css('display','none')
+  $("#Superlativesdiv2").css('display','block')
+
+
+
+ $('#Date2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+ $('#Superlatives2').css({"background-color":"#fafafa","color":"black"})
+
+ }
+ )
+
+$("#FN").click(function(){
+ 
+ 
+  $("#ALL1").css('display','none')
+  $("#NYT1").css('display','none')
+  $("#BBC1").css('display','none')
+  $("#FN1").css('display','block')
+ 
+
+  $('#All').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#NYT').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#BBC').css({"color":"#919191", "background-color":"transparent", "background": '#dbdbdb'})
+  $('#FN').css({"color":"white", "background-color":"transparent", "background": 'rgba(0,51,102,.99)'})
+
+  Plotly.relayout(nineteenth_graph_id, {autosize: true})
+  Plotly.relayout(twentieth_graph_id, {autosize: true})
+   
+ 
+
+
+
+ }
+
+)
+
+
+
+
+
+
+$("#Date3").click(function(){
+ 
+ 
+  $("#Datediv3").css('display','block')
+  $("#Distributiondiv3").css('display','none')
+  $("#Superlativesdiv3").css('display','none')
+
+  Plotly.relayout(nineteenth_graph_id, {autosize: true})
+  Plotly.relayout(twentieth_graph_id, {autosize: true})
+  
+
+ $('#Date3').css({"background-color":"#fafafa","color":"black"})
+ $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Superlatives3').css({"color":"#919191", "background-color":"transparent"})
+
+ }
+ )
+
+ $("#Distribution3").click(function(){
+ 
+ 
+  $("#Datediv3").css('display','none')
+  $("#Distributiondiv3").css('display','block')
+  $("#Superlativesdiv3").css('display','none')
+
+  Plotly.relayout(twentyone_graph_id, {autosize: true})
+  Plotly.relayout(twentytwo_graph_id, {autosize: true})
+  Plotly.relayout(twentythree_graph_id, {autosize: true})
+  Plotly.relayout(twentyfour_graph_id, {autosize: true})
+
+ $('#Date3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution3').css({"background-color":"#fafafa","color":"black"})
+ $('#Superlatives3').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+$("#Superlatives3").click(function(){
+ 
+ 
+  $("#Datediv3").css('display','none')
+  $("#Distributiondiv3").css('display','none')
+  $("#Superlativesdiv3").css('display','block')
+
+
+  
+
+ $('#Date3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+ $('#Superlatives3').css({"background-color":"#fafafa","color":"black"})
+
+ }
+ )
+
+}
+)
+
+</script>
+
+</body>
+{% endif %}

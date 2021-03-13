@@ -1,0 +1,1186 @@
+{% load static %}
+
+
+   
+<head>
+<title>Headline Compare: Analyze and Compare Newspaper Sites | About</title>
+<meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+ <link rel="icon" href="{% static 'hcfav.png' %}"/>
+<style>
+body {
+ background-color: #f4f4f4;
+ width:100%;
+ margin:0;
+}
+
+ .header {
+ font-family:"Roboto";
+ font-size:30px;
+ font-weight:900;
+ text-align:center;
+ padding: 9px;
+ background:white;
+ width:100%;
+ margin:auto;
+ position:fixed;
+ z-index:100;
+ 
+ }
+
+ .header a{
+ text-decoration:none;
+ color:black;
+}
+.header a:hover{
+ text-decoration:underline;
+ color:black;
+}
+
+.header a:visited {
+ text-decoration:none;
+ color:black;
+}
+
+.main {
+ width:80%;
+ margin:auto;
+ font-family:"Roboto";
+ padding-top:53px;
+ text-align:center;
+ background-color:#f4f4f4;
+}
+
+.main_grid {
+ display:grid;
+ grid-template-columns: 160px 11fr;
+ column-gap:10px;
+}
+
+.side_bar {
+ padding-top:200px;
+ position:fixed;
+ width:160px;
+}
+
+
+.unselected {
+ text-align:left;
+ padding:9px;
+
+}
+
+.selected {
+ text-align:left;
+ padding:9px;
+ font-weight:bold;
+ background-color:#3b3a3a;
+ color:white;
+ border-radius: 5px 5px 5px 5px;
+
+
+}
+
+.sub {
+ text-align:left;
+ padding-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+}
+
+.sub a {
+  color:black;
+  text-decoration:none;
+}
+
+.sub a:hover {
+  text-decoration:underline;
+}
+
+sub a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+.sub_selected {
+ 
+ text-align:left;
+ margin-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+ font-weight:bold;
+ font-size:22px;
+ 
+ 
+
+}
+
+.dash_title {
+ color:#292929;
+ font-size:40px;
+ font-weight:bold;
+ text-align:left;
+ position:relative;
+ padding-top:30px;
+ padding-left:23px;
+ height:40px;
+
+}
+
+
+
+  input[type="submit"] {
+         
+         font-size: 14px;
+         font-family: "Roboto";
+         width:80px;
+        color:black;
+        background:whitesmoke;
+        border-radius:5px;
+        padding:10px;
+
+     }
+
+     input[type="text"] {
+       padding:10px;
+       font-size: 14px;
+      
+     }
+
+     .search {
+       width:70%;
+       margin:auto;
+       padding-bottom:10px;
+     }
+
+
+
+.dash_card_wrapper {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+
+}
+
+
+.dash_card {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+}
+
+.card_title {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-40;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+.spacer {
+    height:22px;
+}
+
+.move_down {
+  position:relative;
+  top:10px;
+}
+
+.search_smaller {
+  display:inline-block;
+  
+ 
+}
+
+form {
+  position:relative;
+  top:-10px;
+  left:20px;
+}
+
+.key_word {
+  font-size:80px;
+  font-weight:bold;
+  padding-top: 38px;
+}
+
+.switch {
+ display:grid;
+ grid-template-columns:  1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:390px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.switch_overall {
+ display:grid;
+ grid-template-columns:  1fr 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:520px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.dash_button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 0px 0px 0px;
+ color:#919191;
+ width:130px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 5px 0px 0px 5px;
+ color:black;
+ width:130px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 5px 5px 0px;
+ color:#919191;
+ width:130px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+
+
+
+
+
+
+.np_selector {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+ height:30px;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+
+ color:black;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ border-radius: 5px 0px 0px 5px;
+ 
+}
+
+.button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+ border-radius:0px 5px 5px 0px;
+ 
+ 
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+
+.Compare {
+font-size:21px;
+font-weight: bold;
+border: 1px solid #dbdbdb;
+
+}
+
+
+.Overall {
+font-size:21px;
+font-weight: bold;
+border: 1px solid #dbdbdb;
+
+}
+
+.NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+}
+
+.BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    color: white;
+}
+
+.FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+}
+
+
+.unselected_Compare {
+  
+    background: #2d2e30;
+  
+  
+   
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+}
+
+
+
+.unselected_Overall {
+  
+    background: #2d2e30;
+  
+    font-size:21px;
+   
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+        font-weight:bold;
+}
+
+
+
+.unselected_NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+  
+    color: white;
+    font-size:20px;
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+        padding-top:4px;
+}
+
+.unselected_BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    background:#dbdbdb;
+    color: white;
+    font-size:25px;
+     background-color: transparent;
+        color:#919191;
+        background:#dbdbdb;
+}
+
+.unselected_FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    font-size:25px;
+     background-color: transparent;
+     background:#dbdbdb;
+        color:#919191;
+}
+
+.selector_wrapper {
+  margin:auto;
+}
+
+.Copmare_main {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+.date_top_row {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:408px;
+}
+
+
+.date_top_row_first {
+ display: grid;
+ grid-template-columns: 1fr 4fr;
+ height:450px;
+}
+
+
+
+.date_top_row_ah {
+ display: grid;
+ grid-template-columns: 1fr;
+
+}
+.dash_card_wrapper {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+
+}
+
+.dash_card {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+}
+
+.card_title {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-40;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+.date_top_row2 {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:380px;
+ padding-top:50px;
+}
+
+.date_top_row2_overall {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:380px;
+ padding-top:0px;
+}
+
+.main_grid_footer {
+    display: grid;
+    grid-template-columns: 160px 11fr;
+    column-gap: 10px;
+}
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+font-family:"Roboto";
+
+}
+
+
+.date_top_row_superlatives_word {
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:600px;
+}
+.dash_card_wrapper_super {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:80px;
+
+}
+.dash_card_left_super {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding-bottom:0px;
+ height:540px;
+}
+
+.card_title_super {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-65;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+
+ 
+ 
+}
+.word_heading_nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:24px;
+  font-weight:400;
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  flex:1;
+  line-height:40px;
+  margin:auto;
+  padding-right:1px;
+  width:170px;
+  margin-bottom:5px;
+ width:100%;
+ position:relative;
+ top:-60;
+}
+.mostposgrid_heading_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+ font-size:15px;
+ font-weight:bold;
+ text-decoration:underline;
+ padding-bottom:7px;
+ position:relative;
+ top: -55px;
+}
+
+.mostposgrid_heading_word_right {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+ font-size:15px;
+ font-weight:bold;
+ text-decoration:underline;
+ padding-bottom:7px;
+ position:relative;
+ top: -40px;
+
+}
+
+
+
+.frame_wrapper_left {
+height:500px;
+overflow-y:auto;
+position:relative;
+top:-60;
+}
+.mostposgrid_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr ;
+ 
+ align-items:center;
+}
+
+.dash_card_super {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+ height:520px;
+}
+.word_heading_bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  font-size: 25px;
+  flex:1;
+   line-height:40px;
+   justify:center;
+   
+   width:170px;
+   margin:auto;
+   width:100%;
+   position:relative;
+ top:-50;
+ right:10;
+ padding-right:10px;
+ padding-left:10px;
+}
+
+.word_heading_fn {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  flex:1;
+  line-height:40px;
+  font-size:25px;
+  width:170px;
+  
+  margin:auto;
+  width:100%;
+ position:relative;
+ top:-50;
+ right:10px;
+ padding-right:10px;
+ padding-left:10px;
+}
+
+.frame_wrapper {
+height:500px;
+overflow-y:auto;
+position:relative;
+top:-45;
+}
+
+.frame_wrapper_large {
+height:700px;
+overflow-y:auto;
+position:relative;
+top:15;
+}
+
+.date_cell_link {
+  color:black;
+  text-decoration:none;
+
+}
+
+.date_cell_link:visited {
+  color:black;
+  text-decoration:none;
+  
+}
+
+.date_cell_link:hover {
+  text-decoration:underline;
+  
+}
+#Relatedwordsdiv0 {
+  display:none;
+}
+
+#Distributiondiv0 {
+  display:none;
+}
+
+#Allheadlinesdiv0 {
+  display:none;
+}
+
+
+
+#Relatedwordsdiv1 {
+  display:none;
+}
+
+#Distributiondiv1 {
+  display:none;
+}
+
+#Allheadlinesdiv1 {
+  display:none;
+}
+
+
+
+
+#Relatedwordsdiv2 {
+  display:none;
+}
+
+#Distributiondiv2 {
+  display:none;
+}
+
+#Allheadlinesdiv2 {
+  display:none;
+}
+
+
+
+#Relatedwordsdiv3 {
+  display:none;
+}
+
+#Distributiondiv3 {
+  display:none;
+}
+
+#Allheadlinesdiv3 {
+  display:none;
+}
+
+
+#Relatedwordsdiv4 {
+  display:none;
+}
+
+#Distributiondiv4 {
+  display:none;
+}
+
+#Allheadlinesdiv4 {
+  display:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.ah_heading_wrapper {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width:100%;
+  height:52px;
+}
+
+
+.ah_fn {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:0px 4px 0px 0px;
+  margin:1px;
+  line-height:40px;
+  font-size:25px;
+  width:170px;
+
+  width:100%;
+
+  line-height:52px;
+}
+
+
+.ah_bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  
+  margin:1px;
+  font-size: 25px;
+ 
+   line-height:40px;
+   justify:center;
+   
+   width:170px;
+  
+   width:100%;
+   line-height:52px;
+
+}
+
+
+.ah_nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:24px;
+  font-weight:400;
+  border-radius:4px 0px 0px 0px;
+  margin:1px;
+  
+  line-height:40px;
+ 
+ 
+  width:170px;
+ 
+ width:100%;
+   line-height:52px;
+  
+}
+
+.news_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.headline_grid_object {
+  padding:40px;
+  border-radius: 5px;
+
+}
+
+ 
+}
+
+.date_grid_object {
+  font-size:12px;
+}
+.sentiment {
+  padding:0px;
+  margin:0px;
+}
+
+.green {
+  
+  background: rgb(223,231,225);
+background: linear-gradient(0deg, rgba(223,231,225,1) 0%, rgba(162,231,206,1) 100%);
+border-radius: 5px;
+
+}
+
+.green a:visited{
+  color:black;
+}
+.green a:link {
+  color:black;
+}
+
+.green a:hover {
+  color:black;
+}
+
+.red {
+ 
+  color:black;
+background: rgb(249,104,104);
+background: linear-gradient(0deg, rgba(249,104,104,1) 0%, rgba(218,4,33,1) 100%);
+border-radius: 5px;
+}
+
+.red a:visited{
+  color:black;
+}
+.red a:link {
+  color:black;
+}
+
+.red a:hover {
+  color:black;
+}
+
+a {
+  color:black;
+  text-decoration:none;
+}
+
+a:hover {
+  text-decoration:underline;
+}
+
+a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+
+#Overallsection {
+  display:none;
+}
+
+#NYTsection {
+  display:none;
+}
+
+#BBCsection {
+  display:none;
+}
+#FNsection {
+  display:none;
+}
+
+.average_paper {
+  font-size:80px;
+  font-weight:bold;
+  height:280px;
+  margin:auto;
+  line-height:300px;
+  position:relative;
+  top:-40;
+}
+
+.orw {
+  display:grid;
+  grid-template-columns: 1fr 900px 1fr;
+}
+
+.orw_title {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows:40px;
+}
+
+.orw_nyt {
+   font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+    font-size: 17px;
+    
+    border-radius: 4px;
+    margin: 1px;
+    line-height: 20px;
+    padding-top:2px;
+
+}
+
+.orw_bbc {
+  font-family: "Lato";
+    background: #bb1919;
+    color: white;
+     border-radius: 4px;
+    margin: 1px;
+    font-size: 20px;
+    font-weight:900;
+    line-height: 20px;
+
+}
+
+.orw_fn {
+  font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius: 4px;
+    margin: 1px;
+    font-size:20px;
+    line-height: 20px;
+}
+
+.orw_heading {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+
+.orw_heading_framed {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  margin-right:-15px;
+}
+.orw_word {
+  font-size:17px;
+  font-weight:bold;
+  text-decoration:underline;
+}
+
+.heading_container {
+  display:grid;
+  grid-template-columns:3fr 1fr 1fr 1fr 2fr;
+}
+
+
+.frame_wrapper_orw {
+    height: 500px;
+    overflow-y: auto;
+    position: relative;
+    top: 5;
+
+}
+.orw_grid {
+  font-size:15px;
+}
+
+.section_head {
+    font-size:30px;
+    font-weight:bold;
+    padding-top:60px;
+}
+
+.orw_double {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+
+         
+ .error_message {
+     size: 20px;
+     padding-top:50px;
+ } 
+
+ p {
+     text-align:left;
+ } 
+ .email {
+     text-align:center;
+ }
+
+ .section_head_second {
+     text-align:left;
+     font-weight:bold;
+     font-size:25px;
+     padding-top:60px;
+ }
+
+ .back {
+ }
+
+ .article_link {
+     text-decoration:underline;
+ }
+
+ .point_list {
+     text-align:left;
+     padding-bottom:5px;
+ }
+</style>
+</head>
+
+
+<body>
+
+
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+
+<div class="main">
+
+<div class="main_grid">
+
+ <div class="empty"></div>
+<div class="side_bar">
+<div class="unselected">
+<a href='{% url 'word_count_general_og' %}'>Word Count</a>
+</div>
+<div class="unselected">
+<a href='{% url 'sentiment_newspaper' %}'>Sentiment</a>
+</div>
+
+<div class="unselected">
+<a href='{% url 'emotion_newspaper' %}'>Emotion</a></div>
+
+<div class="unselected">
+<a href='{% url 'date_search' %}'>Date</a>
+</div>
+<div class="unselected">
+Analysis</div>
+
+
+
+
+</div>
+
+
+<div class="dash_title">About Headline Compare
+</div>
+<div class='empty'></div>
+<div class='back'>
+<div class='section_head'>
+Contact
+</div>
+<p class='email'>
+<a href='mailto:headlinecompare@hlcompare.com'>headlinecompare@hlcompare.com</a>
+</p>
+
+
+<div class='section_head_second'>
+Purpose
+</div>
+<!--
+<p>Perception of the world is in part determined by news. And when people read news, they read headlines.</p>
+<p>Therefore, headlines influence perception of the world. Headlines are, to those who read them, reality.</p>
+<p>However, the perspectives, points-of-view and subjects represented in headlines vary across newspapers. This variation can create conflicting realities.</p>
+<p>People require tools to compare the perspectives, points of view and subjects represented by different newspapers, so that they can develop for themselves a more accurate perception of the larger world. A more accurate perception of the world allows people to more clearly discern the world's issues and decide how to interpret, prioritize and approach them.</p>
+-->
+<p>Headline Compare is a set of tools allowing the user to compare headlines across newspaper websites:</p>
+
+
+<ul class='point_list'>
+  <li>an accessible record of headlines by newspaper and date</li>
+  <li>visual analysis and comparison of headlines by date, word count, sentiment and emotion</li>
+  <li>word searching of headlines with visual analysis by date, word count, sentiment and emotion</li>
+
+</ul> 
+<p>Through these tools the user can better understand how events, topics, terms and people are represented by each newspaper.</p>
+
+
+
+
+<div class='section_head_second'>
+Data
+</div>
+<p>The Headline Compare database is a record of headlines from The New York Times, BBC News and Fox News websites.</p>
+
+<p>The database starts January 25, 2020. There are currently no headline records before that date.</p>
+
+
+<p>Comparisons are limited to the first 25 headlines of each day. </p>
+
+<p>The database and analysis code are a work in progress and may contain errors and inconsistencies.</p>    
+
+<div class='section_head_second'>
+Sentiment</div>
+<p>
+Sentiment analysis uses <a class='article_link' href='https://textblob.readthedocs.io/en/dev/index.html'>TextBlob</a>.</p> 
+<p>Sentiment analysis assigns a score (-100 to 100) indicating positive or negative sentiment.</p> 
+
+<p>Sentiment analysis is imperfect. Many headlines do not register a sentiment score. Sentiment analysis generally does not detect or misinterprets irony and sarcasm.</p> 
+
+<p>However, aggregate sentiment analysis may indicate a newspaper's general sentiment and its sentiment relative to other newspapers. Sentiment analysis also may identify differences in the contexts in which terms are used across newspapers.
+</p>
+
+<div class='section_head_second'>
+Emotion</div>
+<p>
+<p>Emotion analysis uses the <a class='article_link' href='https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons'>NRC Emotion Lexicon</a>.</p>
+<p>Headlines are marked with an emotion score if they contain a word that indicates that emotion according to the NRC Emotion Lexicon.</p> 
+<p>Aggregate emotion analysis may indicate how a newspaper uses words associated with specific emotions, both generally and relative to other newspapers.
+</p>
+</div>
+</div>
+</div>
+<div class="main_grid_footer">
+<div class="empty"> </div>
+<div class="footer_copyright">
+© 2021 Headline Compare
+{% block content %}{% endblock %}
+</div>
+</div>

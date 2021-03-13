@@ -1,0 +1,433 @@
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<style>
+ .top_bar {
+    position:fixed;
+    width:100%;
+    z-index:99999;
+    margin-top:-8px;
+  }
+    .header {
+    font-family:"Roboto";
+    font-size:30px;
+    font-weight:900;
+    text-align:center;
+    padding-bottom: 7px;
+    
+    background:white;
+    width:85%;
+    margin:auto;
+    
+  }
+
+  .header a{
+  text-decoration:none;
+  color:black;
+}
+.header a:hover{
+  text-decoration:underline;
+  color:black;
+}  
+
+.header a:visited {
+  text-decoration:none;
+  color:black;
+}
+.navbar {
+  padding-left:20px;
+  padding-right:20px;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  font-size:15px;
+  font-weight: normal;
+  font-family:"Roboto";
+  border-top:3px solid black;
+  border-bottom: 1px solid gray;
+  padding-top:3px;
+  padding-bottom:3px;
+  width:80%;
+  margin:auto;
+  background-color:white;
+}
+
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+      
+}
+
+ .nav a {
+  text-decoration:none;
+  color:black;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+
+.nav a:visited {
+  color:black;
+}
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+      
+}
+
+.main {
+    width:80%;
+    margin:auto;
+    font-family:"Roboto";
+    padding-top: 100px;
+    text-align:center;
+}
+
+.main_title {
+    font-size:50px;
+    font-weight:bold;
+
+}
+
+.main_grid {
+    display:grid;
+    grid-template-columns: 2fr 11fr;
+    column-gap:10px;
+}
+.chart {
+  height:500px;
+  z-index:99;
+  padding-bottom:50px;
+  padding-top:50px;
+}
+
+.overall_avg {
+
+    font-size: 200px;
+    margin:auto;
+    padding:30px;
+    font-weight:bold;
+}
+
+.no_chart_title {
+    font-size: 21px;
+    padding-left:55px;
+    text-align:left;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+   
+}
+.date_cell {
+    height:100px;
+    width:100%;
+ 
+}
+
+.date{
+    
+    width:95%;
+    text-align:right;
+    
+    
+}
+
+.sentiment {
+    height:100%;
+    text-align:center;
+    display:block;
+    margin:auto;
+}
+
+.day {
+    text-align:center;
+    font-weight:bold;
+}
+
+.green1 {
+background-color:#86c48d;
+
+
+
+}
+.green2 {
+background-color:#5db066;
+}
+
+.green3 {
+background-color:#0c8a19;
+}
+
+.red1 {
+background-color:#f78b8b;
+}
+
+.red2 {
+background-color:#f55353;
+}
+
+.red3 {
+  background-color:#e60000;
+}
+
+.green01 {
+color:#86c48d;
+
+
+
+}
+.green02 {
+color:#5db066;
+}
+
+.green03 {
+color:#0c8a19;
+}
+
+.red01 {
+color:#f78b8b;
+}
+
+.red02 {
+color:#f55353;
+}
+
+.red03 {
+  color:#e60000;
+}
+
+.gray {
+  background-color:#ebe8e8;
+}
+
+.top10 {
+  
+  display:grid;
+  grid-template-columns: 75% 25%;
+  font-size:20px;
+}
+
+.grid1 {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.top10grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.date_grid {
+  display:grid;
+  grid-template-columns: 75% 25%;
+}
+
+.frame_wrapper {
+height:700px;
+overflow-y:auto;
+}
+
+.mostposgrid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 5fr 1fr;
+}
+
+.footer {
+  height:100px;
+}
+</style>
+<script>
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+    //Do work
+
+
+  var psentiment = document.getElementsByClassName("sentiment");
+  var cell = document.getElementsByClassName("date_cell")
+  
+  for (a = psentiment.length-1; a >= 0; a--){
+    console.log(psentiment[a].innerHTML)
+    if(psentiment[a].innerHTML > 0 && psentiment[a].innerHTML <= 5 ){
+      console.log(psentiment[a].innerHTML);
+      cell[a].classList.add("green1");
+      psentiment[a].classList.add("green01");
+    }
+    else if(psentiment[a].innerHTML > 5 && psentiment[a].innerHTML <= 8 ){
+      cell[a].classList.add("green2");
+      psentiment[a].classList.add("green02");
+    }
+    else if(psentiment[a].innerHTML > 8){
+      cell[a].classList.add("green3");
+      psentiment[a].classList.add("green03");
+    }
+    else if(psentiment[a].innerHTML < 0 && psentiment[a].innerHTML > -3 ){
+      cell[a].classList.add("red1");
+      psentiment[a].classList.add("red01");
+    }
+    else if(psentiment[a].innerHTML <= -3 && psentiment[a].innerHTML > -6 ){
+      cell[a].classList.add("red2");
+      psentiment[a].classList.add("red02");
+
+    }
+    else if(psentiment[a].innerHTML <= -6){
+      cell[a].classList.add("red3");
+      psentiment[a].classList.add("red03");
+
+    }
+    else if(psentiment[a].innerHTML == ''){
+      cell[a].classList.add("gray")
+    }
+  };
+});
+
+</script>
+
+
+
+</head>
+
+<body>
+<div class="top_bar"><div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+  <div class="navbar"><div class="nav"><a href=WordCount>Word Count</a></div><div class="nav_current"><a href=Sentiment_Main>Sentiment</a></div><div class="nav">Phrase Count</div><div class="nav">Country Count</div><div class="nav">Headline Priority</div> <div class="nav">Deltas</div><div class="nav">Date</div></div></div>
+
+<div class="main">
+<div class="main_grid">
+    <div class="empty"> </div>
+    <div class="main_title">
+    Overall Sentiment
+    </div>
+      <div class="empty"> </div>
+
+    <div class="chart">
+      {% autoescape off %}
+         {{ html_divosd }}
+          {% endautoescape %}
+    </div>
+    <div class="empty"> </div>
+
+    <div class="chart">
+      {% autoescape off %}
+         {{ html_divos }}
+          {% endautoescape %}
+    </div>
+    <div class="empty">
+    </div>
+    <div class="chart">
+        <div class="no_chart_title">
+        Overall Average Sentiment
+        </div>
+        <div class="overall_avg">
+        {{average_sent}}
+        </div>
+    </div>
+    <div class="empty"></div>
+    <div class="chart">
+     {% autoescape off %}
+         {{ html_div_sent_hr }}
+          {% endautoescape %}
+    </div>
+    <div class="empty"></div>
+    <div class="chart">
+     <div class="no_chart_title">
+        Overall Sentiment Breakdown        </div>
+       {% autoescape off %}
+         {{ html_div_pie }}
+          {% endautoescape %}
+
+    </div>
+    <div class="empty"></div>
+    <div class="chart">
+     {% autoescape off %}
+         {{ fig_sent_hist_div }}
+          {% endautoescape %}
+    </div>
+    <div class="empty"> </div>
+    <div class="calendar">
+    <div class="day">Sun </div> <div class="day">Mon </div> <div class="day"> Tue</div> <div class="day">Wed </div> <div class="day">Thurs</div> <div class="day">Fri </div> <div class="day">Sat </div>
+{% for x, y, z in final_list %}
+   <div class="date_cell"> <div class="date">{{z}}</div> <div class="sentiment">{{y}}</div> </div>
+{% endfor %}
+
+    </div>
+    <div class="empty"></div>
+    <div class="chart">
+     {% autoescape off %}
+         {{ html_div_fig_pn }}
+          {% endautoescape %}
+
+    </div>
+     <div class="empty"></div>
+    <div class="chart">
+     {% autoescape off %}
+         {{ html_div_figdow }}
+          {% endautoescape %}
+
+    </div>
+
+
+
+    <div class="empty"></div>
+
+    <div class="grid1">
+    <div class="top10grid">
+    {% for x, y, z, a, b in top10list %}
+   <div class="date_grid"><a href ="/date_search/?date={{z}}%2F{{a}}%2F{{b}}">{{x}}</a> <a href="/date_search/?date={{z}}%2F{{a}}%2F{{b}}">{{y}}</a></div>
+{% endfor %}
+
+
+    </div>
+    <div class="top10grid"> 
+     {% for x, y, z, a, b in bottom10list %}
+      <div class="date_grid"><a href ="/date_search/?date={{z}}%2F{{a}}%2F{{b}}">{{x}}</a> <a href="/date_search/?date={{z}}%2F{{a}}%2F{{b}}">{{y}}</a></div>
+
+{% endfor %}
+    
+    </div>
+
+    </div>
+    <div class="empty"></div>
+    <div class="frame_wrapper">
+    <div class="mostposgrid">
+{% for x, y, z, a in positive %}
+   <div>{{x}}</div><div>{{y}}</div><div>{{z}}</div><div>{{a}}</div>
+{% endfor %}
+    </div>
+
+
+    </div>
+       <div class="empty"></div>
+    <div class="frame_wrapper">
+    <div class="mostposgrid">
+{% for x, y, z, a in negative %}
+   <div>{{x}}</div><div>{{y}}</div><div>{{z}}</div><div>{{a}}</div>
+{% endfor %}
+    </div>
+    
+
+    </div>
+
+<div class="footer"> test </div>
+
+</div>
+
+
+
+
+</body>
+</html>

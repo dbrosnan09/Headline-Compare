@@ -1,0 +1,19 @@
+wc cooccurrence
+
+left 
+left align
+bold 
+color timeuntil
+
+right
+lighter font
+left align
+right justify numbers
+
+
+borders
+no borders alternate colors
+
+
+wc reading level etc bold numbers
+make smaller, lighter font

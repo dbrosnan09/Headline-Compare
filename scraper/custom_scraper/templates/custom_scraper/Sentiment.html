@@ -1,0 +1,201 @@
+<html> 
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+<style>
+.sent_heat_grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    padding:30px;
+    
+
+}
+body {
+  font-family:"Roboto";
+}
+.invisible {
+   background-color:gray;
+  
+}
+
+.green1 {
+background-color:#86c48d;
+
+
+}
+.green2 {
+background-color:#5db066;
+}
+
+.green3 {
+background-color:#0c8a19;
+}
+
+.red1 {
+background-color:#f78b8b;
+}
+
+.red2 {
+background-color:#f55353;
+}
+
+.red3 {
+  background-color:#e60000;
+}
+.compare_grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  width:1000px;
+  height:500px;
+ 
+}
+ .top_bar {
+    position:fixed;
+    width:100%;
+  }
+    .header {
+    font-family:"Roboto";
+    font-size:30px;
+    font-weight:900;
+    text-align:center;
+    padding-bottom: 7px;
+    
+    background:white;
+    width:80%;
+    margin:auto;
+    
+  }
+
+  .header a{
+  text-decoration:none;
+  color:black;
+}
+.header a:hover{
+  text-decoration:underline;
+  color:black;
+}  
+
+.header a:visited {
+  text-decoration:none;
+  color:black;
+}
+.navbar {
+  padding-left:20px;
+  padding-right:20px;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  font-size:15px;
+  font-weight: normal;
+  font-family:"Roboto";
+  border-top:3px solid black;
+  border-bottom: 1px solid gray;
+  padding-top:3px;
+  padding-bottom:3px;
+  width:80%;
+  margin:auto;
+}
+
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+      
+}
+
+ .nav a {
+  text-decoration:none;
+  color:black;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+
+.nav a:visited {
+  color:black;
+}
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+      
+}
+
+.main {
+  padding-top:200px;
+  width:80%;
+  margin:auto;
+}
+</style>
+<script>
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+    //Do work
+
+
+  var psentiment = document.getElementsByClassName("invisible");
+  
+  
+  for (a = psentiment.length-1; a >= 0; a--){
+    console.log(psentiment[a].innerHTML)
+    if(psentiment[a].innerHTML > 0 && psentiment[a].innerHTML <= 5 ){
+      console.log(psentiment[a].innerHTML);
+      psentiment[a].className = "green1";
+    }
+    else if(psentiment[a].innerHTML > 5 && psentiment[a].innerHTML <= 8 ){
+      psentiment[a].className = "green2";
+    }
+    else if(psentiment[a].innerHTML > 8){
+      psentiment[a].className = "green3";
+    }
+    else if(psentiment[a].innerHTML < 0 && psentiment[a].innerHTML > -3 ){
+      psentiment[a].className = "red1";
+    }
+    else if(psentiment[a].innerHTML <= -3 && psentiment[a].innerHTML > -6 ){
+      psentiment[a].className = "red2";
+    }
+    else if(psentiment[a].innerHTML <= -6){
+      psentiment[a].className = "red3";
+    }
+  };
+});
+
+</script>
+</head>
+<body>
+<div class="top_bar"><div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+  <div class="navbar"><div class="nav"><a href=WordCount>Word Count</a></div><div class="nav_current"><a href=Sentiment_Main>Sentiment Score</a></div><div class="nav">Phrase Count</div><div class="nav">Country Count</div><div class="nav">Headline Priority</div> <div class="nav">Deltas</div><div class="nav">Date</div></div></div>
+  
+<div class="main">
+
+<div class="compare_grid">
+<div class="sent_heat_grid">
+
+
+{% for x, y, z in final_may_list %}
+   <div class="invisible"> {{y}} </div>
+{% endfor %}
+
+
+</div>
+<div class="sent_heat_grid">
+
+{% for x, y, z in final_may_list_fn %}
+   <div class="invisible"> {{y}} </div>
+{% endfor %}
+
+
+</div>
+</div>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,445 @@
+<html>
+    <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya:900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Carrois+Gothic&display=swap" rel="stylesheet">
+    <style>
+
+.navbar-fixed-top {
+ 
+ position: fixed;
+ 
+ right: 0;
+ top: 0;
+ 
+ left: 0;
+ 
+ z-index: 999;
+ 
+ 
+ 
+ 
+ 
+ }
+ .navbar-fixed-top:after {
+    content: ""; /* This is necessary for the pseudo element to work. */
+    display: block; /* This will put the pseudo element on its own line. */
+    margin: 0 auto; /* This will center the border. */
+    width: 100%; /* Change this to whatever width you want. */
+    padding-top: 0px; /* This creates some space between the element and the border. */
+    border-bottom: 2px solid black; /* This creates the border. Replace black with whatever color you want. */
+}
+
+.topdate {
+     
+     top:200;
+     font-size:50px;
+     font-family: "Alegreya";
+      text-align: center;
+      padding-top:48px;
+      padding-bottom: 8px;
+      z-index:998;
+      font-weight: 900;
+      padding-right:44px;
+     
+   }
+   .navbar-fixed-date {
+ 
+ position: fixed;
+ 
+ right: 0;
+ top: 0;
+ 
+ left: 0;
+ 
+ z-index: 998;
+ 
+ background-color: white;
+ 
+ 
+ }
+ .navbar-fixed-date:after {
+    content: ""; /* This is necessary for the pseudo element to work. */
+    display: block; /* This will put the pseudo element on its own line. */
+    margin: 0 auto; /* This will center the border. */
+    width: 80%; /* Change this to whatever width you want. */
+    padding-top: 0px; /* This creates some space between the element and the border. */
+    border-bottom: 1px solid black; /* This creates the border. Replace black with whatever color you want. */
+}
+
+ img {
+     max-width:100%;
+     height: 400px;
+     border-radius:10px;
+
+ }
+ h1 {
+     font-family:'Alegreya';
+     text-align:left;
+     
+     margin: 8px;
+     margin-left: 20px;
+     font-size: 20px;
+    text-align: left;
+    padding-right:52px;
+   }
+
+   .bottomhalf {
+       position:absolute;
+       top:150;
+       height:900px;
+       
+       z-index:997;
+       background-color:white;
+       text-align:center;
+     font-family: "Carrois Gothic";
+     font-size: 100px;
+     font-weight:bold;
+     left:0;
+     right:0;
+     padding-left:120px;
+     padding-right:120px;
+     
+     
+     }
+
+     input[type="submit"] {
+         background-color: whitesmoke;
+         font-size: 25px;
+         font-family: "Alegreya";
+         font-weight: bold;
+        padding: 10px;
+     }
+     input[type="text"]{
+         height: 60px;
+         width: 200px;
+         font-size: 25px;
+         font-family: "Alegreya";
+
+     }
+     label[for="id_word_count"] {
+         display: none;
+     }
+
+     input[type=text] {
+  transition: width 0.4s ease-in-out;
+  outline: 0;
+}
+
+
+.words {
+  font-family: "Alegreya";
+  font-weight: normal;
+  font-size:30px;
+}
+.dataflex{
+       display:flex;
+       font-family: "Roboto Condensed";
+       justify-content:center;
+       padding-top:0px;
+       flex-wrap: wrap;
+       flex-direction:column;
+       
+     
+     }
+.title {
+    font-family: 'Alegreya';
+    font-size: 30px;
+    text-justify: center;
+    font-weight:500;
+    padding-right:40px;
+    text-decoration: underline;
+}
+
+a:link {
+   text-decoration: none;
+   color:black;
+ }
+
+ a:visited {
+
+    color:black;
+ }
+ a:hover {
+     text-decoration:underline;
+ }
+
+ .searchcontainer {
+     display:flex;
+     
+     margin: 0px;
+    
+     padding-left: 0px;
+     flex-direction:column;
+     justify-content: center;
+     align-items:center;
+     
+ }
+
+ .searchbox {
+     padding-left: 60px;
+     padding-right: 60px;
+     padding-bottom:40px;
+     height:150px;
+ }
+
+ .searchboxor {
+     padding-left: 60px;
+     padding-right: 60px;
+     font-size: 30px;
+     font-family: "Alegreya";
+  font-weight: bold;
+ }
+
+form {
+    padding-top:10px;
+}
+
+.bottomhalf2 {
+       position:absolute;
+       top:500;
+       height:2200px;
+       
+       z-index:997;
+       background-color:white;
+       text-align:center;
+     font-family: "Carrois Gothic";
+     font-size: 100px;
+     font-weight:bold;
+     left:0;
+     right:0;
+     padding-left:120px;
+     padding-right:120px;
+     
+     
+     }
+
+.bottomhalf2:before {
+    content: ""; /* This is necessary for the pseudo element to work. */
+    display: block; /* This will put the pseudo element on its own line. */
+    margin: 0 auto; /* This will center the border. */
+    width: 80%; /* Change this to whatever width you want. */
+    padding-top: 25px; /* This creates some space between the element and the border. */
+    padding-bottom:5px;
+    border-bottom: 2px solid black; /* This creates the border. Replace black with whatever color you want. */
+}
+
+.dataflex2{
+       display:flex;
+       font-family: "Carrois Gothic";
+       justify-content:center;
+       padding-top:30px;
+       flex-wrap: wrap;
+       flex-direction:column;
+       align-items:center;
+}
+.datarow{
+       display:flex;
+       font-family: "Carrois Gothic";
+       justify-content:center;
+       
+       flex-wrap: wrap;
+       align-items:center;
+       
+     
+     }
+
+     .sentimentanalysis {
+      font-size:30px;
+      
+      padding:100px;
+      flex-grow:1;
+      margin:7px;
+      border-radius:10px;
+      box-shadow: 2px 2px 2px 2px #aaa;
+       font-family: "Alegreya";
+       font-weight: bold;
+       
+      
+     
+    }
+
+   .sentimentanalysis a:visited {
+   text-decoration: none;
+   color:black;
+ }
+
+ .grid_words {
+     display: grid;
+     grid-template-columns: 3fr 1fr 1fr 1fr;
+     font-size: 22px;
+
+ }
+
+ .grid_words input {
+    background: none;
+  border: none;
+  
+  padding:0px;
+  cursor: pointer;
+  
+  
+ }
+
+ .grid_words input:hover {
+     text-decoration:underline;
+ }
+
+ .grid_words input:visited {
+
+color:black;
+}
+
+ .grid_words form {
+     padding:0px;
+     margin:0px;
+     font-size: 22px;
+ }
+    </style></head>
+<body>
+
+
+        <div class="navbar-fixed-top">
+            <h1>
+             <a href={% url 'mainpage' %}>Headline Compare </a>
+           
+            </h1>
+            
+        </div>
+        <div class="navbar-fixed-date"><div class="topdate">Sentiment Score</div> </div>
+
+    
+        <div class="bottomhalf">
+             <div class="dataflex">
+   <div class="title">
+       Daily Average Sentiment by Newspaper
+   </div>
+
+<div>
+    {% autoescape off %}
+    {{ html_div4 }}
+{% endautoescape %}
+</div>
+        </div>
+
+        <div class="bottomhalf2">
+ 
+            <div class="dataflex2">
+            <div class="datarow">
+            
+            
+            <div class="sentimentanalysis">
+              <div class="subtitle">
+             Search By Term:
+              </div>
+              
+              
+                <div class="individualgradeflex">
+              
+                <form action="/sentiment_word/" method="GET">
+                    {% csrf_token %}
+                    {{form1}}
+                     <input type="submit" value="Search">
+                     
+                     </form>
+                     </div>
+                     </div>
+      
+                     <div class="sentimentanalysis">
+                        <div class="subtitle">
+                       Search By Date:
+                        </div>
+                        
+                        
+                          <div class="individualgradeflex">
+                            <form action="/sentiment_date/" method="GET">
+                                {% csrf_token %}
+                                {{form2}}
+                                 <input type="submit" value="Search">
+                                 
+                                 </form>
+                          
+                               </div>
+                               </div>
+
+                               <div class="sentimentanalysis">
+                                <div class="subtitle">
+                               Most Positive Words by Newspaper
+                                </div>
+                                
+                                
+                                  
+                                    
+                                    <div class="grid_words">
+                                    <div> The New York Times</div>
+                                    <div> <form action="/word_count/" method="GET">   <input type="hidden" name="word_count" value="{{nyttop1}}"> <input type="submit" value="{{nyttop1}}"></form></div>
+                                    <div> <form action="/word_count/" method="GET">   <input type="hidden" name="word_count" value="{{nyttop2}}"> <input type="submit" value="{{nyttop2}}"></form></div>
+                                    <div> <form action="/word_count/" method="GET">   <input type="hidden" name="word_count" value="{{nyttop3}}"> <input type="submit" value="{{nyttop3}}"></form></div>
+                                      <div>BBC</div>
+                                      <div> <form action="/word_count/" method="GET">   <input type="hidden" name="word_count" value="{{bbctop1}}"> <input type="submit" value="{{bbctop1}}"></form></div>
+                                      <div> <form action="/word_count/" method="GET">   <input type="hidden" name="word_count" value="{{bbctop2}}"> <input type="submit" value="{{bbctop2}}"></form></div>
+                                      <div> <form action="/word_count/" method="GET">   <input type="hidden" name="word_count" value="{{bbctop3}}"> <input type="submit" value="{{bbctop3}}"></form></div>
+<div>Fox News</div>
+<div> <form action="/word_count/" method="GET">   <input type="hidden" name="word_count" value="{{fntop1}}"> <input type="submit" value="{{fntop1}}"></form></div>
+<div> <form action="/word_count/" method="GET">   <input type="hidden" name="word_count" value="{{fntop2}}"> <input type="submit" value="{{fntop2}}"></form></div>
+<div> <form action="/word_count/" method="GET">   <input type="hidden" name="word_count" value="{{fntop3}}"> <input type="submit" value="{{fntop3}}"></form></div>
+                                       
+
+                                    </div>
+                                       
+                                      
+
+                                    </div>
+                                       <div class="sentimentanalysis">
+                                        <div class="subtitle">
+                                       Search By Term:
+                                        </div>
+                                        
+                                        
+                                          <div class="individualgradeflex">
+                                        
+                                          <form action="/sentiment_word/" method="GET">
+                                              {% csrf_token %}
+                                              {{form1}}
+                                               <input type="submit" value="Search">
+                                               
+                                               </form>
+                                               </div>
+                                               </div>
+                                               <div class="sentimentanalysis">
+                                                <div class="subtitle">
+                                               Search By Term:
+                                                </div>
+                                                
+                                                
+                                                  <div class="individualgradeflex">
+                                                
+                                                  <form action="/sentiment_word/" method="GET">
+                                                      {% csrf_token %}
+                                                      {{form1}}
+                                                       <input type="submit" value="Search">
+                                                       
+                                                       </form>
+                                                       </div>
+                                                       </div>
+                                                                                    
+      
+            </div>
+            </div>
+        </div>
+    
+            
+
+
+
+
+
+          
+      
+
+       
+        </div>
+
+
+

@@ -1,0 +1,1201 @@
+
+<html>
+  <head>
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+              <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+<style>
+
+html {
+  scroll-behavior: smooth;
+}
+
+  .header {
+    font-family:"Roboto";
+    font-size:30px;
+    font-weight:900;
+    text-align:center;
+    padding-bottom: 7px;
+    
+    background:white;
+    width:80%;
+    margin:auto;
+    
+  }
+  .navbar {
+  
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
+  font-size:15px;
+  font-weight: normal;
+  font-family:"Roboto";
+  border-top:3px solid black;
+  border-bottom: 1px solid gray;
+  padding-top:3px;
+  padding-bottom:3px;
+  width:80%;
+  margin:auto;
+}
+  .nav a {
+  text-decoration:none;
+  color:black;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+
+.nav a:visited {
+  color:black;
+}
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+      
+}
+  
+
+
+  .top_bar {
+    position:fixed;
+    width:100%;
+    background:white;
+    z-index:9999999;
+  }
+
+  .header a{
+  text-decoration:none;
+  color:black;
+}
+.header a:hover{
+  text-decoration:underline;
+  color:black;
+}  
+
+.header a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.main_body {
+padding-top:100px;
+width: 80%;
+margin:auto;
+
+
+}
+
+.main_grid {
+  display:grid;
+  grid-template-columns:2fr 11fr;
+  z-index:14;
+  column-gap:10px;
+ 
+}
+.main_grid_fixed {
+  display:grid;
+  grid-template-columns:2fr 11fr;
+  position:fixed;
+  top:100px;
+  width:80%;
+  column-gap:10px;
+  z-index:-1;
+ 
+}
+
+.sidebar {
+  font-family:"Roboto";
+  font-size:13px;
+  z-index:99999999;
+}
+
+.sidebar_section {
+  font-weight:bold;
+  
+}
+.bottom_sidebar_section {
+    font-weight:bold;
+  padding-bottom:5px;
+
+}
+.collapse_count {
+  font-weight:normal;
+ 
+  padding-top:5px;
+  padding-bottom: 20px;
+}
+
+.search_word {
+  text-align:center;
+  font-size:70px;
+  font-family:"Roboto";
+  font-weight:900;
+  padding-bottom:40px;
+}
+.chart {
+  height:500px;
+  z-index:99;
+  padding-bottom:50px;
+  padding-top:50px;
+}
+
+.pie {
+  height:500px;
+  z-index:99;
+ 
+}
+
+.chart_top {
+  height:500px;
+  z-index:99;
+  padding-bottom:50px;
+}
+
+.word_sidebar {
+  font-size:20px;
+  font-weight:900;
+  
+  padding-bottom:20px;
+  text-align:center;
+}
+body {
+  margin:0px;
+}
+
+.count_selected {
+  font-weight:bold;
+  color:white;
+background: rgb(82,77,77);
+background: linear-gradient(90deg, rgba(82,77,77,1) 2%, rgba(46,44,44,1) 93%);
+  padding:5px;
+  border-radius:5px 0px 0px 5px;
+  font-size:18px;
+}
+
+.unselected_head {
+  color:#5a6069;
+  background:#ebebeb;
+  border-radius:5px 0px 0px 5px;
+  height:23px;
+
+}
+
+.unselected_head a {
+  background-color:transparent;
+  text-decoration:none;
+ 
+}
+.unselected_head a:hover {
+  background-color:transparent;
+  text-decoration:none;
+  
+}
+.unselected_head a:visited {
+  background-color:transparent;
+  text-decoration:none;
+  
+ 
+}
+
+
+.sidebar_wrapper {
+  background:#ebebeb;
+  color:#5a6069;
+  border-radius: 5px 0px 0px 5px;
+  
+  padding-bottom:-20px;
+ height:415px;
+  
+  
+ 
+}
+.selected {
+  background:white;
+  color:black;
+  border-radius:5px 0px 0px 5px;
+  padding-top:5px;
+  padding-bottom:5px;
+  margin-left:5px;
+  padding-left:15px;
+}
+.selected_c2 {
+  background:white;
+  color:black;
+  border-radius:5px 0px 0px 5px;
+  padding:3px;
+}
+.sidebar{
+  padding:2px;
+}
+
+.count_sub {
+  padding-top: 5px;
+  padding-bottom:5px;
+  color: #5a6069;
+  background: #ebebeb;
+  margin-left:20px;
+}
+
+
+.count_sub_c2 {
+  padding-top: 5px;
+  padding-bottom:5px;
+  color: #5a6069;
+  background: #ebebeb;
+  margin-left:20px;
+}
+
+.count_sub_c2 a:visited{
+  color: #5a6069;
+  background: #ebebeb;
+  text-decoration:none;
+
+}
+
+
+.count_sub_c2 a {
+   color: #5a6069;
+  background: #ebebeb;
+  text-decoration:none;
+
+}
+
+
+
+.test {
+  padding:100px;
+  font-size:100px;
+}
+
+
+
+#date {
+  scroll-margin-top: 115px;
+}
+
+#newspaper {
+  scroll-margin-top:65px;
+}
+
+#n {
+    scroll-margin-top:65px;
+}
+
+#an {
+scroll-margin-top:65px;
+}
+.pie_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.sent {
+  position:relative;
+  top:80px;
+  z-index:99999;
+  text-align:left;
+  font-family:"Roboto";
+  font-size:21px;
+  padding-left:55px;
+  
+}
+
+.sent2 {
+  position:relative;
+  top:-5px;
+  z-index:99999;
+  text-align:left;
+  font-family:"Roboto";
+  font-size:21px;
+  padding-left:55px;
+  
+}
+
+.sent3 {
+  position:relative;
+  top:-15px;
+  z-index:99999;
+  text-align:left;
+  font-family:"Roboto";
+  font-size:21px;
+  padding-left:55px;
+  
+}
+
+.green {
+  padding:40px;
+  background: rgb(223,231,225);
+background: linear-gradient(90deg, rgba(223,231,225,1) 0%, rgba(162,231,206,1) 100%);
+border-radius: 5px;
+margin:2px;
+}
+
+.green a:visited{
+  color:black;
+}
+.green a:link {
+  color:black;
+}
+
+.green a:hover {
+  color:black;
+}
+
+.red {
+ padding:40px;
+  color:black;
+background: rgb(249,104,104);
+background: linear-gradient(90deg, rgba(249,104,104,1) 0%, rgba(218,4,33,1) 100%);
+border-radius:5px;
+margin:2px;
+}
+
+.red a:visited{
+  color:black;
+}
+.red a:link {
+  color:black;
+}
+
+.red a:hover {
+  color:black;
+}
+.headline_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  z-index:9999;
+  font-family:"Roboto";
+  font-size:15px;
+  
+  text-align:center;
+  height:300px;
+}
+
+.headline_grid a{
+  color:black;
+  text-decoration:none;
+}
+
+.headline_grid a:visited{
+  color:black;
+  text-decoration:none;
+}
+
+.headline_grid a:hover{
+  color:black;
+  text-decoration:underline;
+}
+.sentiment {
+  padding:0px;
+  margin:0px;
+}
+
+.date_grid_object {
+  font-size:12px;
+}
+
+.headliner {
+
+  padding:40px;
+}
+
+ .headline_header {
+   font-family:"Alegreya";
+   font-weight: bold;
+   text-decoration: underline;
+   font-size: 30px;
+   padding: 35px;
+ }
+
+
+.nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:18px;
+  font-weight:400;
+  border-radius:4px;
+  margin:1px;
+  flex:1;
+  line-height:50px;
+
+
+}
+
+.nyt a {
+  color:white;
+  text-decoration:none;
+}
+
+.nyt a:hover {
+  text-decoration:underline;
+}
+
+.nyt a:visited {
+  color:white;
+}
+
+.bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  border-radius:4px;
+  margin:1px;
+  font-size: 32px;
+  flex:1;
+   line-height:50px;
+}
+
+.bbc a {
+  color:white;
+  text-decoration:none;
+}
+
+.bbc a:hover {
+  text-decoration:underline;
+}
+
+.bbc a:visited {
+  color:white;
+}
+
+
+.fox {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:4px;
+  margin:1px;
+  flex:1;
+  line-height:50px;
+  
+  
+}
+
+.fox a {
+  color:white;
+  text-decoration:none;
+}
+
+.fox a:hover {
+  text-decoration:underline;
+}
+
+.fox a:visited {
+  color:white;
+}
+
+.sticky {
+  position:sticky;
+  top:600;
+}
+
+}
+.flex_wrapper {
+  position:relative;
+  top:300px;
+  z-index:9999999999;
+}
+
+.flex_wrapper_fix {
+  position:fixed;
+  top:2000px;
+}
+.headline_flex {
+  display:flex;
+  justify-content:center;
+  flex-direction:row;
+  text-align:center;
+  position:sticky;
+  top:200;
+  }
+.grid_wrapper_header {
+  display:grid;
+  
+}
+.sticky_wrapper {
+  position:sticky;
+  margin:auto;
+  width:80%;
+  top: 600px;
+  z-index:99999999999;  
+}
+
+.grid_wrapper_header{
+  display:grid;
+  grid-template-columns:2fr 11fr;
+  column-gap:10px;
+}
+
+.header_grid {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+
+}
+
+.sticky_main {
+  position:sticky;
+  top:500px;
+}
+
+.scrollable_grid {
+ 
+}
+
+.fixed_header {
+  position:sticky;
+  top:200;
+}
+
+.header_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.news_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+.main_grid2 {
+  display:grid;
+  grid-template-columns:2fr 11fr;
+  
+  column-gap:10px;
+  width:100%;
+ margin:auto;
+ overflow-y: scroll;
+    height: 600px;
+    text-align: center;
+
+}
+
+.headline_flex {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size:20px;
+  padding-top:20px;
+  
+}
+
+.nyt_header {
+ font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:18px;
+  font-weight:400;
+  border-radius:4px;
+  margin:1px;
+  flex:1;
+  line-height:50px;
+}
+
+.nyt_header a {
+  color:white;
+  text-decoration:none;
+}
+
+.nyt_header a:hover {
+  text-decoration:underline;
+}
+
+.nyt_header a:visited {
+  color:white;
+}
+
+
+.bbc_header {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  border-radius:4px;
+  margin:1px;
+  font-size: 32px;
+  flex:1;
+   line-height:50px;
+}
+
+.bbc_header a {
+  color:white;
+  text-decoration:none;
+}
+
+.bbc_header a:hover {
+  text-decoration:underline;
+}
+
+.bbc_header a:visited {
+  color:white;
+}
+
+
+.fn_header {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:4px;
+  margin:1px;
+  flex:1;
+  line-height:50px;
+}
+
+.fn_header a {
+  color:white;
+  text-decoration:none;
+}
+
+.fn_header a:hover {
+  text-decoration:underline;
+}
+
+.fn_header a:visited {
+  color:white;
+}
+
+.headline_grid_object {
+  font-family:"Roboto";
+  z-index:99999999;
+}
+
+.headline_grid_object a{
+  color:black;
+  text-decoration:none;
+}
+
+.headline_grid_object a:hover{
+  color:black;
+  text-decoration:underline;
+}
+.headline_grid_object a:visited{
+  color:black;
+  text-decoration:none;
+}
+
+.zindexed {
+   z-index:-1;
+}
+
+.behind {
+  z-index:-2;
+}
+
+.hpgrid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+}
+
+.hp_grid_item {
+  text-align:center;
+}
+.hp_title {
+font-family:"Roboto";
+font-size:18px;
+text-align:center;
+
+}
+
+.hp_number{
+font-size:120px;
+font-weight:bold;
+font-family:"Roboto";
+padding:50px;
+margin-bottom:100px;
+}
+
+.sidebar_top {
+  width: 12%;
+  position:fixed;
+  top:108px;
+}
+
+#ams {
+  scroll-margin-top:65px;
+}
+
+#pnnav {
+  scroll-margin-top:90px;
+}
+
+#hrnav {
+  scroll-margin-top:180px;
+}
+
+#hrdnav {
+  scroll-margin-top:65px;
+}
+
+  </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  $(window).scroll(function() {
+    if ($(document).scrollTop() < 520) {
+      $("#count_head").css({"font-weight":"bold", "color":"white", "background":"#575757", "padding":"5px", "font-size":"18px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      
+
+      $("#sw").css({"padding-top":"0",});
+      $("#sentiment_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+      $("#hrd").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd a").css({"background-color":"#ebebeb", "color":"#5a6069",});  
+      $("#date_sb").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#date_sb a").css({"background-color":"white", "color":"black"});
+      $("#newspaper_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "margin-left":"15px"});
+      $("#newspaper_sb a").css({"background-color":"#ebebeb", "color":"#5a6069",  });
+      $("#newspaper_d_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_d_sb a").css({"background-color":"#ebebeb", "color":"#5a6069", });
+      $("#sa").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#sa a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra a").css({"background-color":"#ebebeb", "color":"#5a6069",}); 
+      $("#hrd").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd a").css({"background-color":"#ebebeb", "color":"#5a6069",});  
+      $("#hr_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#ah_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+
+    } else if ($(document).scrollTop() >= 520 && $(document).scrollTop() < 1040 ) {
+      $("#sentiment_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+      $("#count_head").css({"font-weight":"bold", "color":"white", "background":"#575757", "padding":"5px", "font-size":"18px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#sw").css({"padding-top":"0",});
+      $("#date_sb").css({"background-color":"#ebebeb", "color":"#5a6069", });
+      $("#date_sb a").css({"background-color":"#ebebeb", "color":"#5a6069"});
+      $("#newspaper_sb").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px", "padding-left":"5px"});
+      $("#newspaper_sb a").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px",  });
+      $("#newspaper_d_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_d_sb a").css({"background-color":"#ebebeb", "color":"#5a6069", });
+      $("#sa").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#sa a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra a").css({"background-color":"#ebebeb", "color":"#5a6069",}); 
+      $("#hrd").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd a").css({"background-color":"#ebebeb", "color":"#5a6069",}); 
+      $("#hr_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#ah_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+
+    } else if (($(document).scrollTop() >= 1040 && $(document).scrollTop() < 1560 )) {
+      $("#sentiment_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+      $("#count_head").css({"font-weight":"bold", "color":"white", "background":"#575757", "padding":"5px", "font-size":"18px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#sw").css({"padding-top":"0",});
+
+      $("#newspaper_d_sb").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_d_sb a").css({"background-color":"white", "color":"black"});
+      $("#newspaper_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_sb a").css({"background-color":"#ebebeb", "color":"#5a6069", });
+      $("#sa").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#sa a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra a").css({"background-color":"#ebebeb", "color":"#5a6069",}); 
+      $("#hrd").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hr_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+     
+      $("#ah_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+    } else if ($(document).scrollTop() >= 1560 && $(document).scrollTop() < 2080 ) {
+      $("#sentiment_head").css({"font-weight":"bold", "color":"white", "background":"#575757", "padding":"5px", "font-size":"18px", "border-radius":"5px 0px 0px 5px", });
+      $("#count_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      
+      $("#sa").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#sa a").css({"background-color":"white", "color":"black"});
+      $("#newspaper_d_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_d_sb a").css({"background-color":"#ebebeb", "color":"#5a6069", });
+      $("#na").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd a").css({"background-color":"#ebebeb", "color":"#5a6069",}); 
+      $("#hr_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#ah_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+    } else if ($(document).scrollTop() >= 2080 && $(document).scrollTop() < 2600) {
+      $("#sentiment_head").css({"font-weight":"bold", "color":"white", "background":"#575757", "padding":"5px", "font-size":"18px", "border-radius":"5px 0px 0px 5px", });
+
+      $("#count_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#na").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#na a").css({"background-color":"white", "color":"black", });
+      $("#newspaper_d_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#sa").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#sa a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#date_sb").css({"background-color":"#ebebeb", "color":"#5a6069", });
+      $("#pn").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hr_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#ah_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+    } else if ($(document).scrollTop() >= 2600 && $(document).scrollTop() < 3120) {
+      $("#hr_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+      $("#sentiment_head").css({"font-weight":"bold", "color":"white", "background":"#575757", "padding":"5px", "font-size":"18px", "border-radius":"5px 0px 0px 5px", });
+ 
+      $("#count_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#pn").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#pn a").css({"background-color":"white", "color":"black", });
+      $("#newspaper_d_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#sa").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#sa a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#date_sb").css({"background-color":"#ebebeb", "color":"#5a6069", }); 
+      $("#na").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd a").css({"background-color":"#ebebeb", "color":"#5a6069",});  
+      $("#ah_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      
+    } else if ($(document).scrollTop() >= 3120 && $(document).scrollTop() < 3640) {
+      $("#hr_head").css({"font-weight":"bold", "color":"white", "background":"#575757", "padding":"5px", "font-size":"18px", "border-radius":"5px 0px 0px 5px", });
+
+      $("#count_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#sentiment_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+      $("#hra").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#hra a").css({"background-color":"white", "color":"black", });
+      $("#newspaper_d_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#sa").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#sa a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#date_sb").css({"background-color":"#ebebeb", "color":"#5a6069", }); 
+      $("#na").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na a").css({"background-color":"#ebebeb", "color":"#5a6069",});  
+      $("#pn").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd a").css({"background-color":"#ebebeb", "color":"#5a6069",}); 
+      $("#ah_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+  
+    } else if ($(document).scrollTop() >= 3640 && $(document).scrollTop() < 4160) {
+      $("#hr_head").css({"font-weight":"bold", "color":"white", "background":"#575757", "padding":"5px", "font-size":"18px", "border-radius":"5px 0px 0px 5px", });
+
+      
+      $("#count_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#sentiment_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+      $("#hrd").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#hrd a").css({"background-color":"white", "color":"black", });
+      $("#newspaper_d_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#sa").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#sa a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#date_sb").css({"background-color":"#ebebeb", "color":"#5a6069", }); 
+      $("#na").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na a").css({"background-color":"#ebebeb", "color":"#5a6069",});  
+      $("#pn").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn a").css({"background-color":"#ebebeb", "color":"#5a6069",});   
+      $("#hra").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra a").css({"background-color":"#ebebeb", "color":"#5a6069",});  
+      $("#ah_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+ 
+    } else if ($(document).scrollTop() >= 4160 && $(document).scrollTop() < 4680) {
+      $("#ah_head").css({"font-weight":"bold", "color":"white", "background":"#575757", "padding":"5px", "font-size":"18px", "border-radius":"5px 0px 0px 5px", });
+
+      $("#hr_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+      $("#count_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+      $("#sentiment_head").css({"font-weight":"bold", "color":"#5a6069", "background":"#ebebeb", "padding":"5px", "font-size":"13px", "border-radius":"5px 0px 0px 5px", "padding-left":"5" });
+
+      $("#hrd").css({"background-color":"white", "color":"black", "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#hrd a").css({"background-color":"white", "color":"black", });
+      $("#newspaper_d_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#newspaper_sb").css({"background-color":"#ebebeb", "color":"#5a6069",  "border-radius":"5px 0px 0px 5px", "padding-left":"5px", "margin-left":"15px"});
+      $("#sa").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#sa a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#date_sb").css({"background-color":"#ebebeb", "color":"#5a6069", }); 
+      $("#na").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#na a").css({"background-color":"#ebebeb", "color":"#5a6069",});  
+      $("#pn").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#pn a").css({"background-color":"#ebebeb", "color":"#5a6069",});   
+      $("#hra").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hra a").css({"background-color":"#ebebeb", "color":"#5a6069",}); 
+      $("#hrd").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#hrd a").css({"background-color":"#ebebeb", "color":"#5a6069",}); 
+    }
+
+
+  });
+});
+</script>
+<script>
+  console.log("hello this is working")
+  
+document.addEventListener("DOMContentLoaded", function(event) { 
+    //Do work
+
+
+  var psentiment = document.getElementsByClassName("sentiment");
+  
+  var headliners = document.getElementsByClassName("headliner");
+  
+  for (a = psentiment.length-1; a >= 0; a--){
+    console.log(psentiment[a].innerHTML)
+    if(psentiment[a].innerHTML > 0){
+      console.log(psentiment[a].innerHTML);
+      headliners[a].className = "green";
+    }
+    else if(psentiment[a].innerHTML < 0){
+      headliners[a].className = "red";
+    }
+  };
+});
+</script>
+
+
+</head>
+<body>
+  
+
+
+  <div class="top_bar">
+    <div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+    <div class="navbar">
+      <div class="nav_current"><a href=WordCount>Word Count</a></div>
+      <div class="nav"><a href=Sentiment_Main>Sentiment Score</a></div>
+      <div class="nav">Phrase Count</div>
+      <div class="nav">Country Count</div>
+      <div class="nav">Headline Rank</div> 
+      <div class="nav">Deltas</div>
+      <div class="nav">Date</div>
+    </div>
+  </div>
+  
+  <div class="main_body">
+    <div class="main_grid_fixed">
+     
+    </div>
+
+<div class="sidebar_top"> 
+
+<div class="sidebar">
+        <div class="word_sidebar">"{{key1}}" </div>
+        <div class="sidebar_wrapper" id="sw">
+          <div class="sidebar_section">
+            <div class="unselected_head" id="count_head">Count</div>
+            <div class="collapse_count">
+              <div class="count_sub_c2" id="date_sb">
+                <a href="#date">Date</a>
+              </div>
+            <div class="count_sub_c2" id="newspaper_sb">
+              <a href="#newspaper">Newspaper</a>
+            </div>
+            <div class="count_sub_c2" id="newspaper_d_sb">
+              <a href="#n"> Newspaper by Date</a>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar_section">
+          <div class="unselected_head" id="sentiment_head">Sentiment</div>
+          <div class="collapse_count">
+            <div class="count_sub_c2" id="sa">
+            <a href="#an">Average</a>
+            </div>
+            <div class="count_sub_c2" id="na">
+            <a href="#ams">Average by Month</a>
+            </div>
+            <div class="count_sub_c2" id="pn">
+            <a href="#pnnav">Positive/Negative Breakdown</a>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar_section">
+          <div class="unselected_head" id="hr_head">Headline Rank</div>
+          <div class="collapse_count">
+            <div class="count_sub_c2" id="hra">
+            <a href="#hrnav">Average</a>
+            </div>
+            <div class="count_sub_c2" id="hrd">
+           <a href="#hrdnav"> Average by Month</a>
+            </div>
+           
+          </div>
+        </div>
+        <div class="bottom_sidebar_section">
+          <div class="unselected_head" id="ah_head">All Headlines</div>
+          
+        </div>
+
+        
+
+        </div>
+
+      </div>
+
+</div>
+    
+
+
+    <div class="main_grid">
+      <div class="behind"> </div>
+
+      <div class="main">
+        <div class="search_word"> "{{key1}}"</div>
+        <div class="chart_top" id="date">
+         {% autoescape off %}
+        {{ html_div }}
+        {% endautoescape %} </div>
+        
+        <div class="chart" id="newspaper">
+          {% autoescape off %}
+           {{ html_div_news_bar }}
+          {% endautoescape %}</div>
+      </div>
+      <DIV class="behind"> </DIV>
+      <div class="chart" id="n">
+          {% autoescape off %}
+         {{ html_div2 }}
+          {% endautoescape %}</div>
+      <div class="behind"></div>
+      <div class="chart" id="an">
+          {% autoescape off %}
+          {{ html_div_sentiment}}
+          {% endautoescape %}</div>
+      <div class="behind"></div>
+<div class="chart" id="ams">
+          {% autoescape off %}
+          {{ html_divas }}
+          {% endautoescape %}</div>
+     <div class="behind"></div>
+    <div class="sent"> Positive/Negative Breakdown </div>
+     <div class="behind"> </div>
+     
+      <div class="pie_grid" id="pnnav">
+      
+        <div class="pie" id="newspaper">
+            {% autoescape off %}
+            {{ html_div_nytp }}
+            {% endautoescape %}</div>
+      
+        <div class="pie" id="newspaper">
+            {% autoescape off %}
+            {{ html_div_bbcp }}
+            {% endautoescape %}</div>
+      
+        <div class="pie" id="newspaper">
+          {% autoescape off %}
+          {{ html_div_fnp }}
+          {% endautoescape %}
+        </div>
+     
+      </div>
+      <div class="behind"> </div>
+ <div class="sent3"> Average Headline Rank </div>
+ <div> </div>
+ <div class="hpgrid" id="hrnav">
+  <div class="hp_grid_item">
+    <div class="hp_title">
+    The New York Times
+    </div>
+    <div class="hp_number">
+    {{nyt_average_priority}}
+    </div>
+
+  </div>
+
+  <div class="hp_grid_item">
+    <div class="hp_title">
+    BBC News
+    </div>
+    <div class="hp_number">
+        {{bbc_average_priority}}
+
+    </div>
+
+  </div>
+
+  <div class="hp_grid_item">
+    <div class="hp_title">
+    Fox News
+    </div>
+    <div class="hp_number">
+        {{fn_average_priority}}
+
+    </div>
+
+  </div>
+ 
+</div>
+
+<div> </div>
+  <div class="chart" id="hrdnav">
+          {% autoescape off %}
+         {{ html_divar }}
+          {% endautoescape %}</div>
+
+      <div> </div>
+    <div class="sent2"> All Headlines Containing "{{key1}}" </div>
+    <div class="behind"></div>
+   
+    <div class="headline_flex"> 
+      <div class="nyt_header">
+      <a href="https://www.nytimes.com/">The New York Times</a>
+      </div>
+      <div class="bbc_header">
+      <a href="https://www.bbc.com/news">BBC News</a></div>
+      
+      <div class="fn_header">
+      <a href="https://www.foxnews.com/">FOX NEWS</a>
+      </div>
+    </div>
+
+     
+
+
+
+</div>
+
+<div class="main_grid2">
+  <div class="behind"> </div>
+  <div class="scrollable_grid">
+
+  
+     
+    <div class="news_grid">
+      {% for x, y, z, a in list_of_hl %}
+   <div class="headliner"> <div class="headline_grid_object"><a href={{z}}> {{x}}</a><div class="date_grid_object">{{y}}</div> <div class="date_grid_object">Sentiment: <p class="sentiment">{{a}}</p></div></div></div> 
+    {% endfor %}
+    </div>
+</div>
+
+</div>
+
+
+
+  </body>
+  </html>

@@ -1,0 +1,517 @@
+
+
+
+
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+
+<style>
+body {
+ background-color: #f4f4f4;
+ width:100%;
+ margin:0;
+}
+
+ .header {
+ font-family:"Roboto";
+ font-size:30px;
+ font-weight:900;
+ text-align:center;
+ padding: 9px;
+ background:white;
+ width:100%;
+ margin:auto;
+ position:fixed;
+ z-index:100;
+ 
+ }
+
+ .header a{
+ text-decoration:none;
+ color:black;
+}
+.header a:hover{
+ text-decoration:underline;
+ color:black;
+}
+
+.header a:visited {
+ text-decoration:none;
+ color:black;
+}
+
+.main {
+ width:80%;
+ margin:auto;
+ font-family:"Roboto";
+ padding-top:53px;
+ text-align:center;
+ background-color:#f4f4f4;
+}
+
+.main_grid {
+ display:grid;
+ grid-template-columns: 160px 11fr;
+ column-gap:10px;
+}
+
+.side_bar {
+ padding-top:200px;
+ position:fixed;
+ width:160px;
+}
+
+
+.unselected {
+ text-align:left;
+ padding:9px;
+
+}
+
+.selected {
+ text-align:left;
+ padding:9px;
+ font-weight:bold;
+ background-color:#3b3a3a;
+ color:white!important;
+ border-radius: 5px 5px 5px 5px;
+
+
+}
+
+.selected a{
+  color:white;
+  text-decoration:none;
+}
+
+.sub {
+ text-align:left;
+ padding-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+}
+
+.sub a {
+  color:black;
+  text-decoration:none;
+}
+
+.sub a:hover {
+  text-decoration:underline;
+}
+
+sub a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+.sub_selected {
+ 
+ text-align:left;
+ margin-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+ font-weight:bold;
+ font-size:22px;
+ 
+ 
+
+}
+
+.dash_title {
+ color:#292929;
+ font-size:40px;
+ font-weight:bold;
+ text-align:left;
+ position:relative;
+ padding-top:30px;
+ padding-left:23px;
+ height:40px;
+ padding-bottom:60px;
+}
+
+
+
+  input[type="submit"] {
+         
+         font-size: 18px;
+         font-family: "Roboto";
+         width:90px;
+        color:black;
+        background:whitesmoke;
+        border-radius:5px;
+        padding:10px;
+
+     }
+
+     input[type="text"] {
+       padding:20px;
+       font-size: 15px;
+       width: 40%;
+     }
+
+     .search {
+       width:70%;
+       margin:auto;
+     }
+
+
+
+.dash_card_wrapper {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+
+}
+
+.dash_card_wrapper_top {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+height:300px;
+}
+
+
+.dash_card {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+}
+
+.card_title {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-40;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+.spacer {
+    height:50px;
+}
+
+
+
+
+.card_title_variance {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-27;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+
+
+
+.most_pos_wrapper {
+  margin: 0 auto;
+
+}
+.mostposgrid_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ 
+ align-items:center;
+
+}
+
+.mostposgrid_word_single {
+ display:grid;
+ grid-template-columns: 1fr  ;
+ 
+ align-items:center;
+
+}
+
+.variance_heading_wrapper_variance {
+  display:inline-block;
+ 
+
+}
+
+.small_box {
+font-size:16px;
+padding:2px;
+width:34px;
+margin:2px;
+
+}
+
+.frame_wrapper_left_variance {
+height:250px;
+overflow-y:auto;
+position:relative;
+top:-10;
+}
+
+
+
+.dash_card_left {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding-bottom:0px;
+}
+
+
+.nyt_small_box {
+font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+    border-radius:4px;
+    height: 16px;
+    line-height: 16px;
+    font-size:14px;
+ display:inline-block;
+
+
+}
+
+
+.bbc_small_box {
+font-family: "Lato";
+    background: #bb1919;
+    color: white;
+    border-radius: 4px;
+    height: 16px;
+    line-height: 16px;
+    font-weight:bold;
+ display:inline-block;
+
+}
+
+
+.fn_small_box {
+
+  font-family: "Titillium Web";
+    
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius:4px;
+    height: 16px;
+    line-height: 16px;
+
+ display:inline-block;
+
+}
+
+.main_body {
+  display:grid;
+}
+
+
+.two_third_row {
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  padding-top:30px;
+}
+
+.arrow {
+   display:inline-block;
+
+}
+
+.compare_grid {
+    display:grid;
+    grid-template-columns: 1fr;
+
+
+}
+
+.search_title {
+    font-size: 30px;
+    font-weight:bold;
+    padding-bottom:10px;
+    padding-right:90px;
+}
+
+ .no_dec a{
+   text-decoration:none;
+   color:black;
+
+ }
+
+  .no_dec a:hover{
+   text-decoration:underline;
+   color:black;
+
+ }
+
+ .main_grid_footer {
+    display: grid;
+    grid-template-columns: 160px 11fr;
+    column-gap: 10px;
+}
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+font-family:"Roboto";
+
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+    //Do work
+
+
+  var small_div = document.getElementsByClassName("small_box");
+ 
+  for (a = small_div.length-1; a >= 0; a--){
+
+    if(small_div[a].innerHTML == "BBC"){
+    
+      small_div[a].classList.add("bbc_small_box");
+      
+    }
+  
+    else if(small_div[a].innerHTML == "FN"){
+      small_div[a].classList.add("fn_small_box");
+   
+    }
+
+     else if(small_div[a].innerHTML == "NYT"){
+      small_div[a].classList.add("nyt_small_box");
+   
+    }
+  
+   
+  };
+});
+</script>
+
+
+
+
+</head>
+
+
+<body>
+
+
+
+
+
+
+
+
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+
+<div class="main">
+
+<div class="main_grid">
+
+ <div class="empty"></div>
+<div class="side_bar">
+<div class="unselected">
+Word Count
+</div>
+<div class="unselected no_dec">
+Sentiment
+</div>
+
+<div class="unselected">
+Emotion
+</div>
+
+
+<div class="selected">
+ Headlines
+</div>
+<div class="sub">
+<a href='{% url 'emotion_newspaper' %}'>Date</a>
+</div>
+
+
+<div class="sub">
+Word Search
+</div>
+<div class="sub_selected">
+Compare Words
+</div>
+
+
+
+
+
+<div class="unselected">
+ Analysis
+</div>
+
+</div>
+
+
+<div class="dash_title">Headlines: Compare Words
+</div>
+<div class="empty"> </div>
+  <div class='compare_grid'>
+
+
+
+
+
+
+            <div class="search_smaller">
+    <form action="/hl_search_compare_result" method="GET">
+           {% csrf_token %}
+           {{form1}}
+            <input type="submit" value="Search">
+            </form></div>
+         </div>
+  
+
+<div class="empty"></div>
+<div class="spacer"></div>
+<div class="empty"> </div>
+
+<div class="main_body">
+<div class="dash_card_wrapper_top">
+<div class="dash_card">
+<div class="card_title">Most Common Words Used In Headlines (since Jan. 25, 2020)</div>
+  <div class="move_down">
+   {% autoescape off %}
+    {{ html_div_values }}
+{% endautoescape %}
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+   </div>  
+
+    </div>
+
+<div class="main_grid_footer">
+<div class="empty"> </div>
+<div class="footer_copyright">
+© 2020 Headline Compare
+</div>
+</div>
+
+
+</div>
+
+
+</body>

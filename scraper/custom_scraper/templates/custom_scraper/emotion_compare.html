@@ -1,0 +1,5042 @@
+{% if cached %}
+     {% autoescape off %}
+    {{ html }}
+{% endautoescape %}
+    
+
+
+{% else %}
+{% load static %}
+
+<html>
+<head>
+<title>Analyze and Compare Newspaper Headline Emotions: Headline Compare</title>
+<meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
+
+    <link rel="icon" href="{% static 'hcfav.png' %}"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<style>
+body {
+ background-color: #f4f4f4;
+ width:100%;
+ margin:0;
+}
+
+ .header {
+ font-family:"Roboto";
+ font-size:30px;
+ font-weight:900;
+ text-align:center;
+ padding: 9px;
+ background:white;
+ width:100%;
+ margin:auto;
+ position:fixed;
+ z-index:100;
+ 
+ }
+
+ .header a{
+ text-decoration:none;
+ color:black;
+}
+.header a:hover{
+ text-decoration:underline;
+ color:black;
+}
+
+.header a:visited {
+ text-decoration:none;
+ color:black;
+}
+
+.main {
+ width:80%;
+ margin:auto;
+ font-family:"Roboto";
+ padding-top:53px;
+ text-align:center;
+ background-color:#f4f4f4;
+}
+
+.main_grid {
+ display:grid;
+ grid-template-columns: 160px 11fr;
+ column-gap:10px;
+}
+
+.side_bar {
+ padding-top:200px;
+ position:fixed;
+ width:160px;
+}
+
+
+.unselected {
+ text-align:left;
+ padding:9px;
+
+}
+
+.selected {
+ text-align:left;
+ padding:9px;
+ font-weight:bold;
+ background-color:#3b3a3a;
+ color:white;
+ border-radius: 5px 5px 5px 5px;
+
+
+}
+
+.sub {
+ text-align:left;
+ padding-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+}
+
+.sub a {
+  color:black;
+  text-decoration:none;
+}
+
+.sub a:hover {
+  text-decoration:underline;
+}
+
+sub a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+.sub_selected {
+ 
+ text-align:left;
+ margin-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+ font-weight:bold;
+ font-size:22px;
+ 
+ 
+
+}
+
+.dash_title {
+ color:#292929;
+ font-size:40px;
+ font-weight:bold;
+ text-align:left;
+ position:relative;
+ padding-top:30px;
+ padding-left:23px;
+ height:40px;
+ padding-bottom:60px;
+}
+
+.switch {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:300px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.switch_emotion {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:900px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+
+.dash_button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 0px 0px 0px;
+ color:#919191;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 5px 0px 0px 5px;
+ color:black;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 5px 5px 0px;
+ color:#919191;
+ width:100px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.header_grid {
+    display:grid;
+    grid-template-columns: 500px 500px;
+    
+}
+
+.np_selector {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:400px;
+ margin:auto;
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+
+ color:black;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ border-radius: 5px 0px 0px 5px;
+ 
+}
+
+.button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+ border-radius:0px 5px 5px 0px;
+ 
+ 
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+
+.All {
+font-size:30px;
+font-weight: bold;
+border: 1px solid #dbdbdb;
+
+}
+
+.NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+        border-radius:3px;
+
+}
+
+.BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    color: white;
+        border-radius:3px;
+
+}
+
+.FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius:3px;
+}
+
+.unselected_NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+  
+    color: white;
+    font-size:20px;
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+}
+
+.unselected_BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    background:#dbdbdb;
+    color: white;
+    font-size:25px;
+     background-color: transparent;
+        color:#919191;
+        background:#dbdbdb;
+}
+
+.unselected_FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    font-size:25px;
+     background-color: transparent;
+     background:#dbdbdb;
+        color:#919191;
+}
+
+.selector_wrapper {
+}
+
+.All1 {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+.All1 {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+.date_top_row {
+  display: grid;
+  grid-template-columns: 1fr;
+  height:270px;
+}
+
+
+.date_top_row_emotion {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height:500px;
+}
+
+.date_top_row_emotion_no_radar{
+  display: grid;
+  grid-template-columns:  1fr;
+  height:400px;
+  padding-top:50px;
+}
+
+.date_top_row_emotion_full {
+  display: grid;
+  grid-template-columns: 1fr;
+  height:500px;
+}
+
+.date_top_row_emotion_full_plot {
+  display: grid;
+  grid-template-columns: 1fr;
+  height:422px;
+}
+.date_top_row_emotion_full_plot_top {
+  display: grid;
+  grid-template-columns: 1fr;
+  height:422px;
+  padding-top:60px;
+}
+
+.date_top_row_emotion_full_split {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding-top:15px;
+  height:500px;
+}
+.dash_card_wrapper {
+  background-color: #f4f4f4;
+  padding: 20px;
+  padding-top:40px;
+
+}
+.dash_card {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+
+}
+
+.dash_card_overall {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+
+
+}
+
+.dash_card_sb {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+    height:312px;
+}
+.card_title {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-40;
+  right:7px;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ 
+ 
+}
+
+.card_title_super {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-58;
+  right:7px;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ 
+ 
+}
+
+
+.card_title_second {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-60;
+  right:7px;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ 
+ 
+}
+
+
+
+
+.dash_bottom_row {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap:50px;
+}
+
+.dash_bottom_row_wrapper {
+  padding-top:90px;
+  padding-left:20px;
+  padding-right: 20px;
+}
+
+.dash_card_wrapper_bottom {
+  background-color: #f4f4f4;
+ 
+
+}
+
+  .cal_legend {
+    display:grid;
+    grid-template-columns: 100px 100px;
+    align-items:center;
+    padding-bottom: 10px;
+    position:relative;
+    top:-10px;
+    column-gap:20px;
+   
+  }
+.caltitle {
+  color:#292929;
+  font-weight:bold;
+  
+  font-size:30px;
+  width:100px;
+
+
+
+}
+ .spec_grid {
+    display:grid;
+    grid-template-rows: 8px 8px;
+  }
+ 
+.spec_key {
+  background: rgb(103,0,31);
+background: linear-gradient(90deg, rgba(103,0,31,1) 0%, rgba(178,24,43,1) 10%, rgba(214,96,77,1) 20%, rgba(244,165,130,1) 30%, rgba(253,219,199,1) 40%, rgba(209,229,240,1) 50%, rgba(146,197,222,1) 60%, rgba(67,147,195,1) 70%, rgba(33,102,172,1) 80%, rgba(5,48,97,1) 90%);
+  width:100px;
+height:12px;
+  border-radius: 3px 3px 3px 3px;
+}
+ .legend_grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+       padding-top:2px;
+   
+  }
+ 
+  .spec_pos {
+    justify-self:end;
+    font-size:10px
+  }
+ 
+  .spec_neg {
+    justify-self:start;
+    font-size:10px;
+  }
+.calendar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap:1px;
+    row-gap: 1px;
+   
+}
+.date_cell_link {
+  text-decoration:none;
+}
+.date_cell {
+    height:40px;
+    width:100%;
+    border-radius: 5px 5px 5px 5px;
+ 
+}
+
+.date{
+   
+    width:95%;
+    text-align:right;
+    color:white;
+    font-size:10px;
+   
+   
+}
+
+.sentiment {
+    height:100%;
+    text-align:center;
+    display:block;
+    margin:auto;
+}
+
+.zero {
+background-color: rgb(103,0,31);
+}
+
+.zero0 {
+color: rgb(103,0,31);
+
+}
+
+.one {
+background-color: rgb(178,24,43);
+}
+
+.one1 {
+color: rgb(178,24,43);
+
+}
+
+.two {
+background-color: rgb(214,96,77);
+
+}
+
+.two2 {
+color: rgb(214,96,77);
+
+}
+
+.three{
+background-color: rgb(244,165,130);
+
+}
+
+.three3 {
+color: rgb(244,165,130);
+
+}
+
+.four {
+background-color: rgb(253,219,199);
+
+}
+
+.four4 {
+color: rgb(253,219,199);
+
+}
+
+.five {
+background-color: rgb(209,229,240);
+
+}
+
+.five5 {
+color: rgb(209,229,240);
+
+}
+
+.six {
+background-color: rgb(146,197,222);
+
+}
+
+.six6 {
+color: rgb(146,197,222);
+
+}
+
+.seven {
+background-color: rgb(67,147,195);
+
+}
+
+.seven7 {
+color: rgb(67,147,195);
+
+}
+
+.eight {
+background-color: rgb(33,102,172);
+
+}
+
+.eight8 {
+color: rgb(33,102,172);
+
+}
+
+.nine {
+background-color: rgb(5,48,97);
+
+}
+
+.nine9 {
+color: rgb(5,48,97);
+
+}
+
+.gray {
+  background-color:whitesmoke;
+}
+
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+
+}
+
+
+.frame_wrapper {
+height:250px;
+overflow-y:overlay;
+position:relative;
+top:-45;
+}
+
+.frame_wrapper_super {
+height:300px;
+overflow-y:auto;
+position:relative;
+top:-40;
+}
+
+.frame_wrapper_super_hl {
+height:400px;
+overflow-y:auto;
+position:relative;
+top:-40;
+}
+
+.frame_wrapper_tally {
+height:400px;
+overflow-y:auto;
+padding-right:12px;
+
+}
+
+
+.frame_wrapper_super_date {
+height:300px;
+overflow-y:auto;
+position:relative;
+top:-40;
+}
+
+
+
+.heading_wrapper {
+ position:relative;
+ top:-45;
+
+}
+
+
+.mostposgrid_heading_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ 
+ align-items:center;
+ font-size:15px;
+ font-weight:bold;
+ text-decoration:underline;
+ padding-bottom:7px;
+      box-shadow: 0 5px 2px -2px #f0f0f0;
+
+}
+
+.mostposgrid_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ 
+ align-items:center;
+ width: 70%;
+    margin: auto;
+    text-align: left;
+}
+}
+
+
+
+
+.mostposgrid_word_double {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+}
+
+.date_top_row_compare {
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:300px;
+}
+ .overall_avg {
+ margin:auto;
+ text-justify:center;
+ font-size: 100px;
+ position:relative;
+ top:52;
+ padding:20px;
+ font-weight:bold;
+ }
+
+.date_top_row_dist {
+
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  height:300px;
+  padding-bottom:100px;
+  padding-top:100px;
+
+}
+
+.date_top_row_dist_top {
+
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  height:300px;
+  padding-bottom:100px;
+  padding-top:0px;
+
+}
+
+
+.dash_card_dist_second {
+
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+  height:90%;
+  padding-top:30px;
+
+}
+.dash_card_dist_second_super {
+
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+  height:320px;
+  padding-top:30px;
+
+}
+
+
+.dash_card_dist {
+
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+  height:325px;
+  
+}
+
+.dash_card_wrapper {
+  background-color: #f4f4f4;
+  padding: 20px;
+  padding-top:40px;
+
+}
+
+
+.pie {
+  position:relative;
+  top:-10px;
+  height:300px;
+  width:300px;
+  margin:auto;
+}
+
+.pie2 {
+  position:relative;
+  top:-10px;
+  height:400px;
+  
+}
+
+
+.date_top_row_dist_2 {
+
+ display:grid;
+  grid-template-columns:1fr 1fr;
+  height:380px;
+  padding-bottom:100px;
+  padding-top:40px;
+
+
+}
+
+.spacer {
+  height:20px;
+}
+
+.super {
+
+text-align:left;
+margin:left;
+padding-left:10px;  
+padding-top:4px;
+padding-bottom:4px;
+}
+
+.super a {
+color:black;
+text-decoration:none;
+}
+
+.super a:hover {
+  text-decoration:underline;
+}
+
+.super a:visited {
+  color:black;
+}
+
+
+.mostposgrid {
+  display:grid;
+  grid-template-columns: 1fr 60px 5fr 1fr;
+ 
+  align-items:center;
+  font-weight:normal;
+  font-size:16px;
+}
+
+
+
+.mostposgrid_set {
+  display:grid;
+  grid-template-columns: 1fr 60px 5fr 1fr;
+ 
+  align-items:center;
+  font-weight:normal;
+  font-size:16px;
+  padding-top:10px;
+  padding-bottom:10px;
+        border-bottom: 1px solid #f0f0f0;
+
+}
+
+.mostposgrid_set:hover{
+  background:#f2f2f2;
+}
+
+
+.mostposgrid_date {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+ 
+  align-items:center;
+  font-weight:normal;
+  font-size:16px;
+}
+
+.super_all_heading {
+  display: grid;
+    grid-template-columns: 1fr 60px 5fr 1fr;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    padding-bottom: 7px;
+    position:relative;
+    top: -40;
+  
+         box-shadow: 0 5px 2px -2px #f0f0f0;
+
+
+}
+
+
+
+.super_all_heading_date {
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: underline;
+    padding-bottom: 7px;
+    position:relative;
+    top: -40;
+
+}
+
+
+
+
+
+.superlatives_grid {
+  display:grid;
+  grid-template-columns: 3fr 1fr;
+  height:900px;
+}
+
+.pos_color {
+
+      display: inline;
+    color: rgb(33,102,172);
+}
+
+.nyt_small {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+    font-size: 10px;
+    font-weight: 400;
+    border-radius: 4px;
+    margin: 1px;
+    line-height: 20px;
+    
+}
+
+.bbc_small {
+  font-family: "Lato";
+    background: #bb1919;
+    color: white;
+    border-radius: 4px;
+    margin: 1px;
+    font-size: 12px;
+    font-weight:900;
+    line-height: 20px;
+}
+.fn_small {
+  font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius: 4px;
+    margin: 1px;
+   
+    line-height: 20px;
+}
+
+.fn_small a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.fn_small a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.fn_small a:visited {
+  color:white;
+  
+
+}
+
+.bbc_small a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.bbc_small a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.bbc_small a:visited {
+  color:white;
+  
+
+}
+.nyt_small a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.nyt_small a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.nyt_small a:visited {
+  color:white;
+  
+
+}
+
+.score {
+
+  padding-left:28px;
+}
+
+.neg_color{
+  display:inline;
+  color:rgb(178,24,43);
+}
+
+.date_link {
+
+}
+
+.score_link {
+
+  padding-left:24px;
+}
+
+
+.date_link a{
+text-decoration:none;
+color:black;
+}
+
+.score_link a{
+
+  padding-left:24px;
+  color:black;
+  text-decoration:none;
+}
+
+
+.date_link a:hover{
+text-decoration:underline;
+
+}
+
+.score_link a:hover{
+
+ 
+  text-decoration:underline;
+}
+
+
+
+.date_link a:visited{
+color:black;
+
+}
+
+.score_link a:visited{
+
+ 
+  color:black;
+}
+
+.date_pos {
+
+}
+
+.date_pos a {
+  text-decoration:none;
+  color:black;
+}
+
+.date_pos a:hover{
+  text-decoration:underline;
+}
+
+.date_pos a:visited {
+  color:black;
+}
+
+.superlatives_triple {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  height:1220px;
+}
+
+.super_all_heading_word {
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: underline;
+    padding-bottom: 7px;
+    position: relative;
+    top: -40;
+    padding-right:15px;
+}
+
+#Distributiondiv0 {
+  display:none;
+}
+
+#Superlativesdiv0 {
+  display:none;
+}
+
+
+
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+font-family:"Roboto";
+
+}
+
+.main_grid_footer {
+    display: grid;
+    grid-template-columns: 160px 11fr;
+    column-gap: 10px;
+}
+
+.sent_by_date {
+  width:95%;
+  height:210px;
+}
+
+.sent_by_date_emotion {
+  height:400px;
+
+}
+
+
+.sent_by_date_emotion_plot {
+  height:305px;
+
+}
+
+
+.sent_by_date_emotion_radar {
+  height:400px;
+  position:relative;
+  top:-30px;
+
+}
+.sent_by_date_emotion_chart {
+  height:400px;
+  position:relative;
+  top:-20px;
+
+}
+
+.sent_by_date_emotion_hl {
+  height:400px;
+  position:relative;
+  top:15px;
+}
+
+
+.sent_by_date_emotion_bar {
+  height:280px;
+  position:relative;
+  top:-5px;
+  
+}
+
+
+#ALL1 {
+  display:block;
+}
+
+#NYT1 {
+  display:none;
+}
+
+
+#BBC1 {
+  display:none;
+}
+
+#FN1 {
+  display:none;
+}
+
+
+
+#Trustdiv0 {
+  display:none;
+}
+
+#Joydiv0 {
+  display:none;
+}
+
+#Anticipationdiv0 {
+  display:none;
+}
+
+#Surprisediv0 {
+  display:none;
+}
+
+#Feardiv0 {
+  display:none;
+}
+
+#Sadnessdiv0 {
+  display:none;
+}
+
+#Angerdiv0 {
+  display:none;
+}
+
+#Disgustdiv0 {
+  display:none;
+}
+
+#Trustdiv1 {
+  display:none;
+}
+
+#Joydiv1 {
+  display:none;
+}
+
+#Anticipationdiv1 {
+  display:none;
+}
+
+#Surprisediv1 {
+  display:none;
+}
+
+#Feardiv1 {
+  display:none;
+}
+
+#Sadnessdiv1 {
+  display:none;
+}
+
+#Angerdiv1 {
+  display:none;
+}
+
+#Disgustdiv1 {
+  display:none;
+}
+
+#Trustdiv2 {
+  display:none;
+}
+
+#Joydiv2 {
+  display:none;
+}
+
+#Anticipationdiv2 {
+  display:none;
+}
+
+#Surprisediv2 {
+  display:none;
+}
+
+#Feardiv2 {
+  display:none;
+}
+
+#Sadnessdiv2 {
+  display:none;
+}
+
+#Angerdiv2 {
+  display:none;
+}
+
+#Disgustdiv2 {
+  display:none;
+}
+
+#Trustdiv3 {
+  display:none;
+}
+
+#Joydiv3 {
+  display:none;
+}
+
+#Anticipationdiv3 {
+  display:none;
+}
+
+#Surprisediv3 {
+  display:none;
+}
+
+#Feardiv3 {
+  display:none;
+}
+
+
+.footer_div a {
+color:black;
+text-decoration:none;
+}
+
+.footer_div a:hover {
+color:black;
+text-decoration:underline;
+}
+.footer_div a:visited {
+color:black;
+text-decoration:none;
+}
+
+#Sadnessdiv3 {
+  display:none;
+}
+
+#Angerdiv3 {
+  display:none;
+}
+
+#Disgustdiv3 {
+  display:none;
+}
+
+
+.bottom_row_emotion {
+  display:grid;
+  grid-template-columns: 1fr;
+  height:450px;
+  padding-top:10px;
+}
+.top_word_chart {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+.top_word_chart_heading {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  padding-right:12px;
+}
+
+.top_word_chart_head {
+  text-decoration:underline;
+  font-weight:bold;
+}
+
+.dash_card_wrapper_super {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:80px;
+
+}
+
+.dash_card_left_super {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding-bottom:0px;
+ height:290px;
+ position:relative;
+ top:-11px;
+ padding-right:10px;
+}
+
+.card_title_super {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:20;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+padding-left:32px; 
+}
+
+.word_heading_nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:24px;
+  font-weight:400;
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  flex:1;
+  line-height:40px;
+  margin:auto;
+  padding-right:1px;
+  width:170px;
+  margin-bottom:5px;
+ width:100%;
+ position:relative;
+ top:-39;
+ padding-left: 5px;
+    padding-right: 5px;
+}
+
+.word_heading_bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  font-size: 25px;
+  flex:1;
+   line-height:40px;
+   justify:center;
+   
+   width:170px;
+   margin:auto;
+   width:100%;
+   position:relative;
+ top:-50;
+ right:10;
+ padding-right:10px;
+ padding-left:10px;
+}
+
+.word_heading_fn {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  flex:1;
+  line-height:40px;
+  font-size:25px;
+  width:170px;
+  
+  margin:auto;
+  width:100%;
+ position:relative;
+ top:-50;
+ right:10px;
+ padding-right:10px;
+ padding-left:10px;
+}
+
+
+.heading_wrapper_left{
+ position:relative;
+ top:-49.5;
+
+}
+.mostposgrid_heading_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr ;
+ 
+ align-items:center;
+ font-size:16px;
+ font-weight:bold;
+ padding-bottom:7px;
+ padding-right:12px;
+ width:70%;
+ margin:auto;
+ text-decoration:none;
+ 
+}
+
+.mostposgrid_heading_word_nyt {
+ display:grid;
+ grid-template-columns: 1fr 1fr ;
+ 
+ align-items:center;
+ font-size:16px;
+ font-weight:bold;
+ padding-bottom:7px;
+ position:relative;
+ top:10px;
+ padding-right:12px;
+ width:70%;
+ margin:auto;
+      box-shadow: 0 5px 2px -2px #f0f0f0;
+ text-decoration:none;
+
+}
+
+.frame_wrapper_left {
+height:250px;
+overflow-y:overlay;
+position:relative;
+top:-39;
+}
+
+.mostposgrid_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+ width: 70%;
+    margin: auto;
+    text-align: left;
+         padding-top:10px;
+  padding-bottom:10px;
+      border-bottom: 1px solid #f0f0f0;
+}
+.mostposgrid_word:hover {
+  background:#f2f2f2;
+}
+
+
+
+
+
+
+
+
+
+.mostposgrid_word_hls {
+ display:grid;
+ grid-template-columns: 80px 1fr;
+ font-size:11px;
+ align-items:left;
+}
+.date_top_row_superlatives_word {
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:385px;
+}
+
+.dash_card_super {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+ height:270px;
+  position:relative;
+ top:-10;
+}
+ .no_dec a{
+   text-decoration:none;
+   color:black;
+
+ }
+
+  .no_dec a:hover{
+   text-decoration:underline;
+   color:black;
+
+ }
+
+
+
+.headline_by_newspaper {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 385px;
+}
+
+.unselected a {
+  text-decoration:none;
+  color:black;
+}
+
+.unselected a:hover {
+  text-decoration:underline;
+  color:black;
+}
+
+
+ .frame_wrapper_left::-webkit-scrollbar {
+ width: 6px;
+  height: 8px;
+}
+.frame_wrapper_left::-webkit-scrollbar-thumb {
+ 
+  background:#f2f2f2;
+}
+
+ .frame_wrapper::-webkit-scrollbar {
+ width: 6px;
+  height: 8px;
+}
+.frame_wrapper::-webkit-scrollbar-thumb {
+ 
+  background:#f2f2f2;
+}
+
+.e_percent {
+  text-align:right;
+padding-right:7px;
+}
+
+.e_word {
+  padding-left:6px;
+  padding-top:1px;
+  padding-bottom:1px;
+}
+
+.e_word_heading {
+      text-align: left;
+    padding-left: 10px;
+}
+
+.count_heading {
+  text-align: right;
+    padding-right: 20px;
+}
+
+.e_word a {
+  text-decoration:none;
+  color:black;
+}
+
+.e_word a:hover {
+  text-decoration:underline;
+  color:black;
+}
+
+.e_word a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.single_framed {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+.percent_box {
+  text-align:right;
+}
+
+
+ .frame_wrapper_super_hl::-webkit-scrollbar {
+ width: 6px;
+  height: 8px;
+}
+.frame_wrapper_super_hl::-webkit-scrollbar-thumb {
+ 
+  background:#f2f2f2;
+}
+
+
+</style>
+
+
+
+
+</head>
+
+
+<body>
+
+
+
+
+
+
+
+
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+
+<div class="main">
+
+<div class="main_grid">
+
+ <div class="empty"></div>
+<div class="side_bar">
+<div class="unselected">
+<a href='{% url 'word_count_general_og' %}'>Word Count</a>
+</div>
+<div class="unselected">
+<a href='{% url 'sentiment_newspaper' %}'>Sentiment</a>
+</div>
+<div class="selected">
+Emotion
+</div>
+<div class="sub">
+<a href='{% url 'emotion_newspaper' %}'>By Newspaper</a>
+</div>
+<div class="sub_selected">
+Compare Newspapers
+</div>
+
+
+<div class="sub">
+<a href='{% url 'emotion_search_compare_single' %}'>Word Search</a>
+</div>
+<div class="sub">
+<a href='{% url 'emotion_search_compare' %}'>Word Compare</a>
+</div>
+
+<div class="unselected">
+<a href='{% url 'date_search' %}'>Date</a>
+</div>
+
+
+
+<div class="unselected">
+ Analysis
+</div>
+
+</div>
+
+
+<div class="dash_title">Emotion: Compare Newspapers
+<div class="selector_wrapper">
+<div class="switch_emotion">
+<button type="button" class="dash_button_left" id="Overall0">Overall</button>
+
+ <button type="button" class="dash_button_middle" id="Trust0">Trust</button>
+ <button type="button" class="dash_button_middle" id="Joy0">Joy</button>
+ <button type="button" class="dash_button_middle" id="Anticipation0">Anticipation</button>
+ <button type="button" class="dash_button_middle" id="Surprise0">Surprise</button>
+ <button type="button" class="dash_button_middle" id="Fear0">Fear</button>
+ <button type="button" class="dash_button_middle" id="Sadness0">Sadness</button>
+ <button type="button" class="dash_button_middle" id="Anger0">Anger</button>
+
+   <button type="button" class="dash_button_right" id="Disgust0">Disgust</button>
+</div>
+</div>
+</div>
+
+<div class="empty"></div>
+
+<div class="All1" id="ALL1">
+
+
+
+<div class="All1Overall" id="Overalldiv0">
+
+
+
+<div class="date_top_row_emotion_no_radar">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Count of Headlines by Emotion</div>
+<div class="sent_by_date_emotion_bar">
+   {% autoescape off %}
+         {{ html_div_compare_emotions }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+</div>
+
+<div class="card_title_super">Percent of Headlines Containing Common Words That Indicate Trust</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+ <div class='single_framed'>   
+{% for x, y in nyt_trust_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'>
+{% for x, y in bbc_trust_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+   <div class='single_framed'>
+{% for x, y in fn_trust_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+<div class="card_title_super">Percent of Headlines Containing Common Words That Indicate Joy</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+    <div class='single_framed'>
+{% for x, y in nyt_joy_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_joy_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+   <div class='single_framed'>
+{% for x, y in fn_joy_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+<div class="card_title_super">Percent of Headlines Containing Common Words That Indicate Anticipation</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+ <div class='single_framed'>
+{% for x, y in nyt_anticip_tally %}   <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_anticip_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+  </div>{% endfor %}</div>
+  
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_anticip_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+<div class="card_title_super">Percent of Headlines Containing Common Words That Indicate Surprise</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+    <div class='single_framed'>
+{% for x, y in nyt_surprise_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+  </div>{% endfor %}
+  </div>
+  
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'>
+{% for x, y in bbc_surprise_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_surprise_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+<div class="card_title_super">Percent of Headlines Containing Common Words That Indicate Fear</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+    <div class='single_framed'>
+{% for x, y in nyt_fear_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'>
+{% for x, y in bbc_fear_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_fear_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+<div class="card_title_super">Percent of Headlines Containing Common Words That Indicate Sadness</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+ <div class='single_framed'>
+{% for x, y in nyt_sadness_tally %}   <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_sadness_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+   <div class='single_framed'> 
+{% for x, y in fn_sadness_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+<div class="card_title_super">Percent of Headlines Containing Common Words That Indicate Anger</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+    <div class='single_framed'>
+{% for x, y in nyt_anger_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_anger_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+   <div class='single_framed'>
+{% for x, y in fn_anger_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+<div class="card_title_super">Percent of Headlines Containing Common Words That Indicate Disgust</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+   <div class='single_framed'>
+{% for x, y in nyt_disgust_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+  <div class='single_framed'>
+{% for x, y in bbc_disgust_tally %}  <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+   <div class='single_framed'>
+{% for x, y in fn_disgust_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="All1Trust" id="Trustdiv0">
+<div class="date_top_row_emotion_full_plot_top">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Trust" by Month </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ trust_monthly_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+<div class="date_top_row_emotion_full_plot">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Trust" by Date </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ trust_daily_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+<div class="card_title_super">Most Common Words in Headlines that Indicate "Trust"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+  <div class='single_framed'>
+{% for x, y in nyt_trust_list %}  <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+<div class='single_framed'>
+{% for x, y in bbc_trust_list %}    <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+ </div>
+{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+  <div class='single_framed'>
+{% for x, y in fn_trust_list %}  <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Trust" </div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+  <div class='single_framed'>
+{% for x, y, a, b, c in trust_formatted %}  <div class="mostposgrid_set">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>
+{% endfor %}</div>
+   
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+
+<div class="card_title_super">Top Words: Percent "Trust"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+   <div class='single_framed'>
+{% for x, y in nyt_trust_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_trust_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+  <div class='single_framed'>
+{% for x, y in fn_trust_tally %}  <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+  </div>{% endfor %}</div>
+  
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="All1Joy" id="Joydiv0">
+
+
+<div class="date_top_row_emotion_full_plot_top">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Joy" by Month </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ joy_monthly_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+<div class="date_top_row_emotion_full_plot">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Joy" by Date </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ joy_daily_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+<div class="card_title_super">Most Common Words in Headlines that Indicate "Joy"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+   <div class='single_framed'>
+{% for x, y in nyt_joy_list %} <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}
+</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_joy_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+   <div class='single_framed'>
+{% for x, y in fn_joy_list %} <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Joy" </div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+    <div class='single_framed'>
+{% for x, y, a, b, c in joy_formatted %}<div class="mostposgrid_set">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+
+<div class="card_title_super">Top Words: Percent "Joy"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+    <div class='single_framed'>
+{% for x, y in nyt_joy_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'>
+{% for x, y in bbc_joy_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_joy_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+</div>
+
+
+<div class="All1Anticipation" id="Anticipationdiv0">
+
+
+
+
+
+
+<div class="date_top_row_emotion_full_plot_top">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Anticipation" by Month </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ anticip_monthly_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+<div class="date_top_row_emotion_full_plot">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Anticipation" by Date </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ anticip_daily_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+<div class="card_title_super">Most Common Words in Headlines that Indicate "Anticipation"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+    <div class='single_framed'>
+{% for x, y in nyt_anticip_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+<div class='single_framed'>
+{% for x, y in bbc_anticip_list %}    <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+
+   </div>{% endfor %}</div>
+ 
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+<div class='single_framed'>
+{% for x, y in fn_anticip_list %}    <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Anticipation" </div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in anticip_formatted %} <div class="mostposgrid_set">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}</div>
+   
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+
+<div class="card_title_super">Top Words: Percent "Anticipation"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+   <div class='single_framed'>
+{% for x, y in nyt_anticip_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+  </div>{% endfor %}</div>
+  
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     <div class='single_framed'>
+
+{% for x, y in bbc_anticip_tally %}    <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      <div class='single_framed'>
+   
+{% for x, y in fn_anticip_tally %}
+    <div class="mostposgrid_word"><div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div class="All1Surprise" id="Surprisediv0">
+
+
+
+
+
+
+
+
+
+
+
+<div class="date_top_row_emotion_full_plot_top">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Surprise" by Month </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ surprise_monthly_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+<div class="date_top_row_emotion_full_plot">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Surprise" by Date </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ surprise_daily_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+<div class="card_title_super">Most Common Words in Headlines that Indicate "Surprise"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    <div class='single_framed'>
+    
+{% for x, y in nyt_surprise_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'>
+{% for x, y in bbc_surprise_list %} <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+ </div>
+{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_surprise_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+ </div>
+{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Surprise" </div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in surprise_formatted %} <div class="mostposgrid_set">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+
+<div class="card_title_super">Top Words: Percent "Surprise"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+    <div class='single_framed'>
+{% for x, y in nyt_surprise_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'>
+{% for x, y in bbc_surprise_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_surprise_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+</div>
+
+<div class="All1Fear" id="Feardiv0">
+
+
+
+
+<div class="date_top_row_emotion_full_plot_top">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Fear" by Month </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ fear_monthly_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+<div class="date_top_row_emotion_full_plot">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Fear" by Date </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ fear_daily_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+<div class="card_title_super">Most Common Words in Headlines that Indicate "Fear"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+    <div class='single_framed'>
+{% for x, y in nyt_fear_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_fear_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+ </div>
+{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      <div class='single_framed'>
+    
+{% for x, y in fn_fear_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Fear" </div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+    <div class='single_framed'>
+{% for x, y, a, b, c in fear_formatted %}<div class="mostposgrid_set">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}</div>
+   
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+
+<div class="card_title_super">Top Words: Percent "Fear"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+    <div class='single_framed'>
+{% for x, y in nyt_fear_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_fear_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_fear_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+</div>
+
+<div class="All1Sadness" id="Sadnessdiv0">
+
+
+
+
+
+<div class="date_top_row_emotion_full_plot_top">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Sadness" by Month </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ sadness_monthly_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+<div class="date_top_row_emotion_full_plot">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Sadness" by Date </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ sadness_daily_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+<div class="card_title_super">Most Common Words in Headlines that Indicate "Sadness"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    <div class='single_framed'>
+    
+{% for x, y in nyt_sadness_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_sadness_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+ </div>
+{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+   <div class='single_framed'>
+{% for x, y in fn_sadness_list %} <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Sadness" </div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+    <div class='single_framed'>
+{% for x, y, a, b, c in sadness_formatted %}<div class="mostposgrid_set">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}</div>
+   
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+
+<div class="card_title_super">Top Words: Percent "Sadness"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    <div class='single_framed'>
+    
+{% for x, y in nyt_sadness_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'> 
+{% for x, y in bbc_sadness_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_sadness_tally %}<div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="All1Anger" id="Angerdiv0">
+
+
+
+
+
+<div class="date_top_row_emotion_full_plot_top">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Anger" by Month </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ anger_monthly_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+<div class="date_top_row_emotion_full_plot">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Anger" by Date </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ anger_daily_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+<div class="card_title_super">Most Common Words in Headlines that Indicate "Anger"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+   <div class='single_framed'>
+{% for x, y in nyt_anger_list %} <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+    <div class='single_framed'>
+{% for x, y in bbc_anger_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_anger_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Anger" </div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+   <div class='single_framed'>
+{% for x, y, a, b, c in anger_formatted %} <div class="mostposgrid_set">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+</div>{% endfor %}</div>
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+
+<div class="card_title_super">Top Words: Percent "Anger"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+  <div class='single_framed'>
+{% for x, y in nyt_anger_tally %}  <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'>
+{% for x, y in bbc_anger_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+   <div class='single_framed'>
+{% for x, y in fn_anger_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="All1Disgust" id="Disgustdiv0">
+
+
+
+
+
+<div class="date_top_row_emotion_full_plot_top">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Disgust" by Month </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{ disgust_monthly_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+
+
+<div class="date_top_row_emotion_full_plot">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Disgust" by Date </div>
+<div class="sent_by_date_emotion_plot">
+   {% autoescape off %}
+         {{disgust_daily_plot }}
+          {% endautoescape %}
+</div>
+       
+</div>
+</div>
+
+
+</div>
+<div class="card_title_super">Most Common Words in Headlines that Indicate "Disgust"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    
+ <div class='single_framed'>
+{% for x, y in nyt_disgust_list %}   <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+
+ </div>{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'>
+{% for x, y in bbc_disgust_list %} <div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+ </div>
+{% endfor %}</div>
+   
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='count_heading'>Count
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_disgust_list %}<div class="mostposgrid_word">
+      <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}</div>
+</div>
+{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines Containing Words that Indicate "Disgust" </div>
+<div class="sent_by_date_emotion_hl">
+ <div class="super_all_heading_wrapper">
+<div class="super_all_heading">
+<div>Date</div> <div>Paper </div> <div>Headline</div> <div>Score</div>
+
+</div>
+
+<div class="frame_wrapper_super_hl">
+
+<div class='single_framed'>   
+{% for x, y, a, b, c in disgust_formatted %} <div class="mostposgrid_set">
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+ </div>{% endfor %}
+   </div>
+
+
+
+
+</div>
+
+
+</div>
+</div>
+       
+</div>
+</div>
+
+<div class="card_title_super">Top Words: Percent "Disgust"</div>
+
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper_super">
+<div class="dash_card_left_super">
+       <div class="word_heading_nyt">
+The New York Times
+</div>
+  <div class="heading_wrapper_left">
+      <div class="mostposgrid_heading_word_nyt">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+
+<div class="frame_wrapper_left">
+     
+    <div class='single_framed'>
+   
+{% for x, y in nyt_disgust_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+  <div class="word_heading_bbc">
+BBC News</div> <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+    
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+    
+     
+   <div class='single_framed'>
+{% for x, y in bbc_disgust_tally %} <div class="mostposgrid_word">
+   <div class='e_word'><a href='/emotion_search_compare_result_single/?compare1={{x}}'>{{x}}</a></div><div class='e_percent'> {{y}}%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper_super">
+<div class="dash_card_super">
+ <div class="word_heading_fn">
+ FOX NEWS</div><div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div class='e_word_heading'>Word
+      </div>
+      <div class='percent_box'>Percent
+      </div>
+     
+     
+
+      </div>
+      </div>
+      <div class="frame_wrapper">
+     
+      
+    <div class='single_framed'>
+{% for x, y in fn_disgust_tally %}<div class="mostposgrid_word">
+   <div class='e_word'>{{x}}</div><div class='e_percent'> {{y}}%%</div>
+</div>{% endfor %}</div>
+    
+       
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+<div class="main_grid_footer">
+<div class="empty"> </div>
+<div class="footer_copyright">
+<div class='footer_div'><a href='/about'>About</a></div>
+<div class='footer_div'>Contact: <a href='mailto:headlinecompare@hlcompare.com'>headlinecompare@hlcompare.com</a></div>
+<div class='footer_div'>© 2021 Headline Compare</div>
+</div>
+</div>
+</div>
+ <script>
+var first_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[0].id
+var second_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[1].id
+
+var third_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[2].id
+var fourth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[3].id
+var fifth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[4].id
+var sixth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[5].id
+var seventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[6].id
+var eigth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[7].id
+var ninth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[8].id
+var tenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[9].id
+var eleventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[10].id
+
+var twelfth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[11].id
+var thirteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[12].id
+var fourteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[13].id
+
+var fifteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[14].id
+var sixteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[15].id
+var seventeenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[16].id
+var eightteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[17].id
+var nineteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[18].id
+var twentieth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[19].id
+var twentyone_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[20].id
+var twentytwo_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[21].id
+var twentythree_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[22].id
+var twentyfour_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[23].id
+var twentyfive_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[24].id
+var twentysix_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[25].id
+var twentyseven_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[26].id
+var twentyeight_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[27].id
+var twentynine_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[28].id
+var thirty_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[29].id
+var thirtyone_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[30].id
+var thirtytwo_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[31].id
+var thirtythree_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[32].id
+var thirtyfour_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[33].id
+var thirtyfive_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[34].id
+var thirtysix_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[35].id
+var thirtyseven_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[36].id
+var thirtyeight_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[37].id
+var thirtynine_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[38].id
+var forty_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[39].id
+
+var first_graph_div = $( "sent_by_date_emotion_radar" ).html()
+var first_graph_div_nyt = $( "sent_by_date_emotion_radar_nyt" ).html()
+
+
+
+ </script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+ 
+
+
+
+
+
+
+
+
+ $("#Overall0").click(function(){
+ 
+ $("#Overalldiv0").css('display','block')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+  Plotly.relayout(first_graph_id, {autosize: true})
+  
+  
+
+
+ $('#Overall0').css({"background-color":"#fafafa","color":"black"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+
+ 
+
+
+ }
+ )
+
+
+
+ $("#Trust0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','block')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+Plotly.relayout(second_graph_id, {autosize: true})
+  Plotly.relayout(third_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"background-color":"#fafafa","color":"black"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+ $("#Joy0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','block')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+  Plotly.relayout(fourth_graph_id, {autosize: true})
+  Plotly.relayout(fifth_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"background-color":"#fafafa","color":"black"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anticipation0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','block')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+   Plotly.relayout(sixth_graph_id, {autosize: true})
+  Plotly.relayout(seventh_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"background-color":"#fafafa","color":"black"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Surprise0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','block')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+    Plotly.relayout(eigth_graph_id, {autosize: true})
+  Plotly.relayout(ninth_graph_id, {autosize: true})
+
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"background-color":"#fafafa","color":"black"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Fear0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','block')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+    Plotly.relayout(tenth_graph_id, {autosize: true})
+  Plotly.relayout(eleventh_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"background-color":"#fafafa","color":"black"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+
+
+ $("#Sadness0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','block')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','none')
+
+
+    Plotly.relayout(twelfth_graph_id, {autosize: true})
+  Plotly.relayout(thirteenth_graph_id, {autosize: true})
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"background-color":"#fafafa","color":"black"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Anger0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','block')
+  $("#Disgustdiv0").css('display','none')
+
+
+     Plotly.relayout(fourteenth_graph_id, {autosize: true})
+  Plotly.relayout(fifteenth_graph_id, {autosize: true})
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"background-color":"#fafafa","color":"black"})
+ $('#Disgust0').css({"color":"#919191", "background-color":"transparent"})
+ 
+ }
+ )
+
+
+ $("#Disgust0").click(function(){
+ 
+ $("#Overalldiv0").css('display','none')
+  $("#Trustdiv0").css('display','none')
+  $("#Joydiv0").css('display','none')
+  $("#Anticipationdiv0").css('display','none')
+  $("#Surprisediv0").css('display','none')
+  $("#Feardiv0").css('display','none')
+  $("#Sadnessdiv0").css('display','none')
+  $("#Angerdiv0").css('display','none')
+  $("#Disgustdiv0").css('display','block')
+
+
+  Plotly.relayout(sixteenth_graph_id, {autosize: true})
+  Plotly.relayout(seventeenth_graph_id, {autosize: true})
+
+
+
+
+ $('#Overall0').css({"color":"#919191", "background-color":"transparent"})
+  $('#Trust0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Joy0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anticipation0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Surprise0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Fear0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Sadness0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Anger0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Disgust0').css({"background-color":"#fafafa","color":"black"})
+ 
+ }
+ )
+
+
+
+
+
+
+
+
+
+}
+)
+
+</script>
+
+</body>
+{% endif %}

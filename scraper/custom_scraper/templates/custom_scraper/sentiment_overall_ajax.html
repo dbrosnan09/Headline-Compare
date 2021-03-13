@@ -1,0 +1,1620 @@
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<style>
+ .top_bar {
+    position:fixed;
+    width:100%;
+    z-index:99999;
+    margin-top:-8px;
+  }
+    .header {
+    font-family:"Roboto";
+    font-size:30px;
+    font-weight:900;
+    text-align:center;
+    padding: 9px;
+    background:white;
+    width:100%;
+    margin:auto;
+    position:fixed;
+    z-index:100;
+   
+  }
+
+  .header a{
+  text-decoration:none;
+  color:black;
+}
+.header a:hover{
+  text-decoration:underline;
+  color:black;
+}  
+
+.header a:visited {
+  text-decoration:none;
+  color:black;
+}
+.navbar {
+  padding-left:20px;
+  padding-right:20px;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  font-size:15px;
+  font-weight: normal;
+  font-family:"Roboto";
+  border-top:3px solid black;
+  border-bottom: 1px solid gray;
+  padding-top:3px;
+  padding-bottom:3px;
+  width:80%;
+  margin:auto;
+  background-color:white;
+}
+
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+     
+}
+
+ .nav a {
+  text-decoration:none;
+  color:black;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+
+.nav a:visited {
+  color:black;
+}
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+     
+}
+body {
+  background-color: #f4f4f4;
+  width:100%;
+  margin:0;
+}
+
+.main {
+    width:80%;
+    margin:auto;
+    font-family:"Roboto";
+    padding-top:53px;
+    text-align:center;
+    background-color:#f4f4f4;
+}
+
+.main_title {
+    font-size:50px;
+    font-weight:bold;
+
+}
+
+.main_grid {
+    display:grid;
+    grid-template-columns: 160px 11fr;
+    column-gap:10px;
+}
+.chart {
+  height:500px;
+  z-index:99;
+  padding-bottom:50px;
+  padding-top:50px;
+}
+
+.overall_avg {
+
+    font-size: 200px;
+    margin:auto;
+    padding:30px;
+    font-weight:bold;
+}
+
+.no_chart_title {
+    font-size: 21px;
+    padding-left:55px;
+    text-align:left;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap:1px;
+    row-gap: 1px;
+   
+}
+.date_cell {
+    height:40px;
+    width:100%;
+    border-radius: 5px 5px 5px 5px;
+ 
+}
+
+.date{
+   
+    width:95%;
+    text-align:right;
+    color:white;
+    font-size:10px;
+   
+   
+}
+
+.sentiment {
+    height:100%;
+    text-align:center;
+    display:block;
+    margin:auto;
+}
+
+.day {
+    text-align:center;
+    font-weight:bold;
+}
+
+.zero{
+
+}
+
+.one{
+
+}
+
+
+
+.gray {
+  background-color:whitesmoke;
+}
+
+.top10 {
+ 
+  display:grid;
+  grid-template-columns: 75% 25%;
+  font-size:20px;
+}
+
+.grid1 {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.top10grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-bottom: 6px;
+  justify-content:left;
+}
+
+.top10grid a{
+  color:black;
+  text-decoration:none;
+  
+}
+
+.top10grid a:hover{
+  text-decoration:underline;
+}
+
+.top10grid a:visited{
+  color:black;
+}
+
+.date_grid {
+  display:grid;
+  grid-template-columns: 75% 25%;
+  height:22px;
+  justify-content:left; 
+}
+
+.frame_wrapper {
+height:250px;
+overflow-y:auto;
+}
+
+.mostposgrid {
+  display:grid;
+  grid-template-columns: 1fr 60px 5fr 1fr;
+ 
+  align-items:center;
+}
+
+.mostposgrid_word {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+ 
+  align-items:center;
+}
+
+.heading_wrapper{
+  position:sticky
+}
+.mostposgrid_heading {
+  display:grid;
+  grid-template-columns: 1fr 60px 5fr 1fr;
+ 
+  align-items:center;
+  font-size:15px;
+  font-weight:bold;
+  text-decoration:underline;
+  padding-bottom:7px;
+  
+}
+
+.mostposgrid_heading_word {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+ 
+  align-items:center;
+  font-size:15px;
+  font-weight:bold;
+  text-decoration:underline;
+  padding-bottom:7px;
+  
+}
+
+
+.dash_card {
+  background-color:white;
+  border-radius: 2px 2px 2px 2px;
+ 
+  box-shadow: 0 0 2px gray;
+  padding:10px;
+}
+
+
+.date_top_row {
+  display: grid;
+  grid-template-columns: 1fr;
+  height:270px;
+}
+
+.date_top_row_superlatives {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  height:700px;
+}
+
+.date_top_row_superlatives_word {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  height:700px;
+}
+
+.date_top_row_compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height:300px;
+}
+
+.dash_card_wrapper {
+  background-color: #f4f4f4;
+  padding: 20px;
+  padding-top:40px;
+
+}
+
+.dash_card_wrapper_bottom {
+  background-color: #f4f4f4;
+ 
+
+}
+
+.card_title {
+  position:relative;
+  background-color:transparent;
+  color:#292929;
+  top:-40;
+  text-align:left;
+  font-size:18px;
+  font-weight:bold;
+ 
+ 
+}
+.unselected {
+  text-align:left;
+  padding:9px;
+
+}
+
+.selected {
+  text-align:left;
+  padding:9px;
+  font-weight:bold;
+  background-color:#3b3a3a;
+  color:white;
+  border-radius: 5px 5px 5px 5px;
+
+
+}
+.side_bar {
+  padding-top:200px;
+  position:fixed;
+  width:160px;
+}
+.combined_dash {
+  display:grid;
+  grid-template-columns: 1fr;
+  align-content:start;
+}
+.combined_dash_invisible {
+  display:none;
+}
+
+
+
+.dash_title {
+  color:#292929;
+  font-size:40px;
+  font-weight:bold;
+  text-align:left;
+  position:relative;
+  padding-top:30px;
+  padding-left:23px;
+  height:40px;
+}
+.sub {
+  text-align:left;
+  padding-left:40px;
+  padding-top:4px;
+  padding-bottom:4px;
+}
+
+.sub_selected {
+ 
+  text-align:left;
+  margin-left:40px;
+  padding-top:4px;
+  padding-bottom:4px;
+  font-weight:bold;
+  font-size:22px;
+ 
+ 
+
+}
+
+.sub a {
+  color:black;
+  text-decoration:none;
+}
+
+.sub a:hover {
+  text-decoration:underline;
+}
+
+sub a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+
+
+
+
+
+
+
+.switch {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height:30px;
+  padding:20px;
+  width:300px;
+  margin:auto;
+  padding-top:40px;
+  padding-bottom:40px;
+ 
+}
+.dash_button_middle {
+  font-size: 14px;
+  font-family:"Roboto";
+  background-color:transparent;
+  margin:10px;
+  border: 1px solid #919191;
+  border-radius: 0px 0px 0px 0px;
+  color:#919191;
+  width:100px;
+  padding-top:0px;
+  padding-bottom:0px;
+  margin:0;
+ 
+}
+
+.dash_button_left {
+  font-size: 14px;
+  font-family:"Roboto";
+  background-color:#fafafa;
+  margin:10px;
+  border: 1px solid #919191;
+  border-radius: 5px 0px 0px 5px;
+  color:black;
+  width:100px;
+  padding-top:0px;
+  padding-bottom:0px;
+  margin:0;
+ 
+}
+
+.dash_button_right {
+  font-size: 14px;
+  font-family:"Roboto";
+  background-color:transparent;
+  margin:10px;
+  border: 1px solid #919191;
+  border-radius: 0px 5px 5px 0px;
+  color:#919191;
+  width:100px;
+  padding-top:0px;
+  padding-bottom:0px;
+  margin:0;
+ 
+}
+
+#Date{
+  border-radius:5px 0px 0px 5px;
+  color:black;
+  background-color:#fafafa;
+  border: 1px solid black;
+
+}
+
+#Distribution {
+  border-radius: 0px 0px 0px 0px;
+}
+
+#Superlatives {
+  border-radius:0px 5px 5px 0px;
+}
+
+.dash_bottom_row {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap:50px;
+}
+
+.dash_bottom_row_wrapper {
+  padding-top:90px;
+  padding-left:20px;
+  padding-right: 20px;
+}
+
+.zero {
+background-color: rgb(103,0,31);
+}
+
+.zero0 {
+color: rgb(103,0,31);
+
+}
+
+.one {
+background-color: rgb(178,24,43);
+}
+
+.one1 {
+color: rgb(178,24,43);
+
+}
+
+.two {
+background-color: rgb(214,96,77);
+
+}
+
+.two2 {
+color: rgb(214,96,77);
+
+}
+
+.three{
+background-color: rgb(244,165,130);
+
+}
+
+.three3 {
+color: rgb(244,165,130);
+
+}
+
+.four {
+background-color: rgb(253,219,199);
+
+}
+
+.four4 {
+color: rgb(253,219,199);
+
+}
+
+.five {
+background-color: rgb(209,229,240);
+
+}
+
+.five5 {
+color: rgb(209,229,240);
+
+}
+
+.six {
+background-color: rgb(146,197,222);
+
+}
+
+.six6 {
+color: rgb(146,197,222);
+
+}
+
+.seven {
+background-color: rgb(67,147,195);
+
+}
+
+.seven7 {
+color: rgb(67,147,195);
+
+}
+
+.eight {
+background-color: rgb(33,102,172);
+
+}
+
+.eight8 {
+color: rgb(33,102,172);
+
+}
+
+.nine {
+background-color: rgb(5,48,97);
+
+}
+
+.nine9 {
+color: rgb(5,48,97);
+
+}
+
+.caltitle {
+  color:#292929;
+  font-weight:bold;
+  
+  font-size:30px;
+  width:100px;
+
+
+
+}
+
+.spec_key {
+  background: rgb(103,0,31);
+background: linear-gradient(90deg, rgba(103,0,31,1) 0%, rgba(178,24,43,1) 10%, rgba(214,96,77,1) 20%, rgba(244,165,130,1) 30%, rgba(253,219,199,1) 40%, rgba(209,229,240,1) 50%, rgba(146,197,222,1) 60%, rgba(67,147,195,1) 70%, rgba(33,102,172,1) 80%, rgba(5,48,97,1) 90%);
+  width:100px;
+height:12px;
+  border-radius: 3px 3px 3px 3px;
+}
+
+  .cal_legend {
+    display:grid;
+    grid-template-columns: 100px 100px;
+    align-items:center;
+    padding-bottom: 10px;
+    position:relative;
+    top:-10px;
+   
+  }
+
+  .spec_grid {
+    display:grid;
+    grid-template-rows: 8px 8px;
+  }
+ 
+  .legend_grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+       padding-top:2px;
+   
+  }
+ 
+  .spec_pos {
+    justify-self:end;
+    font-size:10px
+  }
+ 
+  .spec_neg {
+    justify-self:start;
+    font-size:10px;
+  }
+ 
+ .footer {
+   height:100px;
+ }
+
+ #overall_average {
+   height:100%;
+ }
+
+ .overall_avg {
+   margin:auto;
+   text-justify:center;
+   font-size: 100px;
+   position:relative;
+   top:10;
+   padding:20px;
+ }
+
+ .pie {
+   height:100%;
+   position:relative;
+   top:-20;
+   
+
+ }
+
+ .pie_hr {
+   max-height:400px;
+   overflow:hidden;
+   
+
+ }
+
+ #dist_bottom {
+   height:400px;
+ }
+
+.pos_color{
+  display:inline;
+  color:rgb(33,102,172);
+}
+
+.super {
+
+text-align:left;
+margin:left;
+padding-left:10px;  
+}
+
+.super a {
+color:black;
+text-decoration:none;
+}
+
+.super a:hover {
+  text-decoration:underline;
+}
+
+.super a:visited {
+  color:black;
+}
+
+.nyt_small {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+    font-size: 10px;
+    font-weight: 400;
+    border-radius: 4px;
+    margin: 1px;
+    line-height: 20px;
+    
+}
+
+.bbc_small {
+  font-family: "Lato";
+    background: #bb1919;
+    color: white;
+    border-radius: 4px;
+    margin: 1px;
+    font-size: 12px;
+    font-weight:900;
+    line-height: 20px;
+}
+.fn_small {
+  font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius: 4px;
+    margin: 1px;
+   
+    line-height: 20px;
+}
+
+.fn_small a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.fn_small a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.fn_small a:visited {
+  color:white;
+  
+
+}
+
+.bbc_small a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.bbc_small a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.bbc_small a:visited {
+  color:white;
+  
+
+}
+.nyt_small a{
+  text-decoration:none;
+  color:white;
+
+}
+
+
+.nyt_small a:hover {
+  text-decoration:underline;
+  
+
+}
+
+.nyt_small a:visited {
+  color:white;
+  
+
+}
+
+.neg_color{
+  display:inline;
+  color:rgb(178,24,43);
+}
+ 
+ .bold {
+   font-weight:bold;
+   padding-bottom:10px;
+ }
+
+.date_cell_link {
+  text-decoration:none;
+}
+
+
+</style>
+<script>
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    //Do work
+
+
+  var psentiment = document.getElementsByClassName("sentiment");
+  var cell = document.getElementsByClassName("date_cell")
+ 
+  for (a = psentiment.length-1; a >= 0; a--){
+    console.log(psentiment[a].innerHTML)
+
+    if(psentiment[a].innerHTML > 4 && psentiment[a].innerHTML <= 5 ){
+      console.log(psentiment[a].innerHTML);
+      cell[a].classList.add("seven");
+      psentiment[a].classList.add("seven7");
+    }
+    else if(psentiment[a].innerHTML == ''){
+      cell[a].classList.add("gray")
+    }
+    else if(psentiment[a].innerHTML > 5 && psentiment[a].innerHTML <= 6 ){
+      cell[a].classList.add("eight");
+      psentiment[a].classList.add("eight8");
+    }
+    else if(psentiment[a].innerHTML > 3 && psentiment[a].innerHTML <= 4 ){
+      cell[a].classList.add("six");
+      psentiment[a].classList.add("six6");
+    }
+
+    else if(psentiment[a].innerHTML > 2 && psentiment[a].innerHTML <= 3 ){
+      cell[a].classList.add("five");
+      psentiment[a].classList.add("five5");
+    }
+
+    else if(psentiment[a].innerHTML > 1 && psentiment[a].innerHTML <= 2 ){
+      cell[a].classList.add("four");
+      psentiment[a].classList.add("four4");
+    }
+
+    else if(psentiment[a].innerHTML > 0 && psentiment[a].innerHTML <= 1 ){
+      cell[a].classList.add("three");
+      psentiment[a].classList.add("three3");
+    }
+
+    else if(psentiment[a].innerHTML > -1 && psentiment[a].innerHTML < 0 ){
+      cell[a].classList.add("two");
+      psentiment[a].classList.add("two2");
+    }
+
+    else if(psentiment[a].innerHTML > -2 && psentiment[a].innerHTML <= -1 ){
+      cell[a].classList.add("one");
+      psentiment[a].classList.add("one1");
+    }
+
+    else if(psentiment[a].innerHTML <= -2 ){
+      cell[a].classList.add("zero");
+      psentiment[a].classList.add("zero0");
+    }
+    else if(psentiment[a].innerHTML > 6){
+      cell[a].classList.add("nine");
+      psentiment[a].classList.add("nine9");
+    }
+   
+   
+  };
+});
+
+</script>
+<script>
+
+
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    //Do work
+
+
+  var small_div = document.getElementsByClassName("small_id");
+ 
+  for (a = small_div.length-1; a >= 0; a--){
+
+    if(small_div[a].innerHTML == "BBC"){
+    
+      small_div[a].classList.add("bbc_small");
+      
+    }
+    else if(small_div[a].innerHTML == 'NYT'){
+      small_div[a].classList.add("nyt_small")
+    }
+    else if(small_div[a].innerHTML == "FN"){
+      small_div[a].classList.add("fn_small");
+   
+    }
+  
+   
+  };
+});
+</script>
+
+
+
+
+</head>
+
+<body>
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+
+<div class="main">
+
+<div class="main_grid">
+
+ <div class="empty">
+<div class="side_bar">
+<div class="unselected">
+Word Count
+</div>
+<div class="selected">
+Sentiment
+</div>
+<div class="sub">
+<a href='{% url 'sentiment_compare' %}'>Compare</a>
+</div>
+<div class="sub_selected">
+Newspaper
+</div>
+
+<div class="sub">
+Word Search
+</div>
+<div class="unselected">
+Phrase Count
+</div>
+
+
+<div class="unselected">
+Headline Rank
+</div>
+
+<div class="unselected">
+Country Count
+</div>
+<div class="unselected">
+     Date
+</div>
+<div class="unselected">
+Analysis
+</div>
+
+</div>
+
+
+
+
+
+</div>
+<div class="combined_dash" id="dash1">
+<div class="dash_title">Sentiment: Newspaper</div>
+<div class="switch">
+<button type="button" class="dash_button_left" id="Date1">Date</button>
+<button type="button" class="dash_button_middle" id="Distribution1">Distribution</button>
+<button type="button" class="dash_button_right" id="Superlatives1">Superlatives</button>
+
+</div>
+
+
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+   {% autoescape off %}
+         {{ html_divosd }}
+          {% endautoescape %}
+       
+</div>
+</div>
+</div>
+<div class="dash_bottom_row_wrapper">
+<div class="dash_bottom_row">
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card">
+  <div class="card_title">Sentiment Heat Map Calendar</div>
+  <div class="cal_legend">  
+  <div class="caltitle">{{this_month}}</div>
+    <div class="spec_grid"><div class="spec_key"> </div><div class="legend_grid"><div class="spec_neg">neg</div> <div class="spec_pos">pos</div> </div>
+    </div>
+  </div>
+    <div class="calendar">
+
+{% for x, y, z, a, b, c in final_list %}
+   <a class="date_cell_link" href="/date_search/?date={{a}}%2F{{b}}%2F{{c}}"><div class="date_cell"> <div class="date">{{z}}</div> <div class="sentiment">{{y}}</div> </div></a>
+{% endfor %}
+
+    </div>
+
+</div>
+
+</div>
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card">
+  <div class="card_title">Sentiment Breakdown by Month</div>
+ {% autoescape off %}
+         {{ html_div_fig_pn }}
+          {% endautoescape %}
+
+</div>
+
+
+</div>
+
+
+
+</div>
+</div>
+<div class="footer"> </div>
+</div>
+  <div id='placeholder'> </div>
+
+<div class="combined_dash" id="dash2">
+<div class="dash_title">Sentiment: Combined</div>
+<div class="switch">
+<button type="button" class="dash_button_left" id="Date2">Date</button>
+<button type="button" class="dash_button_middle" id="Distribution2">Distribution</button>
+<button type="button" class="dash_button_right" id="Superlatives2">Superlatives</button>
+
+</div>
+
+
+<div class="date_top_row_compare">
+<div class="dash_card_wrapper">
+<div class="dash_card" id="overall_average">
+<div class="card_title">Sentiment Breakdown</div>
+   <div class="pie">{% autoescape off %}
+         {{ html_div_pie }}
+          {% endautoescape %}
+       </div>
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card" id="overall_average">
+  <div class="card_title" >Overall Average Sentiment</div>
+ <div class="overall_avg">{% autoescape off %}
+         {{ average_sent }}
+          {% endautoescape %}</div>
+
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card" id="overall_average">
+  <div class="card_title">Sentiment by Day of Week</div>
+ <div class="pie">{% autoescape off %}
+         {{ html_div_figdow }}
+          {% endautoescape %}</div>
+
+</div>
+</div>
+</div>
+<div class="dash_bottom_row_wrapper">
+<div class="dash_bottom_row" id="dist_bottom">
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card">
+  <div class="card_title">Sentiment Distribution</div>
+  <div class="pie_hr" >{% autoescape off %}
+         {{ fig_sent_hist_div }}
+          {% endautoescape %}</div>
+ 
+
+</div>
+
+</div>
+
+<div class="dash_card_wrapper_bottom">
+<div class="dash_card">
+  <div class="card_title">Sentiment By Headline Rank</div>
+<div class="pie_hr" id="dist_chart">{% autoescape off %}
+         {{ html_div_sent_hr }}
+          {% endautoescape %}</div>
+
+</div>
+
+</div>
+
+
+
+
+
+</div>
+</div>
+<div class="footer"> </div>
+</div>
+<div class="placeholder"></div>
+
+<div class="combined_dash" id="dash3">
+<div class="dash_title">Sentiment: Combined</div>
+<div class="switch">
+<button type="button" class="dash_button_left" id="Date3">Date</button>
+<button type="button" class="dash_button_middle" id="Distribution3">Distribution</button>
+<button type="button" class="dash_button_right" id="Superlatives3">Superlatives</button>
+
+</div>
+
+
+<div class="date_top_row_superlatives">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Most <p class="pos_color">Positive</p> Headlines</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading">
+      <div>Date
+      </div>
+      <div>Paper
+      </div>
+      <div>Headline
+      </div>
+      <div>Score
+      </div>
+
+      </div>
+      </div>
+    <div class="mostposgrid">
+{% for x, y, z, a, b, c in positive %}
+   <div>{{x}}</div><div class="small_id">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div>{{b}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Most <p class="pos_color">Positive</p> Dates</div>
+ <div class="top10grid">
+  <div class="date_grid"> <div class="bold">Date</div> <div class="bold">Score</div></div>
+    {% for x, y, z, a, b in top10list %}
+   <div class="date_grid"><a href ="/date_search/?date={{z}}%2F{{a}}%2F{{b}}">{{x}}</a> <a href="/date_search/?date={{z}}%2F{{a}}%2F{{b}}">{{y}}</a></div>
+{% endfor %}
+
+
+    </div>
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Most <p class="neg_color">Negative</p> Headlines</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading">
+      <div>Date
+      </div>
+      <div>Paper
+      </div>
+      <div>Headline
+      </div>
+      <div>Score
+      </div>
+
+      </div>
+      </div>
+    <div class="mostposgrid">
+{% for x, y, z, a, b, c in negative %}
+   <div>{{x}}</div><div class="small_id">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div>{{b}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Most <p class="neg_color">Negative</p> Dates</div>
+ <div class="top10grid">
+  <div class="date_grid"> <div class="bold">Date</div> <div class="bold">Score</div></div>
+    {% for x, y, z, a, b in bottom10list %}
+   <div class="date_grid"><a href ="/date_search/?date={{z}}%2F{{a}}%2F{{b}}">{{x}}</a> <a href="/date_search/?date={{z}}%2F{{a}}%2F{{b}}">{{y}}</a></div>
+{% endfor %}
+
+
+    </div>
+</div>
+</div>
+
+
+
+
+
+</div>
+<div class="date_top_row_superlatives_word">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Most <p class="pos_color">Positive</p> Words</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div>Word
+      </div>
+      <div>Count
+      </div>
+      <div>Sentiment
+      </div>
+     
+
+      </div>
+      </div>
+    <div class="mostposgrid_word">
+{% for x, y, z in top_overall %}
+   <div>{{x}}</div><div> {{y}}</div><div>{{z}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Most <p class="neg_color">Negative</p> Words</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div>Word
+      </div>
+      <div>Count
+      </div>
+      <div>Sentiment
+      </div>
+     
+
+      </div>
+      </div>
+    <div class="mostposgrid_word">
+{% for x, y, z in worst_overall %}
+   <div>{{x}}</div><div> {{y}}</div><div>{{z}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Name Sentiment</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div>Name
+      </div>
+      <div>Count
+      </div>
+      <div>Sentiment
+      </div>
+     
+
+      </div>
+      </div>
+    <div class="mostposgrid_word">
+{% for x, y, z in best_people %}
+   <div>{{x}}</div><div> {{y}}</div><div>{{z}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Place Sentiment</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div>Place
+      </div>
+      <div>Count
+      </div>
+      <div>Sentiment
+      </div>
+     
+
+      </div>
+      </div>
+    <div class="mostposgrid_word">
+{% for x, y, z in top_places %}
+   <div>{{x}}</div><div> {{y}}</div><div>{{z}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Political Sentiment</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div>Place
+      </div>
+      <div>Count
+      </div>
+      <div>Sentiment
+      </div>
+     
+
+      </div>
+      </div>
+    <div class="mostposgrid_word">
+{% for x, y, z in top_political %}
+   <div>{{x}}</div><div> {{y}}</div><div>{{z}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Economic Sentiment</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div>Place
+      </div>
+      <div>Count
+      </div>
+      <div>Sentiment
+      </div>
+     
+
+      </div>
+      </div>
+    <div class="mostposgrid_word">
+{% for x, y, z in top_economic %}
+   <div>{{x}}</div><div> {{y}}</div><div>{{z}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Coronavirus Sentiment</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div>Place
+      </div>
+      <div>Count
+      </div>
+      <div>Sentiment
+      </div>
+     
+
+      </div>
+      </div>
+    <div class="mostposgrid_word">
+{% for x, y, z in top_corona %}
+   <div>{{x}}</div><div> {{y}}</div><div>{{z}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Race/Policing Sentiment</div>
+      <div class="frame_wrapper">
+      <div class="heading_wrapper">
+      <div class="mostposgrid_heading_word">
+      <div>Place
+      </div>
+      <div>Count
+      </div>
+      <div>Sentiment
+      </div>
+     
+
+      </div>
+      </div>
+    <div class="mostposgrid_word">
+{% for x, y, z in top_rp %}
+   <div>{{x}}</div><div> {{y}}</div><div>{{z}}</div>
+{% endfor %}
+    </div>
+       
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="footer"> </div>
+</div>
+</div>
+
+
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+</script>
+<script>
+
+$(document).ready(function(){
+  $("#Date1").click(function(){
+    
+    $("#dash1").css('display','grid')
+   
+    $("#dash2").css('display', 'none')
+    
+    $("#dash3").css('display', 'none')
+    $("#placeholder").css('display', 'block')
+    
+    $('#Date1').css({"background-color":"#fafafa","color":"black"})
+    $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date2').css({"background-color":"#fafafa","color":"black"})
+    $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date3').css({"background-color":"#fafafa","color":"black"})
+    $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives3').css({"color":"#919191", "background-color":"transparent"})
+  })
+  $("#Date2").click(function(){
+    $("#dash1").css('display','grid')
+   
+    $("#dash2").css('display', 'none')
+    
+    $("#dash3").css('display', 'none')
+    $("#placeholder").css('display', 'block')
+    $('#Date1').css({"background-color":"#fafafa","color":"black"})
+    $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date2').css({"background-color":"#fafafa","color":"black"})
+    $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date3').css({"background-color":"#fafafa","color":"black"})
+    $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives3').css({"color":"#919191", "background-color":"transparent"})
+   
+    
+
+  })
+  $("#Date3").click(function(){
+   
+    $("#dash1").css('display','grid')
+   
+    $("#dash2").css('display', 'none')
+    
+    $("#dash3").css('display', 'none')
+    $("#placeholder").css('display', 'block')
+    $('#Date1').css({"background-color":"#fafafa","color":"black"})
+    $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date2').css({"background-color":"#fafafa","color":"black"})
+    $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date3').css({"background-color":"#fafafa","color":"black"})
+    $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives3').css({"color":"#919191", "background-color":"transparent"})
+  })
+  $("#Distribution1").click(function(){
+    
+    $("#dash1").css('display','none')
+   
+    $("#dash2").css('display', 'grid')
+    
+    $("#dash3").css('display', 'none')
+    $("#placeholder").css('display', 'none')
+    $('#Date1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution1').css({"background-color":"#fafafa","color":"black"})
+    $('#Superlatives1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution2').css({"background-color":"#fafafa","color":"black"})
+    $('#Superlatives2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution3').css({"background-color":"#fafafa","color":"black"})
+    $('#Superlatives3').css({"color":"#919191", "background-color":"transparent"})
+  })
+  $("#Distribution2").click(function(){
+    
+   $("#dash1").css('display','none')
+   
+    $("#dash2").css('display', 'grid')
+    
+    $("#dash3").css('display', 'none')
+    $("#placeholder").css('display', 'none')
+    $('#Date1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution1').css({"background-color":"#fafafa","color":"black"})
+    $('#Superlatives1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution2').css({"background-color":"#fafafa","color":"black"})
+    $('#Superlatives2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution3').css({"background-color":"#fafafa","color":"black"})
+    $('#Superlatives3').css({"color":"#919191", "background-color":"transparent"})
+
+  })
+
+  $("#Distribution3").click(function(){
+    
+   $("#dash1").css('display','none')
+   
+    $("#dash2").css('display', 'grid')
+    
+    $("#dash3").css('display', 'none')
+    $("#placeholder").css('display', 'none')
+    $('#Date1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution1').css({"background-color":"#fafafa","color":"black"})
+    $('#Superlatives1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution2').css({"background-color":"#fafafa","color":"black"})
+    $('#Superlatives2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Date3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution3').css({"background-color":"#fafafa","color":"black"})
+    $('#Superlatives3').css({"color":"#919191", "background-color":"transparent"})
+
+  })
+ $("#Superlatives1").click(function(){
+    
+   $("#dash1").css('display','none')
+   
+    $("#dash2").css('display', 'none')
+    
+    $("#dash3").css('display', 'grid')
+    $("#placeholder").css('display', 'block')
+    $('#Date1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives1').css({"background-color":"#fafafa","color":"black"})
+    $('#Date2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives2').css({"background-color":"#fafafa","color":"black"})
+    $('#Date3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives3').css({"background-color":"#fafafa","color":"black"})
+  })
+  $("#Superlatives2").click(function(){
+     $("#dash1").css('display','none')
+   
+    $("#dash2").css('display', 'none')
+    
+    $("#dash3").css('display', 'grid')
+    $("#placeholder").css('display', 'block')
+    $('#Date1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives1').css({"background-color":"#fafafa","color":"black"})
+    $('#Date2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives2').css({"background-color":"#fafafa","color":"black"})
+    $('#Date3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives3').css({"background-color":"#fafafa","color":"black"})
+
+  })
+
+  $("#Superlatives3").click(function(){
+    
+    $("#dash1").css('display','none')
+   
+    $("#dash2").css('display', 'none')
+    
+    $("#dash3").css('display', 'grid')
+    $("#placeholder").css('display', 'block')
+    $('#Date1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives1').css({"background-color":"#fafafa","color":"black"})
+    $('#Date2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives2').css({"background-color":"#fafafa","color":"black"})
+    $('#Date3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+    $('#Superlatives3').css({"background-color":"#fafafa","color":"black"})
+
+  })
+
+
+
+    
+  })
+
+
+$(document).ready(function(){
+  $("#dash2").click(function(){
+    $("#1").replaceWith($("#1"))
+  })
+})
+
+
+
+</script>
+
+</html>

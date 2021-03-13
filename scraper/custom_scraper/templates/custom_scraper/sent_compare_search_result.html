@@ -1,0 +1,3880 @@
+{% load static %}
+
+
+<head>
+<title>Analyze and Compare Newspaper Headlines Sentiment Word Search: Headline Compare</title>
+<meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
+
+    <link rel="icon" href="{% static 'hcfav.png' %}"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,200;0,300;0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+
+<style>
+body {
+ background-color: #f4f4f4;
+ width:100%;
+ margin:0;
+}
+
+ .header {
+ font-family:"Roboto";
+ font-size:30px;
+ font-weight:900;
+ text-align:center;
+ padding: 9px;
+ background:white;
+ width:100%;
+ margin:auto;
+ position:fixed;
+ z-index:100;
+ 
+ }
+
+ .header a{
+ text-decoration:none;
+ color:black;
+}
+.header a:hover{
+ text-decoration:underline;
+ color:black;
+}
+
+.header a:visited {
+ text-decoration:none;
+ color:black;
+}
+
+.main {
+ width:80%;
+ margin:auto;
+ font-family:"Roboto";
+ padding-top:53px;
+ text-align:center;
+ background-color:#f4f4f4;
+}
+
+.main_grid {
+ display:grid;
+ grid-template-columns: 160px 11fr;
+ column-gap:10px;
+}
+
+.side_bar {
+ padding-top:200px;
+ position:fixed;
+ width:160px;
+}
+
+
+.unselected {
+ text-align:left;
+ padding:9px;
+
+}
+
+.selected {
+ text-align:left;
+ padding:9px;
+ font-weight:bold;
+ background-color:#3b3a3a;
+ color:white;
+ border-radius: 5px 5px 5px 5px;
+
+
+}
+
+.sub {
+ text-align:left;
+ padding-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+}
+
+.sub a {
+  color:black;
+  text-decoration:none;
+}
+
+.sub a:hover {
+  text-decoration:underline;
+}
+
+sub a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+.sub_selected {
+ 
+ text-align:left;
+ margin-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+ font-weight:bold;
+ font-size:22px;
+ 
+ 
+
+}
+
+.dash_title {
+ color:#292929;
+ font-size:40px;
+ font-weight:bold;
+ text-align:left;
+ position:relative;
+ padding-top:30px;
+ padding-left:23px;
+ height:40px;
+width:100vh;
+}
+
+
+
+  input[type="submit"] {
+         
+         font-size: 14px;
+         font-family: "Roboto";
+         width:80px;
+        color:black;
+        background:whitesmoke;
+        border-radius:5px;
+        padding:10px;
+
+     }
+
+     input[type="text"] {
+       padding:10px;
+       font-size: 14px;
+      
+     }
+
+     .search {
+       width:70%;
+       margin:auto;
+       padding-bottom:10px;
+     }
+
+
+
+.dash_card_wrapper {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+
+}
+
+
+.dash_card {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+}
+
+.card_title {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-40;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+.spacer {
+    height:22px;
+}
+
+.move_down {
+  position:relative;
+  top:10px;
+}
+
+.search_smaller {
+  display:inline-block;
+  
+ 
+}
+
+form {
+  position:relative;
+  top:-10px;
+  left:20px;
+  padding-top:5px;
+}
+
+.key_word {
+  font-size:80px;
+  font-weight:bold;
+  padding-top: 38px;
+}
+
+.switch {
+ display:grid;
+ grid-template-columns:  1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:390px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.switch_overall {
+ display:grid;
+ grid-template-columns:  1fr 1fr 1fr 1fr;
+ height:30px;
+ padding:20px;
+ width:520px;
+ margin:auto;
+
+ padding-top:40px;
+ padding-bottom:40px;
+ 
+}
+
+.dash_button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 0px 0px 0px;
+ color:#919191;
+ width:130px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 5px 0px 0px 5px;
+ color:black;
+ width:130px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.dash_button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #919191;
+ border-radius: 0px 5px 5px 0px;
+ color:#919191;
+ width:130px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+
+
+
+
+
+
+.np_selector {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+ height:30px;
+
+ padding-top:40px;
+ padding-bottom:42px;
+ 
+}
+
+.button_middle {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+.button_left {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:#fafafa;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+
+
+ color:black;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ border-radius: 5px 0px 0px 5px;
+ 
+}
+.mostposgrid_word_h{
+     display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+    margin: auto;
+       padding-top:10px;
+  padding-bottom:10px;
+      border-bottom: 1px solid #f0f0f0;
+      width:70%;
+}
+
+
+.button_right {
+ font-size: 14px;
+ font-family:"Roboto";
+ background-color:transparent;
+ margin:10px;
+ border: 1px solid #c9c9c9;
+ border-radius:0px 5px 5px 0px;
+ 
+ 
+ color:#919191;
+ width:125px;
+ padding-top:0px;
+ padding-bottom:0px;
+ margin:0;
+ 
+}
+
+
+.Compare {
+font-size:21px;
+font-weight: bold;
+border: 1px solid #dbdbdb;
+
+}
+
+
+.Overall {
+font-size:21px;
+font-weight: bold;
+border: 1px solid #dbdbdb;
+
+}
+
+.NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+}
+
+.BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    color: white;
+}
+
+.FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+}
+
+
+.unselected_Compare {
+  
+    background: #2d2e30;
+  
+  
+   
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+}
+
+
+
+.unselected_Overall {
+  
+    background: #2d2e30;
+  
+    font-size:21px;
+   
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+        font-weight:bold;
+}
+
+
+
+.unselected_NYT {
+  font-family: "Alfa Slab One";
+    background: #2d2e30;
+  
+    color: white;
+    font-size:20px;
+
+        background-color: transparent;  
+        background:#dbdbdb;
+        color:#919191;
+        padding-top:4px;
+}
+
+.unselected_BBC {
+    font-family: "Lato";
+    background: #bb1919;
+    background:#dbdbdb;
+    color: white;
+    font-size:25px;
+     background-color: transparent;
+        color:#919191;
+        background:#dbdbdb;
+}
+
+.unselected_FN {
+font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    font-size:25px;
+     background-color: transparent;
+     background:#dbdbdb;
+        color:#919191;
+}
+
+.selector_wrapper {
+  margin:auto;
+   padding-top:80px;
+
+}
+
+.Copmare_main {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+.date_top_row {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:408px;
+ padding-bottom:20px;
+}
+
+
+
+.date_top_row_comp {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:408px;
+ padding-bottom:20px;
+ margin:auto;
+ width:800px;
+ height:700px;
+}
+
+
+
+
+.date_top_row_avg {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:390px;
+}
+
+
+.date_top_row_dist1 {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:530px;
+}
+
+.date_top_row_hl {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:465px;
+}
+
+.date_top_row_first {
+ display: grid;
+ grid-template-columns: 1fr 4fr;
+ height:450px;
+}
+
+.single_grid {
+  display:grid;
+  grid-template-columns:1fr;
+}
+
+.date_top_row_ah {
+ display: grid;
+ grid-template-columns: 1fr;
+
+}
+
+
+
+
+.date_top_row_ah {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+
+}
+.dash_card_wrapper {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+
+}
+
+.dash_card {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+}
+
+.card_title {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-40;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+.date_top_row2 {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:380px;
+ padding-top:50px;
+}
+
+.date_top_row2_overall {
+ display: grid;
+ grid-template-columns: 1fr;
+ height:380px;
+ padding-top:0px;
+ padding-bottom: 85px;
+}
+
+.main_grid_footer {
+    display: grid;
+    grid-template-columns: 160px 11fr;
+    column-gap: 10px;
+}
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:100px;
+padding-bottom:50px;
+font-family:"Roboto";
+
+}
+
+
+.date_top_row_superlatives_word {
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ height:600px;
+}
+.dash_card_wrapper_super {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:80px;
+
+}
+.dash_card_left_super {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding-bottom:0px;
+ height:540px;
+}
+
+.card_title_super {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-65;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+
+ 
+ 
+}
+.word_heading_nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:24px;
+  font-weight:400;
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  flex:1;
+  line-height:40px;
+  margin:auto;
+  padding-right:1px;
+  width:170px;
+  margin-bottom:5px;
+ width:100%;
+ position:relative;
+ top:-60;
+}
+.mostposgrid_heading_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+ font-size:15px;
+ font-weight:bold;
+ text-decoration:underline;
+ padding-bottom:7px;
+ position:relative;
+ top: -55px;
+}
+
+.mostposgrid_heading_word_right {
+ display:grid;
+ grid-template-columns: 1fr 1fr;
+ 
+ align-items:center;
+ font-size:15px;
+ font-weight:bold;
+ text-decoration:underline;
+ padding-bottom:7px;
+ position:relative;
+ top: -40px;
+
+}
+
+
+
+.frame_wrapper_left {
+height:500px;
+overflow-y:auto;
+position:relative;
+top:-60;
+}
+
+.frame_wrapper_left_rw {
+height:500px;
+overflow-y:overlay;
+
+}
+.mostposgrid_word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+    margin: auto;
+       padding-top:10px;
+  padding-bottom:10px;
+      border-bottom: 1px solid #f0f0f0;
+      width: 70%;
+}
+
+.mostposgrid_word:hover {
+  background: #f2f2f2;
+}
+
+.mostposgrid_word_nc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+    width: 60%;
+    margin: auto;
+}
+
+
+.mostposgrid_word_hl {
+ display:grid;
+ grid-template-columns: 1fr ;
+ 
+ align-items:center;
+}
+
+
+
+
+.dash_card_super {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+ height:520px;
+}
+.word_heading_bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  font-size: 25px;
+  flex:1;
+   line-height:40px;
+   justify:center;
+   
+   width:170px;
+   margin:auto;
+   width:100%;
+   position:relative;
+ top:-50;
+ right:10;
+ padding-right:10px;
+ padding-left:10px;
+}
+
+.word_heading_fn {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:4px 4px 0px 0px;
+  margin:1px;
+  flex:1;
+  line-height:40px;
+  font-size:25px;
+  width:170px;
+  
+  margin:auto;
+  width:100%;
+ position:relative;
+ top:-50;
+ right:10px;
+ padding-right:10px;
+ padding-left:10px;
+}
+
+.frame_wrapper {
+height:500px;
+overflow-y:auto;
+position:relative;
+top:-45;
+}
+
+.frame_wrapper_large {
+height:700px;
+overflow-y:auto;
+
+}
+
+.date_cell_link {
+  color:black;
+  text-decoration:none;
+
+}
+
+.date_cell_link:visited {
+  color:black;
+  text-decoration:none;
+  
+}
+
+.date_cell_link:hover {
+  text-decoration:underline;
+  
+}
+#Relatedwordsdiv0 {
+  display:none;
+}
+
+#Distributiondiv0 {
+  display:none;
+}
+
+#Allheadlinesdiv0 {
+  display:none;
+}
+
+
+
+#Relatedwordsdiv1 {
+  display:none;
+}
+
+#Distributiondiv1 {
+  display:none;
+}
+
+#Allheadlinesdiv1 {
+  display:none;
+}
+
+
+
+
+#Relatedwordsdiv2 {
+  display:none;
+}
+
+#Distributiondiv2 {
+  display:none;
+}
+
+#Allheadlinesdiv2 {
+  display:none;
+}
+
+
+
+#Relatedwordsdiv3 {
+  display:none;
+}
+
+#Distributiondiv3 {
+  display:none;
+}
+
+#Allheadlinesdiv3 {
+  display:none;
+}
+
+
+#Relatedwordsdiv4 {
+  display:none;
+}
+
+#Distributiondiv4 {
+  display:none;
+}
+
+#Allheadlinesdiv4 {
+  display:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.ah_heading_wrapper {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width:100%;
+  height:52px;
+}
+
+
+.ah_fn {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:0px 4px 0px 0px;
+  margin:1px;
+  line-height:40px;
+  font-size:25px;
+  width:170px;
+
+  width:100%;
+
+  line-height:52px;
+}
+
+
+.ah_bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  
+  margin:1px;
+  font-size: 25px;
+ 
+   line-height:40px;
+   justify:center;
+   
+   width:170px;
+  
+   width:100%;
+   line-height:52px;
+
+}
+
+
+.ah_nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:24px;
+  font-weight:400;
+  border-radius:4px 0px 0px 0px;
+  margin:1px;
+  
+  line-height:40px;
+ 
+ 
+  width:170px;
+ 
+ width:100%;
+   line-height:52px;
+  
+}
+
+.news_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.headline_grid_object {
+  padding:40px;
+  border-radius: 5px;
+
+}
+
+ 
+}
+
+.date_grid_object {
+  font-size:12px;
+}
+.sentiment {
+  padding:0px;
+  margin:0px;
+}
+
+.green {
+  
+  background: #defced;
+
+margin:20px;
+  padding-left: 10px;
+  padding-right:5px;
+  border-left: 2px solid #4ad47f;
+}
+
+.green a:visited{
+  color:black;
+}
+.green a:link {
+  color:black;
+}
+
+.green:hover {
+  color:black;
+  background: #4ad47f;
+
+
+  border-left: 2px solid #defced;
+}
+
+.red {
+ 
+  color:black;
+background: #fcdede;
+
+margin:20px;
+  padding-left: 10px;
+  padding-right:5px;
+  border-left: 2px solid #ed473b;
+}
+
+.red a:visited{
+  color:black;
+}
+.red a:link {
+  color:black;
+}
+
+.red:hover {
+  color:black;
+  
+background: #ed473b;
+
+
+  border-left: 2px solid #fcdede;
+}
+
+.small_cooc {
+  margin:auto;
+  width:70%;
+}
+
+a {
+  color:black;
+  text-decoration:none;
+}
+
+a:hover {
+  text-decoration:underline;
+}
+
+.small_hl a:hover {
+  text-decoration:none;
+}
+
+a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+
+#Overallsection {
+  display:none;
+}
+
+#NYTsection {
+  display:none;
+}
+
+#BBCsection {
+  display:none;
+}
+#FNsection {
+  display:none;
+}
+
+.average_paper {
+  font-size:80px;
+  font-weight:bold;
+  height:280px;
+  margin:auto;
+  line-height:300px;
+  position:relative;
+  top:-40;
+}
+
+.orw {
+  display:grid;
+  grid-template-columns: 1fr 900px 1fr;
+}
+
+.orw_title {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows:40px;
+}
+
+.orw_nyt {
+   font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+    font-size: 17px;
+    
+    border-radius: 4px;
+    margin: 1px;
+    line-height: 20px;
+    padding-top:2px;
+
+}
+
+.orw_bbc {
+  font-family: "Lato";
+    background: #bb1919;
+    color: white;
+     border-radius: 4px;
+    margin: 1px;
+    font-size: 20px;
+    font-weight:900;
+    line-height: 20px;
+
+}
+
+.orw_fn {
+  font-family: "Titillium Web";
+    font-weight: bold;
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius: 4px;
+    margin: 1px;
+    font-size:20px;
+    line-height: 20px;
+}
+
+.orw_heading {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+
+.orw_heading_framed {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  margin-right:-15px;
+}
+.orw_word {
+  font-size:17px;
+  font-weight:bold;
+  text-decoration:underline;
+}
+
+.heading_container {
+  display:grid;
+  grid-template-columns:3fr 1fr 1fr 1fr 2fr;
+}
+
+
+.frame_wrapper_orw {
+    height: 500px;
+    overflow-y: auto;
+    position: relative;
+    top: 5;
+
+}
+.orw_grid {
+  font-size:15px;
+}
+
+.orw_double {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+
+.word_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr ;
+
+}
+.search_term {
+  font-size:60px;
+  font-weight:bold;
+  padding:40px;
+}
+
+.divider {
+  font-size:60px;
+  padding-top:40px;
+  font-weight:normal;
+}
+
+
+.related_words_grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 25px;
+
+}
+
+.related_words_grid_compare {
+  display:grid;
+  grid-template-columns: 1fr;
+height:1400px;
+padding-top:25px;
+}
+
+.related_words_grid_compare_hl {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+height:610px;
+padding-top:25px;
+}
+
+
+
+
+
+
+.related_title {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  position: relative;
+    top: -17;
+}
+
+.related_title_overall {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+
+.ah_fn_rw {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:0px 4px 0px 0px;
+  margin:1px;
+  line-height:25px;
+  font-size:20px;
+  
+
+  width:100%;
+  line-height:35px;
+ 
+ height:35px;
+}
+
+
+.ah_bbc_rw {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  
+  margin:1px;
+  font-size: 20px;
+ 
+   line-height:25px;
+   justify:center;
+   
+
+  
+   width:100%;
+
+  line-height:35px;
+ 
+ height:35px;
+}
+
+
+.ah_nyt_rw {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:16px;
+  font-weight:400;
+  border-radius:4px 0px 0px 0px;
+  margin:1px;
+  
+  line-height:35px;
+ 
+ height:35px;
+ 
+ 
+ width:100%;
+
+  
+}
+
+
+.head_rw {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.rw_head_font {
+  font-weight:bold;
+}
+
+.small_hl_box {
+  
+  margin:20px;
+  text-align:left;
+  padding-left: 10px;
+  padding-right:5px;
+  border-left: 2px solid #f2f2f2;
+}
+
+.small_hl_box:hover {
+  background:#f2f2f2;
+ 
+  border-left: 2px solid white; ;
+}
+
+
+.small_hl {
+font-size:12px;
+  font-weight:bold;
+  text-align:left;
+
+}
+
+.small_detail {
+  font-size:10px;
+  font-weight:normal;
+  text-align:left;
+}
+.small_detail_sent {
+  font-size:10px;
+  font-weight:normal;
+}
+
+.small_detail_sent {
+  display:inline;
+}
+
+
+ .frame_wrapper_left_rw::-webkit-scrollbar {
+ width: 6px;
+  height: 8px;
+}
+.frame_wrapper_left_rw::-webkit-scrollbar-thumb {
+ 
+  background:#f2f2f2;
+}
+
+.rw_word {
+padding-top:2px;
+padding-bottom: 2px;
+padding-left:20px;
+
+}
+
+.rw_score {
+padding-top:2px;
+padding-bottom: 2px;
+padding-right:20px;
+text-align:right;
+}
+
+.rw_count {
+  padding-top:2px;
+padding-bottom: 2px;
+padding-right:10px;
+text-align:right;
+}
+
+.plotly_container {
+  width:95%;
+}
+
+    .header_cooc {
+       text-decoration:none;
+       font-size: 16px;
+           box-shadow: 0 5px 2px -2px #f0f0f0;
+
+     }
+
+
+     .footer_div a {
+  text-decoration:none;
+  color:black;
+}
+
+.footer_div a:hover {
+  text-decoration:underline;
+  color:black;
+}
+
+
+
+.footer_div a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+
+
+
+
+
+
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+
+<div class="main">
+
+<div class="main_grid">
+
+ <div class="empty"></div>
+<div class="side_bar">
+<div class="unselected">
+<a href='{% url 'word_count_general_og' %}'>Word Count</a>
+</div>
+<div class="selected">
+Sentiment
+</div>
+<div class="sub">
+<a href='{% url 'sentiment_newspaper' %}'>By Newspaper</a>
+</div>
+<div class="sub">
+<a href='{% url 'sentiment_compare' %}'>Compare Newspapers</a>
+</div>
+
+
+<div class="sub">
+<a href='{% url 'sentiment_word_search' %}'>Word Search</a>
+</div>
+<div class="sub_selected">
+Word Compare
+</div>
+
+<div class="unselected">
+<a href='{% url 'emotion_newspaper' %}'>Emotion</a>
+</div>
+<div class="unselected">
+<a href='{% url 'date_search' %}'>Date</a>
+</div>
+
+
+<div class="unselected">
+ Analysis
+</div>
+
+</div>
+
+
+<div class="dash_title">Sentiment: Word Compare
+   <div class="search_smaller">
+    <form action="/sent_compare_search_result" method="GET">
+           {% csrf_token %}
+           {{form1}}
+            <input type="submit" value="Search">
+            </form></div></div>
+
+<div class="empty"> </div>
+<div class="selector_wrapper">
+<div class="np_selector">
+<button type="button" class="button_left Compare" id="Compare">Compare</button>
+<button type="button" class="button_middle unselected_Overall" id="Overall">Overall</button>
+
+ <button type="button" class="button_middle unselected_NYT" id="NYT">NYT</button>
+ <button type="button" class="button_middle unselected_BBC" id="BBC">BBC</button>
+
+   <button type="button" class="button_right unselected_FN" id="FN">FN</button>
+</div>
+</div><div class="empty"></div>
+  <div class='word_grid'>
+            <div class='search_term'>"{{search1}}"</div>  
+<div class='search_term'>"{{search2}}"</div> 
+            </div><div class="empty"></div>
+
+
+<div class="Compare_main" id="Comparesection">
+
+<div class="switch_overall">
+
+<button type="button" class="dash_button_left" id="Breakdown0">Breakdown</button>
+<button type="button" class="dash_button_middle" id="Distribution0">Distribution</button>
+ <button type="button" class="dash_button_middle" id="RelatedWords0">Related Words</button>
+   <button type="button" class="dash_button_right" id="AllHeadlines0">All Headlines</button>
+</div>
+<div class="Breakdowndiv0" id="Breakdowndiv0">
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Newspaper</div>
+ <div class='plotly_container'>
+ {% autoescape off %}
+ {{  html_div_sentiment}}
+ {% endautoescape %}
+ </div>
+</div>
+</div>
+</div>
+
+
+
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Month</div>
+ {% autoescape off %}
+ {{ html_div_compare_month }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+ {% autoescape off %}
+ {{ html_div_compare_date }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="Distributiondiv0" id="Distributiondiv0">
+<div class="date_top_row_hl">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Newspaper</div>
+ {% autoescape off %}
+ {{  html_div_fig_curve_all}}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+</div>
+
+
+<div class="Relatedwordsdiv0" id="Relatedwordsdiv0">
+
+<div class='related_words_grid_compare'> 
+<div class="date_top_row_comp">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search1}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+    <div class="mostposgrid_word_h header_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+    <div class="mostposgrid_word_h header_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+    <div class="mostposgrid_word_h header_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_list_nyt_search1 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+     
+    
+   
+
+<div class='single_grid'>
+{% for x, y in sorted_list_bbc_search1 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+</div>
+  <div class="frame_wrapper_left_rw">
+     
+    
+<div class='single_grid'>
+{% for x, y in sorted_list_fn_search1 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+</div>
+
+  
+</div>
+</div>
+</div>
+<div class="date_top_row_comp">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search2}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+    <div class="mostposgrid_word_h header_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+    <div class="mostposgrid_word_h header_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+    <div class="mostposgrid_word_h header_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_list_nyt_search2 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+     
+    
+   
+
+<div class='single_grid'>
+{% for x, y in sorted_list_bbc_search2 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+</div>
+  <div class="frame_wrapper_left_rw">
+     
+    
+<div class='single_grid'>
+{% for x, y in sorted_list_fn_search2 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+</div>
+
+<div class="Allheadlinesdiv0" id="Allheadlinesdiv0">
+<div class='headline_content' id='all_headlines'>
+
+<div class='related_words_grid_compare_hl'> 
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search1}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+     
+    
+    <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in nyt_small_hl %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl %}
+   <div class='{{b}}'>
+  <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+     
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in fn_small_hl %}
+   <div class='{{b}}'>
+ <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+      
+   
+       
+</div>
+
+</div>
+
+  
+</div>
+</div>
+</div>
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search2}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in nyt_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+  
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+       <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in fn_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment:<p class='small_detail_sent'>{{z}}</p></div>
+
+   </div>
+
+
+{% endfor %}
+    </div>  
+    
+  
+       
+</div>
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+</div>
+<div class="Overall_main" id="Overallsection">
+
+
+<div class="switch_overall">
+
+<button type="button" class="dash_button_left" id="Breakdown1">Breakdown</button>
+<button type="button" class="dash_button_middle" id="Distribution1">Distribution</button>
+ <button type="button" class="dash_button_middle" id="RelatedWords1">Related Words</button>
+   <button type="button" class="dash_button_right" id="AllHeadlines1">All Headlines</button>
+</div>
+
+
+
+<div class="Breakdowndiv1" id="Breakdowndiv1">
+
+<div class="date_top_row_avg">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Overall Sentiment</div>
+ {% autoescape off %}
+ {{  html_div_sentiment_overall}}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Month</div>
+ {% autoescape off %}
+ {{ html_div_compare_month_overall }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+ {% autoescape off %}
+ {{ html_div_compare_date_overall }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+<div class="Distributiondiv1" id="Distributiondiv1">
+<div class="date_top_row_dist1">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Sentiment Distribution</div>
+<div class="chart_limited">
+ {% autoescape off %}
+ {{ html_div_fig_curve_overall }}
+ {% endautoescape %}
+</div>
+ 
+</div>
+</div>
+
+
+
+</div>
+
+<div class="date_top_row2_overall">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Pos/Neg Breakdown</div>
+ {% autoescape off %}
+ {{ html_div_fig_pos_neg }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="Relatedwordsdiv1" id="Relatedwordsdiv1">
+
+
+
+
+<div class='related_words_grid_compare_hl'> 
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search1}}"</div>
+
+
+    <div class="mostposgrid_word_h header_cooc small_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_overall_dict_list_1 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+
+
+</div>
+
+  
+</div>
+</div>
+
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search2}}"</div>
+
+
+    <div class="mostposgrid_word_h header_cooc small_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_overall_dict_list_2 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+
+
+</div>
+
+  
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="Allheadlinesdiv1" id="Allheadlinesdiv1">
+
+<div class='headline_content' id='all_headlines'>
+
+<div class='related_words_grid_compare_hl'> 
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search1}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+     
+    
+    <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in nyt_small_hl %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl %}
+   <div class='{{b}}'>
+  <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+     
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in fn_small_hl %}
+   <div class='{{b}}'>
+ <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+      
+   
+       
+</div>
+
+</div>
+
+  
+</div>
+</div>
+</div>
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search2}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in nyt_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+  
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+       <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in fn_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment:<p class='small_detail_sent'>{{z}}</p></div>
+
+   </div>
+
+
+{% endfor %}
+    </div>  
+    
+  
+       
+</div>
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="NYT_main" id="NYTsection">
+
+
+<div class="switch_overall">
+
+<button type="button" class="dash_button_left" id="Breakdown2">Breakdown</button>
+<button type="button" class="dash_button_middle" id='Distribution2'>Distribution</button>
+ <button type="button" class="dash_button_middle" id="RelatedWords2">Related Words</button>
+   <button type="button" class="dash_button_right" id="AllHeadlines2">All Headlines</button>
+</div>
+
+
+
+<div class="Breakdowndiv2" id="Breakdowndiv2">
+<div class="date_top_row_avg">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Overall Sentiment</div>
+ {% autoescape off %}
+ {{  html_div_sentiment_nyt}}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Month</div>
+ {% autoescape off %}
+ {{ html_div_compare_month_nyt }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+ {% autoescape off %}
+ {{ html_div_compare_date_nyt }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+<div class="Distributiondiv2" id="Distributiondiv2">
+<div class="date_top_row_dist1">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Sentiment Distribution</div>
+<div class="chart_limited">
+ {% autoescape off %}
+ {{ html_div_fig_curve_nyt }}
+ {% endautoescape %}
+</div>
+ 
+</div>
+</div>
+
+
+
+</div>
+
+<div class="date_top_row2_overall">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Pos/Neg Breakdown</div>
+ {% autoescape off %}
+ {{ html_div_fig_pos_neg_nyt }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="Relatedwordsdiv2" id="Relatedwordsdiv2">
+<div class='related_words_grid_compare_hl'> 
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search1}}"</div>
+
+
+    <div class="mostposgrid_word_h header_cooc small_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_list_nyt_search1 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+
+
+</div>
+
+  
+</div>
+</div>
+
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search2}}"</div>
+
+
+    <div class="mostposgrid_word_h header_cooc small_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_list_nyt_search2 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+
+
+</div>
+
+  
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="Allheadlinesdiv2" id="Allheadlinesdiv2">
+<div class='headline_content' id='all_headlines'>
+
+<div class='related_words_grid_compare_hl'> 
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search1}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+     
+    
+    <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in nyt_small_hl %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl %}
+   <div class='{{b}}'>
+  <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+     
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in fn_small_hl %}
+   <div class='{{b}}'>
+ <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+      
+   
+       
+</div>
+
+</div>
+
+  
+</div>
+</div>
+</div>
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search2}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in nyt_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+  
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+       <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in fn_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment:<p class='small_detail_sent'>{{z}}</p></div>
+
+   </div>
+
+
+{% endfor %}
+    </div>  
+    
+  
+       
+</div>
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="BBC_main" id="BBCsection">
+
+
+<div class="switch_overall">
+
+<button type="button" class="dash_button_left" id="Breakdown3">Breakdown</button>
+<button type="button" class="dash_button_middle" id="Distribution3">Distribution</button>
+ <button type="button" class="dash_button_middle" id="RelatedWords3">Related Words</button>
+   <button type="button" class="dash_button_right" id="AllHeadlines3">All Headlines</button>
+</div>
+
+
+
+<div class="Breakdowndiv3" id="Breakdowndiv3">
+<div class="date_top_row_avg">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Overall Sentiment</div>
+ {% autoescape off %}
+ {{  html_div_sentiment_bbc}}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Month</div>
+ {% autoescape off %}
+ {{ html_div_compare_month_bbc }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+ {% autoescape off %}
+ {{ html_div_compare_date_bbc }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<div class="Distributiondiv3" id="Distributiondiv3">
+
+<div class="date_top_row_dist1">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Sentiment Distribution</div>
+<div class="chart_limited">
+ {% autoescape off %}
+ {{ html_div_fig_curve_bbc }}
+ {% endautoescape %}
+</div>
+ 
+</div>
+</div>
+
+
+
+</div>
+
+<div class="date_top_row2_overall">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Pos/Neg Breakdown</div>
+ {% autoescape off %}
+ {{ html_div_fig_pos_neg_bbc }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+</div>
+
+<div class="Relatedwordsdiv3" id="Relatedwordsdiv3">
+<div class='related_words_grid_compare_hl'> 
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search1}}"</div>
+
+
+    <div class="mostposgrid_word_h header_cooc small_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_list_bbc_search1 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+
+
+</div>
+
+  
+</div>
+</div>
+
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search2}}"</div>
+
+
+    <div class="mostposgrid_word_h header_cooc small_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_list_bbc_search2 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+
+
+</div>
+
+  
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+<div class="Allheadlinesdiv3" id="Allheadlinesdiv3">
+
+<div class='headline_content' id='all_headlines'>
+
+<div class='related_words_grid_compare_hl'> 
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search1}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+     
+    
+    <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in nyt_small_hl %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl %}
+   <div class='{{b}}'>
+  <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+     
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in fn_small_hl %}
+   <div class='{{b}}'>
+ <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+      
+   
+       
+</div>
+
+</div>
+
+  
+</div>
+</div>
+</div>
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search2}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in nyt_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+  
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+       <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in fn_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment:<p class='small_detail_sent'>{{z}}</p></div>
+
+   </div>
+
+
+{% endfor %}
+    </div>  
+    
+  
+       
+</div>
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="FN_main" id="FNsection">
+
+
+<div class="switch_overall">
+
+<button type="button" class="dash_button_left" id="Breakdown4">Breakdown</button>
+<button type="button" class="dash_button_middle" id="Distribution4">Distribution</button>
+ <button type="button" class="dash_button_middle" id="RelatedWords4">Related Words</button>
+   <button type="button" class="dash_button_right" id="AllHeadlines4">All Headlines</button>
+</div>
+
+
+
+<div class="Breakdowndiv4" id="Breakdowndiv4">
+<div class="date_top_row_avg">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Overall Sentiment</div>
+ {% autoescape off %}
+ {{  html_div_sentiment_fn}}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Month</div>
+ {% autoescape off %}
+ {{ html_div_compare_month_fn }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+<div class="date_top_row2">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Average Sentiment by Date</div>
+ {% autoescape off %}
+ {{ html_div_compare_date_fn }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+</div>
+
+<div class="Distributiondiv4" id="Distributiondiv4">
+
+<div class="date_top_row_dist1">
+
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Sentiment Distribution</div>
+<div class="chart_limited">
+ {% autoescape off %}
+ {{ html_div_fig_curve_fn }}
+ {% endautoescape %}
+</div>
+ 
+</div>
+</div>
+
+
+
+</div>
+
+<div class="date_top_row2_overall">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Pos/Neg Breakdown</div>
+ {% autoescape off %}
+ {{ html_div_fig_pos_neg_fn }}
+ {% endautoescape %}
+ 
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<div class="Relatedwordsdiv4" id="Relatedwordsdiv4">
+
+<div class='related_words_grid_compare_hl'> 
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search1}}"</div>
+
+
+    <div class="mostposgrid_word_h header_cooc small_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_list_fn_search1 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+
+
+</div>
+
+  
+</div>
+</div>
+
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Words Most Co-Occurring with "{{search2}}"</div>
+
+
+    <div class="mostposgrid_word_h header_cooc small_cooc"><div class='rw_head_font rw_word'>Word</div>
+<div class='rw_head_font rw_count'>Count</div>  </div>
+  <div class="frame_wrapper_left_rw">
+     
+ 
+    
+  
+<div class='single_grid'>
+{% for x, y in sorted_list_fn_search2 %}
+   <div class="mostposgrid_word"> <div class='rw_word'>  <a class="date_cell_link" href="/sentiment_word_search_result/?word_count={{x}}">{{x}}</a></div><div class='rw_count'> {{y}}</div>
+ </div>{% endfor %}
+   </div>
+       
+</div>
+
+
+
+</div>
+
+  
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+<div class="Allheadlinesdiv4" id="Allheadlinesdiv4">
+<div class='headline_content' id='all_headlines'>
+
+<div class='related_words_grid_compare_hl'> 
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search1}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+     
+    
+    <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in nyt_small_hl %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl %}
+   <div class='{{b}}'>
+  <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+       
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+     
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in fn_small_hl %}
+   <div class='{{b}}'>
+ <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>
+      
+   
+       
+</div>
+
+</div>
+
+  
+</div>
+</div>
+</div>
+<div class="date_top_row">
+<div class="dash_card_wrapper">
+<div class="dash_card">
+<div class="card_title">Headlines with "{{search2}}"</div>
+<div class='related_title'>
+<div class='ah_nyt_rw'>NYT</div>
+<div class='ah_bbc_rw'>BBC</div>
+<div class='ah_fn_rw'>FN</div>
+
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in nyt_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+    
+
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+      <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a, b in bbc_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment: <p class='small_detail_sent'>{{z}}</p> </div>
+
+   </div>
+
+
+{% endfor %}
+    </div>   
+  
+       
+</div>
+  <div class="frame_wrapper_left_rw">
+       <div class="mostposgrid_word_hl">
+  
+{% for x, y, z, a,b in fn_small_hl_2 %}
+   <div class='{{b}}'>
+   <div class='small_hl'><a href="{{a}}">{{x}}</a></div>
+   <div class='small_detail'>{{y}} </div>
+   <div class='small_detail' id='sentiment_hl'>Sentiment:<p class='small_detail_sent'>{{z}}</p></div>
+
+   </div>
+
+
+{% endfor %}
+    </div>  
+    
+  
+       
+</div>
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+     
+
+    </div>
+
+
+
+<div class="main_grid_footer">
+<div class="empty"> </div>
+<div class="footer_copyright">
+<div class='footer_div'><a href='/about'>About</a></div>
+<div class='footer_div'>Contact: <a href='mailto:headlinecompare@hlcompare.com'>headlinecompare@hlcompare.com</a></div>
+<div class='footer_div'>© 2021 Headline Compare</div>
+</div>
+</div>
+
+
+</body>
+
+ <script>
+var first_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[0].id
+var second_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[1].id
+
+var third_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[2].id
+var fourth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[3].id
+var fifth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[4].id
+var sixth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[5].id
+var seventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[6].id
+var eigth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[7].id
+var ninth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[8].id
+var tenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[9].id
+var eleventh_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[10].id
+
+var twelfth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[11].id
+var thirteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[12].id
+var fourteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[13].id
+
+var fifteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[14].id
+var sixteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[15].id
+var seventeenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[16].id
+var eightteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[17].id
+var nineteenth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[18].id
+var twentieth_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[19].id
+var twentyone_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[20].id
+var twentytwo_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[21].id
+var twentythree_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[22].id
+var twentyfour_graph_id = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[23].id
+
+
+
+
+
+
+ </script>
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+
+$(document).ready(function(){
+
+
+
+ 
+  
+
+
+
+
+
+
+
+
+ $("#Compare").click(function(){
+ 
+  $('#Compare').css({"color":"black", "background-color":"white"}) 
+  $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
+  
+  
+  $("#Comparesection").css('display','block')
+  $("#Overallsection").css('display','none')
+  $("#NYTsection").css('display','none')
+  $("#BBCsection").css('display','none')
+  $("#FNsection").css('display','none')
+ 
+  $("#Breakdowndiv0").css('display','block')
+  $("#Distributiondiv0").css('display','none')
+  $("#Relatedwordsdiv0").css('display','none')
+  $("#Allheadlinesdiv0").css('display','none') 
+  
+
+ $('#Breakdown0').css({"background-color":"#fafafa","color":"black"})
+ $('#Distribution0').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords0').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines0').css({"color":"#919191", "background-color":"transparent"})
+ 
+  Plotly.relayout(first_graph_id, {autosize: true})
+  Plotly.relayout(second_graph_id, {autosize: true})
+  Plotly.relayout(third_graph_id, {autosize: true})
+  
+
+}
+ )
+
+
+ $("#Overall").click(function(){
+ 
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#Overall').css({"color":"black", "background-color":"white"}) 
+  $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
+  
+  
+  $("#Comparesection").css('display','none')
+  $("#Overallsection").css('display','block')
+  $("#NYTsection").css('display','none')
+  $("#BBCsection").css('display','none')
+  $("#FNsection").css('display','none')
+ 
+
+
+
+  $("#Breakdowndiv1").css('display','block')
+  $("#Distributiondiv1").css('display','none')
+  $("#Relatedwordsdiv1").css('display','none')
+  $("#Allheadlinesdiv1").css('display','none') 
+  
+  Plotly.relayout(fifth_graph_id, {autosize: true})
+  Plotly.relayout(sixth_graph_id, {autosize: true})
+  Plotly.relayout(seventh_graph_id, {autosize: true})
+ 
+
+ $('#Breakdown1').css({"background-color":"#fafafa","color":"black"})
+  $('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords1').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines1').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+  $("#NYT").click(function(){
+ 
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#NYT').css({"color":"white", "background-color":"rgb(45, 46, 48)"})
+  $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
+
+
+
+
+ 
+  $("#Comparesection").css('display','none')
+  $("#Overallsection").css('display','none')
+  $("#NYTsection").css('display','block')
+  $("#BBCsection").css('display','none')
+  $("#FNsection").css('display','none')
+ 
+  $("#Breakdowndiv2").css('display','block')
+  $("#Distributiondiv2").css('display','none')
+  $("#Relatedwordsdiv2").css('display','none')
+  $("#Allheadlinesdiv2").css('display','none') 
+
+  Plotly.relayout(tenth_graph_id, {autosize: true})
+  Plotly.relayout(eleventh_graph_id, {autosize: true})
+  Plotly.relayout(twelfth_graph_id, {autosize: true})
+  
+
+ $('#Breakdown2').css({"background-color":"#fafafa","color":"black"})
+  $('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords2').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines2').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+  $("#BBC").click(function(){
+ 
+
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#BBC').css({"color":"white", "background-color":"rgb(187, 25, 25)"})
+  $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
+ 
+  $("#Comparesection").css('display','none')
+  $("#Overallsection").css('display','none')
+  $("#NYTsection").css('display','none')
+  $("#BBCsection").css('display','block')
+  $("#FNsection").css('display','none')
+
+  Plotly.relayout(fifteenth_graph_id, {autosize: true})
+  Plotly.relayout(sixteenth_graph_id, {autosize: true})
+  Plotly.relayout(seventeenth_graph_id, {autosize: true})
+ 
+
+ 
+  $("#Breakdowndiv3").css('display','block')
+  $("#Distributiondiv3").css('display','none')
+  $("#Relatedwordsdiv3").css('display','none')
+  $("#Allheadlinesdiv3").css('display','none') 
+  
+
+ $('#Breakdown3').css({"background-color":"#fafafa","color":"black"})
+  $('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords3').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines3').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+
+   $("#FN").click(function(){
+ 
+ 
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+  $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#FN').css({"color":"white", "background-color":"rgba(0, 51, 102, 0.99)"})
+
+
+  $("#Comparesection").css('display','none')
+  $("#Overallsection").css('display','none')
+  $("#NYTsection").css('display','none')
+  $("#BBCsection").css('display','none')
+  $("#FNsection").css('display','block')
+ 
+  $("#Breakdowndiv4").css('display','block')
+  $("#Distributiondiv4").css('display','none')
+  $("#Relatedwordsdiv4").css('display','none')
+  $("#Allheadlinesdiv4").css('display','none') 
+
+ Plotly.relayout(twentieth_graph_id, {autosize: true})
+ Plotly.relayout(twentyone_graph_id, {autosize: true})
+ Plotly.relayout(twentytwo_graph_id, {autosize: true})
+  
+
+ $('#Breakdown4').css({"background-color":"#fafafa","color":"black"})
+  $('#Distribution4').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords4').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines4').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ $("#Breakdown0").click(function(){
+ 
+ 
+  $("#Breakdowndiv0").css('display','block')
+ $("#Distributiondiv0").css('display','none')
+  $("#Relatedwordsdiv0").css('display','none')
+  $("#Allheadlinesdiv0").css('display','none')
+  Plotly.relayout(first_graph_id, {autosize: true})
+  Plotly.relayout(second_graph_id, {autosize: true})
+  Plotly.relayout(third_graph_id, {autosize: true})
+  
+
+
+ $('#Breakdown0').css({"background-color":"#fafafa","color":"black"})
+$('#Distribution0').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords0').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines0').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+$("#Distribution0").click(function(){
+ 
+ 
+  
+  $("#Breakdowndiv0").css('display','none')
+ $("#Distributiondiv0").css('display','block')
+  $("#Relatedwordsdiv0").css('display','none')
+  $("#Allheadlinesdiv0").css('display','none')
+ 
+
+Plotly.relayout(fourth_graph_id, {autosize: true})
+
+ $('#Breakdown0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution0').css({"background-color":"#fafafa","color":"black"})
+ $('#RelatedWords0').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines0').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+ $("#RelatedWords0").click(function(){
+ 
+ 
+  $("#Breakdowndiv0").css('display','none')
+   $("#Distributiondiv0").css('display','none')
+
+  $("#Relatedwordsdiv0").css('display','block')
+  $("#Allheadlinesdiv0").css('display','none')
+  
+  
+
+ $('#Breakdown0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution0').css({"color":"#919191", "background-color":"transparent"})
+
+ $('#RelatedWords0').css({"background-color":"#fafafa","color":"black"})
+ $('#AllHeadlines0').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+ $("#AllHeadlines0").click(function(){
+ 
+ 
+  $("#Breakdowndiv0").css('display','none')
+  $("#Distributiondiv0").css('display','none')
+  $("#Relatedwordsdiv0").css('display','none')
+  $("#Allheadlinesdiv0").css('display','block')
+  
+  
+
+ $('#Breakdown0').css({"color":"#919191", "background-color":"transparent"})
+ $('#Distribution0').css({"color":"#919191", "background-color":"transparent"})
+
+ $('#RelatedWords0').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines0').css({"background-color":"#fafafa","color":"black"})
+
+}
+ )
+
+ $("#Breakdown1").click(function(){
+ 
+ 
+  $("#Breakdowndiv1").css('display','block')
+ $("#Distributiondiv1").css('display','none')
+  $("#Relatedwordsdiv1").css('display','none')
+  $("#Allheadlinesdiv1").css('display','none')
+  
+  Plotly.relayout(fifth_graph_id, {autosize: true})
+  Plotly.relayout(sixth_graph_id, {autosize: true})
+  Plotly.relayout(seventh_graph_id, {autosize: true})
+
+
+
+ $('#Breakdown1').css({"background-color":"#fafafa","color":"black"})
+$('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords1').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines1').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+$("#Distribution1").click(function(){
+ 
+ 
+  $("#Breakdowndiv1").css('display','none')
+ $("#Distributiondiv1").css('display','block')
+  $("#Relatedwordsdiv1").css('display','none')
+  $("#Allheadlinesdiv1").css('display','none')
+ 
+  Plotly.relayout(eigth_graph_id, {autosize: true})
+   Plotly.relayout(ninth_graph_id, {autosize: true})
+
+
+
+ $('#Breakdown1').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution1').css({"background-color":"#fafafa","color":"black"})
+ $('#RelatedWords1').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines1').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+$("#RelatedWords1").click(function(){
+ 
+ 
+  $("#Breakdowndiv1").css('display','none')
+ $("#Distributiondiv1").css('display','none')
+  $("#Relatedwordsdiv1").css('display','block')
+  $("#Allheadlinesdiv1").css('display','none')
+ 
+
+
+ $('#Breakdown1').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords1').css({"background-color":"#fafafa","color":"black"})
+ $('#AllHeadlines1').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+$("#AllHeadlines1").click(function(){
+ 
+ 
+  $("#Breakdowndiv1").css('display','none')
+ $("#Distributiondiv1").css('display','none')
+  $("#Relatedwordsdiv1").css('display','none')
+    $("#Allheadlinesdiv1").css('display','block')
+ 
+
+
+ $('#Breakdown1').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution1').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords1').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines1').css({"background-color":"#fafafa","color":"black"})
+
+}
+ )
+
+
+
+$("#Breakdown2").click(function(){
+ 
+ 
+  $("#Breakdowndiv2").css('display','block')
+ $("#Distributiondiv2").css('display','none')
+  $("#Relatedwordsdiv2").css('display','none')
+  $("#Allheadlinesdiv2").css('display','none')
+  
+  Plotly.relayout(tenth_graph_id, {autosize: true})
+  Plotly.relayout(eleventh_graph_id, {autosize: true})
+  Plotly.relayout(twelfth_graph_id, {autosize: true})
+
+
+ $('#Breakdown2').css({"background-color":"#fafafa","color":"black"})
+$('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords2').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines2').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+$("#Distribution2").click(function(){
+ 
+ 
+  $("#Breakdowndiv2").css('display','none')
+ $("#Distributiondiv2").css('display','block')
+  $("#Relatedwordsdiv2").css('display','none')
+  $("#Allheadlinesdiv2").css('display','none')
+ 
+  
+  Plotly.relayout(thirteenth_graph_id, {autosize: true})
+  Plotly.relayout(fourteenth_graph_id, {autosize: true})
+
+ $('#Breakdown2').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution2').css({"background-color":"#fafafa","color":"black"})
+ $('#RelatedWords2').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines2').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+$("#RelatedWords2").click(function(){
+ 
+ 
+  $("#Breakdowndiv2").css('display','none')
+ $("#Distributiondiv2").css('display','none')
+  $("#Relatedwordsdiv2").css('display','block')
+  $("#Allheadlinesdiv2").css('display','none')
+ 
+
+
+ $('#Breakdown2').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords2').css({"background-color":"#fafafa","color":"black"})
+ $('#AllHeadlines2').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+$("#AllHeadlines2").click(function(){
+ 
+ 
+  $("#Breakdowndiv2").css('display','none')
+ $("#Distributiondiv2").css('display','none')
+  $("#Relatedwordsdiv2").css('display','none')
+    $("#Allheadlinesdiv2").css('display','block')
+ 
+
+
+ $('#Breakdown2').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution2').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords2').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines2').css({"background-color":"#fafafa","color":"black"})
+
+}
+ )
+
+$("#Breakdown3").click(function(){
+ 
+ 
+  $("#Breakdowndiv3").css('display','block')
+ $("#Distributiondiv3").css('display','none')
+  $("#Relatedwordsdiv3").css('display','none')
+  $("#Allheadlinesdiv3").css('display','none')
+  
+  Plotly.relayout(fifteenth_graph_id, {autosize: true})
+  Plotly.relayout(sixteenth_graph_id, {autosize: true})
+ Plotly.relayout(seventeenth_graph_id, {autosize: true})
+
+ $('#Breakdown3').css({"background-color":"#fafafa","color":"black"})
+$('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords3').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines3').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+$("#Distribution3").click(function(){
+ 
+ 
+  $("#Breakdowndiv3").css('display','none')
+ $("#Distributiondiv3").css('display','block')
+  $("#Relatedwordsdiv3").css('display','none')
+  $("#Allheadlinesdiv3").css('display','none')
+ 
+  $('#Breakdown3').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution3').css({"background-color":"#fafafa","color":"black"})
+ $('#RelatedWords3').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines3').css({"color":"#919191", "background-color":"transparent"}) 
+ 
+ Plotly.relayout(nineteenth_graph_id, {autosize: true})
+Plotly.relayout(eightteenth_graph_id, {autosize: true})
+
+
+}
+ )
+
+
+
+$("#RelatedWords3").click(function(){
+ 
+ 
+  $("#Breakdowndiv3").css('display','none')
+ $("#Distributiondiv3").css('display','none')
+  $("#Relatedwordsdiv3").css('display','block')
+  $("#Allheadlinesdiv3").css('display','none')
+ 
+
+
+ $('#Breakdown3').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords3').css({"background-color":"#fafafa","color":"black"})
+ $('#AllHeadlines3').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+$("#AllHeadlines3").click(function(){
+ 
+ 
+  $("#Breakdowndiv3").css('display','none')
+ $("#Distributiondiv3").css('display','none')
+  $("#Relatedwordsdiv3").css('display','none')
+    $("#Allheadlinesdiv3").css('display','block')
+ 
+
+
+ $('#Breakdown3').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution3').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords3').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines3').css({"background-color":"#fafafa","color":"black"})
+
+}
+ )
+
+
+
+
+
+$("#Breakdown4").click(function(){
+ 
+ 
+  $("#Breakdowndiv4").css('display','block')
+ $("#Distributiondiv4").css('display','none')
+  $("#Relatedwordsdiv4").css('display','none')
+  $("#Allheadlinesdiv4").css('display','none')
+  
+  Plotly.relayout(twentieth_graph_id, {autosize: true})
+ Plotly.relayout(twentyone_graph_id, {autosize: true})
+ Plotly.relayout(twentytwo_graph_id, {autosize: true})
+
+ $('#Breakdown4').css({"background-color":"#fafafa","color":"black"})
+$('#Distribution4').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords4').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines4').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+$("#Distribution4").click(function(){
+ 
+ 
+  $("#Breakdowndiv4").css('display','none')
+ $("#Distributiondiv4").css('display','block')
+  $("#Relatedwordsdiv4").css('display','none')
+  $("#Allheadlinesdiv4").css('display','none')
+ 
+  
+
+ Plotly.relayout(twentythree_graph_id, {autosize: true})
+ Plotly.relayout(twentyfour_graph_id, {autosize: true})
+
+ $('#Breakdown4').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution4').css({"background-color":"#fafafa","color":"black"})
+ $('#RelatedWords4').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines4').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+$("#RelatedWords4").click(function(){
+ 
+ 
+  $("#Breakdowndiv4").css('display','none')
+ $("#Distributiondiv4").css('display','none')
+  $("#Relatedwordsdiv4").css('display','block')
+  $("#Allheadlinesdiv4").css('display','none')
+ 
+
+
+ $('#Breakdown4').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution4').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords4').css({"background-color":"#fafafa","color":"black"})
+ $('#AllHeadlines4').css({"color":"#919191", "background-color":"transparent"})
+
+}
+ )
+
+
+
+$("#AllHeadlines4").click(function(){
+ 
+ 
+  $("#Breakdowndiv4").css('display','none')
+ $("#Distributiondiv4").css('display','none')
+  $("#Relatedwordsdiv4").css('display','none')
+    $("#Allheadlinesdiv4").css('display','block')
+ 
+
+
+ $('#Breakdown4').css({"color":"#919191", "background-color":"transparent"})
+$('#Distribution4').css({"color":"#919191", "background-color":"transparent"})
+ $('#RelatedWords4').css({"color":"#919191", "background-color":"transparent"})
+ $('#AllHeadlines4').css({"background-color":"#fafafa","color":"black"})
+
+}
+ )
+
+
+
+
+
+
+
+}
+)
+
+ </script>
+
+ 

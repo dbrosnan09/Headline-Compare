@@ -1,0 +1,319 @@
+<html>
+
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<style>
+ .top_bar {
+    position:fixed;
+    width:100%;
+    z-index:10;
+  }
+    .header {
+    font-family:"Roboto";
+    font-size:30px;
+    font-weight:900;
+    text-align:center;
+    padding-bottom: 7px;
+    
+    background:white;
+    width:85%;
+    margin:auto;
+    
+  }
+
+  .header a{
+  text-decoration:none;
+  color:black;
+}
+.header a:hover{
+  text-decoration:underline;
+  color:black;
+}  
+
+.header a:visited {
+  text-decoration:none;
+  color:black;
+}
+.navbar {
+  padding-left:20px;
+  padding-right:20px;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  font-size:15px;
+  font-weight: normal;
+  font-family:"Roboto";
+  border-top:3px solid black;
+  border-bottom: 1px solid gray;
+  padding-top:3px;
+  padding-bottom:3px;
+  width:80%;
+  margin:auto;
+  background-color:white;
+}
+
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+      
+}
+
+ .nav a {
+  text-decoration:none;
+  color:black;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+
+.nav a:visited {
+  color:black;
+}
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+      
+}
+
+.main {
+  padding-top:120px;
+  width:80%;
+  margin:auto;
+}
+
+.main_grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    
+    font-family:"Roboto";
+    row-gap:20px;
+    column-gap:20px;
+}
+
+.main_grid_fixed {
+  position:relative;
+  top:-920px;
+  display:grid;
+  grid-template-columns: 600px 600px;
+  grid-template-rows:450px 450px;
+  font-family:"Roboto";
+  row-gap:20px;
+  
+}
+.title {
+    font-size:34px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.graph {
+  height:350px;
+  padding:30px;
+}
+
+.news_container {
+  display:grid;
+  grid-template-columns: 1fr;
+  width:250px;
+  text-align:center;
+  margin:auto;
+  padding:60px;
+
+}
+.nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:18px;
+  font-weight:400;
+  border-radius:4px;
+  margin:1px;
+  flex:1;
+  line-height:50px;
+  
+
+}
+
+.nyt a {
+  color:white;
+  text-decoration:none;
+}
+
+.nyt a:hover {
+  text-decoration:underline;
+}
+
+.nyt a:visited {
+  color:white;
+}
+
+.bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  border-radius:4px;
+  margin:1px;
+  font-size: 32px;
+  flex:1;
+   line-height:50px;
+}
+
+.bbc a {
+  color:white;
+  text-decoration:none;
+}
+
+.bbc a:hover {
+  text-decoration:underline;
+}
+
+.bbc a:visited {
+  color:white;
+}
+
+
+.fox {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:4px;
+  margin:1px;
+  flex:1;
+  line-height:50px;
+  
+  
+}
+
+.fox a {
+  color:white;
+  text-decoration:none;
+}
+
+.fox a:hover {
+  text-decoration:underline;
+  background-color:white;
+}
+
+.fox a:visited {
+  color:white;
+}
+
+.wrapper {
+  padding-top:30px;
+}
+
+.main_grid a:hover{
+  background:grey;
+}
+
+.hover:hover {
+  background-color:gray;
+  opacity: .1;
+  border-radius:10px 10px 10px 10px;
+  
+}
+
+
+body {
+  margin-top:0px;
+}
+
+.link_wrapper:hover{
+  background-color:#f0f0f0;
+  opacity:.9;
+}
+.link_wrapper {
+
+  border-radius:10px 10px 10px 10px;
+}
+
+.link_wrapper a:hover {
+  background-color:rgba(0,0,0,0);
+}
+</style>
+
+</head>
+
+<div class="top_bar"><div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+  <div class="navbar"><div class="nav"><a href=WordCount>Word Count</a></div><div class="nav_current"><a href=Sentiment_Main>Sentiment</a></div><div class="nav">Phrase Count</div><div class="nav">Country Count</div><div class="nav">Headline Priority</div> <div class="nav">Deltas</div><div class="nav">Date</div></div></div>
+<div class="main">
+
+
+<div class="main_grid">
+<a href='{% url 'sentiment_overall_ajax' %}'><div class="link_wrapper">
+<div class="combined">
+<div class="title">
+Overall Sentiment
+</div>
+
+
+<div class="graph">
+{% autoescape off %}
+         {{ html_div_comb }}
+          {% endautoescape %}
+</div>
+</div>
+</div></a>
+
+<div class="link_wrapper">
+<div class="compare">
+<div class="title">
+Compare Newspapers
+</div>
+<div class="graph">
+{% autoescape off %}
+         {{ html_div_compare }}
+          {% endautoescape %}
+
+</div>
+</div>
+</div>
+<div class="link_wrapper">
+<div class="individual">
+<div class="title">
+Individual Newspapers
+</div>
+<div class="wrapper">
+<div class="news_container">
+<div class="nyt"><a href="https://www.nytimes.com/">The New York Times</a></div><div class="bbc"><a href="https://www.bbc.com/news">BBC News</a></div><div class="fox"><a class="check" href="https://www.foxnews.com/">FOX NEWS</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="link_wrapper">
+<div class="word_search">
+<div class="title">
+Word Sentiment</div>
+   <form action="/word_count" method="GET">
+           {% csrf_token %}
+           {{form}}
+            <input type="submit" value="Search">
+            </form><
+</div>
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</html>

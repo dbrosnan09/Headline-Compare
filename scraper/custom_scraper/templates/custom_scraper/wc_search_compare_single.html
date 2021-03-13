@@ -1,0 +1,532 @@
+
+
+{% load static %}
+
+
+<head>
+<title>Analyze and Compare Newspaper Headlines Word Count Word Search: Headline Compare</title>
+<meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
+
+    <link rel="icon" href="{% static 'hcfav.png' %}"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+
+<style>
+body {
+ background-color: #f4f4f4;
+ width:100%;
+ margin:0;
+}
+
+ .header {
+ font-family:"Roboto";
+ font-size:30px;
+ font-weight:900;
+ text-align:center;
+ padding: 9px;
+ background:white;
+ width:100%;
+ margin:auto;
+ position:fixed;
+ z-index:100;
+ 
+ }
+
+ .header a{
+ text-decoration:none;
+ color:black;
+}
+.header a:hover{
+ text-decoration:underline;
+ color:black;
+}
+
+.header a:visited {
+ text-decoration:none;
+ color:black;
+}
+
+.main {
+ width:80%;
+ margin:auto;
+ font-family:"Roboto";
+ padding-top:53px;
+ text-align:center;
+ background-color:#f4f4f4;
+}
+
+.main_grid {
+ display:grid;
+ grid-template-columns: 160px 11fr;
+ column-gap:10px;
+}
+
+.side_bar {
+ padding-top:200px;
+ position:fixed;
+ width:160px;
+}
+
+
+.unselected {
+ text-align:left;
+ padding:9px;
+
+}
+
+.selected {
+ text-align:left;
+ padding:9px;
+ font-weight:bold;
+ background-color:#3b3a3a;
+ color:white!important;
+ border-radius: 5px 5px 5px 5px;
+
+
+}
+
+.selected a{
+  color:white;
+  text-decoration:none;
+}
+
+.sub {
+ text-align:left;
+ padding-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+}
+
+.sub a {
+  color:black;
+  text-decoration:none;
+}
+
+.sub a:hover {
+  text-decoration:underline;
+}
+
+sub a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+.sub_selected {
+ 
+ text-align:left;
+ margin-left:40px;
+ padding-top:6px;
+ padding-bottom:6px;
+ font-weight:bold;
+ font-size:22px;
+ 
+ 
+
+}
+
+.dash_title {
+ color:#292929;
+ font-size:40px;
+ font-weight:bold;
+ text-align:left;
+ position:relative;
+ padding-top:30px;
+ padding-left:23px;
+ height:40px;
+ padding-bottom:60px;
+}
+
+
+
+  input[type="submit"] {
+         
+         font-size: 16px;
+         font-family: "Roboto";
+         width:90px;
+        color:black;
+        background:whitesmoke;
+        border-radius:5px;
+        padding:10px;
+height:45px;
+     }
+
+     input[type="text"] {
+       padding:20px;
+       font-size: 15px;
+       width: 40%;
+       height:45px;
+     }
+
+     .search {
+       width:70%;
+       margin:auto;
+     }
+
+
+
+.dash_card_wrapper {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+
+}
+
+.dash_card_wrapper_top {
+ background-color: #f4f4f4;
+ padding: 20px;
+ padding-top:40px;
+height:300px;
+}
+
+
+.dash_card {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding:10px;
+}
+
+.card_title {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-40;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+.spacer {
+    height:50px;
+}
+
+
+.footer_div {
+  padding-top:3px;
+  padding-bottom:3px;
+}
+
+.footer_div a {
+  color:black;
+  text-decoration:none;
+}
+
+.footer_div a:visited {
+  color:black;
+  text-decoration:none;
+}
+
+.footer_div a:hover {
+  text-decoration:underline;
+}
+
+.card_title_variance {
+ position:relative;
+ background-color:transparent;
+ color:#292929;
+ top:-27;
+ text-align:left;
+ font-size:18px;
+ font-weight:bold;
+ 
+ 
+}
+
+
+
+
+.most_pos_wrapper {
+  margin: 0 auto;
+
+}
+.mostposgrid_word {
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ 
+ align-items:center;
+
+}
+
+.mostposgrid_word_single {
+ display:grid;
+ grid-template-columns: 1fr  ;
+ 
+ align-items:center;
+
+}
+
+.variance_heading_wrapper_variance {
+  display:inline-block;
+ 
+
+}
+
+.small_box {
+font-size:16px;
+padding:2px;
+width:34px;
+margin:2px;
+
+}
+
+.frame_wrapper_left_variance {
+height:250px;
+overflow-y:auto;
+position:relative;
+top:-10;
+}
+
+
+
+.dash_card_left {
+ background-color:white;
+ border-radius: 2px 2px 2px 2px;
+ 
+ box-shadow: 0 0 2px gray;
+ padding-bottom:0px;
+}
+
+
+.nyt_small_box {
+font-family: "Alfa Slab One";
+    background: #2d2e30;
+    color: white;
+    border-radius:4px;
+    height: 16px;
+    line-height: 16px;
+    font-size:14px;
+ display:inline-block;
+
+
+}
+
+
+.bbc_small_box {
+font-family: "Lato";
+    background: #bb1919;
+    color: white;
+    border-radius: 4px;
+    height: 16px;
+    line-height: 16px;
+    font-weight:bold;
+ display:inline-block;
+
+}
+
+
+.fn_small_box {
+
+  font-family: "Titillium Web";
+    
+    color: white;
+    background: rgba(0,51,102,.99);
+    border-radius:4px;
+    height: 16px;
+    line-height: 16px;
+
+ display:inline-block;
+
+}
+
+.main_body {
+  display:grid;
+}
+
+
+.two_third_row {
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  padding-top:30px;
+}
+
+.arrow {
+   display:inline-block;
+
+}
+
+.compare_grid {
+    display:grid;
+    grid-template-columns: 1fr;
+
+
+}
+
+.search_title {
+    font-size: 30px;
+    font-weight:bold;
+    padding-bottom:10px;
+    padding-right:90px;
+}
+
+ .no_dec a{
+   text-decoration:none;
+   color:black;
+
+ }
+
+  .no_dec a:hover{
+   text-decoration:underline;
+   color:black;
+
+ }
+
+ .main_grid_footer {
+    display: grid;
+    grid-template-columns: 160px 11fr;
+    column-gap: 10px;
+}
+.footer_copyright {
+font-size:12px;
+text-align:center;
+padding-top:135px;
+padding-bottom:50px;
+font-family:"Roboto";
+
+}
+
+.unselected a {
+  text-decoration:none;
+  color:black;
+}
+
+.unselected a:hover {
+  text-decoration:underline;
+  color:black;
+}
+
+.unselected a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.move_down {
+  padding-right:3px;
+}
+</style>
+
+
+
+
+
+
+</head>
+
+
+<body>
+
+
+
+
+
+
+
+
+<div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+
+<div class="main">
+
+<div class="main_grid">
+
+ <div class="empty"></div>
+<div class="side_bar">
+<div class="selected">
+Word Count
+</div><div class="sub">
+<a href='{% url 'word_count_general_og' %}'>By Newspaper</a>
+</div>
+
+
+
+<div class="sub_selected">
+Word Search
+</div>
+<div class="sub">
+<a href='{% url 'wc_search_compare' %}'>Word Compare</a></div>
+<div class="unselected no_dec">
+<a href='{% url 'sentiment_newspaper' %}'>Sentiment</a>
+</div>
+
+<div class="unselected">
+<a href='{% url 'emotion_newspaper' %}'>Emotion</a>
+</div>
+
+
+<div class="unselected">
+<a href='{% url 'date_search' %}'>Date</a>
+</div>
+
+<div class="unselected">
+ Analysis
+</div>
+
+</div>
+
+
+<div class="dash_title">Word Count: Word Search
+</div>
+<div class="empty"> </div>
+  <div class='compare_grid'>
+
+
+
+
+
+
+            <div class="search_smaller">
+    <form action="/wc_search_compare_result_single" method="GET">
+           {% csrf_token %}
+           {{form1}}
+            <input type="submit" value="Search">
+            </form></div>
+         </div>
+  
+
+<div class="empty"></div>
+<div class="spacer"></div>
+<div class="empty"> </div>
+
+<div class="main_body">
+<div class="dash_card_wrapper_top">
+<div class="dash_card">
+<div class="card_title">Most Common Words Used In Headlines (since Jan. 25, 2020)</div>
+  <div class="move_down">
+   {% autoescape off %}
+    {{ html_div_values }}
+{% endautoescape %}
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+   </div>  
+
+    </div>
+
+<div class="main_grid_footer">
+</div><div class="empty"> </div>
+<div class='main'><div class='main_grid'><div class='empty'></div>
+<div class="footer_copyright">
+<div class='footer_div'><a href='/about'>About</a></div>
+<div class='footer_div'>Contact: <a href='mailto:headlinecompare@hlcompare.com'>headlinecompare@hlcompare.com</a></div>
+<div class='footer_div'>© 2021 Headline Compare</div>
+</div><div class="empty"> </div>
+</div>
+
+</div>
+
+
+</div>
+
+
+</body>

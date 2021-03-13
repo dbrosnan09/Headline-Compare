@@ -1,0 +1,166 @@
+<html>
+  <head>
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+
+<style>
+  .header {
+    font-family:"Roboto";
+    font-size:30px;
+    font-weight:900;
+    text-align:center;
+    padding-bottom: 7px;
+    
+    background:white;
+    width:80%;
+    margin:auto;
+    
+  }
+  .navbar {
+  padding-left:20px;
+  padding-right:20px;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  font-size:15px;
+  font-weight: normal;
+  font-family:"Roboto";
+  border-top:3px solid black;
+  border-bottom: 1px solid gray;
+  padding-top:3px;
+  padding-bottom:3px;
+  width:80%;
+  margin:auto;
+}
+  .nav a {
+  text-decoration:none;
+  color:black;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+
+.nav a:visited {
+  color:black;
+}
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+      
+}
+  
+
+
+  .top_bar {
+    position:fixed;
+    width:100%;
+  }
+  
+  .main_grid {
+   
+    display:grid;
+    grid-template-columns: 1fr;
+    justify-items:center;
+  }
+  
+  .main_body {
+     padding-top:115px;
+    font-family:"Roboto";
+    width:80%;
+    justify:center;
+    margin:auto;
+  }
+
+.table_title {
+    font-family:"Roboto";
+    font-size:30px;
+    font-weight:700;
+    margin:auto;
+    text-align:center;
+}
+.table_subtitle {
+  text-align:center;
+}
+.top_words {
+  width:100%;
+}
+
+.header a{
+  text-decoration:none;
+  color:black;
+}
+.header a:hover{
+  text-decoration:underline;
+  color:black;
+}  
+
+.header a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+  input[type="submit"] {
+         
+         font-size: 15px;
+         font-family: "Roboto";
+         width:90px;
+        color:black;
+        background:whitesmoke;
+        border-radius:5px;
+        padding:10px;
+
+     }
+
+     input[type="text"] {
+       padding:20px;
+       font-size: 15px;
+       width: 80%;
+     }
+
+     .search {
+       width:70%;
+       margin:auto;
+     }
+
+     .chart {
+       padding-top:20px;
+     }
+  </style>
+   
+  </head>
+  <div class="top_bar"><div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+  <div class="navbar"><div class="nav_current"><a href=WordCount>Word Count</a></div><div class="nav"><a href=Sentiment_Main>Sentiment Score</a></div><div class="nav">Phrase Count</div><div class="nav">Country Count</div><div class="nav">Headline Priority</div> <div class="nav">Deltas</div><div class="nav">Date</div></div></div>
+  
+  <div class="main_body">
+  <div class="main_grid"> 
+    <div class="top_words">
+<div class="table_title">Most Common Words Used in Headlines</div>
+<div class="table_subtitle"> (since Jan. 25, 2020)</div>
+
+<div class="chart">
+      {% autoescape off %}
+    {{ html_div_values }}
+{% endautoescape %}  
+</div>
+    </div>
+    
+    <div class="search">
+    <div class="search">
+    <form action="/word_count" method="GET">
+           {% csrf_token %}
+           {{form}}
+            <input type="submit" value="Search">
+            </form></div>
+    
+  
+  
+  </div>
+  </div>
+  <body>
+  </body>
+</html>

@@ -1,0 +1,519 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&display=swap" rel="stylesheet">
+<style>
+body {
+  text-align: center;
+}
+
+.Banner {
+  font-size:60px;
+  font-family: "Alegreya";
+  font-weight:900;
+  padding-top: 20px;
+  width: 80%;
+  text-align:center; 
+  
+  display:inline-block;
+}
+
+.headline {
+  display:inline;
+  
+  border-radius:10px;
+  padding-right:4px;
+  padding-left:4px;
+  font-family:"Roboto";
+  
+}
+
+
+.compare {
+  display:inline;
+ 
+  border-radius:10px;
+  padding-right:4px;
+  padding-left:4px;
+  font-family:"Roboto";
+}
+@keyframes headline-change {
+  
+  25% {
+    background:#2d2e30;
+    color:white;
+  }
+  50%{
+    background:#bb1919;
+    color:white;
+  }
+  75% {
+    background:rgba(0,51,102,.99);
+    color:white;
+  }
+ 
+}
+
+@keyframes compare-change {
+  
+  20% {
+    background:rgba(0,51,102,.99);
+    color:white;
+  }
+  40%{
+    background:#2d2e30;
+    color:white;
+  }
+  60% {
+    background:#bb1919;
+    color:white;
+  }
+  80%{
+    
+    background:rgba(0,51,102,.99);
+    color:white;
+  }
+}
+
+.date {
+  font-size: 17px;
+  font-weight:500;
+  border-bottom: 2px solid black;
+  font-family:"Roboto";
+  padding:3px;
+}
+.navbar {
+  padding-left:20px;
+  padding-right:20px;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  font-size:15px;
+  font-weight: normal;
+  font-family:"Roboto";
+  border-top:1px solid gray;
+  border-bottom: 1px solid gray;
+  padding-top:3px;
+  padding-bottom:3px;
+}
+
+.navbar a{
+    color:black;
+}
+.downarrow{
+  font-size:11px;
+  display:inline;
+  
+  
+}
+.main_body_grid {
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+}
+.main_body_grid_wrapper{
+  
+  
+  text-align:center;
+  display:inline;
+  
+ 
+  
+}
+.main_fix_headlines {
+  position:fixed;
+  width:80%;
+  overflow-y:scroll;
+  height:200vh;
+  z-index:100;
+}
+.main_fix_analysis {
+  position:fixed;
+  width:80%;
+  overflow-y:scroll;
+  height:100vh;
+  z-index:99;
+}
+
+.grid_headlines_relative {
+  position:relative;
+  overflow-y:scroll;
+  height:100vh;
+  padding-right:20px;
+  
+}
+
+.grid_headlines_relative_analysis {
+  position:relative;
+  overflow-y:scroll;
+  height:100vh;
+  border-left: 1px solid #d4d4d4;
+}
+
+.headlines {
+  font-size:30px;
+  
+  
+}
+.analysis {
+  font-size: 30px;
+  margin-left:20px;
+  position:relative;
+  margin-right:20px;
+  
+}
+.headline_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  
+  
+}
+
+.today_headlines {
+ font-size:30px;
+ padding-bottom:5px;
+ font-weight:700;
+ font-family:"Roboto";
+ padding-top:5px;
+ border-bottom: 3px double gray;
+}
+.nyt {
+  font-family:"Alfa Slab One";
+  background:#2d2e30;
+  color:white;
+  font-size:18px;
+  font-weight:400;
+  border-radius:4px;
+  margin:1px;
+  flex:1;
+  line-height:50px;
+  
+
+}
+
+.nyt a {
+  color:white;
+  text-decoration:none;
+}
+
+.nyt a:hover {
+  text-decoration:underline;
+}
+
+.nyt a:visited {
+  color:white;
+}
+
+.bbc {
+  font-family:"Lato";
+  background:#bb1919;
+  color:white;
+  border-radius:4px;
+  margin:1px;
+  font-size: 32px;
+  flex:1;
+   line-height:50px;
+}
+
+.bbc a {
+  color:white;
+  text-decoration:none;
+}
+
+.bbc a:hover {
+  text-decoration:underline;
+}
+
+.bbc a:visited {
+  color:white;
+}
+
+
+.fox {
+  font-family:"Titillium Web";
+  font-weight:bold;
+  color:white;
+  background: rgba(0,51,102,.99);
+  border-radius:4px;
+  margin:1px;
+  flex:1;
+  line-height:50px;
+  
+  
+}
+
+.fox a {
+  color:white;
+  text-decoration:none;
+}
+
+.fox a:hover {
+  text-decoration:underline;
+}
+
+.fox a:visited {
+  color:white;
+}
+
+
+.paper_title {
+  line-height:60px;
+}
+.all_headlines {
+  display:flex;
+  flex-direction:column;
+}
+.all_headlines a {
+  color:black;
+  text-decoration:none;
+  
+}
+.headline_text {
+  font-size:15px;
+  font-family:"Roboto";
+  font-weight:normal;
+  color:black;
+  height:50px;
+  margin-left:5px;
+  margin-right:5px;
+  
+ 
+  border-radius:5px;
+}
+.all_headlines a{
+ 
+  text-decoration:none;
+}
+.all_headlines a:hover{
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+.analysis_flex {
+  display:flex;
+  flex-direction:column;
+  padding-left:20px;
+  padding-right:20px;
+ 
+}
+.analysis_flex a{
+    color:black;
+}
+.analysis_box {
+  font-size:35px;
+  border-bottom: 1px solid gray;
+  
+  padding:40px;
+  font-family:"Roboto";
+  font-weight:500;
+}
+
+
+
+.today_analysis {
+  padding-bottom:6px;
+  font-size:30px;
+  position:sticky;
+  top:0;
+  font-weight:700;
+  font-family:"Roboto";
+  padding-top: 5px;
+  border-bottom: 3px double gray;
+  
+  
+}
+.word_grid {
+  display:grid;
+  grid-template-columns: auto auto;
+  padding:0px;
+  margin:0px;
+ 
+}
+
+.headline_flex {
+  display:flex;
+  justify-content:center;
+}
+
+.fix-flex {
+  display:fixed;
+  height:400px;
+}
+.flex_wrapper {
+  position:sticky;
+  top:0;
+  background:white;
+}
+
+.nav a {
+  text-decoration:none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+
+.nav a:visited {
+  color:black;
+}
+
+.analysis_box a {
+  text-decoration:none;
+}
+.analysis_box a:hover {
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+
+.analysis_box a:visited {
+  color:black;
+}
+.analysis_text {
+  font-size:19px;
+  font-weight:300;
+  font-family: "Roboto";
+}
+
+.analysis_text a{
+  color:black;
+  text-decoration:none;
+}
+
+.analysis_text a:hover {
+  text-decoration:underline;
+}
+.analysis_text a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.overall_sentiment {
+  font-size:50px;
+  font-weight:400;
+}
+
+.sent_score {
+  font-weight:normal;
+  font-size:19px;
+}
+
+.overall_sent {
+  font-size:25px;
+  font-weight:400;
+}
+
+.datepicker {
+  color:gray;
+  display:inline;
+  position:absolute;
+  padding-left:20px;
+  top:0px;
+}
+
+.datepicker input{
+  
+  width:130px;
+  margin:0px;
+  font-family:"Roboto";
+  color:gray;
+  margin:auto;            
+}
+
+.datepicker button{
+  
+  border:1px solid gray;
+  margin:0px;
+  font-family:"Roboto";
+  color:black;
+  background:white;
+  width:50px;
+}
+
+  input[type="submit"] {
+         
+         font-size: 12px;
+         font-family: "Roboto";
+         width:50px;
+        color:black;
+        background:whitesmoke;
+        border-radius:5px;
+
+     }
+
+.no_scrape {
+  font-family:"Roboto";
+  padding-top:40px;
+  font-size: 40px;
+}
+
+.datepicker-panel {
+  font-family:"Roboto";
+  background:black;
+}
+
+</style>
+ <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <!-- Fengyuan Chen's Datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+</head>
+
+
+  </head>
+  <body>
+    <div class="Banner"><div class="headline_banner"> <div class="headline">Headline</div> <div class="compare">Compare</div></div><div>
+    <div class="navbar"><div class="nav"><a href=/WordCount>Word Count</a></div><div class="nav"><a href=/Sentiment_Main>Sentiment Score</a></div><div class="nav">Phrase Count</div><div class="nav">Country Count</div><div class="nav">Headline Priority</div> <div class="nav">Deltas</div><div class="nav">Date</div></div>
+    <div class="date">    {{header_date}}</div><div class="main_fix_headlines"><div class="main-body-grid"><div class="main_body_grid_wrapper">
+    <div class="main_body_grid">
+      <div class="grid_headlines_relative" id="grid_headlines_relative"><div class="headlines"><div class="today_headlines" id="today_headlines">Headlines <div class="datepicker"> <form action="/date_search" method="GET" autocomplete="off"> {% csrf_token %}{{ form.date }}  <input type="submit" value="Search">
+            
+            </form>
+</div> 
+<script>
+  $(function () {
+    $("#id_date").datepicker({
+      format:'mm/dd/yyyy',
+    });
+  });
+</script>
+
+ </div> 
+        {% if scraped %}
+<div class="flex_wrapper" id="flex_wrapper"><div class="headline_flex" id="headline_flex"><div class="nyt"><a href="https://www.nytimes.com/">The New York Times</a></div><div class="bbc"><a href="https://www.bbc.com/news">BBC News</a></div><div class="fox"><a href="https://www.foxnews.com/">FOX NEWS</a></div> </div></div>
+        <div class="headline_grid"><div class="all_headlines">
+
+            {% for headline in nytheadlines %}
+   <a href="{{headline.link}}"><p class="headline_text">{{headline}}</p> </a>
+{% endfor %}
+            
+  
+          </div>
+          <div class="all_headlines">       
+            {% for headline in bbcheadlines %}
+            <a href="{{headline.link}}"><p class="headline_text">{{headline}}</p> </a>
+         {% endfor %}
+     </div>
+          <div class="all_headlines">   {% for headline in fnheadlines %}
+            <a href="{{headline.link}}"><p class="headline_text">{{headline}}</p> </a>
+         {% endfor %} 
+         
+         {% else %}
+         <div class="no_scrape">No search results for {{header_date}}. Please choose another date.</div>
+         {% endif %}
+         </div>
+          
+        </div>
+        </div></div>
+      <div class="grid_headlines_relative_analysis"><div class="analysis"><div class="today_analysis">Analysis</div></div><div class="analysis_flex"><div class="analysis_box"><a href=/WordCount>Word Count</a><div class="word_grid"><div class="analysis_text"><a href=key1>{{key1}}</a></div><div class="analysis_text">{{freq1}}</div><div class="analysis_text"><a href=key2>{{key2}}</a></div><div class="analysis_text">{{freq2}}</div><div class="analysis_text"><a href=key3>{{key3}}</a></div><div class="analysis_text">{{freq3}}</div></div></div><div class="analysis_box">Sentiment Score<div class="overall_sentiment">{{overall_score}}</div><div class="word_grid"><div class="analysis_text">The New York Times </div><div class="sent_score">{{ny_score}}</div><div class="analysis_text">BBC News</div><div class="sent_score">{{bbc_score}}</div><div class="analysis_text">Fox News</div><div class="sent_score">{{fn_score}}</div></div></div><div class="analysis_box">Phrase Count</div><div class="analysis_box">Country Count</div><div class="analysis_box">Headline Priority</div><div class="analysis_box">Deltas</div></div></div></div>
+        
+        
+        </div>
+      </div></div></div>
+       </body>
+   
+</html>

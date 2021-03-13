@@ -1,0 +1,403 @@
+
+<html>
+  <head>
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+
+<style>
+
+html {
+  scroll-behavior: smooth;
+}
+
+  .header {
+    font-family:"Roboto";
+    font-size:30px;
+    font-weight:900;
+    text-align:center;
+    padding-bottom: 7px;
+    
+    background:white;
+    width:80%;
+    margin:auto;
+    
+  }
+  .navbar {
+  
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
+  font-size:15px;
+  font-weight: normal;
+  font-family:"Roboto";
+  border-top:3px solid black;
+  border-bottom: 1px solid gray;
+  padding-top:3px;
+  padding-bottom:3px;
+  width:80%;
+  margin:auto;
+}
+  .nav a {
+  text-decoration:none;
+  color:black;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-color:black;
+}
+
+.nav a:visited {
+  color:black;
+}
+    .nav_current a {
+  text-decoration:none;
+  color:white;
+      background:#5a6069;
+      border: 1px solid black;
+      border-radius:5px;
+      padding:8px;
+      
+}
+  
+
+
+  .top_bar {
+    position:fixed;
+    width:100%;
+    background:white;
+    z-index:100;
+  }
+
+  .header a{
+  text-decoration:none;
+  color:black;
+}
+.header a:hover{
+  text-decoration:underline;
+  color:black;
+}  
+
+.header a:visited {
+  text-decoration:none;
+  color:black;
+}
+
+.main_body {
+padding-top:100px;
+width: 80%;
+margin:auto;
+
+
+}
+
+.main_grid {
+  display:grid;
+  grid-template-columns:2fr 11fr;
+  z-index:99;
+  column-gap:10px;
+}
+.main_grid_fixed {
+  display:grid;
+  grid-template-columns:2fr 11fr;
+  position:fixed;
+  top:100px;
+  width:80%;
+  column-gap:10px;
+}
+
+.sidebar {
+  font-family:"Roboto";
+  font-size:13px;
+  z-index:100;
+}
+
+.sidebar_section {
+  font-weight:bold;
+}
+.bottom_sidebar_section {
+    font-weight:bold;
+  padding-bottom:5px;
+
+}
+.collapse_count {
+  font-weight:normal;
+ 
+  padding-top:20px;
+  padding-bottom: 20px;
+}
+
+.search_word {
+  text-align:center;
+  font-size:70px;
+  font-family:"Roboto";
+  font-weight:900;
+  padding-bottom:40px;
+}
+.chart {
+  height:500px;
+  z-index:99;
+  padding-bottom:50px;
+  padding-top:50px;
+}
+
+.chart_top {
+  height:500px;
+  z-index:99;
+  padding-bottom:50px;
+}
+
+.word_sidebar {
+  font-size:20px;
+  font-weight:900;
+  
+  padding-bottom:20px;
+  text-align:center;
+}
+body {
+  margin:0px;
+}
+
+.count_selected {
+  font-weight:bold;
+  color:white;
+  background:#5a6069;
+  padding:5px;
+  border-radius:5px 0px 0px 5px;
+  font-size:18px;
+}
+
+.unselected_head {
+  color:#5a6069;
+  background:#ebebeb;
+  
+}
+.sidebar_wrapper {
+  background:#ebebeb;
+  color:#5a6069;
+  border-radius: 5px 0px 0px 5px;
+  
+ 
+}
+.selected {
+  background:white;
+  color:black;
+  border-radius:5px 0px 0px 5px;
+  padding-top:5px;
+  padding-bottom:5px;
+  margin-left:5px;
+  padding-left:15px;
+}
+.selected_c2 {
+  background:white;
+  color:black;
+  border-radius:5px 0px 0px 5px;
+  padding:3px;
+}
+.sidebar{
+  padding:2px;
+}
+
+.count_sub {
+  padding-top: 5px;
+  padding-bottom:5px;
+  color: #5a6069;
+  background: #ebebeb;
+  margin-left:20px;
+}
+
+
+.count_sub_c2 {
+  padding-top: 5px;
+  padding-bottom:5px;
+  color: #5a6069;
+  background: #ebebeb;
+  margin-left:20px;
+}
+
+.test {
+  padding:100px;
+  font-size:100px;
+}
+
+#date_sb {
+  color:black;
+}
+
+#date {
+  scroll-margin-top: 115px;
+}
+
+#newspaper {
+  scroll-margin-top:65px;
+}
+
+#date_sb a {
+  text-decoration:none;
+  color:black;
+
+}
+#date_sb a:visited {
+  text-decoration:none;
+  color:black;
+
+}
+
+#newspaper_sb a {
+  text-decoration:none;
+  color:#5a6069;
+
+}
+#newspaper_sb a:visited {
+  text-decoration:none;
+  color:#5a6069;
+
+}
+
+#newspaper_d_sb a {
+  text-decoration:none;
+  color:#5a6069;
+
+}
+#newspaper_d_sb a:visited {
+  text-decoration:none;
+  color:#5a6069;
+
+}
+
+
+  </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function() {
+  $(window).scroll(function() {
+    if ($(document).scrollTop() > 520) {
+      $("#date_sb").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#date_sb a").css({"background-color":"#ebebeb", "color":"#5a6069",});
+      $("#newspaper_sb").css({"background-color":"white", "color":"black", "border-radius": "5px 0px 0px 5px", "padding-left":"-20px"});
+      $("#newspaper_sb a").css({"background-color":"white", "color":"black",});
+    } else if ($(document).scrollTop() >= 520 && $(document).scrollTop() <= 1040){
+      $("#date_sb").css({"background-color":"white", "color":"black"});
+      $("#newspaper_sb").css({"background-color":"#ebebeb", "color":"#5a6069", "margin-left": "5px", "padding-left":"15px"});
+       $("#date_sb a").css({"background-color":"white", "color":"black",});
+       $("#newspaper_sb a").css({"background-color":"ebebeb", "color":"5a6069",});
+    }
+  });
+});
+
+</script>
+
+
+
+
+</head>
+<body>
+  <div class="top_bar">
+    <div class="header"><a href='{% url 'mainpage' %}'>Headline Compare</a></div>
+    <div class="navbar">
+      <div class="nav_current"><a href=WordCount>Word Count</a></div>
+      <div class="nav"><a href=Sentiment_Main>Sentiment Score</a></div>
+      <div class="nav">Phrase Count</div>
+      <div class="nav">Country Count</div>
+      <div class="nav">Headline Priority</div> 
+      <div class="nav">Deltas</div>
+      <div class="nav">Date</div>
+    </div>
+  </div>
+  
+  <div class="main_body">
+    <div class="main_grid_fixed">
+    <div class="sidebar">
+      <div class="word_sidebar">"{{key1}}" </div>
+        <div class="sidebar_wrapper">
+        <div class="sidebar_section">
+          <div class="count_selected">Count</div>
+          <div class="collapse_count">
+            <div class="selected" id="date_sb">
+            <a href="#date">Date</a>
+            </div>
+            <div class="count_sub_c2" id="newspaper_sb">
+            <a href="#newspaper">Newspaper</a>
+            </div>
+            <div class="count_sub_c2" id="newspaper_d_sb">
+            Newspaper by Date
+            </div>
+          </div>
+        </div>
+        <div class="sidebar_section">
+          <div class="unselected_head">Sentiment</div>
+          <div class="collapse_count">
+            <div class="count_sub">
+            Average by Newspaper
+            </div>
+            <div class="count_sub">
+            Average by Newspaper by Date
+            </div>
+            <div class="count_sub">
+            Count by Newspaper
+            </div>
+          </div>
+        </div>
+        <div class="sidebar_section">
+          <div class="unselected_head">Headline Priority</div>
+          <div class="collapse_count">
+            <div class="count_sub">
+            Average by Newspaper
+            </div>
+            <div class="count_sub">
+            Average by Newspaper by Date
+            </div>
+           
+          </div>
+        </div>
+        <div class="bottom_sidebar_section">
+          <div class="unselected_head">All Headlines</div>
+          
+        </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="main_grid">
+      <div> </div>
+
+      <div class="main">
+        <div class="search_word"> "{{key1}}"</div>
+        <div class="chart_top" id="date">
+         {% autoescape off %}
+        {{ html_div }}
+        {% endautoescape %} </div>
+        
+        <div class="chart" id="newspaper">
+          {% autoescape off %}
+           {{ html_div_news_bar }}
+          {% endautoescape %}</div>
+      </div>
+      <DIV> </DIV>
+      <div class="chart" id="newspaper">
+          {% autoescape off %}
+         {{ html_div2 }}
+          {% endautoescape %}</div>
+      </div>
+      <div class="chart" id="newspaper">
+          {% autoescape off %}
+          {{ html_div2 }}
+          {% endautoescape %}</div>
+      </div>
+<div class="chart" id="newspaper">
+          {% autoescape off %}
+          {{ html_div2 }}
+          {% endautoescape %}</div>
+      </div>
+      <div class="chart" id="newspaper">
+          {% autoescape off %}
+          {{ html_div2 }}
+          {% endautoescape %}</div>
+      </div>
+      </div>
+    </div>
+  </div>
+  </body>
+  </html>

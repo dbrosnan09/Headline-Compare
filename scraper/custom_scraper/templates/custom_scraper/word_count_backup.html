@@ -1,0 +1,108 @@
+def word_count(request):
+    search = request.GET.get('word_count')
+    from django.db.models.functions import TruncDay
+    from django.db.models import Count
+    
+    key1data = Headline.objects.filter(headline__contains=search).annotate(Date=TruncDay('date')).values('Date').annotate(Count=Count('id')).order_by("-Date")
+    for i in key1data:
+        print(i)
+    
+    from django.shortcuts import redirect
+    if not key1data:
+        
+        request.session['search'] = search
+        return redirect('research')
+
+    import pandas as pd
+    df = pd.DataFrame(list(key1data))
+
+    import plotly.express as px
+    fig = px.line(df, x="Date", y="Count", title='"' + str(search.capitalize()) + '":' + " Total Count")
+    fig.update_layout(
+        font=dict(family="Carrois Gothic", size=15,color="black"), plot_bgcolor='white', xaxis_title='',
+    )
+
+    
+    import plotly
+    from django.db.models import Avg
+    
+
+    html_div = str(plotly.offline.plot(fig, output_type='div'))
+
+    average_key1_sentiment = Headline.objects.filter(headline__contains=search).values('newspaper').annotate(Average=Avg('sentiment')).order_by("newspaper")
+    df_average_key1_sentiment = pd.DataFrame(list(average_key1_sentiment))
+    df_average_key1_sentiment['newspaper'] = df_average_key1_sentiment['newspaper'].replace(1, 'The New York Times')
+    df_average_key1_sentiment['newspaper'] = df_average_key1_sentiment['newspaper'].replace(2, 'BBC News')
+    df_average_key1_sentiment['newspaper'] = df_average_key1_sentiment['newspaper'].replace(3, 'Fox News')
+    df_average_key1_sentiment.rename(columns={'newspaper':'Newspaper'}, inplace= True)
+    df_average_key1_sentiment.rename(columns={'Average':'Sentiment Score'}, inplace= True)
+    df_average_key1_sentiment['Sentiment Score'] = df_average_key1_sentiment['Sentiment Score'] * 100
+    fig_average_key1_sentiment = px.bar(df_average_key1_sentiment, x='Newspaper', y='Sentiment Score', title='"'+str(search.capitalize()) + '": ' + 'Average Sentiment by Newspaper')
+    fig_average_key1_sentiment.update_layout(
+        font=dict(family="Carrois Gothic",size=15,color="black"), plot_bgcolor='white'
+    )
+
+    html_div_average_key1_sentiment = str(plotly.offline.plot(fig_average_key1_sentiment, output_type='div'))
+
+    
+    key1data = Headline.objects.filter(headline__contains=search).annotate(Date=TruncDay('date')).values('Date').annotate(Count=Count('id')).order_by("-Date")
+    for i in key1data:
+        print(i)
+    
+    import pandas as pd
+    df = pd.DataFrame(list(key1data))
+
+    import plotly.express as px
+    fig = px.line(df, x="Date", y="Count", title='"' + str(search.capitalize()) + '":' + " Total Count")
+    fig.update_layout(
+        font=dict(family="Carrois Gothic", size=15,color="black"), plot_bgcolor='white', xaxis_title='',
+    )
+
+    
+    import plotly
+    
+
+    html_div_search_by_newspaper = str(plotly.offline.plot(fig, output_type='div'))
+    """
+    print(search)
+
+    fnkeydata = Headline.objects.filter(headline__contains=search).filter(newspaper=3).annotate(Date=TruncDay('date')).values('Date').annotate(Count=Count('id')).order_by("-Date")
+    nytkeydata = Headline.objects.filter(headline__contains=search).filter(newspaper=1).annotate(Date=TruncDay('date')).values('Date').annotate(Count=Count('id')).order_by("-Date")
+    bbckeydata = Headline.objects.filter(headline__contains=search).filter(newspaper=2).annotate(Date=TruncDay('date')).values('Date').annotate(Count=Count('id')).order_by("-Date")
+
+     
+    print(fnkeydata)
+    
+
+    
+
+    fnframe = pd.DataFrame(list(fnkeydata))
+    fnframe.rename(columns={'Count':'Fox News'}, inplace= True)
+    nytframe = pd.DataFrame(list(nytkeydata))
+    nytframe.rename(columns={'Count':'New York Times'}, inplace= True)
+    bbcframe = pd.DataFrame(list(bbckeydata))
+    bbcframe.rename(columns={'Count':'BBC News'}, inplace= True)
+    
+    print(fnframe)
+    print(nytframe)
+    print(bbcframe)
+
+    alltogether = pd.merge(fnframe, nytframe, how='outer', on='Date')
+    alltogether = pd.merge(alltogether, bbcframe, how='outer', on='Date')
+    print(alltogether)
+
+    
+    allfig = px.line(alltogether, x="Date", y="Count", title='"' + str(search.capitalize()) + '":' + " Total Count")
+    fig.update_layout(
+        font=dict(family="Carrois Gothic", size=15,color="black"), plot_bgcolor='white', xaxis_title='',
+    )
+
+    
+    import plotly
+    from django.db.models import Avg
+    
+
+    html_div = str(plotly.offline.plot(fig, output_type='div'))
+    """
+
+    return render(request, 'custom_scraper/word_count.html',{'html_div':html_div,'html_div_average_key1_sentiment':html_div_average_key1_sentiment, 'html_div_search_by_newspaper': html_div_search_by_newspaper})

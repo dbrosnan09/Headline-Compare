@@ -1,0 +1,759 @@
+<html><head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Alegreya:900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Alegreya|Alegreya+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Carrois+Gothic&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Alegreya+SC&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Mukta|Rubik&display=swap" rel="stylesheet">
+   <style>
+ 
+ .mainbody {
+   padding-top:160px;
+   overflow-y:auto;
+   height:425px;
+   
+ }
+ 
+   h1 {
+     font-family:'Alegreya';
+     text-align:left;
+     font-size:30px;
+     margin: 8px;
+     margin-left: 20px;
+     font-size: 44px;
+    text-align: center;
+    padding-right:52px;
+   }
+   img {
+    max-width:100%;
+height:400px;
+
+  box-shadow: 2px 2px 2px 2px #aaa;
+  border-radius:10px;
+  margin:5px;
+  
+ 
+   }
+   .mainhlcolumns {
+     display:grid;
+     grid-template-columns: 1fr 1fr 1fr;
+     padding-right: 100px;
+     padding-left: 100px;
+     grid-gap:30px;
+     border-bottom: 1px double #121212;
+   
+   
+   }
+   .newspapercontainerright {
+     text-align:center;
+     font-family: 'Carrois Gothic';
+     font-size: 19px;
+     font-weight:bold;
+     border-right: 1px solid #000000;
+   
+     background-color:white;
+    }
+    .newspapercontainerleft {
+     text-align:center;
+     font-family: 'Carrois Gothic';
+     font-size: 19px;
+     font-weight:bold;
+ 
+   
+     background-color:white;
+    }
+ 
+ 
+ 
+ 
+   .headlinetextp {
+     height:40px;
+     font-size:15px;
+     text-align:left;
+     font-weight: 900;
+     padding: 5px;
+      font-family: "Carrois Gothic";
+      font-weight:400
+      ;
+   }
+  .navbar-fixed-top {
+ 
+ position: fixed;
+ 
+ right: 0;
+ top: 0;
+ 
+ left: 0;
+ 
+ z-index: 999;
+ 
+ background-color:white;
+ 
+ 
+ 
+ }
+ 
+ .navbar-fixed-top:after {
+    content: ""; /* This is necessary for the pseudo element to work. */
+    display: block; /* This will put the pseudo element on its own line. */
+    margin: 0 auto; /* This will center the border. */
+    width: 80%; /* Change this to whatever width you want. */
+    padding-top: 0px; /* This creates some space between the element and the border. */
+    border-bottom: 2px solid black; /* This creates the border. Replace black with whatever color you want. */
+    background-color: white;
+}
+ .navbar-fixed-column {
+ 
+ position: fixed;
+ 
+ right: 0;
+ top: 0;
+ 
+ left: 0;
+ 
+ z-index: 996;
+ 
+ background-color: white;
+ 
+ }
+    .navbar-fixed-date {
+ 
+ position: fixed;
+ 
+ right: 0;
+ top: 0;
+ 
+ left: 0;
+ 
+ z-index: 998;
+ 
+ background-color: white;
+ 
+ 
+ }
+
+ a:link {
+   text-decoration: none;
+   color:black;
+ }
+ a:hover {
+   text-decoration:underline;
+ }
+ .headercontainer {
+   display:flex;
+   padding-top:130px;
+   
+   padding-left:80px;
+   padding-right:110px;
+   padding-bottom:10px;
+   top:100;
+   bottom:100;
+    box-shadow: 0px 0px 1px;
+    
+ 
+ 
+ }
+ .articlesheaderny {
+   flex-grow: 1;
+   text-align:center;
+      font-family:'Alegreya';
+     font-size: 17px;
+     font-weight:bold;
+   
+      flex-basis:0;
+     
+   
+     
+ }
+    .articlesheaderbbc {
+   flex-grow: 1;
+   text-align:center;
+     font-family:'Alegreya';
+     font-size: 17px;
+     font-weight:bold;
+   
+       flex-basis:0;
+       
+     
+   }
+    .articlesheaderfn {
+   flex-grow: 1;
+   text-align:center;
+     font-family:'Alegreya';
+     font-size: 17px;
+     font-weight:bold;
+     
+       flex-basis:0;
+     }
+     .headercontainer a:visited {
+       color:black;
+     }
+     .secondheader {
+       position:fixed;
+     }
+     .bottomhalf {
+       position:absolute;
+       top:450;
+       height:2200px;
+       
+       z-index:997;
+       background-color:white;
+       text-align:center;
+     font-family: "Carrois Gothic";
+     font-size: 100px;
+     font-weight:bold;
+     left:0;
+     right:0;
+     padding-left:120px;
+     padding-right:120px;
+     
+     
+     }
+     .photocontainer {
+       height:200px;
+       width:300px;
+       
+     }
+     .dataflex{
+       display:flex;
+       font-family: "Carrois Gothic";
+       justify-content:center;
+       padding-top:30px;
+       flex-wrap: wrap;
+       flex-direction:column;
+       align-items:center;
+     
+     }
+    .sentimentanalysis {
+      font-size:30px;
+      
+      padding:100px;
+      flex-grow:1;
+      margin:7px;
+      border-radius:10px;
+      box-shadow: 2px 2px 2px 2px #aaa;
+       font-family: "Alegreya";
+       font-weight: bold;
+       
+      
+     
+    }
+
+   .sentimentanalysis a:visited {
+   text-decoration: none;
+   color:black;
+ }
+    .photobox {
+      font-size:30px;
+       border: 1px double #121212;
+      padding:100px;
+      flex-grow:1;
+      padding:0px;
+    }
+    .grade {
+      font-size:80px;
+      font-family: "Carrois Gothic";
+    }
+     .individualgradeflex {
+       display:flex;
+       flex-direction:column;
+       font-size:17px;
+       font-family: "Carrois Gothic"
+     }
+     .individualgrade {
+       display:flex;
+       justify-content: space-around;
+       flex-direction:row;
+     
+     }
+     .gradeflex {
+       display:flex;
+       justify-content:space-between;
+       padding-bottom: 2px;
+       padding-left:15px;
+       padding-right:40px;
+     }
+     .sentimentdate {
+       font-size:22px;
+     }
+     .topdate {
+     
+       top:300;
+       font-size:20px;
+       font-family: "Carrois Gothic";
+        text-align: center;
+        padding-top:90px;
+        padding-bottom: 8px;
+        z-index:998;
+        font-weight: bold;
+        padding-right:44px;
+         box-shadow: 0px 0px 12px;
+     }
+     .topwordfreq {
+       font-size: 20;
+     }
+
+     .topfreqflex {
+       display:flex;
+       justify-content:space-evenly;
+       padding-bottom: 2px;
+       padding-left:15px;
+       padding-right:15px;
+       font-size:60px;
+       
+     }    
+
+     .secondfreqflex {
+       display:flex;
+       justify-content:space-evenly;
+       padding-bottom: 2px;
+       padding-left:15px;
+       padding-right:15px;
+       font-size:40px;
+       
+     }    
+     .thirdfreqflex {
+       display:flex;
+       justify-content:space-evenly;
+       padding-bottom: 2px;
+       padding-left:15px;
+       padding-right:15px;
+       font-size:20px;
+       
+     }    
+     .freqflex {
+       display:flex;
+       justify-content:space-between;
+       padding-bottom: 2px;
+       
+     }
+
+     .word {
+       padding-right:30px;
+     }
+     .gradenewspaper {
+
+       padding-right: 30px;
+       font-size:18px;
+       
+     }
+     .gradegrade {
+       font-size: 18px;
+     }
+        .datarow{
+       display:flex;
+       font-family: "Carrois Gothic";
+       justify-content:center;
+       
+       flex-wrap: wrap;
+       align-items:center;
+       
+     
+     }
+     .datasub {
+       font-size:22px;
+       font-family:"Carrois Gothic"
+     }
+     
+     .sentimentanalysis {
+       font-size:40px;
+       color: black;
+       
+     }
+     .subtitle {
+       padding-bottom:14px;
+       
+     }
+     
+      .bottomhalf:before {
+    content: ""; /* This is necessary for the pseudo element to work. */
+    display: block; /* This will put the pseudo element on its own line. */
+    margin: 0 auto; /* This will center the border. */
+    width: 80%; /* Change this to whatever width you want. */
+    padding-top: 25px; /* This creates some space between the element and the border. */
+    padding-bottom:5px;
+    border-bottom: 2px solid black; /* This creates the border. Replace black with whatever color you want. */
+}
+
+.subtitle:after {
+    content: ""; /* This is necessary for the pseudo element to work. */
+    display: block; /* This will put the pseudo element on its own line. */
+    margin: 0 auto; /* This will center the border. */
+    width: 80%; /* Change this to whatever width you want. */
+    padding-top: -2px; /* This creates some space between the element and the border. */
+    padding-bottom:5px;
+    border-bottom: 2px solid black; /* This creates the border. Replace black with whatever color you want. */
+}
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+  max-width:100%;
+height:400px;
+justify-content: center;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Alegreya';
+  font-size: 80px;
+    color: white;
+}
+
+   </style></head>
+   
+   
+<body>
+
+     <div class="navbar-fixed-top">
+         <h1>
+          Headline Compare
+         </h1>
+     </div>
+   <div class="navbar-fixed-date">
+   
+ <div class="topdate">
+          {{today1}}
+          </div>
+       </div>
+      <header class="navbar-fixed-column">
+     <div class="headercontainer">
+          <div class="articlesheaderny">
+          
+          <a href="https://www.nytimes.com/"> The New York Times </a>
+          </div>
+          <div class="articlesheaderbbc">
+            <a href="https://www.bbc.com/news">BBC News</a>
+          </div>
+          <div class="articlesheaderfn">
+            <a href="https://www.foxnews.com/">Fox News</a>
+          </div>
+     </div>
+     </header>
+
+
+     <div class="mainbody">
+      <div class="mainhlcolumns">
+    <div class="newspapercontainerright">
+  
+{% for headline in nytheadlines %}
+   <a href="{{headline.link}}"><p class="headlinetextp">{{headline}}</p> </a>
+{% endfor %}
+   
+    </div>
+    <div class="newspapercontainerright">
+        {% for headline in bbcheadlines %}
+        <a href="{{headline.link}}"><p class="headlinetextp">{{headline}}</p> </a>
+     {% endfor %}
+    
+    </div>
+
+
+    <div class="newspapercontainerleft">
+        {% for headline in fnheadlines %}
+        <a href="{{headline.link}}"><p class="headlinetextp">{{headline}}</p> </a>
+     {% endfor %}
+
+    </div>
+    </div>
+    
+    </div> 
+   
+     
+
+      <div class="bottomhalf">
+ 
+        <div class="dataflex">
+        <div class="datarow">
+        
+        
+        <div class="sentimentanalysis">
+          <div class="subtitle">
+          <a href=WordCount>Word Count </a> 
+          </div>
+          
+          
+        <div class="individualgradeflex">
+          <div class="topfreqflex">
+            <div class="word">
+              <a href=key1>
+              {{key1}}</a>
+            </div>
+            <div class="freqflex">
+              {{freq1}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="individualgradeflex">
+          <div class="secondfreqflex">
+            <div class="word">
+              <a href=key2>
+                {{key2}}</a>
+            </div>
+            <div class="freqflex">
+              {{freq2}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="individualgradeflex">
+          <div class="thirdfreqflex">
+            <div class="word">
+              <a href=key3>
+                {{key3}}</a>
+            </div>
+            <div class="freqflex">
+              {{freq3}}
+            </div>
+          </div>
+        </div>
+         
+  
+  
+        </div>
+
+        <div class="container">
+          <a href="{{key1_photo_link}}"> <img src={{key1_photo_link}}></a>
+            <div class="centered"></div>
+       </div>
+          <div class="sentimentanalysis">
+            <div class="subtitle">
+        <a href=Sentiment_Main> Sentiment Score</a> </div>
+        <div class="grade">
+          <a href=SentimentScore>
+            
+        
+        {{overall_score}}</a>
+        </div>
+       
+        <div class="individualgradeflex">
+        <div class="gradeflex">
+        <div class="gradenewspaper">
+       
+      The New York Times  </div>
+       <div class="gradegrade">
+       {{ny_score}}
+       </div>
+        </div>
+          <div class="gradeflex">
+        <div class="gradenewspaper">
+       
+      BBC News  </div>
+       <div class="gradegrade">
+       {{bbc_score}}
+       </div>
+        </div>
+          <div class="gradeflex">
+        <div class="gradenewspaper">
+       
+      Fox News </div>
+       <div class="gradegrade">
+       {{fn_score}}
+       </div>
+        </div>
+        </div>
+         
+         
+       
+        </div>
+        <div class="sentimentanalysis"><div class="subtitle">
+          Phrase Count</div>
+        <div class="individualgradeflex">
+          <div class="topfreqflex">
+            <div class="word">
+              {{phrase1}}
+            </div>
+            <div class="freqflex">
+              {{phrase1freq}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="individualgradeflex">
+          <div class="secondfreqflex">
+            <div class="word">
+              {{phrase2}}
+            </div>
+            <div class="freqflex">
+              {{phrase2freq}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="individualgradeflex">
+          <div class="thirdfreqflex">
+            <div class="word">
+              {{phrase3}}
+            </div>
+            <div class="freqflex">
+              {{phrase3freq}}
+            </div>
+          </div>
+        </div>
+         
+  </div> </div>
+        <div class ="datarow">
+        
+       
+        <div class="sentimentanalysis">
+          <div class="subtitle">
+          Cities Mentioned</div>
+        <div class="individualgradeflex">
+          <div class="topfreqflex">
+            <div class="word">
+              {{city1}}
+            </div>
+            <div class="freqflex">
+              {{city1freq}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="individualgradeflex">
+          <div class="secondfreqflex">
+            <div class="word">
+              {{city2}}
+            </div>
+            <div class="freqflex">
+             {{city2freq}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="individualgradeflex">
+          <div class="thirdfreqflex">
+            <div class="word">
+              {{city3}}
+            </div>
+            <div class="freqflex">
+              {{city3freq}}
+            </div>
+          </div>
+        </div>
+         
+  
+  
+        </div>
+        <div class="sentimentanalysis"><div class="subtitle">
+          Countries Mentioned</div>
+        <div class="individualgradeflex">
+          <div class="topfreqflex">
+            <div class="word">
+             {{country1}}
+            </div>
+            <div class="freqflex">
+             {{country1freq}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="individualgradeflex">
+          <div class="secondfreqflex">
+            <div class="word">
+             {{country2}}
+            </div>
+            <div class="freqflex">
+             {{country2freq}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="individualgradeflex">
+          <div class="thirdfreqflex">
+            <div class="word">
+             {{country3}}
+            </div>
+            <div class="freqflex">
+             {{country3freq}}
+            </div>
+          </div>
+        </div>
+         
+         
+  
+  
+        </div>
+         <div class="sentimentanalysis">
+          <div class="subtitle">
+        Sentence Types
+          </div>
+       <div class="datasub">
+       Questions
+       </div>
+        <div class="individualgradeflex">
+        <div class="gradeflex">
+        <div class="gradenewspaper">
+       
+      The New York Times  </div>
+       <div class="gradegrade">
+       {{nyt_question_count}}
+       </div>
+        </div>
+          <div class="gradeflex">
+        <div class="gradenewspaper">
+       
+      BBC News  </div>
+       <div class="gradegrade">
+       {{bbc_question_count}}
+       </div>
+        </div>
+          <div class="gradeflex">
+        <div class="gradenewspaper">
+       
+      Fox News </div>
+       <div class="gradegrade">
+       {{fn_question_count}}
+       </div>
+        </div>
+        
+           <div class="datasub">
+       Exclamations
+       </div>
+         <div class="gradeflex">
+        <div class="gradenewspaper">
+       
+      The New York Times  </div>
+       <div class="gradegrade">
+       {{nyt_exclamation_count}}
+       </div>
+        </div>
+          <div class="gradeflex">
+        <div class="gradenewspaper">
+       
+      BBC News  </div>
+       <div class="gradegrade">
+      {{bbc_exclamation_count}}
+       </div>
+        </div>
+          <div class="gradeflex">
+        <div class="gradenewspaper">
+       
+      Fox News </div>
+       <div class="gradegrade">
+       {{fn_exclamation_count}}
+       </div>
+        </div>
+        </div>
+         
+         
+        </div>
+       
+        </div>
+        
+        </div>
+        </div>
+         
+       
+        </body></html>
