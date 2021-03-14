@@ -2,7 +2,7 @@
      {% autoescape off %}
     {{ html }}
 {% endautoescape %}
-    
+
 
 
 {% else %}
@@ -22,13 +22,12 @@
 <meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
 
     <link rel="icon" href="{% static 'hcfav.png' %}"/>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
- <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 body {
  background-color: #f4f4f4;
@@ -47,7 +46,7 @@ body {
  margin:auto;
  position:fixed;
  z-index:100;
- 
+
  }
 
  .second_row {
@@ -129,15 +128,15 @@ sub a:visited {
 }
 
 .sub_selected {
- 
+
  text-align:left;
  margin-left:40px;
  padding-top:6px;
  padding-bottom:6px;
  font-weight:bold;
  font-size:22px;
- 
- 
+
+
 
 }
 
@@ -156,7 +155,7 @@ sub a:visited {
 
 
   input[type="submit"] {
-         
+
          font-size: 14px;
          font-family: "Roboto";
          width:80px;
@@ -170,7 +169,7 @@ sub a:visited {
      input[type="text"] {
        padding:10px;
        font-size: 14px;
-      
+
      }
 
      .search {
@@ -192,12 +191,13 @@ sub a:visited {
 .dash_card {
  background-color:white;
  border-radius: 2px 2px 2px 2px;
- 
+
  box-shadow: 0 0 2px gray;
  padding:10px;
 }
 
 .card_title {
+    font-family:"Roboto", sans-serif; font-weight:bold;
  position:relative;
  background-color:transparent;
  color:#292929;
@@ -206,8 +206,8 @@ sub a:visited {
  font-size:18px;
  font-weight:bold;
  height:20px;
- 
- 
+
+
 }
 
 .spacer {
@@ -223,8 +223,8 @@ sub a:visited {
 
 .search_smaller {
   display:inline-block;
-  
- 
+
+
 }
 
 form {
@@ -249,7 +249,7 @@ form {
 
  padding-top:40px;
  padding-bottom:40px;
- 
+
 }
 
 .switch_overall {
@@ -262,7 +262,7 @@ form {
 
  padding-top:40px;
  padding-bottom:40px;
- 
+
 }
 
 .switch_overall_wcbn {
@@ -275,7 +275,7 @@ form {
 
  padding-top:40px;
  padding-bottom:40px;
- 
+
 }
 
 .dash_button_middle {
@@ -305,7 +305,7 @@ form {
  padding-top:0px;
  padding-bottom:0px;
  margin:0;
- 
+
 
 }
 
@@ -338,7 +338,7 @@ form {
 
  padding-top:40px;
  padding-bottom:40px;
- 
+
 }
 
 .button_middle {
@@ -353,7 +353,7 @@ form {
  padding-top:0px;
  padding-bottom:0px;
  margin:0;
- 
+
 }
 
 .button_left {
@@ -370,7 +370,7 @@ form {
  padding-bottom:0px;
  margin:0;
  border-radius: 5px 0px 0px 5px;
- 
+
 }
 
 .button_right {
@@ -380,14 +380,14 @@ form {
  margin:10px;
  border: 1px solid #c9c9c9;
  border-radius:0px 5px 5px 0px;
- 
- 
+
+
  color:#919191;
  width:125px;
  padding-top:0px;
  padding-bottom:0px;
  margin:0;
- 
+
 }
 
 
@@ -427,13 +427,13 @@ font-family: "Titillium Web";
 
 
 .unselected_Compare {
-  
-    background: #2d2e30;
-  
-  
-   
 
-        background-color: transparent;  
+    background: #2d2e30;
+
+
+
+
+        background-color: transparent;
         background:#dbdbdb;
         color:#919191;
 }
@@ -441,13 +441,13 @@ font-family: "Titillium Web";
 
 
 .unselected_Overall {
-  
-    background: #2d2e30;
-  
-    font-size:21px;
-   
 
-        background-color: transparent;  
+    background: #2d2e30;
+
+    font-size:21px;
+
+
+        background-color: transparent;
         background:#dbdbdb;
         color:#919191;
         font-weight:bold;
@@ -458,11 +458,11 @@ font-family: "Titillium Web";
 .unselected_NYT {
   font-family: "Alfa Slab One";
     background: #2d2e30;
-  
+
     color: white;
     font-size:20px;
 
-        background-color: transparent;  
+        background-color: transparent;
         background:#dbdbdb;
         color:#919191;
         padding-top:4px;
@@ -536,7 +536,7 @@ font-family: "Titillium Web";
 .dash_card {
  background-color:white;
  border-radius: 2px 2px 2px 2px;
- 
+
  box-shadow: 0 0 2px gray;
  padding:10px;
 }
@@ -549,8 +549,8 @@ font-family: "Titillium Web";
  text-align:left;
  font-size:18px;
  font-weight:bold;
- 
- 
+
+
 }
 
 
@@ -562,8 +562,8 @@ font-family: "Titillium Web";
  text-align:left;
  font-size:18px;
  font-weight:bold;
- 
- 
+
+
 }
 
 
@@ -610,7 +610,7 @@ font-family:"Roboto";
 .dash_card_left_super {
  background-color:white;
  border-radius: 2px 2px 2px 2px;
- 
+
  box-shadow: 0 0 2px gray;
  padding-bottom:0px;
  height:540px;
@@ -625,8 +625,8 @@ font-family:"Roboto";
  font-size:18px;
  font-weight:bold;
 
- 
- 
+
+
 }
 .word_heading_nyt {
   font-family:"Alfa Slab One";
@@ -649,7 +649,7 @@ font-family:"Roboto";
 .mostposgrid_heading_word {
  display:grid;
  grid-template-columns: 1fr 1fr;
- 
+
  align-items:center;
  font-size:15px;
  font-weight:bold;
@@ -662,7 +662,7 @@ font-family:"Roboto";
 .mostposgrid_heading_word_right {
  display:grid;
  grid-template-columns: 1fr 1fr;
- 
+
  align-items:center;
  font-size:15px;
  font-weight:bold;
@@ -684,14 +684,14 @@ top:-60;
 .mostposgrid_word {
  display:grid;
  grid-template-columns: 1fr 1fr ;
- 
+
  align-items:center;
 }
 
 .dash_card_super {
  background-color:white;
  border-radius: 2px 2px 2px 2px;
- 
+
  box-shadow: 0 0 2px gray;
  padding:10px;
  height:520px;
@@ -706,7 +706,7 @@ top:-60;
   flex:1;
    line-height:40px;
    justify:center;
-   
+
    width:170px;
    margin:auto;
    width:100%;
@@ -728,7 +728,7 @@ top:-60;
   line-height:40px;
   font-size:25px;
   width:170px;
-  
+
   margin:auto;
   width:100%;
  position:relative;
@@ -760,12 +760,12 @@ overflow-y:auto;
 .date_cell_link:visited {
   color:black;
   text-decoration:none;
-  
+
 }
 
 .date_cell_link:hover {
   text-decoration:underline;
-  
+
 }
 #Relatedwordsdiv0 {
   display:none;
@@ -910,15 +910,15 @@ overflow-y:auto;
   font-family:"Lato";
   background:#bb1919;
   color:white;
-  
+
   margin:1px;
   font-size: 25px;
- 
+
    line-height:40px;
    justify:center;
-   
+
    width:170px;
-  
+
    width:100%;
    line-height:52px;
 
@@ -933,15 +933,15 @@ overflow-y:auto;
   font-weight:400;
   border-radius:4px 0px 0px 0px;
   margin:1px;
-  
+
   line-height:40px;
- 
- 
+
+
   width:170px;
- 
+
  width:100%;
    line-height:52px;
-  
+
 }
 
 .news_grid {
@@ -955,7 +955,7 @@ overflow-y:auto;
 
 }
 
- 
+
 }
 
 .date_grid_object {
@@ -967,7 +967,7 @@ overflow-y:auto;
 }
 
 .green {
-  
+
   background: rgb(223,231,225);
 background: linear-gradient(0deg, rgba(223,231,225,1) 0%, rgba(162,231,206,1) 100%);
 border-radius: 5px;
@@ -986,7 +986,7 @@ border-radius: 5px;
 }
 
 .red {
- 
+
   color:black;
 background: rgb(249,104,104);
 background: linear-gradient(0deg, rgba(249,104,104,1) 0%, rgba(218,4,33,1) 100%);
@@ -1057,7 +1057,7 @@ a:visited {
     background: #2d2e30;
     color: white;
     font-size: 17px;
-    
+
     border-radius: 4px;
     margin: 1px;
     line-height: 20px;
@@ -1157,14 +1157,14 @@ border-radius: 0px 3px 0px 0px;
   font-family:"Lato";
   background:#bb1919;
   color:white;
-  
+
   font-size: 29px;
- 
+
    line-height:48px;
    justify:center;
    height:48px;
 
-  
+
    width:100%;
 
 
@@ -1177,15 +1177,15 @@ border-radius: 0px 3px 0px 0px;
   color:white;
   font-size:24px;
   font-weight:400;
-  
+
   line-height:48px;
   height:48px;
- 
+
  border-radius:3px 0 0 0;
- 
+
  width:100%;
 
-  
+
 }
 .frame_wrapper_left_rw {
 height:500px;
@@ -1197,7 +1197,7 @@ border-bottom: 1px solid #f0f0f0;
 .mostposgrid_word {
  display:grid;
  grid-template-columns: 1fr 1fr ;
- 
+
  align-items:center;
 }
 .rw_head_font {
@@ -1287,7 +1287,7 @@ overflow-y:auto;
 }
 
 .frame_cooc::-webkit-scrollbar-thumb {
- 
+
   background:#f2f2f2;
 }
 
@@ -1297,7 +1297,7 @@ overflow-y:auto;
 }
 
 .frame_cooc_large::-webkit-scrollbar-thumb {
- 
+
   background:#f2f2f2;
 }
 
@@ -1337,7 +1337,7 @@ border-right: 1px solid #f0f0f0;
 }
 
 .frame_wrapper_left_rw::-webkit-scrollbar-thumb {
- 
+
   background:#f2f2f2;
 }
 
@@ -1347,7 +1347,7 @@ border-right: 1px solid #f0f0f0;
 }
 
 .frame_wrapper_left_rw::-webkit-scrollbar-thumb {
- 
+
   background:#f2f2f2;
 }
 
@@ -1473,7 +1473,7 @@ By Newspaper
 </div>
 
 
- 
+
 </div>
 </div>
 
@@ -1492,46 +1492,46 @@ By Newspaper
    <div class='header_word'> <div class='rw_head_font text_chart'>Word</div>
 <div class='rw_head_font num_chart hc'>Count</div></div>
   <div class="frame_wrapper_left_rw">
-     
- {% for x, y in nyt_most %}   
+
+ {% for x, y in nyt_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
+    {% endfor %}
 </div>
   <div class="frame_wrapper_left_rw">
-     
-    
- {% for x, y in bbc_most %}   
+
+
+ {% for x, y in bbc_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
-       
+    {% endfor %}
+
 </div>
   <div class="frame_wrapper_left_rw">
-     
-    
- {% for x, y in fn_most %}   
+
+
+ {% for x, y in fn_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
-       
-</div>
+    {% endfor %}
 
 </div>
 
-  
+</div>
+
+
 </div>
 </div>
 
@@ -1556,9 +1556,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ avg_wc_overall }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1568,9 +1568,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ avg_rl_overall }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1583,9 +1583,9 @@ By Newspaper
 <div class="avg_font">
 
  {{question_percent_overall  }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1596,9 +1596,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ exclamation_percent_overall }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1608,9 +1608,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ all_avg_word_length }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1621,9 +1621,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ all_unique_words }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1635,9 +1635,9 @@ By Newspaper
 <div class="avg_font bottom_avg_font">
 
  {{ overall_top_50 }}%
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1652,7 +1652,7 @@ By Newspaper
 <div class="Coocurrencediv1" id="Coocurrencediv1">
 
 
-<div class='orw'> 
+<div class='orw'>
 <div class="empty"> </div>
 <div class="dash_card_wrapper">
 <div class="dash_card">
@@ -1733,7 +1733,7 @@ By Newspaper
 </div>
 
 
- 
+
 </div>
 </div>
 
@@ -1752,46 +1752,46 @@ By Newspaper
    <div class='header_word'> <div class='rw_head_font text_chart'>Word</div>
 <div class='rw_head_font num_chart hc'>Count</div></div>
   <div class="frame_wrapper_left_rw">
-     
- {% for x, y in nyt_most %}   
+
+ {% for x, y in nyt_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
+    {% endfor %}
 </div>
   <div class="frame_wrapper_left_rw">
-     
-    
- {% for x, y in bbc_most %}   
+
+
+ {% for x, y in bbc_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
-       
+    {% endfor %}
+
 </div>
   <div class="frame_wrapper_left_rw">
-     
-    
- {% for x, y in fn_most %}   
+
+
+ {% for x, y in fn_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
-       
-</div>
+    {% endfor %}
 
 </div>
 
-  
+</div>
+
+
 </div>
 </div>
 
@@ -1816,9 +1816,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ avg_wc_nyt }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1828,9 +1828,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ avg_rl_nyt }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1843,9 +1843,9 @@ By Newspaper
 <div class="avg_font">
 
  {{question_percent_nyt  }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1856,9 +1856,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ exclamation_percent_nyt }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1869,9 +1869,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ nyt_avg_word_length }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1882,9 +1882,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ nyt_unique_words }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1894,9 +1894,9 @@ By Newspaper
 <div class="avg_font bottom_avg_font">
 
  {{ nyt_top_50 }}%
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -1911,7 +1911,7 @@ By Newspaper
 <div class="Coocurrencediv2" id="Coocurrencediv2">
 
 
-<div class='orw'> 
+<div class='orw'>
 <div class="empty"> </div>
 <div class="dash_card_wrapper">
 <div class="dash_card">
@@ -1987,7 +1987,7 @@ By Newspaper
 </div>
 
 
- 
+
 </div>
 </div>
 
@@ -2006,46 +2006,46 @@ By Newspaper
    <div class='header_word'> <div class='rw_head_font text_chart'>Word</div>
 <div class='rw_head_font num_chart hc'>Count</div></div>
   <div class="frame_wrapper_left_rw">
-     
- {% for x, y in nyt_most %}   
+
+ {% for x, y in nyt_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
+    {% endfor %}
 </div>
   <div class="frame_wrapper_left_rw">
-     
-    
- {% for x, y in bbc_most %}   
+
+
+ {% for x, y in bbc_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
-       
+    {% endfor %}
+
 </div>
   <div class="frame_wrapper_left_rw">
-     
-    
- {% for x, y in fn_most %}   
+
+
+ {% for x, y in fn_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
-       
-</div>
+    {% endfor %}
 
 </div>
 
-  
+</div>
+
+
 </div>
 </div>
 
@@ -2070,9 +2070,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ avg_wc_bbc }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2082,9 +2082,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ avg_rl_bbc }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2097,9 +2097,9 @@ By Newspaper
 <div class="avg_font">
 
  {{question_percent_bbc  }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2110,9 +2110,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ exclamation_percent_bbc }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2124,9 +2124,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ bbc_avg_word_length }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2137,9 +2137,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ bbc_unique_words }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2151,9 +2151,9 @@ By Newspaper
 <div class="avg_font bottom_avg_font">
 
  {{ bbc_top_50 }}%
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2165,7 +2165,7 @@ By Newspaper
 <div class="Coocurrencediv3" id="Coocurrencediv3">
 
 
-<div class='orw'> 
+<div class='orw'>
 <div class="empty"> </div>
 <div class="dash_card_wrapper">
 <div class="dash_card">
@@ -2240,7 +2240,7 @@ By Newspaper
 </div>
 
 
- 
+
 </div>
 </div>
 
@@ -2259,46 +2259,46 @@ By Newspaper
    <div class='header_word'> <div class='rw_head_font text_chart'>Word</div>
 <div class='rw_head_font num_chart hc'>Count</div></div>
   <div class="frame_wrapper_left_rw">
-     
- {% for x, y in nyt_most %}   
+
+ {% for x, y in nyt_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
+    {% endfor %}
 </div>
   <div class="frame_wrapper_left_rw">
-     
-    
- {% for x, y in bbc_most %}   
+
+
+ {% for x, y in bbc_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
-       
+    {% endfor %}
+
 </div>
   <div class="frame_wrapper_left_rw">
-     
-    
- {% for x, y in fn_most %}   
+
+
+ {% for x, y in fn_most %}
   <a class="date_cell_link" href="/wc_search_compare_result_single/?compare1={{x}}">  <div class="mostposgrid_word">
 
 
    <div class='text_chart'> {{x}}</div><div class='num_chart'> {{y}}</div>
 
     </div></a>
-    {% endfor %}   
-       
-</div>
+    {% endfor %}
 
 </div>
 
-  
+</div>
+
+
 </div>
 </div>
 
@@ -2323,9 +2323,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ avg_wc_fn }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2335,9 +2335,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ avg_rl_fn }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2350,9 +2350,9 @@ By Newspaper
 <div class="avg_font">
 
  {{question_percent_fn  }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2363,9 +2363,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ exclamation_percent_fn }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2376,9 +2376,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ fn_avg_word_length }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2389,9 +2389,9 @@ By Newspaper
 <div class="avg_font">
 
  {{ fn_unique_words }}
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2402,9 +2402,9 @@ By Newspaper
 <div class="avg_font bottom_avg_font">
 
  {{ fn_top_50 }}%
- 
+
 </div>
- 
+
 
 </div>
 </div>
@@ -2420,7 +2420,7 @@ By Newspaper
 <div class="Coocurrencediv4" id="Coocurrencediv4">
 
 
-<div class='orw'> 
+<div class='orw'>
 <div class="empty"> </div>
 <div class="dash_card_wrapper">
 <div class="dash_card">
@@ -2479,7 +2479,7 @@ By Newspaper
 
 
 
-     
+
 
     </div>
 
@@ -2546,8 +2546,8 @@ $(document).ready(function(){
 
 
 
- 
-  
+
+
 
 
 
@@ -2560,26 +2560,26 @@ $(document).ready(function(){
 
 
  $("#Overall").click(function(){
- 
-  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
-  $('#Overall').css({"color":"black", "background-color":"white"}) 
+
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"})
+  $('#Overall').css({"color":"black", "background-color":"white"})
   $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
-  
-  
+
+
   $("#Comparesection").css('display','none')
   $("#Overallsection").css('display','block')
   $("#NYTsection").css('display','none')
   $("#BBCsection").css('display','none')
   $("#FNsection").css('display','none')
- 
+
 
 $("#Countdiv1").css('display','block')
  $("#Stylediv1").css('display','none')
   $("#Coocurrencediv1").css('display','none')
- 
-  
+
+
   Plotly.relayout(first_graph_id, {autosize: true})
 
 
@@ -2595,8 +2595,8 @@ $('#Style1').css({"color":"#919191", "background-color":"transparent"})
 
 
   $("#NYT").click(function(){
- 
-  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#NYT').css({"color":"white", "background-color":"rgb(45, 46, 48)"})
   $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
@@ -2605,18 +2605,18 @@ $('#Style1').css({"color":"#919191", "background-color":"transparent"})
 
 
 
- 
+
   $("#Comparesection").css('display','none')
   $("#Overallsection").css('display','none')
   $("#NYTsection").css('display','block')
   $("#BBCsection").css('display','none')
   $("#FNsection").css('display','none')
- 
+
 $("#Countdiv2").css('display','block')
  $("#Stylediv2").css('display','none')
   $("#Coocurrencediv2").css('display','none')
- 
-  
+
+
   Plotly.relayout(second_graph_id, {autosize: true})
 
 
@@ -2631,14 +2631,14 @@ $('#Style2').css({"color":"#919191", "background-color":"transparent"})
 
 
   $("#BBC").click(function(){
- 
 
-  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#BBC').css({"color":"white", "background-color":"rgb(187, 25, 25)"})
   $('#FN').css({"color":"#919191", "background-color":"#dbdbdb"})
- 
+
   $("#Comparesection").css('display','none')
   $("#Overallsection").css('display','none')
   $("#NYTsection").css('display','none')
@@ -2648,8 +2648,8 @@ $('#Style2').css({"color":"#919191", "background-color":"transparent"})
 $("#Countdiv3").css('display','block')
  $("#Stylediv3").css('display','none')
   $("#Coocurrencediv3").css('display','none')
- 
-  
+
+
   Plotly.relayout(third_graph_id, {autosize: true})
 
 
@@ -2665,9 +2665,9 @@ $('#Style3').css({"color":"#919191", "background-color":"transparent"})
 
 
    $("#FN").click(function(){
- 
- 
-  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"}) 
+
+
+  $('#Compare').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#Overall').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#NYT').css({"color":"#919191", "background-color":"#dbdbdb"})
   $('#BBC').css({"color":"#919191", "background-color":"#dbdbdb"})
@@ -2679,12 +2679,12 @@ $('#Style3').css({"color":"#919191", "background-color":"transparent"})
   $("#NYTsection").css('display','none')
   $("#BBCsection").css('display','none')
   $("#FNsection").css('display','block')
- 
+
 $("#Countdiv4").css('display','block')
  $("#Stylediv4").css('display','none')
   $("#Coocurrencediv4").css('display','none')
- 
-  
+
+
   Plotly.relayout(fourth_graph_id, {autosize: true})
 
 
@@ -2717,13 +2717,13 @@ $('#Style4').css({"color":"#919191", "background-color":"transparent"})
 
 
  $("#Count1").click(function(){
- 
- 
+
+
   $("#Countdiv1").css('display','block')
  $("#Stylediv1").css('display','none')
   $("#Coocurrencediv1").css('display','none')
- 
-  
+
+
   Plotly.relayout(first_graph_id, {autosize: true})
 
 
@@ -2738,14 +2738,14 @@ $('#Style1').css({"color":"#919191", "background-color":"transparent"})
 
 
 $("#Style1").click(function(){
- 
- 
+
+
   $("#Countdiv1").css('display','none')
  $("#Stylediv1").css('display','block')
   $("#Coocurrencediv1").css('display','none')
- 
- 
-  
+
+
+
 
 
  $('#Count1').css({"color":"#919191", "background-color":"transparent"})
@@ -2759,7 +2759,7 @@ $('#Style1').css({"background-color":"#fafafa","color":"black"})
 
 
 $("#Coocurrence1").click(function(){
- 
+
   $("#Countdiv1").css('display','none')
  $("#Stylediv1").css('display','none')
   $("#Coocurrencediv1").css('display','block')
@@ -2779,13 +2779,13 @@ $('#Style1').css({"color":"#919191", "background-color":"transparent"})
 
 
  $("#Count2").click(function(){
- 
- 
+
+
   $("#Countdiv2").css('display','block')
  $("#Stylediv2").css('display','none')
   $("#Coocurrencediv2").css('display','none')
- 
-  
+
+
   Plotly.relayout(second_graph_id, {autosize: true})
 
 
@@ -2800,14 +2800,14 @@ $('#Style2').css({"color":"#919191", "background-color":"transparent"})
 
 
 $("#Style2").click(function(){
- 
- 
+
+
   $("#Countdiv2").css('display','none')
  $("#Stylediv2").css('display','block')
   $("#Coocurrencediv2").css('display','none')
- 
- 
-  
+
+
+
 
 
  $('#Count2').css({"color":"#919191", "background-color":"transparent"})
@@ -2821,7 +2821,7 @@ $('#Style2').css({"background-color":"#fafafa","color":"black"})
 
 
 $("#Coocurrence2").click(function(){
- 
+
   $("#Countdiv2").css('display','none')
  $("#Stylediv2").css('display','none')
   $("#Coocurrencediv2").css('display','block')
@@ -2839,13 +2839,13 @@ $('#Style2').css({"color":"#919191", "background-color":"transparent"})
  )
 
  $("#Count3").click(function(){
- 
- 
+
+
   $("#Countdiv3").css('display','block')
  $("#Stylediv3").css('display','none')
   $("#Coocurrencediv3").css('display','none')
- 
-  
+
+
   Plotly.relayout(third_graph_id, {autosize: true})
 
 
@@ -2860,14 +2860,14 @@ $('#Style3').css({"color":"#919191", "background-color":"transparent"})
 
 
 $("#Style3").click(function(){
- 
- 
+
+
   $("#Countdiv3").css('display','none')
  $("#Stylediv3").css('display','block')
   $("#Coocurrencediv3").css('display','none')
- 
- 
-  
+
+
+
 
 
  $('#Count3').css({"color":"#919191", "background-color":"transparent"})
@@ -2881,7 +2881,7 @@ $('#Style3').css({"background-color":"#fafafa","color":"black"})
 
 
 $("#Coocurrence3").click(function(){
- 
+
   $("#Countdiv3").css('display','none')
  $("#Stylediv3").css('display','none')
   $("#Coocurrencediv3").css('display','block')
@@ -2900,13 +2900,13 @@ $('#Style3').css({"color":"#919191", "background-color":"transparent"})
 
 
  $("#Count4").click(function(){
- 
- 
+
+
   $("#Countdiv4").css('display','block')
  $("#Stylediv4").css('display','none')
   $("#Coocurrencediv4").css('display','none')
- 
-  
+
+
   Plotly.relayout(fourth_graph_id, {autosize: true})
 
 
@@ -2921,14 +2921,14 @@ $('#Style4').css({"color":"#919191", "background-color":"transparent"})
 
 
 $("#Style4").click(function(){
- 
- 
+
+
   $("#Countdiv4").css('display','none')
  $("#Stylediv4").css('display','block')
   $("#Coocurrencediv4").css('display','none')
- 
- 
-  
+
+
+
 
 
  $('#Count4').css({"color":"#919191", "background-color":"transparent"})
@@ -2942,7 +2942,7 @@ $('#Style4').css({"background-color":"#fafafa","color":"black"})
 
 
 $("#Coocurrence4").click(function(){
- 
+
   $("#Countdiv4").css('display','none')
  $("#Stylediv4").css('display','none')
   $("#Coocurrencediv4").css('display','block')
@@ -2968,6 +2968,6 @@ $('#Style4').css({"color":"#919191", "background-color":"transparent"})
 
  </script>
 
- 
+
 
 {% endif %}
