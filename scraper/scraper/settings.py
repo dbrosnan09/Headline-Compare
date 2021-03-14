@@ -128,6 +128,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = "/home/headlinecompares/headline_compare_pg/scraper/static"
 
 print("base dir path", BASE_DIR)
