@@ -1683,7 +1683,7 @@ By Newspaper
 
 <div class='single_framed'>
 {% for x, y, a, b, c in trust_formatted %}    <div class="mostposgrid">
-   <div class="date_pos"><a href ='/date_search/?date={{x|slice:":2"}}%2F{{x|slice:"3:5"}}%2F20{{x|slice:"6:"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
+   <div class="date_pos"><a href ='/date_search/?date=20{{x|slice:"6:"}}-{{x|slice:":2"}}-{{x|slice:"3:5"}}'>{{x}}</a></div><div class="small_id {{y}}">{{y}}</div><div class="super"><a href='{{c}}'>{{a}}</a></div><div class="score">{{b}}</div>
    </div>{% endfor %}
  </div>
 
