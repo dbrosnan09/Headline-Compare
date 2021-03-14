@@ -752,11 +752,16 @@ height:20px;
 .analysis_box a:visited {
   text-decoration:none;
   color:black;
+    border-color:transparent;
 }
 
 #sent_border {
 
   border-left:2px solid #f2f2f2;
+}
+
+.right_border {
+      border-left:2px solid #f2f2f2;
 }
 </style>
  <!-- jQuery -->
@@ -816,7 +821,7 @@ height:20px;
                   <div class="analysis_text num">{{freq2}}</div>
                   <div class="analysis_text">
                     <a href='/wc_search_compare_result_single/?csrfmiddlewaretoken={% csrf_token %}&compare1={{key3}}'>{{key3}}</a></div><div class="analysis_text num">{{freq3}}</div></div></div></div>
-                   <a class='equal_flex' href='/sentiment_newspaper'> <div id='sent' class="analysis_box_sent analysis_box_bottom">Sentiment<div class="overall_sentiment">{{overall_score}}</div><div class='word_grid_container_sent'><div id='sent_border' class="word_grid"><div class="analysis_text">The New York Times </div><div class="sent_score num">{{ny_score}}</div><div class="analysis_text">BBC News</div><div class="sent_score num">{{bbc_score}}</div><div class="analysis_text">Fox News</div><div class="sent_score sum">{{fn_score}}</div></div></div></div></a>
+                   <a class='equal_flex' href='/sentiment_newspaper'> <div id='sent' class="analysis_box_sent analysis_box_bottom">Sentiment<div class="overall_sentiment">{{overall_score}}</div><div class='word_grid_container_sent'><div id='sent_border' class="word_grid right_border"><div class="analysis_text">The New York Times </div><div class="sent_score num">{{ny_score}}</div><div class="analysis_text">BBC News</div><div class="sent_score num">{{bbc_score}}</div><div class="analysis_text">Fox News</div><div class="sent_score sum">{{fn_score}}</div></div></div></div></a>
                     <a class='equal_flex' href='/emotion_newspaper'><div id='emotion' class="analysis_box_bottom analysis_box_sent">Emotion<div class='word_grid_container'><div id='emotion_border' class="word_grid">
 
 {% for x,y in emotion_display %}
