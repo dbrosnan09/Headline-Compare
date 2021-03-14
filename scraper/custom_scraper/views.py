@@ -7574,7 +7574,7 @@ def sent_compare_search_result(request):
     ])
 
     fig_pos_neg_compare.update_layout( legend={'traceorder':'normal'}, )
-    fig_pos_neg_compare.update_layout( font=dict(family="Roboto",size=15,color="black"), plot_bgcolor='white', orientation=90, margin=dict(t=10,pad=10), )
+    fig_pos_neg_compare.update_layout( font=dict(family="Roboto",size=15,color="black"), height=300, plot_bgcolor='white', orientation=90, margin=dict(t=10,pad=10), )
 
 
 
@@ -7604,7 +7604,7 @@ def sent_compare_search_result(request):
         ])
 
         fig_pos_neg_compare.update_layout( legend={'traceorder':'normal'}, )
-        fig_pos_neg_compare.update_layout( font=dict(family="Roboto",size=15,color="black"), plot_bgcolor='white', orientation=90, margin=dict(t=10,pad=10), )
+        fig_pos_neg_compare.update_layout( font=dict(family="Roboto",size=15,color="black"), height=300, plot_bgcolor='white', orientation=90, margin=dict(t=10,pad=10), )
 
 
 
