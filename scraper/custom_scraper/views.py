@@ -5576,7 +5576,7 @@ def sentiment_newspaper(request):
         interlist.append(round(i['Average']*100,1))
         interlist.append("{:02d}".format(i['Date'].month))
         interlist.append("{:02d}".format(i['Date'].day))
-        interlist.append(str(i['Date'].year)[2:])
+        interlist.append(i['Date'].year))
         top10list.append(interlist)
 
     def find_best_dates(papernum):
@@ -5597,7 +5597,7 @@ def sentiment_newspaper(request):
             interlist.append(round(i['Average']*100,1))
             interlist.append("{:02d}".format(i['Date'].month))
             interlist.append("{:02d}".format(i['Date'].day))
-            interlist.append(str(i['Date'].year)[2:])
+            interlist.append(i['Date'].year))
             top10list.append(interlist)
 
         return top10list
