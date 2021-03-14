@@ -124,9 +124,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+
 
 STATIC_ROOT = "/home/headlinecompares/headline_compare_pg/scraper/static"
 
