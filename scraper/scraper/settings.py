@@ -126,6 +126,6 @@ STATIC_URL = '/static/'
 
 
 
-STATIC_ROOT = '/home/headlinecompares/headlinecompare_pg/static'
+STATIC_ROOT = '/home/headlinecompares/headline_compare_pg/static'
 
 print("base dir path", BASE_DIR)
