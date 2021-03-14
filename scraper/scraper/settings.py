@@ -126,6 +126,6 @@ STATIC_URL = '/static/'
 
 
 
-STATIC_ROOT = '/static'
+STATIC_ROOT = 'https://headlinecompares.pythonanywhere.com/static/'
 
 print("base dir path", BASE_DIR)
