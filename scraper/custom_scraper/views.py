@@ -2410,46 +2410,61 @@ def date_search(request):
     nytheadlines = Headline.objects.filter(date__contains=today).filter(newspaper=1).filter(day_order__lte=25)
     if not nytheadlines:
         scraped = False
-        nytheadlines = Headline.objects.filter(date__contains=yesterday).filter(newspaper=1).filter(day_order__lte=25)
+        nytheadlines = ["No headlines for this date. Headlines record start Jan 25, 2020"]
 
     bbcheadlines = Headline.objects.filter(date__contains=today).filter(newspaper=2).filter(day_order__lte=25)
     if not bbcheadlines:
-        bbcheadlines = Headline.objects.filter(date__contains=yesterday).filter(newspaper=2).filter(day_order__lte=25)
+        bbcheadlines = ["No headlines for this date. Headlines record start Jan 25, 2020"]
 
     fnheadlines = Headline.objects.filter(date__contains=today).filter(newspaper=3).filter(day_order__lte=25)
     if not fnheadlines:
-        fnheadlines = Headline.objects.filter(date__contains=yesterday).filter(newspaper=3).filter(day_order__lte=25)
+        fnheadlines = ["No headlines for this date. Headlines record start Jan 25, 2020"]
 
     nyt_sentiment_score = Headline.objects.filter(date__contains=today).filter(newspaper=1)
     if not nyt_sentiment_score:
-        nyt_sentiment_score = Headline.objects.filter(date__contains=yesterday).filter(newspaper=1)
+        nyt_sentiment_score = [{'sentiment':0}]
 
     bbc_sentiment_score = Headline.objects.filter(date__contains=today).filter(newspaper=2)
     if not bbc_sentiment_score:
-        bbc_sentiment_score = Headline.objects.filter(date__contains=yesterday).filter(newspaper=2)
+        bbc_sentiment_score = [{'sentiment':0}]
 
     fn_sentiment_score = Headline.objects.filter(date__contains=today).filter(newspaper=3)
     if not fn_sentiment_score:
-        fn_sentiment_score = Headline.objects.filter(date__contains=yesterday).filter(newspaper=3)
+        fn_sentiment_score = [{'sentiment':0}]
         today1=yesterday
 
     ny_score = 0
-    for i in nyt_sentiment_score:
-        ny_score += i.sentiment
-    ny_score = ny_score/len(nyt_sentiment_score)
-    ny_score = round(ny_score*100,1)
 
-    bbc_score = 0
-    for i in bbc_sentiment_score:
-        bbc_score += i.sentiment
-    bbc_score = bbc_score/len(bbc_sentiment_score)
-    bbc_score = round(bbc_score*100,1)
+    if nyt_sentiment_score == [{'sentiment':0}]:
+        ny_score = 0
+    else:
 
-    fn_score = 0
-    for i in fn_sentiment_score:
-        fn_score += i.sentiment
-    fn_score = fn_score/len(fn_sentiment_score)
-    fn_score = round(fn_score*100,1)
+
+        for i in nyt_sentiment_score:
+            ny_score += i.sentiment
+        ny_score = ny_score/len(nyt_sentiment_score)
+        ny_score = round(ny_score*100,1)
+
+    if bbc_sentiment_score == [{'sentiment':0}]:
+        bbc_score = 0
+    else:
+
+        bbc_score = 0
+        for i in bbc_sentiment_score:
+            bbc_score += i.sentiment
+        bbc_score = bbc_score/len(bbc_sentiment_score)
+        bbc_score = round(bbc_score*100,1)
+
+    if fn_sentiment_score == [{'sentiment':0}]:
+        fn_score = 0
+
+    else:
+        fn_score = 0
+        for i in fn_sentiment_score:
+            fn_score += i.sentiment
+        fn_score = fn_score/len(fn_sentiment_score)
+        fn_score = round(fn_score*100,1)
+
 
     overall_score = round((ny_score + bbc_score + fn_score)/3,1)
 
@@ -2488,31 +2503,40 @@ def date_search(request):
                 nytimes_word_count_list.append(interlist)
         return nytimes_word_count_list
 
+    if nytheadlines == ["No headlines for this date. Headlines record start Jan 25, 2020"]:
+        if bbcheadlines == ["No headlines for this date. Headlines record start Jan 25, 2020"]:
+            if fnheadlines == ["No headlines for this date. Headlines record start Jan 25, 2020"]:
+                    key1 = ''
+                    freq1 = ''
+                    key2 = ''
+                    freq2 = ''
+                    key3 = ''
+                    freq3 = ''
+    else:
+
+        allkeywords = nytheadlines | bbcheadlines | fnheadlines
+        allkeywords = find_keywords(allkeywords)
+
+        nykeywords = find_keywords(nytheadlines)
+        bbckeywords = find_keywords(bbcheadlines)
+        fnkeywords = find_keywords(fnheadlines)
 
 
-    allkeywords = nytheadlines | bbcheadlines | fnheadlines
-    allkeywords = find_keywords(allkeywords)
+        all_wf_keys = []
+        all_wf_values = []
+        keyword_counter = 0
+        for v in allkeywords:
+            if keyword_counter < 5:
+                all_wf_values.append(v[0])
+                all_wf_keys.append(v[1])
+            keyword_counter += 1
 
-    nykeywords = find_keywords(nytheadlines)
-    bbckeywords = find_keywords(bbcheadlines)
-    fnkeywords = find_keywords(fnheadlines)
-
-
-    all_wf_keys = []
-    all_wf_values = []
-    keyword_counter = 0
-    for v in allkeywords:
-        if keyword_counter < 5:
-            all_wf_values.append(v[0])
-            all_wf_keys.append(v[1])
-        keyword_counter += 1
-
-    key1 = all_wf_keys[0]
-    freq1 = all_wf_values[0]
-    key2 = all_wf_keys[1]
-    freq2 = all_wf_values[1]
-    key3 = all_wf_keys[2]
-    freq3 = all_wf_values[2]
+        key1 = all_wf_keys[0]
+        freq1 = all_wf_values[0]
+        key2 = all_wf_keys[1]
+        freq2 = all_wf_values[1]
+        key3 = all_wf_keys[2]
+        freq3 = all_wf_values[2]
 
 
 
@@ -2575,14 +2599,15 @@ def date_search(request):
 
     emotion_display = sorted_list_of_emotions[:3]
 
+    if not daily_emotion:
+        emotion_display = [['',''], ['','']]
 
 
 
 
 
 
-
-    return render(request, 'custom_scraper/date_search.html', {'emotion_display':emotion_display,"search":search, "nytheadlines":nytheadlines,"bbcheadlines":bbcheadlines,"fnheadlines":fnheadlines,"ny_score":ny_score, "bbc_score":bbc_score, "fn_score":fn_score, "overall_score":overall_score,"allkeywords":allkeywords,"key1":key1,"key2":key2,"key3":key3,"freq1":freq1,"freq2":freq2,"freq3":freq3,  "nytheadlines":nytheadlines, "bbcheadlines":bbcheadlines, "fnheadlines":fnheadlines, "key1_photo_link":key1_photo_link, "form":form,"header_date":header_date, "scraped":scraped})
+    return render(request, 'custom_scraper/date_search.html', {'emotion_display':emotion_display,"search":search, "nytheadlines":nytheadlines,"bbcheadlines":bbcheadlines,"fnheadlines":fnheadlines,"ny_score":ny_score, "bbc_score":bbc_score, "fn_score":fn_score, "overall_score":overall_score,"key1":key1,"key2":key2,"key3":key3,"freq1":freq1,"freq2":freq2,"freq3":freq3,  "nytheadlines":nytheadlines, "bbcheadlines":bbcheadlines, "fnheadlines":fnheadlines, "key1_photo_link":key1_photo_link, "form":form,"header_date":header_date, "scraped":scraped})
 
 
 def Sentiment(request):

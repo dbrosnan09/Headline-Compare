@@ -1,4 +1,4 @@
-#!/usr/bin/env python                                                                                                                                                                
+# -*- coding: UTF-8 -*-
 
 import os
 import sys
@@ -42,125 +42,7 @@ from custom_scraper.models import variance_table
 from custom_scraper.models import variance_table_word
 
 
-"""
-url = 'https://nytimes.com'
-nytimes_content = requests.get(url)
-nytimes_soup = BeautifulSoup(nytimes_content.content,"html.parser")
-nytimes_headlines = BeautifulSoup(nytimes_content.content,"html.parser").findAll("h2"
-)
 
-items=nytimes_soup.select('section[data-block-tracking-id="Briefings"] h2')
-
-briefings = []
-for i in items:
-  a = str(i)
-  b = a.find(">")
-  c=a.find("</h2")
-  nope = a[b:c]
-  briefings.append(nope)
-
-if len(briefings) < 3:
-  briefings = ["kldjflsjdfs", "khdskfjhaskdjf", "lhsdkfhasdkjfh"]
-
-#numbered list with headlines
-doubles = []
-dailyrank = 1
-nytimeslist = []
-for v in nytimes_headlines:
-  if "css-km70tz" not in str(v):
-    if "css-9wqu2x" not in str(v):
-      if "interactive-headline" not in str(v):
-        if "e-hed" not in str(v):
-
-          if v.text != "Site Index":
-            if v.text != "Site Information Navigation":
-              if v.text not in doubles:
-                if "Listen to ‘The Daily’" not in str(v):
-                  if "Listen: ‘Modern Love’ Podcast" not in str(v):
-                    if "Your Tuesday Briefing" not in str(v):
-                      if "New York Today" not in str(v):
-                        if "class=" in str(v):
-                          if "The Book Review Podcast" not in str(v):
-                            if "Sign Up: ‘Coronavirus Briefing" not in str(v):
-                              if "css-18hd0zd" not in str(v):
-                                if "Live Updates" not in str(v):
-                                  if "styln-hp-briefing-section" not in str(v):
-                                    if "Sign Up: " not in str(v):   
-                                      if "Your Weekend Briefing" not in str(v):
-                                        if "Listen to ‘" not in str(v):
-                                          if briefings[0] not in str(v):
-                                            if briefings[1] not in str(v):
-                                              if briefings[2] not in str(v):
-                                                if "Tracking the Coronavirus ›" not in str(v):
-                                                    if '>Live</h2>' not in str(v):
-                                                        print(v)
-                                                        interlist = [1]
-                                                        interlist.append(dailyrank)
-                                                        dailyrank += 1
-                                                        interlist.append(v.text)
-                                                        nytimeslist.append(interlist)
-                                                        doubles.append(v.text)
-                
-#list of urls in same order as headline list
-hreflist = []
-
-doublesref = []
-
-for v in nytimes_soup.find_all('a', href=True):
-  if "<h2" in str(v):
-    if "css-km70tz" not in str(v):
-      if "e-hed" not in str(v):
-        if "Listen: ‘Modern Love’ Podcast" not in str(v):
-          if "Listen to ‘The Daily’" not in str(v):
-            if "Your Tuesday Briefing" not in str(v):
-              if "New York Today" not in str(v):
-                if "class=" in str(v):
-                  if "The Book Review Podcast" not in str(v):
-                    if "Sign Up: ‘Coronavirus Briefing" not in str(v):
-                      if v.text not in doublesref:
-                        if "css-18hd0zd" not in str(v):
-                          if "styln-hp-briefing-section" not in str(v):
-                            if "Sign Up: " not in str(v):
-                              if "Your Weekend Briefing" not in str(v):
-                                if "Listen to ‘" not in str(v):
-                                  if briefings[0] not in str(v):
-                                    if briefings[1] not in str(v):
-                                      if briefings[2] not in str(v):
-
-                                        hreflist.append(v['href'])
-                                        doublesref.append(v.text)
-
-
-
-
-
-#correct links that shortcut root page
-hreflist2 = []
-for i in hreflist:
-  if "https:" in i:
-    hreflist2.append(i)
-  else:
-    hreflist2.append("https://nytimes.com" + i)
-#add dailyrank numbers to links so can match with headline list
-
-hreflistfinal = []
-dailyrank2 = 1
-for i in hreflist2:
-  interlist3 = []
-  interlist3.append(dailyrank2)
-  dailyrank2 += 1
-  interlist3.append(i)
-  hreflistfinal.append(interlist3)
-
-#join headline list and final link list
-counter4 = 0
-for i in hreflistfinal:
-    for y in nytimeslist:
-      if i[0] == y[1]:
-        nytimeslist[counter4].append(i[1])
-        counter4 += 1
-#data is in nytimeslist
-"""
 from requests_html import HTMLSession
 
 session = HTMLSession()
@@ -230,8 +112,8 @@ for y in nyt_list:
 
 for i in final_nyt_list:
     print(i)
-        
-for x in final_nyt_list: 
+
+for x in final_nyt_list:
     if 'https://www.nytimes.com' not in x[1]:
         x[1] = 'https://www.nytimes.com'+x[1]
 
@@ -320,7 +202,7 @@ url = 'https://www.bbc.com/news'
 bbc_content = requests.get(url)
 bbc_soup = BeautifulSoup(bbc_content.content,"html.parser")
 bbc_headlines = bbc_soup.findAll("h3")
-counter = 0 
+counter = 0
 dailyrank = 1
 bbclist = []
 vdoublecheck = []
@@ -332,7 +214,7 @@ for v in bbc_headlines:
         interlist.append(dailyrank)
         dailyrank += 1
         interlist.append(v.text.lstrip().rstrip())
-        bbclist.append(interlist)  
+        bbclist.append(interlist)
         if v not in vdoublecheck:
           vdoublecheck.append(v)
 
@@ -346,9 +228,9 @@ vadoublecheck = []
 for v in bbc_hrefs_soup:
   if v not in vadoublecheck:
     if "<h3" in str(v):
-      
+
       if "http" in v["href"]:
-      
+
         hrefs.append(v['href'])
       else:
         hrefs.append("https://bbc.com" + v['href'])
@@ -398,13 +280,13 @@ def sentiment_analysis(newspaperlist):
   sentiment_list = []
   for i in newspaperlist:
     text = str(i[2])
-    
+
     obj = TextBlob(text)
     sentiment = obj.sentiment.polarity
     sentiment_list.append(sentiment)
-    
+
   article_counter = 0
-    
+
   for i in sentiment_list:
     newspaperlist[article_counter].append(i)
     article_counter += 1
@@ -433,7 +315,7 @@ for i in nytimeslist:
 for i in fnlist:
   print(i)
 
-for i in bbclist: 
+for i in bbclist:
   print(i)
 
 for i in nytimeslist:
@@ -494,18 +376,18 @@ def get_sorted_word_count_by_string_emotion(all_headline_string):
     #below removes all apostrophe s's from list made of all headlines string split
     for counter, i in enumerate(all_headlines_list):
         if re.findall(r"[^ ]*[^ ]['’]s", i):
-        
+
             all_headlines_list[counter] = i[:len(i)-2]
 
 
     a = 0
-            
+
 
     #remove all nonalphanumeric characters
     for counter,i in enumerate(all_headlines_list):
         if re.findall(r"\W",i):
             if not re.findall(r"-",i):
-                
+
                 new_i = re.sub(r"\W", '', i)
                 all_headlines_list[counter] = new_i
 
@@ -513,28 +395,28 @@ def get_sorted_word_count_by_string_emotion(all_headline_string):
 
 
 
-    #ies number 1: takes 4 letter words ending with ies and removes s, to take care of cases similar to "dies", "vies", "ties" 
+    #ies number 1: takes 4 letter words ending with ies and removes s, to take care of cases similar to "dies", "vies", "ties"
     for counter, i in enumerate(all_headlines_list):
         if re.findall(r".*ies$",i):
             if len(i) == 4:
-            
+
                 new_i = i[:len(i)-1]
                 all_headlines_list[counter] = new_i
-            
+
 
     #ies number 2: end in "ies" but singular ends in "ie"
     for counter, i in enumerate(all_headlines_list):
         if re.findall(r".*ies$",i):
             if i in ["Zombies", "zombies", "Trekkies", "trekkies"]:
-            
+
                 new_i = i[:len(i)-1]
                 all_headlines_list[counter] = new_i
-            
 
 
 
-                
-            
+
+
+
 
 
     #erase stopwords
@@ -544,7 +426,7 @@ def get_sorted_word_count_by_string_emotion(all_headline_string):
     for counter, i in enumerate(all_headlines_list):
         if i.lower() in stopwords:
             all_headlines_list[counter] = ''
-            
+
 
 
 
@@ -553,27 +435,27 @@ def get_sorted_word_count_by_string_emotion(all_headline_string):
         if i.endswith("ies"):
             if i not in exceptions_ies:
                 if len(i) > 4:
-                    
+
                     all_headlines_list[counter] = i[:len(i)-3] + "y"
             else:
                 all_headlines_list[counter] = i + "donotdelete"
-                
+
 
 
     #remove s from words ending with "ves"
     for counter, i in enumerate(all_headlines_list):
         if i.endswith("ves"):
-    
+
             all_headlines_list[counter] = i[:len(i)-1]
-        
+
 
     for counter, i in enumerate(all_headlines_list):
         if i.endswith("os"):
-            
+
             if i.lower() in ['studios', 'photos']:
                 all_headlines_list[counter] = i[:len(i)-1]
-            
-        
+
+
 
     #do not touch any words that end in "ess" make this an exception to s taking also "uss"
 
@@ -583,15 +465,15 @@ def get_sorted_word_count_by_string_emotion(all_headline_string):
     for counter, i in enumerate(all_headlines_list):
         if i.endswith("as"):
             if i.lower() not in ['koalas', 'gorillas', 'areas', 'sherpas']:
-            
+
                 all_headlines_list[counter] = i + "donotdelete"
-            
 
 
-    #add a code to each word that we dont want to shave s off of. 
+
+    #add a code to each word that we dont want to shave s off of.
 
 
-        
+
 
     for counter,i in enumerate(all_headlines_list):
         if i.lower() in ['des', 'moines', 'holmes', 'bynes', 'angeles','philippines', 'nunes', 'thames']:
@@ -620,17 +502,17 @@ def get_sorted_word_count_by_string_emotion(all_headline_string):
     for counter, i in enumerate(all_headlines_list):
         if i.endswith("iss"):
             all_headlines_list[counter] = i + "donotdelete"
-            
-    for counter, i in enumerate(all_headlines_list):
-        if i.endswith("ass"):
-            all_headlines_list[counter] = i + "donotdelete"  
-        
-    for counter, i in enumerate(all_headlines_list):
-        if i.endswith("os"):
-            all_headlines_list[counter] = i + "donotdelete" 
 
     for counter, i in enumerate(all_headlines_list):
-        if i.lower() in ['goes']:  
+        if i.endswith("ass"):
+            all_headlines_list[counter] = i + "donotdelete"
+
+    for counter, i in enumerate(all_headlines_list):
+        if i.endswith("os"):
+            all_headlines_list[counter] = i + "donotdelete"
+
+    for counter, i in enumerate(all_headlines_list):
+        if i.lower() in ['goes']:
             all_headlines_list[counter] = 'go'
 
     for counter, i in enumerate(all_headlines_list):
@@ -737,7 +619,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from custom_scraper.models import Headline
 
-today = date.today() 
+today = date.today()
 yesterday = date.today() - timedelta(days=1)
 
 import nltk
@@ -760,27 +642,27 @@ if not fnheadlines:
 
 def find_keywords(headlines):
     stopwords = nltk.corpus.stopwords.words('english')
-    
-    
-    
+
+
+
     headlineslist = []
     for i in headlines:
         headlineslist.append(i.headline)
     headlineslist = " ".join(headlineslist)
     headlineslist = headlineslist.split()
     without_stopwords = []
-    
+
     for i in headlineslist:
         if i.lower() not in stopwords:
-            
+
             without_stopwords.append(i)
-    
+
     without_stopwords_string = " ".join(without_stopwords)
-    
+
     texta = TextBlob(without_stopwords_string)
-    
+
     a = texta.word_counts
-    
+
     nytimes_word_count_list = []
     for key, value in sorted(a.items(), reverse=True, key=lambda item: item[1]):
         interlist = []
@@ -789,7 +671,7 @@ def find_keywords(headlines):
             interlist.append(key)
             nytimes_word_count_list.append(interlist)
     return nytimes_word_count_list
-    
+
 
 
 allkeywords = nytheadlines | bbcheadlines | fnheadlines
@@ -801,7 +683,7 @@ fnkeywords = find_keywords(fnheadlines)
 
 
 all_wf_keys = []
-all_wf_values = []    
+all_wf_values = []
 keyword_counter = 0
 for v in allkeywords:
     if keyword_counter < 5:
@@ -831,10 +713,10 @@ def find_positive(paper_num):
 
         all_headline_string = ""
 
-        for i in all_headlines: 
+        for i in all_headlines:
             all_headline_string += " " + i['headline']
-    
-    
+
+
         import nltk
         from nltk import FreqDist
         from nltk.corpus import stopwords
@@ -847,13 +729,13 @@ def find_positive(paper_num):
 
         list_of_top_words = []
 
-        for i in most_common: 
+        for i in most_common:
             interlist = []
             interlist.append(i[0])
             interlist.append(i[1])
             list_of_top_words.append(interlist)
-    
-    
+
+
 
         exceptions = [',',':',"'",'.','?', "'s", '‘', "n't", '’']
 
@@ -871,18 +753,18 @@ def find_positive(paper_num):
 
 
         overall_words = []
-        for i in top_words: 
+        for i in top_words:
             overall_words.append(i)
 
-        
+
 
         for i in overall_words:
             paper_avg_sentiment_for_i = Headline.objects.filter(day_order__lte=25).filter(newspaper=paper_num).filter(headline__icontains=i[0]).values('newspaper').annotate(Average=Avg('sentiment'))
             i.append(round(paper_avg_sentiment_for_i[0]['Average']*100,2))
 
-     
-        
-    
+
+
+
 
         best_words = sorted(overall_words, key = lambda x: x[2], reverse=True)
         worst_words = sorted(overall_words, key = lambda x: x[2],)
@@ -892,7 +774,7 @@ def find_positive(paper_num):
         best_and_worst.append(worst_words[:100])
 
         return best_and_worst
-        
+
 
 
 nyt_words = find_positive(1)
@@ -946,7 +828,7 @@ def find_people(paper_num):
 
     all_headline_string = ""
 
-    for i in all_headlines: 
+    for i in all_headlines:
         all_headline_string += " " + i['headline']
 
 
@@ -962,7 +844,7 @@ def find_people(paper_num):
 
     list_of_top_words = []
 
-    for i in most_common: 
+    for i in most_common:
         interlist = []
         interlist.append(i[0])
         interlist.append(i[1])
@@ -974,7 +856,7 @@ def find_people(paper_num):
 
     top_words = []
 
-    
+
 
     for i in list_of_top_words:
         if i[0] not in exceptions:
@@ -988,17 +870,17 @@ def find_people(paper_num):
 
 
     overall_words = []
-    for i in top_words: 
+    for i in top_words:
         overall_words.append(i)
 
-    
+
 
     for i in overall_words:
         paper_avg_sentiment_for_i = Headline.objects.filter(day_order__lte=25).filter(newspaper=paper_num).filter(headline__icontains=i[0]).values('newspaper').annotate(Average=Avg('sentiment'))
         i.append(round(paper_avg_sentiment_for_i[0]['Average']*100,2))
 
-  
-    
+
+
 
 
 
@@ -1043,7 +925,7 @@ def find_places(paper_num):
 
     all_headline_string = ""
 
-    for i in all_headlines: 
+    for i in all_headlines:
         all_headline_string += " " + i['headline']
 
 
@@ -1059,7 +941,7 @@ def find_places(paper_num):
 
     list_of_top_words = []
 
-    for i in most_common: 
+    for i in most_common:
         interlist = []
         interlist.append(i[0])
         interlist.append(i[1])
@@ -1085,7 +967,7 @@ def find_places(paper_num):
 
 
     overall_words = []
-    for i in top_words: 
+    for i in top_words:
         overall_words.append(i)
 
 
@@ -1141,7 +1023,7 @@ def find_politics(paper_num):
 
     all_headline_string = ""
 
-    for i in all_headlines: 
+    for i in all_headlines:
         all_headline_string += " " + i['headline']
 
 
@@ -1157,7 +1039,7 @@ def find_politics(paper_num):
 
     list_of_top_words = []
 
-    for i in most_common: 
+    for i in most_common:
         interlist = []
         interlist.append(i[0])
         interlist.append(i[1])
@@ -1183,7 +1065,7 @@ def find_politics(paper_num):
 
 
     overall_words = []
-    for i in top_words: 
+    for i in top_words:
         overall_words.append(i)
 
 
@@ -1236,7 +1118,7 @@ def find_economic(paper_num):
 
     all_headline_string = ""
 
-    for i in all_headlines: 
+    for i in all_headlines:
         all_headline_string += " " + i['headline']
 
 
@@ -1252,7 +1134,7 @@ def find_economic(paper_num):
 
     list_of_top_words = []
 
-    for i in most_common: 
+    for i in most_common:
         interlist = []
         interlist.append(i[0])
         interlist.append(i[1])
@@ -1278,7 +1160,7 @@ def find_economic(paper_num):
 
 
     overall_words = []
-    for i in top_words: 
+    for i in top_words:
         overall_words.append(i)
 
 
@@ -1308,7 +1190,7 @@ fn_economic = find_economic(3)
 nyt_economic_words = nyt_economic[0]
 bbc_economic_words = bbc_economic[0]
 fn_economic_words = fn_economic[0]
-economics_exceptions = nyt_economic[2] 
+economics_exceptions = nyt_economic[2]
 
 for i in nyt_economic_words:
   save_to_db = superlative_table(graphid=6, newspaper=1, word=i[0], count=i[1], sentiment=i[2])
@@ -1328,7 +1210,7 @@ def find_corona(paper_num):
 
     all_headline_string = ""
 
-    for i in all_headlines: 
+    for i in all_headlines:
         all_headline_string += " " + i['headline']
 
 
@@ -1344,7 +1226,7 @@ def find_corona(paper_num):
 
     list_of_top_words = []
 
-    for i in most_common: 
+    for i in most_common:
         interlist = []
         interlist.append(i[0])
         interlist.append(i[1])
@@ -1370,7 +1252,7 @@ def find_corona(paper_num):
 
 
     overall_words = []
-    for i in top_words: 
+    for i in top_words:
         overall_words.append(i)
 
 
@@ -1422,7 +1304,7 @@ def find_rp(paper_num):
 
     all_headline_string = ""
 
-    for i in all_headlines: 
+    for i in all_headlines:
         all_headline_string += " " + i['headline']
 
 
@@ -1438,7 +1320,7 @@ def find_rp(paper_num):
 
     list_of_top_words = []
 
-    for i in most_common: 
+    for i in most_common:
         interlist = []
         interlist.append(i[0])
         interlist.append(i[1])
@@ -1464,7 +1346,7 @@ def find_rp(paper_num):
 
 
     overall_words = []
-    for i in top_words: 
+    for i in top_words:
         overall_words.append(i)
 
 
@@ -1514,7 +1396,7 @@ all_headlines = Headline.objects.filter(day_order__lte=25).values('headline')
 
 all_headline_string = ""
 
-for i in all_headlines: 
+for i in all_headlines:
     all_headline_string += " " + i['headline']
 
 
@@ -1530,7 +1412,7 @@ most_common = freq.most_common(500)
 
 list_of_top_words = []
 
-for i in most_common: 
+for i in most_common:
     interlist = []
     interlist.append(i[0])
     interlist.append(i[1])
@@ -1569,7 +1451,7 @@ for i in scrubbed_list:
     i.append(bbc_sent[0]['Average']* 100)
     i.append(fn_sent[0]['Average']*100)
 
-    
+
 
 
 scrubbed_list_with_variances = []
@@ -1577,12 +1459,12 @@ for i in scrubbed_list:
     nyt_fn_variance = round(i[2] - i[4],2)
     nyt_bbc_variance = round(i[2]- i[3],2)
     fn_bbc_variance = round(i[4] - i[3],2)
-    
+
     nyt_check = Headline.objects.filter(day_order__lte=25).filter(newspaper=1).filter(headline__icontains=i[0])
     bbc_check = Headline.objects.filter(day_order__lte=25).filter(newspaper=2).filter(headline__icontains=i[0])
     fn_check = Headline.objects.filter(day_order__lte=25).filter(newspaper=3).filter(headline__icontains=i[0])
 
-    if nyt_check and fn_check: 
+    if nyt_check and fn_check:
         i.append(nyt_fn_variance)
     else:
         i.append(0)
@@ -1591,7 +1473,7 @@ for i in scrubbed_list:
         i.append(nyt_bbc_variance)
     else:
         i.append(0)
-    
+
     if fn_check and bbc_check:
         i.append(fn_bbc_variance)
     else:
@@ -1636,14 +1518,14 @@ print(most_variance_words)
 
 
 for i in most_variance_words:
-  save_to_db = variance_table_word(graphid=10, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4]) 
+  save_to_db = variance_table_word(graphid=10, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4])
   save_to_db.save()
 
 
 
 
 
-#do not rerun queries. filter most_variance with exception lists to find people, places, political, etc. 
+#do not rerun queries. filter most_variance with exception lists to find people, places, political, etc.
 
 most_variance_people = []
 
@@ -1654,7 +1536,7 @@ for i in most_variance_words:
 print(most_variance_people)
 
 for i in most_variance_people:
-  save_to_db = variance_table_word(graphid=11, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4]) 
+  save_to_db = variance_table_word(graphid=11, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4])
   save_to_db.save()
 
 
@@ -1665,7 +1547,7 @@ for i in most_variance_words:
         most_variance_places.append(i)
 
 for i in most_variance_places:
-  save_to_db = variance_table_word(graphid=12, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4]) 
+  save_to_db = variance_table_word(graphid=12, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4])
   save_to_db.save()
 
 most_variance_politics = []
@@ -1675,7 +1557,7 @@ for i in most_variance_words:
         most_variance_politics.append(i)
 
 for i in most_variance_politics:
-  save_to_db = variance_table_word(graphid=13, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4]) 
+  save_to_db = variance_table_word(graphid=13, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4])
   save_to_db.save()
 
 most_variance_economics = []
@@ -1685,7 +1567,7 @@ for i in most_variance_words:
         most_variance_economics.append(i)
 
 for i in most_variance_economics:
-  save_to_db = variance_table_word(graphid=14, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4]) 
+  save_to_db = variance_table_word(graphid=14, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4])
   save_to_db.save()
 
 
@@ -1695,7 +1577,7 @@ for i in most_variance_words:
         most_variance_corona.append(i)
 
 for i in most_variance_corona:
-  save_to_db = variance_table_word(graphid=15, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4]) 
+  save_to_db = variance_table_word(graphid=15, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4])
   save_to_db.save()
 
 most_variance_rp = []
@@ -1704,7 +1586,7 @@ for i in most_variance_words:
         most_variance_rp.append(i)
 
 for i in most_variance_rp:
-  save_to_db = variance_table_word(graphid=16, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4]) 
+  save_to_db = variance_table_word(graphid=16, word = i[0], count = i[1], news1= i[2], news2 = i[3], sentiment = i[4])
   save_to_db.save()
 
 
@@ -1720,7 +1602,7 @@ for i in range(0,len(daily_sent_var_query_nyt)):
     interlist = []
     interlist.append(daily_sent_var_query_nyt[i]['Date'])
     interlist.append(round(daily_sent_var_query_nyt[i]['Average']*100,2))
-    
+
     interlist.append(round(daily_sent_var_query_bbc[i]['Average']*100,2))
     interlist.append(round(daily_sent_var_query_fn[i]['Average']*100,2))
     all_sents_by_day.append(interlist)
@@ -1749,7 +1631,7 @@ for i in all_sents_by_day:
     daily_variances.append(interlist2)
     daily_variances.append(interlist3)
 
-      
+
 
 most_variance_dates = sorted(daily_variances, key = lambda x: abs(x[3]), reverse=True)
 
@@ -1771,7 +1653,7 @@ def save_to_super_sentiment_newspaper_overall_top_worst_20():
 
   all_headline_string = ""
 
-  for i in all_headlines: 
+  for i in all_headlines:
       all_headline_string += " " + i['headline']
 
 
@@ -1787,7 +1669,7 @@ def save_to_super_sentiment_newspaper_overall_top_worst_20():
 
   list_of_top_words = []
 
-  for i in most_common: 
+  for i in most_common:
       interlist = []
       interlist.append(i[0])
       interlist.append(i[1])
@@ -1816,7 +1698,7 @@ def save_to_super_sentiment_newspaper_overall_top_worst_20():
 
 
   overall_words = []
-  for i in top_words: 
+  for i in top_words:
       overall_words.append(i)
 
   #top people who show up in the top 500 most common words
@@ -1858,7 +1740,7 @@ def save_to_super_sentiment_newspaper_overall_top_worst_20():
 
     all_headline_string = ""
 
-    for i in all_headlines: 
+    for i in all_headlines:
         all_headline_string += " " + i['headline']
 
 
@@ -1874,7 +1756,7 @@ def save_to_super_sentiment_newspaper_overall_top_worst_20():
 
     list_of_top_words = []
 
-    for i in most_common: 
+    for i in most_common:
         interlist = []
         interlist.append(i[0])
         interlist.append(i[1])
@@ -1903,7 +1785,7 @@ def save_to_super_sentiment_newspaper_overall_top_worst_20():
 
 
     overall_words = []
-    for i in top_words: 
+    for i in top_words:
         overall_words.append(i)
 
     #top people who show up in the top 500 most common words
@@ -1938,7 +1820,7 @@ def save_to_super_sentiment_newspaper_overall_top_worst_20():
     return_output.append(top_overall)
 
     return return_output
-  
+
 
   worst_overall_nyt = get_by_paper(1)[0]
   worst_overall_bbc = get_by_paper(2)[0]
@@ -1953,32 +1835,32 @@ def save_to_super_sentiment_newspaper_overall_top_worst_20():
   for i in worst_overall:
     save_to_db = superlative_table(graphid=20, newspaper=4, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
+
   for i in top_overall:
     save_to_db = superlative_table(graphid=21, newspaper=4, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
+
   for i in worst_overall_nyt:
     save_to_db = superlative_table(graphid=20, newspaper=1, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
+
   for i in worst_overall_bbc:
     save_to_db = superlative_table(graphid=20, newspaper=2, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
+
   for i in worst_overall_fn:
     save_to_db = superlative_table(graphid=20, newspaper=3, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
-  
+
+
   for i in top_overall_nyt:
     save_to_db = superlative_table(graphid=21, newspaper=1, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
+
   for i in top_overall_bbc:
     save_to_db = superlative_table(graphid=21, newspaper=2, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
+
   for i in top_overall_fn:
     save_to_db = superlative_table(graphid=21, newspaper=3, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
@@ -2003,18 +1885,18 @@ save_to_super_sentiment_newspaper_overall_top_worst_20()
 def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, five, six):
 
 
-  
+
 
   all_headlines = Headline.objects.filter(day_order__lte=25).values('headline')
 
-   
+
 
   all_headline_string = ""
 
-  for i in all_headlines: 
+  for i in all_headlines:
       all_headline_string += " " + i['headline']
-  
-  
+
+
   import nltk
   from nltk import FreqDist
   from nltk.corpus import stopwords
@@ -2027,13 +1909,13 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
 
   list_of_top_words = []
 
-  for i in most_common: 
+  for i in most_common:
       interlist = []
       interlist.append(i[0])
       interlist.append(i[1])
       list_of_top_words.append(interlist)
-  
-  
+
+
 
   exceptions = [',',':',"'",'.','?', "'s", '‘', "n't", '’']
 
@@ -2045,7 +1927,7 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
           interlist.append(i[0])
           interlist.append(i[1])
           top_words.append(interlist)
-  
+
 
 
   if graph_id_number == 30:
@@ -2068,16 +1950,16 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
           interlist.append(i[0])
           interlist.append(i[1])
           top_people.append(interlist)
-  
+
   #top people who show up in the top 500 most common words
 
   for i in top_people:
       sent_average = Headline.objects.filter(day_order__lte=25).filter(headline__icontains=i[0]).values('sentiment')
       total_for_average = 0
-  
+
       for y in sent_average:
           total_for_average += y['sentiment']
-  
+
       total_for_average = total_for_average * 100
 
       average_key = total_for_average/len(sent_average)
@@ -2086,10 +1968,10 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
 
       i.append(average_key)
 
-  
-  
+
+
   #final people list
- 
+
   best_people = sorted(top_people, key = lambda x: x[2], reverse=True)
 
 
@@ -2097,14 +1979,14 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
 
     all_headlines = Headline.objects.filter(day_order__lte=25).filter(newspaper=paper_id).values('headline')
 
-   
+
 
     all_headline_string = ""
 
-    for i in all_headlines: 
+    for i in all_headlines:
         all_headline_string += " " + i['headline']
-    
-    
+
+
     import nltk
     from nltk import FreqDist
     from nltk.corpus import stopwords
@@ -2117,13 +1999,13 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
 
     list_of_top_words = []
 
-    for i in most_common: 
+    for i in most_common:
         interlist = []
         interlist.append(i[0])
         interlist.append(i[1])
         list_of_top_words.append(interlist)
-    
-    
+
+
 
     exceptions = [',',':',"'",'.','?', "'s", '‘', "n't", '’']
 
@@ -2135,7 +2017,7 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
             interlist.append(i[0])
             interlist.append(i[1])
             top_words.append(interlist)
-    
+
 
 
 
@@ -2146,16 +2028,16 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
             interlist.append(i[0])
             interlist.append(i[1])
             top_people.append(interlist)
-    
+
     #top people who show up in the top 500 most common words
 
     for i in top_people:
         sent_average = Headline.objects.filter(day_order__lte=25).filter(headline__icontains=i[0]).values('sentiment')
         total_for_average = 0
-    
+
         for y in sent_average:
             total_for_average += y['sentiment']
-    
+
         total_for_average = total_for_average * 100
 
         average_key = total_for_average/len(sent_average)
@@ -2164,10 +2046,10 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
 
         i.append(average_key)
 
-    
-    
+
+
     #final people list
-  
+
     best_people = sorted(top_people, key = lambda x: x[2], reverse=True)
 
     return best_people
@@ -2179,15 +2061,15 @@ def get_superlatives_by_cat_in_database(graph_id_number,one, two, three, four, f
   for i in get_best_nyt:
     save_to_db = superlative_table(graphid=graph_id_number, newspaper=1, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
+
   for i in get_best_bbc:
     save_to_db = superlative_table(graphid=graph_id_number, newspaper=2, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
+
   for i in get_best_fn:
     save_to_db = superlative_table(graphid=graph_id_number, newspaper=3, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
-  
+
   for i in best_people:
     save_to_db = superlative_table(graphid=graph_id_number, newspaper=4, word=i[0], count=i[1], sentiment=i[2])
     save_to_db.save()
@@ -2244,7 +2126,7 @@ def get_coocs(paper_num, search_term):
     stopword = ['the', 'to', ',', 'in', '’',"'", ':', 'of', 'a', '.','for', 'on', "'s",'s', 'is','and','‘','how', 'with', 'as', 'from', 'at', 'are', 'what', 'after', 'over', 'it', 'be', 'this', 'will', 'who', 'why', 'about', 'by', 'that', 't', 'has', 'have', 'can', 'out', 'up', 'was', 'here', 'more', 'do', 'could', 'an',  "n't", 'amid', 'your', 'my', 'into', 'if', 'did', 'does', '-', 'than',]
     text = headlines_with_base_string
     word_tokens = nltk.word_tokenize(text.lower())
-    
+
     removing_stopwords = [word for word in word_tokens if word not in stopword]
     freq = FreqDist(removing_stopwords)
     most_common = freq.most_common(25)
@@ -2257,7 +2139,7 @@ def get_coocs(paper_num, search_term):
         interlist.append(paper_num)
         interlist.append(i[1])
         cooc_list.append(interlist)
-      
+
     return cooc_list
 
 
@@ -2304,18 +2186,18 @@ def get_sorted_word_count_by_string(all_headline_string):
     #below removes all apostrophe s's from list made of all headlines string split
     for counter, i in enumerate(all_headlines_list):
         if re.findall(r"[^ ]*[^ ]['’]s", i):
-        
+
             all_headlines_list[counter] = i[:len(i)-2]
 
 
     a = 0
-            
+
 
     #remove all nonalphanumeric characters
     for counter,i in enumerate(all_headlines_list):
         if re.findall(r"\W",i):
             if not re.findall(r"-",i):
-                
+
                 new_i = re.sub(r"\W", '', i)
                 all_headlines_list[counter] = new_i
 
@@ -2323,28 +2205,28 @@ def get_sorted_word_count_by_string(all_headline_string):
 
 
 
-    #ies number 1: takes 4 letter words ending with ies and removes s, to take care of cases similar to "dies", "vies", "ties" 
+    #ies number 1: takes 4 letter words ending with ies and removes s, to take care of cases similar to "dies", "vies", "ties"
     for counter, i in enumerate(all_headlines_list):
         if re.findall(r".*ies$",i):
             if len(i) == 4:
-            
+
                 new_i = i[:len(i)-1]
                 all_headlines_list[counter] = new_i
-            
+
 
     #ies number 2: end in "ies" but singular ends in "ie"
     for counter, i in enumerate(all_headlines_list):
         if re.findall(r".*ies$",i):
             if i in ["Zombies", "zombies", "Trekkies", "trekkies"]:
-            
+
                 new_i = i[:len(i)-1]
                 all_headlines_list[counter] = new_i
-            
 
 
 
-                
-            
+
+
+
 
 
     #erase stopwords
@@ -2354,7 +2236,7 @@ def get_sorted_word_count_by_string(all_headline_string):
     for counter, i in enumerate(all_headlines_list):
         if i.lower() in stopwords:
             all_headlines_list[counter] = ''
-            
+
 
 
 
@@ -2363,27 +2245,27 @@ def get_sorted_word_count_by_string(all_headline_string):
         if i.endswith("ies"):
             if i not in exceptions_ies:
                 if len(i) > 4:
-                    
+
                     all_headlines_list[counter] = i[:len(i)-3] + "y"
             else:
                 all_headlines_list[counter] = i + "donotdelete"
-                
+
 
 
     #remove s from words ending with "ves"
     for counter, i in enumerate(all_headlines_list):
         if i.endswith("ves"):
-    
+
             all_headlines_list[counter] = i[:len(i)-1]
-        
+
 
     for counter, i in enumerate(all_headlines_list):
         if i.endswith("os"):
-            
+
             if i.lower() in ['studios', 'photos']:
                 all_headlines_list[counter] = i[:len(i)-1]
-            
-        
+
+
 
     #do not touch any words that end in "ess" make this an exception to s taking also "uss"
 
@@ -2393,15 +2275,15 @@ def get_sorted_word_count_by_string(all_headline_string):
     for counter, i in enumerate(all_headlines_list):
         if i.endswith("as"):
             if i.lower() not in ['koalas', 'gorillas', 'areas', 'sherpas']:
-            
+
                 all_headlines_list[counter] = i + "donotdelete"
-            
 
 
-    #add a code to each word that we dont want to shave s off of. 
+
+    #add a code to each word that we dont want to shave s off of.
 
 
-        
+
 
     for counter,i in enumerate(all_headlines_list):
         if i.lower() in ['des', 'moines', 'holmes', 'bynes', 'angeles','philippines', 'nunes', 'thames']:
@@ -2430,17 +2312,17 @@ def get_sorted_word_count_by_string(all_headline_string):
     for counter, i in enumerate(all_headlines_list):
         if i.endswith("iss"):
             all_headlines_list[counter] = i + "donotdelete"
-            
-    for counter, i in enumerate(all_headlines_list):
-        if i.endswith("ass"):
-            all_headlines_list[counter] = i + "donotdelete"  
-        
-    for counter, i in enumerate(all_headlines_list):
-        if i.endswith("os"):
-            all_headlines_list[counter] = i + "donotdelete" 
 
     for counter, i in enumerate(all_headlines_list):
-        if i.lower() in ['goes']:  
+        if i.endswith("ass"):
+            all_headlines_list[counter] = i + "donotdelete"
+
+    for counter, i in enumerate(all_headlines_list):
+        if i.endswith("os"):
+            all_headlines_list[counter] = i + "donotdelete"
+
+    for counter, i in enumerate(all_headlines_list):
+        if i.lower() in ['goes']:
             all_headlines_list[counter] = 'go'
 
     for counter, i in enumerate(all_headlines_list):
@@ -2483,17 +2365,17 @@ for i in headlines_all:
 headlines_nyt = Headline.objects.filter(day_order__lte=25).filter(newspaper=1).values('headline')
 headlines_nyt_string = ""
 for i in headlines_nyt:
-    headlines_nyt_string += " " + i['headline']  
+    headlines_nyt_string += " " + i['headline']
 
 headlines_bbc = Headline.objects.filter(day_order__lte=25).filter(newspaper=2).values('headline')
 headlines_bbc_string = ""
 for i in headlines_bbc:
-    headlines_bbc_string += " " + i['headline']  
+    headlines_bbc_string += " " + i['headline']
 
 headlines_fn = Headline.objects.filter(day_order__lte=25).filter(newspaper=3).values('headline')
 headlines_fn_string = ""
 for i in headlines_fn:
-    headlines_fn_string += " " + i['headline']  
+    headlines_fn_string += " " + i['headline']
 
 overall_word_count_chart = get_sorted_word_count_by_string(headlines_all_string)
 nyt_word_count_chart = get_sorted_word_count_by_string(headlines_nyt_string)
@@ -2700,15 +2582,15 @@ for i in bbc_word_count_chart[1:101]:
 base_words_fn = []
 for i in fn_word_count_chart[1:101]:
     base_words_fn.append(i[0])
-    
+
 coocs_list = []
 for i in base_words[:100]:
-    print(i) 
+    print(i)
     all_headlines_with_i = Headline.objects.filter(day_order__lte=25).filter(headline__icontains=i).values('headline')
     all_headlines_with_i_string = ""
     for y in all_headlines_with_i:
         all_headlines_with_i_string += " " + y['headline']
-    
+
     i_coocs_word_count = get_sorted_word_count_by_string(all_headlines_with_i_string)
     print(i_coocs_word_count)
     list_for_this_words_coocs = []
@@ -2718,17 +2600,17 @@ for i in base_words[:100]:
         interlist.append(z[1])
         list_for_this_words_coocs.append(interlist)
     coocs_list.append(list_for_this_words_coocs[2:100])
-        
+
 
 def coocs_by_paper(paper_num, paper_base_list):
         coocs_list = []
         for i in paper_base_list:
-            print(i) 
+            print(i)
             all_headlines_with_i = Headline.objects.filter(day_order__lte=25).filter(newspaper=paper_num).filter(headline__icontains=i).values('headline')
             all_headlines_with_i_string = ""
             for y in all_headlines_with_i:
                 all_headlines_with_i_string += " " + y['headline']
-            
+
             i_coocs_word_count = get_sorted_word_count_by_string(all_headlines_with_i_string)
             print(i_coocs_word_count)
             list_for_this_words_coocs = []
@@ -2738,9 +2620,9 @@ def coocs_by_paper(paper_num, paper_base_list):
                 interlist.append(z[1])
                 list_for_this_words_coocs.append(interlist)
             coocs_list.append(list_for_this_words_coocs[2:100])
-        
+
         return coocs_list
- 
+
 numbered_base_words = enumerate(base_words,1)
 
 numbered_base_word_nyt = enumerate(base_words_nyt,1)
@@ -2761,7 +2643,7 @@ def make_cooc_dict(base_words, cooc_list):
     for i in range(len(base_words)):
         new_dict[base_words[i]] = cooc_list[i]
     return new_dict
-    
+
 nyt_cooc_dict = make_cooc_dict(base_words_nyt, coocs_list_nyt)
 bbc_cooc_dict = make_cooc_dict(base_words_bbc, coocs_list_bbc)
 fn_cooc_dict = make_cooc_dict(base_words_fn, coocs_list_fn)
@@ -2802,7 +2684,7 @@ all_headlines = Headline.objects.filter(id__gt=highest_headline_id['headline_id_
 
 for query_result in all_headlines:
     headline_tokenized = get_sorted_word_count_by_string(query_result['headline'])
-    
+
     for token, token_count in headline_tokenized:
         if token != '':
             token_emotion_dict = {}
@@ -2843,7 +2725,7 @@ print(nyt_top_words)
 
 
 
-today = date.today() 
+today = date.today()
 yesterday = date.today() - timedelta(days=1)
 
 #overall (use function based on the below code for by paper)
@@ -2859,7 +2741,7 @@ for word in overall_top_words:
             all_headline_id_list.append(query_result['headline_id'])
     total_hl_length = len(all_headline_id_list)
     total_hls.append(total_hl_length)
-    
+
     for each_headline_id in all_headline_id_list:
         headline_word_data = hl_tokens_emotions.objects.filter(headline_id=each_headline_id).values('word', 'fear', 'anger', 'anticip', 'trust', 'surprise', 'sadness', 'disgust', 'joy' )
         headline_word_data_list = []
@@ -2878,16 +2760,16 @@ for word in overall_top_words:
                 headline_word_data_list.append(this_word_dict)
         for emotion in all_headlines_emotion_tally_dict:
             for word_dict in headline_word_data_list:
-                
+
                 if emotion != "word" and word_dict[emotion] > 0:
                     all_headlines_emotion_tally_dict[emotion] += 1
-    
+
     tally_list.append(all_headlines_emotion_tally_dict)
 
 tally_percent = []
 
-    
-overall_emotions = tally_list, total_hls, tally_percent 
+
+overall_emotions = tally_list, total_hls, tally_percent
 
 
 
@@ -2913,7 +2795,7 @@ def get_headline_tally_by_emotion(top_words_list, paper_num):
                 all_headline_id_list.append(query_result['headline_id'])
         total_hl_length = len(all_headline_id_list)
         total_hls.append(total_hl_length)
-        
+
         for each_headline_id in all_headline_id_list:
             headline_word_data = hl_tokens_emotions.objects.filter(headline_id=each_headline_id).values('word', 'fear', 'anger', 'anticip', 'trust', 'surprise', 'sadness', 'disgust', 'joy' )
             headline_word_data_list = []
@@ -2932,17 +2814,17 @@ def get_headline_tally_by_emotion(top_words_list, paper_num):
                     headline_word_data_list.append(this_word_dict)
             for emotion in all_headlines_emotion_tally_dict:
                 for word_dict in headline_word_data_list:
-                   
+
                     if emotion != "word" and word_dict[emotion] > 0:
                         all_headlines_emotion_tally_dict[emotion] += 1
-        
+
         tally_list.append(all_headlines_emotion_tally_dict)
-    
+
     tally_percent = []
 
 
 
-    
+
     return tally_list, total_hls, tally_percent
 
 
@@ -2965,14 +2847,14 @@ def save_to_db(emotion_set, paper_num):
         yesterday_tally = top_words_emotions_tally.objects.filter(date__contains=yesterday).filter(word=word_dict['word']).filter(newspaper=paper_num).values('fear', 'anger', 'anticip', 'trust', 'surprise', 'sadness', 'disgust', 'joy')[0]
         word_tally_save_to_db = top_words_emotions_tally(newspaper=paper_num, word=word_dict['word'], fear=yesterday_tally['fear']+word_dict['fear'], anger=yesterday_tally['anger']+word_dict['anger'],anticip=yesterday_tally['anticip']+word_dict['anticip'],trust=yesterday_tally['trust']+word_dict['trust'],surprise=yesterday_tally['surprise']+word_dict['surprise'],sadness=yesterday_tally['sadness']+word_dict['sadness'],disgust=yesterday_tally['disgust']+word_dict['disgust'],joy=yesterday_tally['joy']+word_dict['joy'], )
         word_tally_save_to_db.save()
-    
+
         if paper_num == 4:
             word_count = hl_tokens_emotions.objects.filter(day_order__lte=25).filter(word=word_dict['word']).count()
         else:
             word_count = hl_tokens_emotions.objects.filter(newspaper=paper_num).filter(day_order__lte=25).filter(word=word_dict['word']).count()
         word_percent_save_to_db = top_words_emotions_percent(newspaper=paper_num, word=word_dict['word'], fear_percent=round((yesterday_tally['fear']+word_dict['fear'])/word_count,2), anger_percent=round((yesterday_tally['anger']+word_dict['anger'])/word_count,2),anticip_percent=round((yesterday_tally['anticip']+word_dict['anticip'])/word_count,2),trust_percent=round((yesterday_tally['trust']+word_dict['trust'])/word_count,2),surprise_percent=round((yesterday_tally['surprise']+word_dict['surprise'])/word_count,2),sadness_percent=round((yesterday_tally['sadness']+word_dict['sadness'])/word_count,2),disgust_percent=round((yesterday_tally['disgust']+word_dict['disgust'])/word_count,2),joy_percent=round((yesterday_tally['joy']+word_dict['joy'])/word_count,2), )
         word_percent_save_to_db.save()
-            
+
 
 save_to_db(nyt_emotions, 1)
 save_to_db(bbc_emotions, 2)

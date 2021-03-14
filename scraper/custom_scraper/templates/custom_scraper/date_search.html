@@ -23,7 +23,7 @@
  margin:auto;
  position:fixed;
  z-index:100;
- 
+
  }
 
  .header a{
@@ -94,15 +94,15 @@ body {
 }
 
 .sub_selected {
- 
+
  text-align:left;
  margin-left:40px;
  padding-top:4px;
  padding-bottom:4px;
  font-weight:bold;
  font-size:22px;
- 
- 
+
+
 
 }
 
@@ -144,11 +144,11 @@ box-shadow: 0 0 2px grey;
   color:white;
   background: rgba(0,51,102,.99);
   border-radius:0px 4px 0px 0;
-  
+
   flex:1;
   line-height:50px;
   font-size:30px;
-  
+
    max-height:50px;
 }
 
@@ -173,11 +173,11 @@ box-shadow: 0 0 2px grey;
   font-size:18px;
   font-weight:400;
   border-radius:4px 0px 0px 0px;
- 
+
   flex:1;
   line-height:50px;
   max-height:50px;
-  
+
 
 }
 
@@ -199,7 +199,7 @@ box-shadow: 0 0 2px grey;
   background:#bb1919;
   color:white;
 
-  
+
   font-size: 32px;
   flex:1;
    line-height:50px;
@@ -235,7 +235,7 @@ grid-template-columns:1fr 1fr 1fr;
 
 .all_headlines {
     font-size:12px;
-    
+
 }
 
 
@@ -293,9 +293,9 @@ overflow-y:overlay;
 
 }
 .headline_text:hover {
-  
+
      border-left: 2px solid #a6a6a6;
-  
+
 }
 .datepicker {
     display:inline-block;
@@ -354,7 +354,7 @@ column-gap:20px;
 
 .analysis_grid {
   display:grid;
-  grid-template-columns: 1fr; 
+  grid-template-columns: 1fr;
 }
 
 
@@ -433,11 +433,11 @@ text-decoration:none;
 }
 
 input[type=date] {
-    color: transparent;
-}
+font-family:"Roboto";}
 
 input[type=date]::selection {
-    color: transparent;
+font-family:"Roboto";
+
 }
 
 #date_submit {
@@ -447,12 +447,14 @@ input[type=date]::selection {
 }
 
 #date_submit input {
-  width:50px;
-  border:none;
-  background: transparent;
-      position: relative;
-top: -1px;
-    left: -35;
+width: 135px;
+    border: none;
+    /* background: transparent; */
+    position: relative;
+    top: -1px;
+    left: 0px;
+    border: solid 1px #cccccc;
+    border-radius: 3px;
 }
 }
 }
@@ -475,7 +477,7 @@ input::-webkit-datetime-edit-year-field:focus {
 }
 
 .article_grid_wrapper::-webkit-scrollbar-thumb {
- 
+
   background:#f2f2f2;
 }
 
@@ -487,7 +489,7 @@ input::-webkit-datetime-edit-year-field:focus {
   padding-right:20px;
   height: 800px;
     justify-content: space-between;
- 
+
 }
 .analysis_box {
   font-size:30px;
@@ -501,7 +503,7 @@ flex-grow:1;
 .analysis_box_sent {
   font-size:35px;
   border-top: 1px solid gray;
-  
+
   padding:40px;
   font-family:"Roboto";
   font-weight:500;
@@ -540,12 +542,12 @@ flex-grow:1;
   font-family:"Roboto";
   padding-top: 5px;
   border-bottom: 3px double gray;
-  
-  
+
+
 }
 .equal_flex {
   flex-grow:1;
-  
+
 }
 
 .equal_flex:hover {
@@ -627,7 +629,7 @@ flex-grow:1;
   width:50%;
   display:flex;
 
-  
+
     justify-content: center;
     margin: auto;
     margin-top: 18px;
@@ -636,7 +638,7 @@ flex-grow:1;
   width:90%;
   display:flex;
 
-  
+
     justify-content: center;
     margin: auto;
     margin-top: 15px;
@@ -651,13 +653,13 @@ flex-grow:1;
   column-gap:50px;
   border-left: 2px solid #f2f2f2;
     padding-left: 10px;
- 
+
 }
 
 .analysis_box_sent {
   font-size:35px;
   border-top: 1px solid gray;
-  
+
   padding:40px;
   font-family:"Roboto";
   font-weight:500;
@@ -718,7 +720,7 @@ flex-grow:1;
 .analysis_box_sent {
   font-size:35px;
   border-top: 1px solid gray;
-  
+
   padding:40px;
   font-family:"Roboto";
   font-weight:500;
@@ -839,10 +841,10 @@ padding-left:8px;
 <div class="titles">
 
 <div class="date_card_title">
-{{header_date}}  <div class='choose'>Choose a Date:</div> <form id='date_submit' action="/date_search" method="GET" autocomplete="off"> {% csrf_token %} <input type="date" id="start" name="date" placeholder=''
-      
-       min="2020-01-25"> 
-            
+{{header_date}}  <div class='choose'>Choose a Date:</div> <form id='date_submit' action="/date_search" method="GET" autocomplete="off"> {% csrf_token %} <input type="date" id="start" name="date" placeholder='yyyy/mm/dd'
+
+       min="2020-01-25">
+
             </form>
 </div>
 
@@ -870,23 +872,23 @@ padding-left:8px;
 
 <div class="all_headlines">
 
-   
-            {% for headline in nytheadlines %} 
+
+            {% for headline in nytheadlines %}
    <a href="{{headline.link}}"><p class="headline_text">{{headline}}</p> </a>
 {% endfor %}
-            
-  
+
+
           </div>
 
-          <div class="all_headlines">   
-            
-            {% for headline in bbcheadlines %} 
+          <div class="all_headlines">
+
+            {% for headline in bbcheadlines %}
             <a href="{{headline.link}}"><p class="headline_text">{{headline}}</p> </a>
         {% endfor %}
-         
+
      </div>
           <div class="all_headlines">
-           {% for headline in fnheadlines %} 
+           {% for headline in fnheadlines %}
             <a href="{{headline.link}}"><p class="headline_text">{{headline}}</p> </a>
          {% endfor %} </div>
 
@@ -913,7 +915,7 @@ padding-left:8px;
 <div class="agw_analysis">
 
         <div class="analysis_flex analysis_border">
-          
+
             <div class="analysis_box" id='wc'><a href='/word_count_general_og'>Word Count</a><div  class='word_grid_container'>
                 <div id='wc_border' class="word_grid">
                   <div class="analysis_text">
@@ -925,10 +927,10 @@ padding-left:8px;
                   </div>
                   <div class="analysis_text num">{{freq2}}</div>
                   <div class="analysis_text">
-                    <a href='/wc_search_compare_result_single/?csrfmiddlewaretoken={% csrf_token %}&compare1={{key3}}'>{{key3}}</a></div><div class="analysis_text num">{{freq3}}</div></div></div></div> 
+                    <a href='/wc_search_compare_result_single/?csrfmiddlewaretoken={% csrf_token %}&compare1={{key3}}'>{{key3}}</a></div><div class="analysis_text num">{{freq3}}</div></div></div></div>
                    <a class='equal_flex' href='/sentiment_newspaper'> <div id='sent' class="analysis_box_sent analysis_box_bottom sent_font">Sentiment<div class="overall_sentiment sent_font">{{overall_score}}</div><div class='word_grid_container_sent'><div id='sent_border' class="word_grid"><div class="analysis_text sent_font_num">NYT </div><div class="sent_score num sent_font_num">{{ny_score}}</div><div class="analysis_text sent_font_num">BBC</div><div class="sent_score num sent_font_num">{{bbc_score}}</div><div class="analysis_text sent_font_num">Fox News</div><div class="sent_score sum sent_font_num">{{fn_score}}</div></div></div></div></a>
                     <a class='equal_flex' href='/emotion_newspaper'><div id='emotion' class="analysis_box_bottom analysis_box_sent sent_font">Emotion<div class='word_grid_container'><div id='emotion_border' class="word_grid">
-      
+
 {% for x,y in emotion_display %}
 
       <div class="analysis_text">{{x}}</div><div class="analysis_text num">{{y}}</div>
@@ -936,8 +938,8 @@ padding-left:8px;
 {% endfor %}
 
 
-      
-      
+
+
       </div></div></div></a></div>
 
 
@@ -975,7 +977,7 @@ padding-left:8px;
 </body>
 <script>
  $('#start').change(function(){
-        console.log('Submiting form');                
+        console.log('Submiting form');
         $('#date_submit').submit();
       });
 
