@@ -2130,7 +2130,6 @@ def get_coocs(paper_num, search_term):
     removing_stopwords = [word for word in word_tokens if word not in stopword]
     freq = FreqDist(removing_stopwords)
     most_common = freq.most_common(25)
-    print(most_common)
     cooc_list = []
     for i in most_common:
         interlist = []
@@ -2149,7 +2148,6 @@ for i in top_100:
   coocs.append(get_coocs(2,i))
   coocs.append(get_coocs(3,i))
 
-print(coocs)
 
 for i in coocs:
   for y in i:
@@ -2585,14 +2583,14 @@ for i in fn_word_count_chart[1:101]:
 
 coocs_list = []
 for i in base_words[:100]:
-    print(i)
+
     all_headlines_with_i = Headline.objects.filter(day_order__lte=25).filter(headline__icontains=i).values('headline')
     all_headlines_with_i_string = ""
     for y in all_headlines_with_i:
         all_headlines_with_i_string += " " + y['headline']
 
     i_coocs_word_count = get_sorted_word_count_by_string(all_headlines_with_i_string)
-    print(i_coocs_word_count)
+
     list_for_this_words_coocs = []
     for z in i_coocs_word_count[:100]:
         interlist = []
@@ -2605,14 +2603,13 @@ for i in base_words[:100]:
 def coocs_by_paper(paper_num, paper_base_list):
         coocs_list = []
         for i in paper_base_list:
-            print(i)
             all_headlines_with_i = Headline.objects.filter(day_order__lte=25).filter(newspaper=paper_num).filter(headline__icontains=i).values('headline')
             all_headlines_with_i_string = ""
             for y in all_headlines_with_i:
                 all_headlines_with_i_string += " " + y['headline']
 
             i_coocs_word_count = get_sorted_word_count_by_string(all_headlines_with_i_string)
-            print(i_coocs_word_count)
+
             list_for_this_words_coocs = []
             for z in i_coocs_word_count[:100]:
                 interlist = []
@@ -2633,10 +2630,7 @@ coocs_list_nyt = coocs_by_paper(1, base_words_nyt)
 coocs_list_bbc = coocs_by_paper(2, base_words_nyt)
 coocs_list_fn = coocs_by_paper(3, base_words_nyt)
 
-print(numbered_base_word_nyt)
-print(coocs_list_nyt)
-print(base_words_nyt)
-print(len(base_words_nyt))
+
 
 def make_cooc_dict(base_words, cooc_list):
     new_dict = {}
