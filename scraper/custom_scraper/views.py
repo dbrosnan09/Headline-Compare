@@ -10425,7 +10425,7 @@ def emotion_search_compare_result(request):
 
             comparesent.rename(columns={'search_term':'Search Term'}, inplace= True)
 
-
+            print("comparesent")
             figcompare = px.line(comparesent, x="Date", y="Count", color="Search Term",   )
 
 
