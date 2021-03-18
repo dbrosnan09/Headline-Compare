@@ -10420,7 +10420,7 @@ def emotion_search_compare_result(request):
     def get_plot_by_emotion(data_set):
         output_list = []
         for data in data_set:
-            if data = []:
+            if data == []:
                 html_div_compare = '<div class="plotly-graph-div js-plotly-plot">Not enough occurrences to plot line</div>'
                 output_list.append(html_div_compare)
             else:
