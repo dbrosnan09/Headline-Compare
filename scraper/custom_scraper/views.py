@@ -10417,7 +10417,7 @@ def emotion_search_compare_result(request):
     nyt_data = sort_query_data_by_emotion(all_data[1])
     bbc_data = sort_query_data_by_emotion(all_data[2])
     fn_data = sort_query_data_by_emotion(all_data[3])
-
+    print(nyt_data)
     def get_plot_by_emotion(data_set):
         output_list = []
         for data in data_set:
