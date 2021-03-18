@@ -10417,26 +10417,28 @@ def emotion_search_compare_result(request):
     nyt_data = sort_query_data_by_emotion(all_data[1])
     bbc_data = sort_query_data_by_emotion(all_data[2])
     fn_data = sort_query_data_by_emotion(all_data[3])
-    print(nyt_data)
     def get_plot_by_emotion(data_set):
         output_list = []
         for data in data_set:
-            print(data)
-            comparesent = pd.DataFrame(list(data))
+            if data = []:
+                html_div_compare = '<div class="plotly-graph-div js-plotly-plot">Not enough occurrences to plot line</div>'
+                output_list.append(html_div_compare)
+            else:
+                comparesent = pd.DataFrame(list(data))
 
-            comparesent.rename(columns={'search_term':'Search Term'}, inplace= True)
+                comparesent.rename(columns={'search_term':'Search Term'}, inplace= True)
 
-            figcompare = px.line(comparesent, x="Date", y="Count", color="Search Term",   )
-
-
-            figcompare.update_layout(
-                font=dict(family="Roboto",size=15,color="black"), height=300, plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',xaxis_title='', yaxis_title='', margin=dict(l=5, r=5, t=5, b=5, pad=10))
-
+                figcompare = px.line(comparesent, x="Date", y="Count", color="Search Term",   )
 
 
+                figcompare.update_layout(
+                    font=dict(family="Roboto",size=15,color="black"), height=300, plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',xaxis_title='', yaxis_title='', margin=dict(l=5, r=5, t=5, b=5, pad=10))
 
-            html_div_compare = str(plotly.offline.plot(figcompare, output_type='div', config = {'displayModeBar': False}))
-            output_list.append(html_div_compare)
+
+
+
+                html_div_compare = str(plotly.offline.plot(figcompare, output_type='div', config = {'displayModeBar': False}))
+                output_list.append(html_div_compare)
 
 
         return output_list
