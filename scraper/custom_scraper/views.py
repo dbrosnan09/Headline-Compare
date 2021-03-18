@@ -10421,11 +10421,11 @@ def emotion_search_compare_result(request):
     def get_plot_by_emotion(data_set):
         output_list = []
         for data in data_set:
+            print(data)
             comparesent = pd.DataFrame(list(data))
 
             comparesent.rename(columns={'search_term':'Search Term'}, inplace= True)
 
-            print("comparesent")
             figcompare = px.line(comparesent, x="Date", y="Count", color="Search Term",   )
 
 
