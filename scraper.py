@@ -2856,11 +2856,22 @@ save_to_db(fn_emotions, 3)
 save_to_db(overall_emotions, 4)
 
 #delete redundant html_caches to save space
-html_cache_1 = html_cache.objects.filter(page_num=1).values('date')
-html_cache_2 = html_cache.objects.filter(page_num=2).values('date')
-html_cache_3 = html_cache.objects.filter(page_num=3).values('date')
-html_cache_4 = html_cache.objects.filter(page_num=4).values('date')
-html_cache_5 = html_cache.objects.filter(page_num=5).values('date')
+html_cache_1 = html_cache.objects.filter(page_num=1).annotate(Date=TruncDay('date')).values('Date')
+html_cache_2 = html_cache.objects.filter(page_num=2).annotate(Date=TruncDay('date')).values('Date')
+html_cache_3 = html_cache.objects.filter(page_num=3).annotate(Date=TruncDay('date')).values('Date')
+html_cache_4 = html_cache.objects.filter(page_num=4).annotate(Date=TruncDay('date')).values('Date')
+html_cache_5 = html_cache.objects.filter(page_num=5).annotate(Date=TruncDay('date')).values('Date')
+
+today = date.today()
+fourdaysago = today - timedelta(days=4)
+
+if html_cache_1[0]['Date'] < fourdaysago:
+    html_cache.objects.filter(page_num=1).delete()
+    html_cache.objects.filter(page_num=2).delete()
+    html_cache.objects.filter(page_num=3).delete()
+    html_cache.objects.filter(page_num=4).delete()
+    html_cache.objects.filter(page_num=5).delete()
+
 
 if len(html_cache_1) > 2:
     html_cache.objects.filter(page_num=1).delete()
@@ -2891,3 +2902,5 @@ if len(html_cache_5) > 2:
     print("deleted html_cache for page 5")
 else:
     print('did not delete html_cache for page 5')
+
+
