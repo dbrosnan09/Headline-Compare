@@ -610,6 +610,14 @@ font-size: 66px;
     color:#466feb;
 }
 
+.date_sub {
+        margin-bottom: -14px;
+    font-size: 40px;
+
+    font-weight: bold;
+
+}
+
 .sticky_sent_title {
     position:sticky;
     background: white;
@@ -633,6 +641,8 @@ font-size: 66px;
 <body>
 
 <div class='header'>headline compare<div class='inliner'><div class='header_menu'><div class='menu_button'><a href=sentiment_newspaper>Sentiment</a></div><div class='menu_button'><a href='{% url 'word_count_general_og' %}'>Word Count</a></div><div class='menu_button'><a href='{% url 'emotion_newspaper' %}'>Emotion</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Date</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Analysis</a></div></div></div></div>
+<div class='header date_sub'>{{today_html}}</div>
+
 <div class='overall_headline_grid'>
 
 
