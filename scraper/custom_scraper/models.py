@@ -19,7 +19,7 @@ class Photos(models.Model):
     keyword = models.CharField(max_length=1000)
     link = models.CharField(max_length=1000)
     date = models.DateTimeField(default=timezone.now)
-    
+
 
     def __str__(self):
         return self.link
@@ -41,7 +41,7 @@ class superlative_table(models.Model):
     newspaper = models.PositiveIntegerField()
     news1 = models.CharField(max_length=10)
     news2 = models.CharField(max_length=10)
-    
+
     word = models.CharField(max_length=100)
     count = models.PositiveIntegerField()
     sentiment = models.DecimalField(max_digits=12, decimal_places=10)
@@ -52,7 +52,7 @@ class superlative_table(models.Model):
 
 
 class variance_table(models.Model):
-    
+
     graphid = models.PositiveIntegerField()
     date = models.DateTimeField(default=timezone.now)
     variance_date = models.DateTimeField(null=True, blank=True)
@@ -66,7 +66,7 @@ class variance_table(models.Model):
         return self.word
 
 class variance_table_word(models.Model):
-    
+
     graphid = models.PositiveIntegerField()
     date = models.DateTimeField(default=timezone.now)
     word = models.CharField(max_length=100)
@@ -74,9 +74,9 @@ class variance_table_word(models.Model):
     news1 = models.CharField(max_length=10)
     news2 = models.CharField(max_length=10)
     sentiment = models.DecimalField(max_digits=12, decimal_places=10)
-    
-    
-    
+
+
+
 
 
     def __str__(self):
@@ -109,7 +109,7 @@ class word_count(models.Model):
     bbc = models.PositiveIntegerField()
     fn = models.PositiveIntegerField()
     overall = models.PositiveIntegerField()
-    
+
 
 
 class cooc(models.Model):
@@ -118,7 +118,7 @@ class cooc(models.Model):
     co_word = models.CharField(max_length=500)
     newspaper = models.PositiveIntegerField()
     co_word_count = models.PositiveIntegerField()
-    
+
 
 class total_word_count(models.Model):
     date = models.DateTimeField(default=timezone.now)
@@ -193,10 +193,10 @@ class emotion_associated(models.Model):
     emotion = models.CharField(max_length=500)
     word = models.CharField(max_length=500)
     word_count = models.PositiveIntegerField()
-    
 
 
-    
+
+
 class headline_tokenized(models.Model):
     headline_id = models.PositiveIntegerField()
     newspaper = models.PositiveIntegerField()
@@ -300,3 +300,15 @@ class html_cache(models.Model):
     date = models.DateTimeField(default=timezone.now)
     page_num = models.PositiveIntegerField()
     cache_html = models.TextField()
+
+class Headline_photo(models.Model):
+
+    date = models.DateTimeField(default=timezone.now)
+    newspaper = models.PositiveIntegerField()
+    day_order = models.PositiveIntegerField()
+    headline_link = models.CharField(max_length=1000)
+    img_link = models.CharField(max_length=1000)
+
+
+    def __str__(self):
+        return self.headline

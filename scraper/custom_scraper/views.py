@@ -12703,3 +12703,1332 @@ def about(request):
 
 
     return render(request, 'custom_scraper/about.html',{},)
+
+
+def mainpage_test2(request):
+
+    #define date to use for queries
+    from datetime import datetime
+    today = datetime.today()
+    today_html = today.date()
+    yesterday = today - timedelta(days=1)
+    yesterday_html = yesterday.date()
+    today = str(today)[:10]
+    yesterday = str(yesterday)[:10]
+
+
+    headline_check = Headline.objects.filter(date__icontains=today)
+
+    if not headline_check:
+        today = yesterday
+        today_html = yesterday_html
+
+
+
+    #NYT Code
+
+    #for hl_box: get headlines 2-end (headline 1 never appears in text box because it is in mag box)
+    nyt_headlines_rest = Headline.objects.filter(day_order__lte=25).filter(day_order__gt=1).filter(date__icontains=today).filter(newspaper=1).order_by('day_order')
+
+    #for mag_box: get headlines and images together in list
+    nyt_headlines_all = Headline.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).order_by('day_order')
+    nyt_hl_imgs = Headline_photo.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).order_by('day_order')
+
+    nyt_mag_box_list = []
+    for headline_record in nyt_headlines_all:
+        interlist = []
+        interlist.append(headline_record.headline)
+        interlist.append(headline_record.link)
+        interlist.append(headline_record.date)
+        nyt_mag_box_list.append(interlist)
+
+    list_index = 0
+    for img_record in nyt_hl_imgs:
+        nyt_mag_box_list[list_index].append(img_record.img_link)
+        list_index +=1
+
+    print(nyt_mag_box_list)
+
+
+
+
+
+
+    #BBC Code
+
+    #for hl_box: get headlines 2-end (headline 1 never appears in text box because it is in mag box)
+    bbc_headlines_rest = Headline.objects.filter(day_order__lte=25).filter(day_order__gt=1).filter(date__icontains=today).filter(newspaper=2).order_by('day_order')
+
+    #for mag_box: get headlines and images together in list
+    bbc_headlines_all = Headline.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).order_by('day_order')
+    bbc_hl_imgs = Headline_photo.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).order_by('day_order')
+
+    bbc_mag_box_list = []
+    for headline_record in bbc_headlines_all:
+        interlist = []
+        interlist.append(headline_record.headline)
+        interlist.append(headline_record.link)
+        interlist.append(headline_record.date)
+        bbc_mag_box_list.append(interlist)
+
+    list_index = 0
+    for img_record in bbc_hl_imgs:
+        bbc_mag_box_list[list_index].append(img_record.img_link)
+        list_index +=1
+
+    print(bbc_mag_box_list)
+
+
+
+    #FN Code
+
+    #for hl_box: get headlines 2-end (headline 1 never appears in text box because it is in mag box)
+    fn_headlines_rest = Headline.objects.filter(day_order__lte=25).filter(day_order__gt=1).filter(date__icontains=today).filter(newspaper=3).order_by('day_order')
+
+    #for mag_box: get headlines and images together in list
+    fn_headlines_all = Headline.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).order_by('day_order')
+    fn_hl_imgs = Headline_photo.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).order_by('day_order')
+
+    fn_mag_box_list = []
+    for headline_record in fn_headlines_all:
+        interlist = []
+        interlist.append(headline_record.headline)
+        interlist.append(headline_record.link)
+        interlist.append(headline_record.date)
+        fn_mag_box_list.append(interlist)
+
+    list_index = 0
+    for img_record in fn_hl_imgs:
+        fn_mag_box_list[list_index].append(img_record.img_link)
+        list_index +=1
+
+    print(fn_mag_box_list)
+
+
+
+
+
+
+    #Sentiment Graph - Average by Month
+
+    import plotly.graph_objects as go
+    import numpy as np
+
+
+    #setting up legend, color, labels
+    title = 'Sentiment by Month'
+    labels = ['The New York Times', 'BBC News', 'Fox News',]
+    colors = ['#707070', '#ed4040', '#466feb',]
+
+    #end point and line size
+    mode_size = [8, 8, 8,]
+    line_size = [2.5, 2.5, 2.5,]
+
+    #query monthly sentiment by newspaper and get data into graph shape
+    all_monthly_sentiment = Headline.objects.filter(day_order__lte=25).annotate(Date=TruncMonth('date')).values('Date','newspaper').annotate(Average=Avg('sentiment'))
+    for record in all_monthly_sentiment:
+        print(record)
+
+    x_data = []
+    nyt_x = []
+    bbc_x = []
+    fn_x = []
+    for record in all_monthly_sentiment:
+        if record['newspaper'] == 1:
+            nyt_x.append(record['Date'])
+        elif record['newspaper'] == 2:
+            bbc_x.append(record['Date'])
+        elif record['newspaper'] == 3:
+            fn_x.append(record['Date'])
+
+    x_data.append(nyt_x)
+    x_data.append(bbc_x)
+    x_data.append(fn_x)
+
+    x_data = np.vstack(x_data)
+
+
+
+    y_data_list = []
+
+    nyt_data_list = []
+    bbc_data_list = []
+    fn_data_list = []
+
+    for record in all_monthly_sentiment:
+        if record['newspaper'] == 1:
+            nyt_data_list.append(round(record['Average']*100,1))
+        elif record['newspaper'] == 2:
+            bbc_data_list.append(round(record['Average']*100,1))
+        elif record['newspaper'] == 3:
+            fn_data_list.append(round(record['Average']*100,1))
+
+    y_data_list.append(nyt_data_list)
+    y_data_list.append(bbc_data_list)
+    y_data_list.append(fn_data_list)
+
+    y_data = np.array(y_data_list)
+
+
+
+    fig = go.Figure()
+
+
+    #graph formatting
+
+    for i in range(0, 3):
+        fig.add_trace(go.Scatter(x=x_data[i], y=y_data[i], mode='lines',
+            name=labels[i],
+            line=dict(color=colors[i], width=line_size[i]),
+            connectgaps=True,
+        ))
+
+        # endpoints
+        fig.add_trace(go.Scatter(
+            x=[ x_data[i][-1]],
+            y=[ y_data[i][-1]],
+            mode='markers',
+            marker=dict(color=colors[i], size=mode_size[i])
+        ))
+
+    fig.update_layout(
+        xaxis=dict(
+            showline=True,
+            showgrid=False,
+            zeroline=True,
+            showticklabels=True,
+            linecolor='white',
+            linewidth=0,
+            ticks='outside',
+            tickfont=dict(
+                family='Roboto',
+                size=12,
+                color='rgb(82, 82, 82)',
+            ),
+        ),
+        yaxis=dict(
+            showgrid=False,
+            zeroline=False,
+            showline=False,
+            showticklabels=False,
+        ),
+        autosize=True,
+        margin=dict(
+            autoexpand=True,
+            l=0,
+            r=160,
+            t=50,
+        ),
+        showlegend=False,
+        plot_bgcolor='white'
+    )
+
+    annotations = []
+
+    # Adding labels
+    for y_trace, label, color in zip(y_data, labels, colors):
+        """
+        # labeling the left_side of the plot
+        annotations.append(dict(xref='paper', x=0.05, y=y_trace[0],
+                                    xanchor='right', yanchor='middle',
+                                    text=label + ' {}%'.format(y_trace[0]),
+                                    font=dict(family='Arial',
+                                                size=16),
+                                    showarrow=False))
+        """
+        # labeling the right_side of the plot
+        annotations.append(dict(xref='paper', x=0.95, y=y_trace[len(y_trace)-1],
+                                    xanchor='left', yanchor='middle',
+                                    text=label + ' ' + '{}'.format(y_trace[len(y_trace)-1]),
+                                    font_color=color,
+                                    font=dict(family='Alegreya Sans',
+                                                size=18,),
+                                    showarrow=False))
+    """
+    # Title
+    annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
+                                xanchor='left', yanchor='bottom',
+                                text='Main Source for News',
+                                font=dict(family='Arial',
+                                            size=30,
+                                            color='rgb(37,37,37)'),
+                                showarrow=False))
+    # Source
+    annotations.append(dict(xref='paper', yref='paper', x=0.5, y=-0.1,
+                                xanchor='center', yanchor='top',
+                                text='Source: PewResearch Center & ' +
+                                    'Storytelling with data',
+                                font=dict(family='Arial',
+                                            size=12,
+                                            color='rgb(150,150,150)'),
+                                showarrow=False))
+    """
+    fig.update_layout(annotations=annotations)
+
+
+    html_div = str(plotly.offline.plot(fig, output_type='div',config = {'displayModeBar': False}))
+
+
+
+
+
+
+    #Word Count graph - top 3 words of the day by newspaper by month count
+
+    #get today's top 3 words
+    import nltk
+    from nltk.corpus import stopwords
+
+    def find_keywords(headlines):
+        stopwords = nltk.corpus.stopwords.words('english')
+
+
+
+        headlineslist = []
+        for i in headlines:
+            headlineslist.append(i.headline)
+        headlineslist = " ".join(headlineslist)
+        headlineslist = headlineslist.split()
+        without_stopwords = []
+
+        for i in headlineslist:
+            if i.lower() not in stopwords:
+
+                without_stopwords.append(i)
+
+        without_stopwords_string = " ".join(without_stopwords)
+
+        texta = TextBlob(without_stopwords_string)
+
+        a = texta.word_counts
+
+        nytimes_word_count_list = []
+        for key, value in sorted(a.items(), reverse=True, key=lambda item: item[1]):
+            interlist = []
+            if key != "s" and key != "’" and key != "‘":
+                interlist.append(value)
+                interlist.append(key)
+                nytimes_word_count_list.append(interlist)
+        return nytimes_word_count_list
+
+    nytheadlines = Headline.objects.filter(date__contains=today).filter(newspaper=1).filter(day_order__lte=25)
+    bbcheadlines = Headline.objects.filter(date__contains=today).filter(newspaper=2).filter(day_order__lte=25)
+    fnheadlines = Headline.objects.filter(date__contains=today).filter(newspaper=3).filter(day_order__lte=25)
+
+
+    allkeywords = nytheadlines | bbcheadlines | fnheadlines
+    allkeywords = find_keywords(allkeywords)
+
+    nykeywords = find_keywords(nytheadlines)
+    bbckeywords = find_keywords(bbcheadlines)
+    fnkeywords = find_keywords(fnheadlines)
+
+
+    all_wf_keys = []
+    all_wf_values = []
+    keyword_counter = 0
+    for v in allkeywords:
+        if keyword_counter < 6:
+            all_wf_values.append(v[0])
+            all_wf_keys.append(v[1])
+        keyword_counter += 1
+
+    key1 = all_wf_keys[0]
+
+    key2 = all_wf_keys[1]
+
+    key3 = all_wf_keys[2]
+
+    key4 = all_wf_keys[3]
+
+    key5 = all_wf_keys[4]
+
+    key6 = all_wf_keys[5]
+
+    key_list = []
+    key_list.append(key1)
+    key_list.append(key2)
+    key_list.append(key3)
+    key_list.append(key4)
+    key_list.append(key5)
+    key_list.append(key6)
+
+    key_list.remove('i')
+
+    key1 = key_list[0]
+    key2 = key_list[1]
+    key3 = key_list[2]
+
+
+
+
+    nyt_wf_keys = []
+    nyt_wf_values = []
+    keyword_counter = 0
+    for v in nykeywords:
+        if keyword_counter < 6:
+            nyt_wf_values.append(v[0])
+            nyt_wf_keys.append(v[1])
+        keyword_counter += 1
+
+    nyt_key1 = nyt_wf_keys[0]
+
+    nyt_key2 = nyt_wf_keys[1]
+
+    nyt_key3 = nyt_wf_keys[2]
+
+    nyt_key4 = nyt_wf_keys[3]
+
+    nyt_key5 = nyt_wf_keys[4]
+
+    nyt_key6 = nyt_wf_keys[5]
+
+    nyt_key_list = []
+    nyt_key_list.append(nyt_key1)
+    nyt_key_list.append(nyt_key2)
+    nyt_key_list.append(nyt_key3)
+    nyt_key_list.append(nyt_key4)
+    nyt_key_list.append(nyt_key5)
+    nyt_key_list.append(nyt_key6)
+
+    nyt_freq_list = []
+    nyt_freq1 = nyt_wf_values[0]
+    nyt_freq2 = nyt_wf_values[1]
+    nyt_freq3 = nyt_wf_values[2]
+    nyt_freq4 = nyt_wf_values[3]
+    nyt_freq5 = nyt_wf_values[4]
+    nyt_freq6 = nyt_wf_values[5]
+
+    nyt_freq_list.append(nyt_freq1)
+    nyt_freq_list.append(nyt_freq2)
+    nyt_freq_list.append(nyt_freq3)
+    nyt_freq_list.append(nyt_freq4)
+    nyt_freq_list.append(nyt_freq5)
+    nyt_freq_list.append(nyt_freq6)
+
+
+    for i in range(0,6):
+        if nyt_key_list[i] == 'i':
+            del nyt_freq_list[i]
+
+    nyt_freq1 = nyt_freq_list[0]
+    nyt_freq2 = nyt_freq_list[1]
+    nyt_freq3 = nyt_freq_list[2]
+
+    nyt_key1 = nyt_key_list[0]
+    nyt_key2 = nyt_key_list[1]
+    nyt_key3 = nyt_key_list[2]
+
+
+    bbc_wf_keys = []
+    bbc_wf_values = []
+    keyword_counter = 0
+    for v in bbckeywords:
+        if keyword_counter < 6:
+            bbc_wf_values.append(v[0])
+            bbc_wf_keys.append(v[1])
+        keyword_counter += 1
+
+    bbc_key1 = bbc_wf_keys[0]
+
+    bbc_key2 = bbc_wf_keys[1]
+
+    bbc_key3 = bbc_wf_keys[2]
+
+    bbc_key4 = bbc_wf_keys[3]
+
+    bbc_key5 = bbc_wf_keys[4]
+
+    bbc_key6 = bbc_wf_keys[5]
+
+    bbc_key_list = []
+    bbc_key_list.append(bbc_key1)
+    bbc_key_list.append(bbc_key2)
+    bbc_key_list.append(bbc_key3)
+    bbc_key_list.append(bbc_key4)
+    bbc_key_list.append(bbc_key5)
+    bbc_key_list.append(bbc_key6)
+
+    bbc_freq_list = []
+    bbc_freq1 = bbc_wf_values[0]
+    bbc_freq2 = bbc_wf_values[1]
+    bbc_freq3 = bbc_wf_values[2]
+    bbc_freq4 = bbc_wf_values[3]
+    bbc_freq5 = bbc_wf_values[4]
+    bbc_freq6 = bbc_wf_values[5]
+
+    bbc_freq_list.append(bbc_freq1)
+    bbc_freq_list.append(bbc_freq2)
+    bbc_freq_list.append(bbc_freq3)
+    bbc_freq_list.append(bbc_freq4)
+    bbc_freq_list.append(bbc_freq5)
+    bbc_freq_list.append(bbc_freq6)
+
+
+    for i in range(0,6):
+        if bbc_key_list[i] == 'i':
+            del bbc_freq_list[i]
+
+    bbc_freq1 = bbc_freq_list[0]
+    bbc_freq2 = bbc_freq_list[1]
+    bbc_freq3 = bbc_freq_list[2]
+
+    bbc_key1 = bbc_key_list[0]
+    bbc_key2 = bbc_key_list[1]
+    bbc_key3 = bbc_key_list[2]
+
+
+    fn_wf_keys = []
+    fn_wf_values = []
+    keyword_counter = 0
+    for v in fnkeywords:
+        if keyword_counter < 6:
+            fn_wf_values.append(v[0])
+            fn_wf_keys.append(v[1])
+        keyword_counter += 1
+
+    fn_key1 = fn_wf_keys[0]
+
+    fn_key2 = fn_wf_keys[1]
+
+    fn_key3 = fn_wf_keys[2]
+
+    fn_key4 = fn_wf_keys[3]
+
+    fn_key5 = fn_wf_keys[4]
+
+    fn_key6 = fn_wf_keys[5]
+
+    fn_key_list = []
+    fn_key_list.append(fn_key1)
+    fn_key_list.append(fn_key2)
+    fn_key_list.append(fn_key3)
+    fn_key_list.append(fn_key4)
+    fn_key_list.append(fn_key5)
+    fn_key_list.append(fn_key6)
+
+    fn_freq_list = []
+    fn_freq1 = fn_wf_values[0]
+    fn_freq2 = fn_wf_values[1]
+    fn_freq3 = fn_wf_values[2]
+    fn_freq4 = fn_wf_values[3]
+    fn_freq5 = fn_wf_values[4]
+    fn_freq6 = fn_wf_values[5]
+
+    fn_freq_list.append(fn_freq1)
+    fn_freq_list.append(fn_freq2)
+    fn_freq_list.append(fn_freq3)
+    fn_freq_list.append(fn_freq4)
+    fn_freq_list.append(fn_freq5)
+    fn_freq_list.append(fn_freq6)
+
+
+    for i in range(0,6):
+        if fn_key_list[i] == 'i':
+            del fn_freq_list[i]
+
+    fn_freq1 = fn_freq_list[0]
+    fn_freq2 = fn_freq_list[1]
+    fn_freq3 = fn_freq_list[2]
+
+    fn_key1 = fn_key_list[0]
+    fn_key2 = fn_key_list[1]
+    fn_key3 = bbc_key_list[2]
+
+
+    fig = go.Figure(data=[
+            go.Bar(name='The New York Times', x=nyt_freq_list[:3], y=nyt_key_list[:3], orientation='h', marker_color='#707070', textfont=dict(family='Roboto'), ),
+
+
+        ])
+        # Change the bar mode
+    """
+        fig.update_layout(barmode='group')
+    """
+    fig.update_layout (showlegend=False, bargroupgap=.2,   margin=dict(
+                pad=5,t=0,b=0,
+            ),
+            plot_bgcolor='white',
+                xaxis=dict(
+                showline=False,
+                showgrid=False,
+                zeroline=False,
+                showticklabels=False,
+                ticks="",
+                linecolor='white',
+                linewidth=0,
+                #ticks='outside',
+                tickfont=dict(
+                    family='Alegreya Sans',
+                    size=17,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),      yaxis=dict(
+                showgrid=False,
+                zeroline=False,
+                showline=False,
+                showticklabels=True,
+                autorange='reversed',
+                    tickfont=dict(
+                    family='Alegreya Sans',
+                    size=15,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),
+
+
+        )
+
+
+    html_div_nyt_wc = str(plotly.offline.plot(fig, output_type='div',config = {'displayModeBar': False}))
+
+
+
+
+    fig = go.Figure(data=[
+            go.Bar(name='BBC News', x=bbc_freq_list[:3], y=bbc_key_list[:3], orientation='h', marker_color='#ed4040', textfont=dict(family='Roboto'), ),
+
+
+        ])
+        # Change the bar mode
+    """
+        fig.update_layout(barmode='group')
+    """
+    fig.update_layout (showlegend=False, bargroupgap=.2,   margin=dict(
+                pad=5,t=0,
+            ),
+            plot_bgcolor='white',
+                xaxis=dict(
+                showline=False,
+                showgrid=False,
+                zeroline=False,
+                showticklabels=False,
+                ticks="",
+                linecolor='white',
+                linewidth=0,
+                #ticks='outside',
+                tickfont=dict(
+                    family='Alegreya Sans',
+                    size=17,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),      yaxis=dict(
+                showgrid=False,
+                zeroline=False,
+                showline=False,
+                showticklabels=True,
+                autorange='reversed',
+                    tickfont=dict(
+                    family='Alegreya Sans',
+                    size=15,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),
+
+
+        )
+
+
+    html_div_bbc_wc = str(plotly.offline.plot(fig, output_type='div',config = {'displayModeBar': False}))
+
+
+    fig = go.Figure(data=[
+            go.Bar(name='Fox News', x=fn_freq_list[:3], y=fn_key_list[:3], orientation='h', marker_color='#466feb', textfont=dict(family='Roboto'), ),
+
+
+        ])
+        # Change the bar mode
+    """
+        fig.update_layout(barmode='group')
+    """
+    fig.update_layout (showlegend=False, bargroupgap=.2,   margin=dict(
+                pad=5,t=0,
+            ),
+            plot_bgcolor='white',
+                xaxis=dict(
+                showline=False,
+                showgrid=False,
+                zeroline=False,
+                showticklabels=False,
+                ticks="",
+                linecolor='white',
+                linewidth=0,
+                #ticks='outside',
+                tickfont=dict(
+                    family='Alegreya Sans',
+                    size=17,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),      yaxis=dict(
+                showgrid=False,
+                zeroline=False,
+                showline=False,
+                showticklabels=True,
+                autorange='reversed',
+                    tickfont=dict(
+                    family='Alegreya Sans',
+                    size=15,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),
+
+
+        )
+
+
+    html_div_fn_wc = str(plotly.offline.plot(fig, output_type='div',config = {'displayModeBar': False}))
+
+    from django.db.models import Count
+
+    #setting up legend, color, labels
+    title = 'Word Count by Month'
+    labels = ['The New York Times - "' + str(key1) + '"', 'BBC News - "' + str(key1)+'"', 'Fox News - "' + str(key1)+'"',]
+    colors = ['#707070', '#ed4040', '#466feb',]
+
+    #end point and line size
+    mode_size = [8, 8, 8, 8, 8, 8, 8, 8, 8]
+    line_size = [2.5, 2.5, 2.5,2.5,2.5,2.5,2.5,2.5,2.5]
+
+    #query monthly word count by newspaper and get data into graph shape
+    all_monthly_wc_1 = Headline.objects.filter(day_order__lte=25).filter(headline__icontains=key1).annotate(Date=TruncMonth('date')).values('Date', 'newspaper').annotate(Count=Count('id'))
+    all_monthly_wc_2 = Headline.objects.filter(day_order__lte=25).filter(headline__icontains=key2).annotate(Date=TruncMonth('date')).values('Date', 'newspaper').annotate(Count=Count('id'))
+    all_monthly_wc_3 = Headline.objects.filter(day_order__lte=25).filter(headline__icontains=key3).annotate(Date=TruncMonth('date')).values('Date', 'newspaper').annotate(Count=Count('id'))
+
+
+    x_data = []
+    nyt_x_1 = []
+    bbc_x_1 = []
+    fn_x_1 = []
+
+    nyt_x_2 = []
+    bbc_x_2 = []
+    fn_x_2 = []
+
+    nyt_x_3 = []
+    bbc_x_3 = []
+    fn_x_3 = []
+
+    for record in all_monthly_wc_1:
+        if record['newspaper'] == 1:
+            nyt_x_1.append(record['Date'])
+        elif record['newspaper'] == 2:
+            bbc_x_1.append(record['Date'])
+        elif record['newspaper'] == 3:
+            fn_x_1.append(record['Date'])
+
+    for record in all_monthly_wc_2:
+        if record['newspaper'] == 1:
+            nyt_x_2.append(record['Date'])
+        elif record['newspaper'] == 2:
+            bbc_x_2.append(record['Date'])
+        elif record['newspaper'] == 3:
+            fn_x_2.append(record['Date'])
+
+    for record in all_monthly_wc_3:
+        if record['newspaper'] == 1:
+            nyt_x_3.append(record['Date'])
+        elif record['newspaper'] == 2:
+            bbc_x_3.append(record['Date'])
+        elif record['newspaper'] == 3:
+            fn_x_3.append(record['Date'])
+
+
+
+    x_data_test = []
+    x_data_test.append(nyt_x_1)
+    x_data_test.append(nyt_x_2)
+    x_data_test.append(nyt_x_3)
+
+
+    x_data_test.append(bbc_x_1)
+    x_data_test.append(bbc_x_2)
+    x_data_test.append(bbc_x_3)
+
+    x_data_test.append(fn_x_1)
+    x_data_test.append(fn_x_2)
+    x_data_test.append(fn_x_3)
+
+
+
+
+    #querysets do not include dates if there was a 0 count. so creating a master list of all dates in all records so that can add them with 0 counts where needed
+    master_date_list = []
+    for date_list in x_data_test:
+        for date_result in date_list:
+            if date_result not in master_date_list:
+                master_date_list.append(date_result)
+
+    print(master_date_list)
+
+
+
+
+    y_data_list = []
+
+    nyt_data_list_1 = []
+    nyt_data_list_2 = []
+    nyt_data_list_3 = []
+
+    bbc_data_list_1 = []
+    bbc_data_list_2 = []
+    bbc_data_list_3 = []
+
+    fn_data_list_1 = []
+    fn_data_list_2 = []
+    fn_data_list_3 = []
+
+
+
+    for record in all_monthly_wc_1:
+        if record['newspaper'] == 1:
+            nyt_data_list_1.append(record['Count'])
+        elif record['newspaper'] == 2:
+            bbc_data_list_1.append(record['Count'])
+        elif record['newspaper'] == 3:
+            fn_data_list_1.append(record['Count'])
+
+
+    for record in all_monthly_wc_2:
+        if record['newspaper'] == 1:
+            nyt_data_list_2.append(record['Count'])
+        elif record['newspaper'] == 2:
+            bbc_data_list_2.append(record['Count'])
+        elif record['newspaper'] == 3:
+            fn_data_list_2.append(record['Count'])
+
+    for record in all_monthly_wc_3:
+        if record['newspaper'] == 1:
+            nyt_data_list_3.append(record['Count'])
+        elif record['newspaper'] == 2:
+            bbc_data_list_3.append(record['Count'])
+        elif record['newspaper'] == 3:
+            fn_data_list_3.append(record['Count'])
+
+
+
+
+
+
+
+
+
+
+    #editing x_data and y_data to include date and count when there was no count for that date
+
+    def date_check_x(date_list, count_list):
+        counter = 0
+        for date_item in master_date_list:
+            if date_item in date_list:
+                counter += 1
+                print("ok")
+            else:
+                print('found')
+                print(date_item)
+                print(date_list)
+                date_list.insert(counter, date_item)
+                print(date_list)
+                count_list[counter] = 0
+
+
+    date_check_x(nyt_x_1,nyt_data_list_1)
+    date_check_x(bbc_x_1,bbc_data_list_1)
+    date_check_x(fn_x_1,fn_data_list_1)
+
+    date_check_x(nyt_x_2,nyt_data_list_2)
+    date_check_x(bbc_x_2,bbc_data_list_2)
+    date_check_x(fn_x_2,fn_data_list_2)
+
+    date_check_x(nyt_x_3,nyt_data_list_3)
+    date_check_x(bbc_x_3,bbc_data_list_3)
+    date_check_x(fn_x_3,fn_data_list_3)
+
+
+    y_data_list.append(nyt_data_list_1)
+    """
+    y_data_list.append(nyt_data_list_2)
+    y_data_list.append(nyt_data_list_3)
+    """
+
+    y_data_list.append(bbc_data_list_1)
+
+    """
+    y_data_list.append(bbc_data_list_2)
+    y_data_list.append(bbc_data_list_3)
+    """
+    y_data_list.append(fn_data_list_1)
+    """
+    y_data_list.append(fn_data_list_2)
+    y_data_list.append(fn_data_list_3)
+    """
+    x_data.append(nyt_x_1)
+    """
+    x_data.append(nyt_x_2)
+    x_data.append(nyt_x_3)
+    """
+
+    x_data.append(bbc_x_1)
+    """
+    x_data.append(bbc_x_2)
+    x_data.append(bbc_x_3)
+    """
+    x_data.append(fn_x_1)
+    """
+    x_data.append(fn_x_2)
+    x_data.append(fn_x_3)
+    """
+
+    x_data = np.vstack(x_data)
+    y_data = np.array(y_data_list)
+
+    fig = go.Figure()
+
+
+    #graph formatting
+
+    for i in range(0, 3):
+        fig.add_trace(go.Scatter(x=x_data[i], y=y_data[i], mode='lines',
+            name=labels[i],
+            line=dict(color=colors[i], width=line_size[i]),
+            connectgaps=True,
+        ))
+
+        # endpoints
+        fig.add_trace(go.Scatter(
+            x=[ x_data[i][-1]],
+            y=[ y_data[i][-1]],
+            mode='markers',
+            marker=dict(color=colors[i], size=mode_size[i])
+        ))
+
+    fig.update_layout(
+        xaxis=dict(
+            showline=True,
+            showgrid=False,
+            zeroline=True,
+            showticklabels=True,
+            linecolor='white',
+            linewidth=0,
+            ticks='outside',
+            tickfont=dict(
+                family='Roboto',
+                size=12,
+                color='rgb(82, 82, 82)',
+            ),
+        ),
+        yaxis=dict(
+            showgrid=False,
+            zeroline=False,
+            showline=False,
+            showticklabels=False,
+        ),
+        autosize=True,
+        margin=dict(
+            autoexpand=True,
+            l=0,
+            r=220,
+            t=50,
+        ),
+        showlegend=False,
+        plot_bgcolor='white'
+    )
+
+    annotations = []
+
+    # Adding labels
+    for y_trace, label, color in zip(y_data, labels, colors):
+        """
+        # labeling the left_side of the plot
+        annotations.append(dict(xref='paper', x=0.05, y=y_trace[0],
+                                    xanchor='right', yanchor='middle',
+                                    text=label + ' {}%'.format(y_trace[0]),
+                                    font=dict(family='Arial',
+                                                size=16),
+                                    showarrow=False))
+        """
+        # labeling the right_side of the plot
+        annotations.append(dict(xref='paper', x=0.95, y=y_trace[len(y_trace)-1],
+                                    xanchor='left', yanchor='middle',
+                                    text=label + ' ' + '{}'.format(y_trace[len(y_trace)-1]),
+                                    font_color=color,
+                                    font=dict(family='Alegreya Sans',
+                                                size=18,),
+                                    showarrow=False))
+    """
+    # Title
+    annotations.append(dict(xref='paper', yref='paper', x=0.0, y=1.05,
+                                xanchor='left', yanchor='bottom',
+                                text='Main Source for News',
+                                font=dict(family='Arial',
+                                            size=30,
+                                            color='rgb(37,37,37)'),
+                                showarrow=False))
+    # Source
+    annotations.append(dict(xref='paper', yref='paper', x=0.5, y=-0.1,
+                                xanchor='center', yanchor='top',
+                                text='Source: PewResearch Center & ' +
+                                    'Storytelling with data',
+                                font=dict(family='Arial',
+                                            size=12,
+                                            color='rgb(150,150,150)'),
+                                showarrow=False))
+    """
+    fig.update_layout(annotations=annotations)
+
+
+    html_div_wc = str(plotly.offline.plot(fig, output_type='div',config = {'displayModeBar': False}))
+
+
+
+    #Emotion graph
+
+    import plotly.graph_objects as go
+    animals=['Fear', 'Anger', 'Anticipation','Trust', 'Surprise','Sadness', 'Disgust', 'Joy']
+
+    #should be list of one paper's numbers for the above in that order
+    y_data_nyt = []
+    y_data_bbc = []
+    y_data_fn = []
+
+    nyt_hl_emotion_fear = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=1).filter(fear__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_fear)
+    nyt_hl_emotion_anger = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=1).filter(anger__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_anger)
+    nyt_hl_emotion_anticip = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=1).filter(anticip__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_anticip)
+    nyt_hl_emotion_trust = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=1).filter(trust__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_trust)
+    nyt_hl_emotion_surprise = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=1).filter(surprise__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_surprise)
+    nyt_hl_emotion_sadness = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=1).filter(sadness__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_sadness)
+    nyt_hl_emotion_disgust = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=1).filter(disgust__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_disgust)
+    nyt_hl_emotion_joy = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=1).filter(joy__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_joy)
+
+
+    bbc_hl_emotion_fear = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=2).filter(fear__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_fear)
+    bbc_hl_emotion_anger = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=2).filter(anger__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_anger)
+    bbc_hl_emotion_anticip = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=2).filter(anticip__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_anticip)
+    bbc_hl_emotion_trust = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=2).filter(trust__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_trust)
+    bbc_hl_emotion_surprise = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=2).filter(surprise__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_surprise)
+    bbc_hl_emotion_sadness = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=2).filter(sadness__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_sadness)
+    bbc_hl_emotion_disgust = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=2).filter(disgust__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_disgust)
+    bbc_hl_emotion_joy = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=2).filter(joy__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_joy)
+
+    fn_hl_emotion_fear = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=3).filter(fear__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_fear)
+    fn_hl_emotion_anger = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=3).filter(anger__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_anger)
+    fn_hl_emotion_anticip = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=3).filter(anticip__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_anticip)
+    fn_hl_emotion_trust = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=3).filter(trust__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_trust)
+    fn_hl_emotion_surprise = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=3).filter(surprise__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_surprise)
+    fn_hl_emotion_sadness = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=3).filter(sadness__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_sadness)
+    fn_hl_emotion_disgust = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=3).filter(disgust__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_disgust)
+    fn_hl_emotion_joy = Headline_emotion.objects.filter(day_order__lte=25).filter(newspaper=3).filter(joy__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_joy)
+
+    fig = go.Figure(data=[
+        go.Bar(name='The New York Times', x=animals, y=y_data_nyt, marker_color='#707070', textfont=dict(family='Roboto')),
+        go.Bar(name='BBC News', x=animals, y=y_data_bbc,  marker_color='#ed4040'),
+        go.Bar(name='Fox News', x=animals, y=y_data_fn, marker_color='#466feb'),
+
+    ])
+    # Change the bar mode
+    fig.update_layout(barmode='group')
+    fig.update_layout (showlegend=False, bargroupgap=.2,   margin=dict(
+            pad=5
+        ),
+        plot_bgcolor='white',
+               xaxis=dict(
+            showline=False,
+            showgrid=False,
+            zeroline=False,
+            showticklabels=True,
+            ticks="",
+            linecolor='white',
+            linewidth=0,
+            #ticks='outside',
+            tickfont=dict(
+                family='Alegreya Sans',
+                size=17,
+                color='black',
+
+                #'rgb(82, 82, 82)'
+
+            ),
+        ),      yaxis=dict(
+            showgrid=False,
+            zeroline=False,
+            showline=False,
+            showticklabels=False,
+        ),
+
+
+    )
+
+
+    html_div_e = str(plotly.offline.plot(fig, output_type='div',config = {'displayModeBar': False}))
+
+    avg_sent = Headline.objects.filter(day_order__lte=25).filter(date__icontains=today).values('newspaper').annotate(Average=Avg('sentiment'))
+
+    for record in avg_sent:
+        if record['newspaper'] == 1:
+            nyt_sent = round(record['Average']*100,1)
+        if record['newspaper'] == 2:
+            bbc_sent = round(record['Average']*100,1)
+        if record['newspaper'] == 3:
+            fn_sent = round(record['Average']*100,1)
+
+
+
+    emotions_list=['Fear', 'Anger', 'Anticipation','Trust', 'Surprise','Sadness', 'Disgust', 'Joy']
+
+    y_data_nyt = []
+    y_data_bbc = []
+    y_data_fn = []
+
+    nyt_hl_emotion_fear = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).filter(fear__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_fear)
+    nyt_hl_emotion_anger = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).filter(anger__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_anger)
+    nyt_hl_emotion_anticip = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).filter(anticip__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_anticip)
+    nyt_hl_emotion_trust = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).filter(trust__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_trust)
+    nyt_hl_emotion_surprise = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).filter(surprise__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_surprise)
+    nyt_hl_emotion_sadness = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).filter(sadness__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_sadness)
+    nyt_hl_emotion_disgust = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).filter(disgust__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_disgust)
+    nyt_hl_emotion_joy = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=1).filter(joy__gt=0).count()
+    y_data_nyt.append(nyt_hl_emotion_joy)
+
+
+    bbc_hl_emotion_fear = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).filter(fear__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_fear)
+    bbc_hl_emotion_anger = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).filter(anger__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_anger)
+    bbc_hl_emotion_anticip = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).filter(anticip__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_anticip)
+    bbc_hl_emotion_trust = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).filter(trust__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_trust)
+    bbc_hl_emotion_surprise = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).filter(surprise__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_surprise)
+    bbc_hl_emotion_sadness = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).filter(sadness__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_sadness)
+    bbc_hl_emotion_disgust = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).filter(disgust__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_disgust)
+    bbc_hl_emotion_joy = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=2).filter(joy__gt=0).count()
+    y_data_bbc.append(bbc_hl_emotion_joy)
+
+    fn_hl_emotion_fear = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).filter(fear__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_fear)
+    fn_hl_emotion_anger = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).filter(anger__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_anger)
+    fn_hl_emotion_anticip = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).filter(anticip__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_anticip)
+    fn_hl_emotion_trust = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).filter(trust__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_trust)
+    fn_hl_emotion_surprise = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).filter(surprise__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_surprise)
+    fn_hl_emotion_sadness = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).filter(sadness__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_sadness)
+    fn_hl_emotion_disgust = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).filter(disgust__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_disgust)
+    fn_hl_emotion_joy = Headline_emotion.objects.filter(day_order__lte=25).filter(date__icontains=today).filter(newspaper=3).filter(joy__gt=0).count()
+    y_data_fn.append(fn_hl_emotion_joy)
+
+    fig = go.Figure(data=[
+            go.Bar(name='The New York Times', x=y_data_nyt, y=emotions_list, orientation='h', marker_color='#707070', textfont=dict(family='Roboto'), ),
+
+
+        ])
+        # Change the bar mode
+    """
+        fig.update_layout(barmode='group')
+    """
+    fig.update_layout (showlegend=False, bargroupgap=.2,   margin=dict(
+                pad=5,t=0,b=0,
+            ),
+            plot_bgcolor='white',
+                xaxis=dict(
+                showline=False,
+                showgrid=False,
+                zeroline=False,
+                showticklabels=False,
+                ticks="",
+                linecolor='white',
+                linewidth=0,
+                #ticks='outside',
+                tickfont=dict(
+                    family='Alegreya Sans',
+                    size=17,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),      yaxis=dict(
+                showgrid=False,
+                zeroline=False,
+                showline=False,
+                showticklabels=True,
+                autorange='reversed',
+                    tickfont=dict(
+                    family='Alegreya Sans',
+                    size=15,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),
+
+
+        )
+
+
+    html_div_nyt_e = str(plotly.offline.plot(fig, output_type='div',config = {'displayModeBar': False}))
+
+
+
+    fig = go.Figure(data=[
+            go.Bar(name='BBC News', x=y_data_bbc, y=emotions_list, orientation='h', marker_color='#ed4040', textfont=dict(family='Roboto'), ),
+
+
+        ])
+        # Change the bar mode
+    """
+        fig.update_layout(barmode='group')
+    """
+    fig.update_layout (showlegend=False, bargroupgap=.2,   margin=dict(
+                pad=5,t=0,b=0,
+            ),
+            plot_bgcolor='white',
+                xaxis=dict(
+                showline=False,
+                showgrid=False,
+                zeroline=False,
+                showticklabels=False,
+                ticks="",
+                linecolor='white',
+                linewidth=0,
+                #ticks='outside',
+                tickfont=dict(
+                    family='Alegreya Sans',
+                    size=17,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),      yaxis=dict(
+                showgrid=False,
+                zeroline=False,
+                showline=False,
+                showticklabels=True,
+                autorange='reversed',
+                    tickfont=dict(
+                    family='Alegreya Sans',
+                    size=15,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),
+
+
+        )
+
+
+    html_div_bbc_e = str(plotly.offline.plot(fig, output_type='div',config = {'displayModeBar': False}))
+
+
+    fig = go.Figure(data=[
+            go.Bar(name='Fox News', x=y_data_fn, y=emotions_list, orientation='h', marker_color='#466feb', textfont=dict(family='Roboto'), ),
+
+
+        ])
+        # Change the bar mode
+    """
+        fig.update_layout(barmode='group')
+    """
+    fig.update_layout (showlegend=False, bargroupgap=.2,   margin=dict(
+                pad=5,t=0,b=0,
+            ),
+            plot_bgcolor='white',
+                xaxis=dict(
+                showline=False,
+                showgrid=False,
+                zeroline=False,
+                showticklabels=False,
+                ticks="",
+                linecolor='white',
+                linewidth=0,
+                #ticks='outside',
+                tickfont=dict(
+                    family='Alegreya Sans',
+                    size=17,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),      yaxis=dict(
+                showgrid=False,
+                zeroline=False,
+                showline=False,
+                showticklabels=True,
+                autorange='reversed',
+                    tickfont=dict(
+                    family='Alegreya Sans',
+                    size=15,
+                    color='black',
+
+                    #'rgb(82, 82, 82)'
+
+                ),
+            ),
+
+
+        )
+
+
+    html_div_fn_e = str(plotly.offline.plot(fig, output_type='div',config = {'displayModeBar': False}))
+
+
+    return render(request, 'custom_scraper/mainpage_test2.html',{'nyt_headlines_rest':nyt_headlines_rest, 'nyt_mag_box_list':nyt_mag_box_list, 'bbc_headlines_rest':bbc_headlines_rest, 'bbc_mag_box_list':bbc_mag_box_list,'fn_headlines_rest':fn_headlines_rest, 'fn_mag_box_list':fn_mag_box_list, 'html_div':html_div,'html_div_wc': html_div_wc,'html_div_e': html_div_e, 'nyt_sent':nyt_sent,'bbc_sent':bbc_sent, 'fn_sent':fn_sent, 'today_html': today_html, 'html_div_nyt_wc': html_div_nyt_wc, 'html_div_fn_wc': html_div_fn_wc ,'html_div_bbc_wc': html_div_bbc_wc, 'html_div_fn_e': html_div_fn_e,'html_div_bbc_e': html_div_bbc_e, 'html_div_nyt_e': html_div_nyt_e,     },)
