@@ -29,6 +29,7 @@ from .forms import DateForm
 from .forms import CompareSearch1
 from .forms import CompareSearch2
 from .forms import CompareSearchSingle
+from .models import Headline_photo
 
 
 
@@ -5784,6 +5785,9 @@ def sentiment_newspaper(request):
             elif record[1] == ' ':
                 record.append(' ')
                 record.append(' ')
+            elif record[1] == 0:
+                record.append('zero_sent')
+                record.append('zero_sent1')
             elif record[1] > 4 and record[1] <=5:
                 record.append('seven')
                 record.append('seven7')
@@ -12825,7 +12829,7 @@ def mainpage_test2(request):
     line_size = [2.5, 2.5, 2.5,]
 
     #query monthly sentiment by newspaper and get data into graph shape
-    all_monthly_sentiment = Headline.objects.filter(day_order__lte=25).annotate(Date=TruncMonth('date')).values('Date','newspaper').annotate(Average=Avg('sentiment'))
+    all_monthly_sentiment = Headline.objects.filter(day_order__lte=25).annotate(Date=TruncMonth('date')).values('Date','newspaper').annotate(Average=Avg('sentiment')).order_by('Date')
     for record in all_monthly_sentiment:
         print(record)
 

@@ -2,8 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.mainpage, name='mainpage'),
-  
+    path('', views.mainpage_test2, name='mainpage'),
+
     path('key1/', views.Key1, name='Key1'),
     path('key2/', views.Key2, name='Key2'),
     path('key3/', views.Key3, name='Key3'),
@@ -50,5 +50,6 @@ urlpatterns = [
     path('hl_search_compare_result/', views.hl_search_compare_result, name='hl_search_compare_result'),
     path('research_hl_compare/', views.research_hl_compare, name='research_hl_compare'),
     path('about/', views.about, name='about'),
+    path('mainpage_past/', views.mainpage, name='mainpage_past'),
 ]
 

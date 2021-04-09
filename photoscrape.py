@@ -39,9 +39,9 @@ def nyt_hl_photo_link(hl_link):
 
     r = session.get(google_image_search_url)
 
-    r.html.render()
 
-    img_search_html = r.html.text
+    img_search_html = r.text
+
 
     image_start_index = img_search_html.find("static01") - 8
 
@@ -102,9 +102,9 @@ def nyt_hl_photo_link(hl_link):
 
             r = session.get(google_image_search_url)
 
-            r.html.render()
 
-            img_search_html = r.html.text
+
+            img_search_html = r.text
 
             image_start_index = img_search_html.find("static01") - 8
 
@@ -160,9 +160,9 @@ def bbc_hl_photo_link(hl_link):
 
     r = session.get(google_image_search_url)
 
-    r.html.render()
 
-    img_search_html = r.html.text
+
+    img_search_html = r.text
 
     image_start_index = img_search_html.find("ichef")
 
@@ -222,9 +222,9 @@ def bbc_hl_photo_link(hl_link):
 
                 r = session.get(google_image_search_url)
 
-                r.html.render()
 
-                img_search_html = r.html.text
+
+                img_search_html = r.text
 
                 image_start_index = img_search_html.find("ichef")
 
@@ -281,9 +281,9 @@ def fn_hl_photo_link(hl_link):
 
         r = session.get(google_image_search_url)
 
-        r.html.render()
 
-        img_search_html = r.html.text
+
+        img_search_html = r.text
 
         image_start_index = img_search_html.find("https://cf-images")
 
@@ -338,9 +338,9 @@ def fn_hl_photo_link(hl_link):
 
                 r = session.get(google_image_search_url)
 
-                r.html.render()
 
-                img_search_html = r.html.text
+
+                img_search_html = r.text
 
                 image_start_index = img_search_html.find("https://cf-images")
 
@@ -413,9 +413,9 @@ def fn_hl_photo_link(hl_link):
 
         r = session.get(google_image_search_url)
 
-        r.html.render()
 
-        img_search_html = r.html.text
+
+        img_search_html = r.text
 
         image_start_index = img_search_html.find("https://a57.foxnews")
 
