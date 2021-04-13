@@ -12721,7 +12721,7 @@ def mainpage_test2(request):
     yesterday = str(yesterday)[:10]
 
 
-    headline_check = Headline.objects.filter(date__icontains=today)
+    headline_check = Headline.objects.filter(date__icontains=today).values('date')
 
     if not headline_check:
         today = yesterday
@@ -13057,7 +13057,6 @@ def mainpage_test2(request):
     key_list.append(key5)
     key_list.append(key6)
 
-    key_list.remove('i')
 
     key1 = key_list[0]
     key2 = key_list[1]
@@ -13549,7 +13548,7 @@ def mainpage_test2(request):
                 print(date_list)
                 date_list.insert(counter, date_item)
                 print(date_list)
-                count_list[counter] = 0
+                count_list.insert(counter, 0)
 
 
     date_check_x(nyt_x_1,nyt_data_list_1)
