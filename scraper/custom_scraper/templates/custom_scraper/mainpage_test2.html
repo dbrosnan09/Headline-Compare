@@ -4,7 +4,7 @@
 <head>
 <title>Headline Compare: Analyze and Compare Newspaper Sites</title>
 <meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{% static 'hcfav_lower.png' %}"/>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -50,6 +50,23 @@ font-family:"Alegreya Sans";
 
 }
 
+.hamburger {
+    display:none;
+        height: 50px;
+    background-color: white;
+    border: none;
+    width: 42px;
+    position: relative;
+    top: 7px;
+
+}
+
+.hb_line {
+       border-top: 3px solid black;
+    padding-top: 6px;
+}
+
+
 .footer_div a {
     color:black;
     text-decoration:none;
@@ -69,14 +86,13 @@ font-family:"Alegreya Sans";
 .hl_container {
     display:grid;
     grid-template-rows: 71px 30px 280px 30px 1fr;
-    height:700px;
+    height:933px;
     font-family:'Roboto';
 
 
 }
 
 .graph_section {
-    width:1000px;
     margin:auto;
 }
 
@@ -228,10 +244,13 @@ position: absolute;
 }
 
 .overall_headline_grid {
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 1000px;
-    margin:auto;
+    /* display: grid; */
+   /* grid-template-columns: 1fr 1fr 1fr; */    /* width: 100%; */    /* margin: auto; */    /* column-gap: 33px; */    /* grid-template-columns: repeat(auto-fit, minmax(300px, 300px)); */
+    display: flex;
+   margin: auto;
+   width: 100%;
+    justify-content: center;
+    flex-wrap:wrap;
 }
 
 .hl_frame::-webkit-scrollbar {
@@ -444,18 +463,20 @@ background-color:black;
     font-size:40px;
     margin-bottom:50px;
     font-family:'Alegreya Sans';
-    width:1000px;
+    width:100%;
     font-weight:bold;
     margin:auto;
     margin-bottom:51px;
     padding-top:30px;
     display:flex;
     justify-content:space-between;
+    flex-wrap:wrap;
 }
 .header_menu {
     display:flex;
-    width:600px;
     justify-content:space-evenly;
+        min-width: 460px;
+    justify-content: space-between;
 }
 
 .menu_button {
@@ -635,20 +656,52 @@ font-size: 66px;
     z-index:0!important;
     margin-bottom:50px;
 }
+
+#nyt_cb {
+    margin-right:33px;
+
+}
+#bbc_cb {
+    margin-right:33px;
+
+}
+.header_text {
+min-width:288px;
+}
+
+body {
+    max-width:966px;
+    margin:auto;
+    padding-right:10px;
+    padding-left:10px;
+}
+
+
+@media only screen and (max-width: 784px) {
+  .hamburger {
+    display:block;
+  }
+}
+
+@media only screen and (max-width: 784px) {
+  .header_menu {
+    display:none;
+  }
+}
+
 </style>
 
 </head>
 <body>
 
-<div class='header'>headline compare<div class='inliner'><div class='header_menu'><div class='menu_button'><a href=sentiment_newspaper>Sentiment</a></div><div class='menu_button'><a href='{% url 'word_count_general_og' %}'>Word Count</a></div><div class='menu_button'><a href='{% url 'emotion_newspaper' %}'>Emotion</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Date</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Analysis</a></div></div></div></div>
-<div class='header date_sub'>{{today_html}}</div>
+<div class='header'><div class='header_text'>headline compare</div><div class='inliner'><button type='button' class='hamburger'><div class='hb_line'></div><div class='hb_line'></div><div class='hb_line'></div></button><div class='header_menu'><div class='menu_button'><a href=sentiment_newspaper>Sentiment</a></div><div class='menu_button'><a href='{% url 'word_count_general_og' %}'>Word Count</a></div><div class='menu_button'><a href='{% url 'emotion_newspaper' %}'>Emotion</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Date</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Analysis</a></div></div></div></div>
 
 <div class='overall_headline_grid'>
 
 
 
 
-<div class='hl_container_border'>
+<div class='hl_container_border' id='nyt_cb'>
 
     <div class='hl_container'>
     <a href='https://www.nytimes.com'><img class='nyt_logo' src={% static 'nyt_simple.png' %}></a>
@@ -716,7 +769,7 @@ font-size: 66px;
 
 
 
-<div class='hl_container_border'>
+<div class='hl_container_border' id='bbc_cb'>
 
     <div class='hl_container'>
     <a href='https://www.bbc.com/news'><img class='bbc_logo' src={% static 'bbc_simple.png' %}></a>
@@ -782,7 +835,7 @@ font-size: 66px;
 
 </div>
 
-<div class='hl_container_border'>
+<div class='hl_container_border' id='fn_cb'>
 
     <div class='hl_container'>
     <a href='https://www.foxnews.com'><img class='fn_logo' src={% static 'fn_simple.png' %}></a>
