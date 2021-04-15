@@ -40,6 +40,23 @@
                 z-index:2000;
             }
 
+
+                        .analysis_text_fixed {
+                width:100%;
+                margin:auto;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                border-bottom: 1px solid #ededed;
+                      font-family:'Alegreya Sans';
+                font-weight:500;
+                font-size:25px;
+                border-top: 2px solid black;
+                text-align:center;
+                z-index:2000;
+                display:none;
+            }
+
+
 .footer_copyright {
 font-size:12px;
 text-align:center;
@@ -52,12 +69,14 @@ font-family:"Alegreya Sans";
 
 .hamburger {
     display:none;
-        height: 50px;
+    height: 40px;
     background-color: white;
     border: none;
     width: 42px;
-    position: relative;
-    top: 7px;
+    position: absolute;
+    top: 40px;
+    right: 29px;
+    z-index: 9000;
 
 }
 
@@ -89,6 +108,19 @@ font-family:"Alegreya Sans";
     height:933px;
     font-family:'Roboto';
 
+
+}
+
+.hl_container_fixed {
+    display:none;
+    grid-template-rows: 71px 30px 280px 30px;
+    height:933px;
+    font-family:'Roboto';
+
+
+}
+
+#nyt_hl_container_fixed {
 
 }
 
@@ -249,8 +281,9 @@ position: absolute;
     display: flex;
    margin: auto;
    width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap:wrap;
+    border-bottom:2px solid black;
 }
 
 .hl_frame::-webkit-scrollbar {
@@ -507,6 +540,41 @@ background-color:black;
     background:#f2f2f2;
 }
 
+
+
+.menu_button1 {
+    font-size:30px;
+    font-weight:normal;
+    padding-top:17px;
+    font-weight:500px;
+}
+
+
+.menu_button1 a {
+    text-decoration:none;
+    color:black;
+    padding-top:2px;
+    padding-bottom:2px;
+    padding-right:2px;
+    padding-left:2px;
+}
+
+.menu_button1 a:visited {
+    text-decoration:none;
+    color:black;
+}
+
+.menu_button1 a:hover {
+    text-decoration:none;
+    color:black;
+    background:#f2f2f2;
+}
+
+
+
+
+
+
 .graph_header a {
     color:black;
     text-decoration:none;
@@ -667,35 +735,243 @@ font-size: 66px;
 }
 .header_text {
 min-width:288px;
+min-height:48px;
 }
 
 body {
     max-width:966px;
     margin:auto;
-    padding-right:10px;
-    padding-left:10px;
+    padding-right:20px;
+    padding-left:20px;
 }
 
 
-@media only screen and (max-width: 784px) {
+@media only screen and (max-width: 804px) {
   .hamburger {
     display:block;
   }
 }
 
-@media only screen and (max-width: 784px) {
+@media only screen and (max-width: 804px) {
   .header_menu {
     display:none;
   }
 }
 
+.pop_menu {
+display: none;
+    grid-template-rows: 50px;
+    position: absolute;
+    right: 0;
+    top: 0px;
+    font-size: 17px;
+    font-family: 'Alegreya Sans';
+    /* margin-top: 73px; */
+    padding-right: 72px;
+    background-color: white;
+    z-index: 2000;
+    padding-bottom: 5200px;
+    padding-top: 110px;
+    border-left: 1px solid #F2F2F3;
+    padding-left: 30px;
+
+}
+
+
+
+.pop_menu_container {
+
+}
+
+@media only screen and (min-width: 804px) {
+  .pop_menu {
+    display:none;
+  }
+}
+
+.shader {
+height: 100%;
+display:none;
+    position: absolute;
+    width: 100%;
+    z-index: 1900;
+    background-color: rgba(255,255,255,0.5);
+}
+
+@media only screen and (min-width: 804px) {
+  .shader {
+    display:none;
+  }
+}
+
+.displayer {
+    display:block;
+}
+
+
+
+@media only screen and (max-width: 1022px) {
+  .hl_container_border {
+   width: 600px;
+    margin: auto;
+  }
+}
+
+
+@media only screen and (max-width: 1022px) {
+  #nyt_cb {
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 1022px) {
+  #bbc_cb {
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 1022px) {
+  .mag_frame_container {
+    width:100%;
+    height:308px;
+  }
+}
+
+@media only screen and (max-width: 1022px) {
+  .mag_frame_container {
+    width: 100%;
+    border-radius:0px;
+  }
+}
+@media only screen and (max-width: 1022px) {
+  .mag_img {
+    width: 100%;
+    border-radius:0px;
+  }
+}
+
+@media only screen and (max-width: 1022px) {
+  .mag_img_container {
+    width: 100%;
+    border-radius:0px;
+  }
+}
+
+@media only screen and (max-width: 1022px) {
+  .normal_hl {
+    font-size: 16px;
+  }
+}
+
+
+@media only screen and (max-width: 1022px) {
+.hl_frame:hover {
+    overflow-y:hidden;
+}
+}
+
+@media only screen and (max-width: 1022px) {
+.hl_frame {
+    overflow-y:hidden;
+    height:100%;
+        z-index: 100;
+    background: white;
+    overflow-x:hidden;
+}
+}
+
+@media only screen and (max-width: 1022px) {
+.hl_container {
+    height:4100px;
+
+}
+}
+
+
+
+
+
+@media only screen and (max-width: 1022px) {
+.hl_mag_cap {
+     border-radius: 0px 0px 0px 0px;
+    width: 100%;
+    margin-right:20px;
+
+}
+}
+
+@media only screen and (max-width: 1022px) {
+#nyt_analysis_box {
+  display:none;
+
+}
+}
+
+#nyt_analysis_box_fixed {
+  display:hidden;
+
+}
+
+
+@media only screen and (max-width: 1022px) {
+#nyt_analysis_box_fixed {
+  display:block;
+  min-width:300px;
+
+}
+}
+
+
+@media only screen and (max-width: 430px) {
+.header_text {
+font-size:29px;
+
+}
+}
+
+@media only screen and (max-width: 430px) {
+.hamburger {
+top:30px;
+
+}
+}
+
+.display_grid_fixed {
+    position:fixed;
+    display:grid;
+    z-index:9900;
+    top:-14px;
+        margin: auto;
+    max-width: 600px;
+    padding-right:20px;
+}
+
+.logo_background {
+    background-color:white;
+}
+
+.bb_box {
+    background-color: white;
+    z-index: 9990;
+}
+
+.display_div_fixed {
+    display:block;
+    position:fixed;
+    top:200px;
+}
+
+.under_hl {
+    z-index:1000;
+}
 </style>
 
 </head>
 <body>
+<div id='shader' class='shader'></div>
+<div class='header'><div class='header_text'>headline compare</div><div class='inliner'><button type='button' id='hamburger' class='hamburger'><div class='hb_line'></div><div class='hb_line'></div><div class='hb_line'></div></button><div class='header_menu'><div class='menu_button'><a href=sentiment_newspaper>Sentiment</a></div><div class='menu_button'><a href='{% url 'word_count_general_og' %}'>Word Count</a></div><div class='menu_button'><a href='{% url 'emotion_newspaper' %}'>Emotion</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Date</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Analysis</a></div></div></div></div>
 
-<div class='header'><div class='header_text'>headline compare</div><div class='inliner'><button type='button' class='hamburger'><div class='hb_line'></div><div class='hb_line'></div><div class='hb_line'></div></button><div class='header_menu'><div class='menu_button'><a href=sentiment_newspaper>Sentiment</a></div><div class='menu_button'><a href='{% url 'word_count_general_og' %}'>Word Count</a></div><div class='menu_button'><a href='{% url 'emotion_newspaper' %}'>Emotion</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Date</a></div><div class='menu_button'><a href='{% url 'date_search' %}'>Analysis</a></div></div></div></div>
-
+<div class='pop_menu_container'><div id='pop_menu' class='pop_menu'><div class='menu_button1'><a href=sentiment_newspaper>Sentiment</a></div><div class='menu_button1'><a href='{% url 'word_count_general_og' %}'>Word Count</a></div><div class='menu_button1'><a href='{% url 'emotion_newspaper' %}'>Emotion</a></div><div class='menu_button1'><a href='{% url 'date_search' %}'>Date</a></div><div class='menu_button1'><a href='{% url 'date_search' %}'>Analysis</a></div></div></div>
 <div class='overall_headline_grid'>
 
 
@@ -704,8 +980,8 @@ body {
 <div class='hl_container_border' id='nyt_cb'>
 
     <div class='hl_container'>
-    <a href='https://www.nytimes.com'><img class='nyt_logo' src={% static 'nyt_simple.png' %}></a>
-        <div class='static_border_top'></div>
+    <a href='https://www.nytimes.com'><img id='nyt_logo' class='nyt_logo' src={% static 'nyt_simple.png' %}></a>
+        <div id='nyt_sbt' class='static_border_top'></div>
         <div id='nyt_mag_frame' class='mag_frame_container'>
 
 
@@ -715,7 +991,7 @@ body {
       <div class='mag_padding'></div>
         </div>
 
-        <div class='static_border'></div>
+        <div id='nyt_sbb' class='static_border'></div>
         <div id='nyt_scroll' class='hl_frame'>
             <div class='hl_grid'>
 
@@ -725,7 +1001,7 @@ body {
                     <div class='date_hl'>{{headline.date}}</div>
                     </div></a>
                 {% endfor %}
-
+<div id='nyt_analysis_box'>
             <div class='analysis_text' id='nyt_analysis_text'>Headline Analysis<div class='descrip'>Analysis of {{today_html}} New York Times Headlines</div></div>
 
             <div class='analysis_box'>
@@ -758,22 +1034,73 @@ body {
             </div>
 
 
-
+</div>
             </div>
 
         </div>
 
     </div>
+    <div id='nyt_hl_container_fixed' class='hl_container_fixed'>
+    <div class='logo_background'><a href='https://www.nytimes.com'><img id='nyt_logo' class='nyt_logo' src={% static 'nyt_simple.png' %}></a></div>
+        <div id='nyt_sbt' class='static_border_top'></div>
+        <div id='nyt_mag_frame_fixed' class='mag_frame_container'>
+
+
+            {% for headline, link, date, img in nyt_mag_box_list %}
+                <a href='{{link}}'><div class='mag_img_container'><img class='mag_img' src={{img}}><div class='hl_mag_cap'>{{headline}}<div class='date_hl_mag'>{{date}}</div></div></div></a>
+            {% endfor %}
+      <div class='mag_padding'></div>
+        </div>
+
+        <div class='bb_box'><div id='nyt_sbb' class='static_border'></div></div>
+
+
+    </div>
+
 
 </div>
 
+  <div class='analysis_text_fixed' id='nyt_analysis_text_fixed'>Headline Analysis<div class='descrip'>Analysis of {{today_html}} New York Times Headlines</div></div>
+
+<div id='nyt_analysis_box_fixed'>
+            <div class='analysis_text' id='nyt_analysis_text'>Headline Analysis<div class='descrip'>Analysis of {{today_html}} New York Times Headlines</div></div>
+
+            <div class='analysis_box'>
+            <div class='sent_title'><a href=sentiment_newspaper>Sentiment</a>
+            </div>
+            <div class='sent_title1 nyt_score'>{{nyt_sent}}</div>
+            </div>
+
+            <div class='analysis_box'>
+            <div class='wc_title'><a href='{% url 'word_count_general_og' %}'>Word Count</a>
+            </div>
+           <div class='wc_graph'>
+    {% autoescape off %}
+    {{ html_div_nyt_wc }}
+{% endautoescape %}
+
+           </div>
+            </div>
 
 
+                <div class='analysis_box'>
+            <div class='wc_title'><a href='{% url 'emotion_newspaper' %}'>Emotion</a>
+            </div>
+           <div class='wc_graph'>
+    {% autoescape off %}
+    {{ html_div_nyt_e }}
+{% endautoescape %}
+
+           </div>
+            </div>
+
+
+</div>
 <div class='hl_container_border' id='bbc_cb'>
 
     <div class='hl_container'>
-    <a href='https://www.bbc.com/news'><img class='bbc_logo' src={% static 'bbc_simple.png' %}></a>
-        <div class='static_border_top'></div>
+    <a href='https://www.bbc.com/news'><img id='bbc_logo' class='bbc_logo' src={% static 'bbc_simple.png' %}></a>
+        <div id='bbc_sbt' class='static_border_top'></div>
         <div id='bbc_mag_frame' class='mag_frame_container'>
 
 
@@ -783,7 +1110,7 @@ body {
       <div class='mag_padding'></div>
         </div>
 
-        <div class='static_border'></div>
+        <div id='bbc_sbb' class='static_border'></div>
         <div id='bbc_scroll' class='hl_frame'>
             <div class='hl_grid'>
 
@@ -838,8 +1165,8 @@ body {
 <div class='hl_container_border' id='fn_cb'>
 
     <div class='hl_container'>
-    <a href='https://www.foxnews.com'><img class='fn_logo' src={% static 'fn_simple.png' %}></a>
-        <div class='static_border_top'></div>
+    <a href='https://www.foxnews.com'><img id='fn_logo' class='fn_logo' src={% static 'fn_simple.png' %}></a>
+        <div id='fn_sbt' class='static_border_top'></div>
         <div id='fn_mag_frame' class='mag_frame_container'>
 
 
@@ -849,7 +1176,7 @@ body {
       <div class='mag_padding'></div>
         </div>
 
-        <div class='static_border'></div>
+        <div id='fn_sbb' class='static_border'></div>
         <div id='fn_scroll' class='hl_frame'>
             <div class='hl_grid'>
 
@@ -1094,6 +1421,40 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$( "#hamburger" ).click(function() {
+  $( "#pop_menu" ).toggleClass( "displayer" );
+    $( "#shader" ).toggleClass( "displayer" );
+
+
+});
+
+
+
+</script>
+
+<script>
+var windowsize = $(window).width();
+
+$(window).resize(function() {
+  windowsize = $(window).width();
+  if (windowsize > 804) {
+      $('#pop_menu').removeClass('displayer');
+            $('#shader').removeClass('displayer');
+
+  }
+});
+</script>
+
+
+
+
+<script>
+$('.mag_frame_container').bind('mousewheel DOMMouseScroll', function (e) { return false; });
+</script>
+
+
+
 
 
 
@@ -1104,7 +1465,77 @@ $(document).ready(function () {
 
 
 <script>
-$('.mag_frame_container').bind('mousewheel DOMMouseScroll', function (e) { return false; });
+
+$(document).ready(function () {
+
+    var scrolling_all = false;
+
+    $(window).scroll(function () {
+        if (windowsize < 1022) {
+        scrolling_all = true;
+        }
+    });
+
+
+    setInterval( function() {
+        if ( scrolling_all ) {
+            scrolling_all = false;
+
+
+console.log($(window).scrollTop())
+    if ($(window).scrollTop() <= 146) {
+                $('#nyt_hl_container_fixed').removeClass('display_grid_fixed');
+
+    }
+
+    if (($(window).scrollTop() > 146) && ($(window).scrollTop() < 3960)) {
+        $('#nyt_hl_container_fixed').addClass('display_grid_fixed');
+
+
+
+    }
+
+        }
+    }, 250);
+});
+</script>
+
+<script>
+
+$(document).ready(function () {
+
+    var scrolling_all_mag = false;
+
+    $(window).scroll(function () {
+        if (windowsize < 1022) {
+        scrolling_all_mag = true;
+        }
+    });
+
+
+    setInterval( function() {
+        if ( scrolling_all_mag ) {
+            scrolling_all_mag = false;
+
+
+
+        var scrollBox_nyt = Math.floor(($(window).scrollTop() - 176) / heightHL) + 1;
+        if (scrollBox_nyt > 24) {
+            scrollBox_nyt = 24;
+
+
+        };
+
+        $('#nyt_mag_frame_fixed').animate({
+            scrollTop: scrollBox_nyt * heightMI
+        }, 150);
+
+
+
+
+        }
+    }, 250);
+});
 </script>
 
 
