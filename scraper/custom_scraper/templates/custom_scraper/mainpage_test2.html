@@ -6,6 +6,7 @@
 <meta name="description" content="Compare and analyze newspaper headline word counts, emotion and sentiment. Track how events, movements, politics and people are covered over time. See what the headlines were on a day in the past. Perform your own objective analysis of the news.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{% static 'hcfav_lower.png' %}"/>
+    <meta property="og:image" content="{% static 'hcfav_lower.png' %}">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
@@ -60,7 +61,7 @@
 .footer_copyright {
 font-size:12px;
 text-align:center;
-padding-top:24vh;
+padding-top:118px;
 padding-bottom:50px;
 font-family:"Alegreya Sans";
 
@@ -105,7 +106,7 @@ font-family:"Alegreya Sans";
 .hl_container {
     display:grid;
     grid-template-rows: 71px 30px 280px 30px 1fr;
-    height:933px;
+    height:100%;
     font-family:'Roboto';
 
 
@@ -131,10 +132,14 @@ font-family:"Alegreya Sans";
 .sent_graph {
 
     height:450px;
+        touch-action:none;
+
 }
 .sent_graph2 {
 
     height:600px;
+        touch-action:none;
+
 }
 .mag_hl {
     font-size:20px;
@@ -191,28 +196,28 @@ font-family:"Alegreya Sans";
         padding-top: 17px;
     padding-left: 12px;
     padding-right: 12px;
-    border-radius:5px;
 }
 
 .normal_hl:hover {
     background-color:#f7f7f7;
     transition:.5s;
+
 }
 .graph_header {
     font-size:40px;
     font-weight:bold;
     font-family: 'Alegreya Sans';
-    padding-top:40vh;
     padding-bottom:5px;
     margin:auto;
     width:100%;
+    padding-top:118px;
 }
 
 .graph_header_2 {
     font-size:40px;
     font-weight:bold;
     font-family: 'Alegreya Sans';
-    padding-top:29vh;
+    padding-top:60px;
     padding-bottom:5px;
     margin:auto;
     width:100%;
@@ -221,11 +226,13 @@ font-family:"Alegreya Sans";
 
 
 .hl_frame {
-    overflow-y:hidden;
+    overflow-y:auto;
     height:49vh;
         z-index: 100;
     background: white;
     overflow-x:hidden;
+      scrollbar-width: none;
+
 }
 .first_hl {
     font-size:15px;
@@ -283,7 +290,7 @@ position: absolute;
    width: 100%;
     justify-content: flex-start;
     flex-wrap:wrap;
-    border-bottom:2px solid black;
+    opacity:0;
 }
 
 .hl_frame::-webkit-scrollbar {
@@ -295,6 +302,7 @@ position: absolute;
 
   background:#f2f2f2;
   border-radius:5px;
+
 }
 .test_header {
     height:50px;
@@ -331,8 +339,10 @@ opacity: 1;
     padding-top:26px;
 }
 
-.hl_frame:hover {
-    overflow-y:overlay;
+.hl_frame{
+    overflow-y:auto;
+      scrollbar-width: none;
+
 }
 
 .header_box {
@@ -402,6 +412,7 @@ background-color:black;
     height:350px;
     overflow-y:hidden;
     border-radius:5px;
+    touch-action:none;
 
 }
 
@@ -723,6 +734,7 @@ font-size: 66px;
     height:200px;
     z-index:0!important;
     margin-bottom:50px;
+    touch-action:none;
 }
 
 #nyt_cb {
@@ -893,19 +905,35 @@ display:none;
 
 @media only screen and (max-width: 1022px) {
 .hl_mag_cap {
-     border-radius: 0px 0px 0px 0px;
-    width: 100%;
-    margin-right:20px;
+border-radius: 0px 0px 0px 0px;
+    width: 95%;
+    margin-right: 20px;
+    right: 0px;
+    left: 0px;
+    amrgin-right: 13%;
+    margin-right: 10px;
+    paddin-right: 20px;
+    padding-right: 18px;
 
 }
 }
 
-@media only screen and (max-width: 1022px) {
-#nyt_analysis_box {
-  display:none;
+@media only screen and (max-width: 650px) {
+.hl_mag_cap {
+border-radius: 0px 0px 0px 0px;
+    width: 95%;
+    margin-right: 20px;
+    right: 0px;
+    left: 0px;
+    amrgin-right: 13%;
+    margin-right: 10px;
+    paddin-right: 20px;
+    padding-right: 18px;
 
 }
 }
+
+
 
 #nyt_analysis_box_fixed {
   display:hidden;
@@ -1060,42 +1088,9 @@ top:30px;
 
 </div>
 
-  <div class='analysis_text_fixed' id='nyt_analysis_text_fixed'>Headline Analysis<div class='descrip'>Analysis of {{today_html}} New York Times Headlines</div></div>
-
-<div id='nyt_analysis_box_fixed'>
-            <div class='analysis_text' id='nyt_analysis_text'>Headline Analysis<div class='descrip'>Analysis of {{today_html}} New York Times Headlines</div></div>
-
-            <div class='analysis_box'>
-            <div class='sent_title'><a href=sentiment_newspaper>Sentiment</a>
-            </div>
-            <div class='sent_title1 nyt_score'>{{nyt_sent}}</div>
-            </div>
-
-            <div class='analysis_box'>
-            <div class='wc_title'><a href='{% url 'word_count_general_og' %}'>Word Count</a>
-            </div>
-           <div class='wc_graph'>
-    {% autoescape off %}
-    {{ html_div_nyt_wc }}
-{% endautoescape %}
-
-           </div>
-            </div>
 
 
-                <div class='analysis_box'>
-            <div class='wc_title'><a href='{% url 'emotion_newspaper' %}'>Emotion</a>
-            </div>
-           <div class='wc_graph'>
-    {% autoescape off %}
-    {{ html_div_nyt_e }}
-{% endautoescape %}
 
-           </div>
-            </div>
-
-
-</div>
 <div class='hl_container_border' id='bbc_cb'>
 
     <div class='hl_container'>
@@ -1227,6 +1222,17 @@ top:30px;
 
     </div>
 </div>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+
+<script>
+  $( ".overall_headline_grid" ).fadeTo( 1 , 1, function() {
+    // Animation complete.
+  });
+
+</script>
 
 
 
@@ -1490,6 +1496,12 @@ console.log($(window).scrollTop())
 
     if (($(window).scrollTop() > 146) && ($(window).scrollTop() < 3960)) {
         $('#nyt_hl_container_fixed').addClass('display_grid_fixed');
+
+
+
+    }
+        if ($(window).scrollTop() < 3960) {
+        $('#nyt_hl_container_fixed').removeClass('display_grid_fixed');
 
 
 

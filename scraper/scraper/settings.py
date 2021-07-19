@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=8j+=26gf1^2jat2t8s-29e^e-qqped$d9gthwi4^bk8mpq%!o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['headlinecompares.pythonanywhere.com', '127.0.0.1', 'hlcompare.com', 'www.hlcompare.com' ]
 

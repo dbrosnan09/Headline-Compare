@@ -85,7 +85,13 @@ for i in nytimes_headlines:
             interlist.append(i.get('href'))
             nyt_list.append(interlist)
     elif '<h3' in str(i):
-        if 'class="svelte-' not in str(i):
+        if "eog7260" in str(i):
+            interlist = []
+            interlist.append(i.findAll('h3')[1].get_text())
+            interlist.append(i.get('href'))
+            nyt_list.append(interlist)
+
+        elif 'class="svelte-' not in str(i):
             interlist = []
             interlist.append(i.find('h3').get_text())
             interlist.append(i.get('href'))

@@ -4152,6 +4152,9 @@ def sentiment_compare(request):
             if record[1] == '':
                 record.append('gray')
                 record.append('')
+            elif record[1] == 0:
+                record.append('zero_sent')
+                record.append('zero_sent1')
             elif record[1] == ' ':
                 record.append(' ')
                 record.append(' ')
@@ -12751,7 +12754,6 @@ def mainpage_test2(request):
         nyt_mag_box_list[list_index].append(img_record.img_link)
         list_index +=1
 
-    print(nyt_mag_box_list)
 
 
 
@@ -12780,7 +12782,6 @@ def mainpage_test2(request):
         bbc_mag_box_list[list_index].append(img_record.img_link)
         list_index +=1
 
-    print(bbc_mag_box_list)
 
 
 
@@ -12806,7 +12807,6 @@ def mainpage_test2(request):
         fn_mag_box_list[list_index].append(img_record.img_link)
         list_index +=1
 
-    print(fn_mag_box_list)
 
 
 
@@ -12830,8 +12830,7 @@ def mainpage_test2(request):
 
     #query monthly sentiment by newspaper and get data into graph shape
     all_monthly_sentiment = Headline.objects.filter(day_order__lte=25).annotate(Date=TruncMonth('date')).values('Date','newspaper').annotate(Average=Avg('sentiment')).order_by('Date')
-    for record in all_monthly_sentiment:
-        print(record)
+
 
     x_data = []
     nyt_x = []
@@ -13249,7 +13248,7 @@ def mainpage_test2(request):
         fig.update_layout(barmode='group')
     """
     fig.update_layout (showlegend=False, bargroupgap=.2,   margin=dict(
-                pad=5,t=0,b=0,
+                pad=5,t=0,
             ),
             plot_bgcolor='white',
                 xaxis=dict(
@@ -13479,7 +13478,6 @@ def mainpage_test2(request):
             if date_result not in master_date_list:
                 master_date_list.append(date_result)
 
-    print(master_date_list)
 
 
 
@@ -13541,13 +13539,11 @@ def mainpage_test2(request):
         for date_item in master_date_list:
             if date_item in date_list:
                 counter += 1
-                print("ok")
+
             else:
-                print('found')
-                print(date_item)
-                print(date_list)
+
                 date_list.insert(counter, date_item)
-                print(date_list)
+
                 count_list.insert(counter, 0)
 
 
@@ -13563,6 +13559,56 @@ def mainpage_test2(request):
     date_check_x(bbc_x_3,bbc_data_list_3)
     date_check_x(fn_x_3,fn_data_list_3)
 
+    matched_list_1 = []
+
+    for i in range(len(nyt_data_list_1)):
+        interlist = []
+        interlist.append(nyt_data_list_1[i])
+        interlist.append(nyt_x_1[i])
+        matched_list_1.append(interlist)
+
+    matched_list_1.sort(key = lambda x: x[1])
+
+    nyt_data_list_1 = []
+    nyt_x_1 = []
+
+    for i in matched_list_1:
+        nyt_data_list_1.append(i[0])
+        nyt_x_1.append(i[1])
+
+    matched_list_2 = []
+
+    for i in range(len(bbc_data_list_1)):
+        interlist = []
+        interlist.append(bbc_data_list_1[i])
+        interlist.append(bbc_x_1[i])
+        matched_list_2.append(interlist)
+
+    matched_list_2.sort(key = lambda x: x[1])
+
+    bbc_data_list_1 = []
+    bbc_x_1 = []
+
+    for i in matched_list_2:
+        bbc_data_list_1.append(i[0])
+        bbc_x_1.append(i[1])
+
+    matched_list_3 = []
+
+    for i in range(len(fn_data_list_1)):
+        interlist = []
+        interlist.append(fn_data_list_1[i])
+        interlist.append(fn_x_1[i])
+        matched_list_3.append(interlist)
+
+    matched_list_3.sort(key = lambda x: x[1])
+
+    fn_data_list_1 = []
+    fn_x_1 = []
+
+    for i in matched_list_3:
+        fn_data_list_1.append(i[0])
+        fn_x_1.append(i[1])
 
     y_data_list.append(nyt_data_list_1)
     """
@@ -13598,8 +13644,16 @@ def mainpage_test2(request):
     x_data.append(fn_x_3)
     """
 
+
+
+
     x_data = np.vstack(x_data)
     y_data = np.array(y_data_list)
+
+
+
+
+
 
     fig = go.Figure()
 
@@ -13672,7 +13726,7 @@ def mainpage_test2(request):
                                     text=label + ' ' + '{}'.format(y_trace[len(y_trace)-1]),
                                     font_color=color,
                                     font=dict(family='Alegreya Sans',
-                                                size=18,),
+                                                size=18),
                                     showarrow=False))
     """
     # Title
